@@ -8,6 +8,8 @@ import { ConnectionService } from './connection/connection.service';
 import { IntegrationStore } from './integration/integration.store';
 import { TemplateStore } from './template/template.store';
 import { ConnectionStore } from './connection/connection.store';
+import { FunctionService } from './function/function.service';
+import { FunctionStore } from './function/function.store';
 
 @NgModule({
   imports: [
@@ -20,6 +22,8 @@ import { ConnectionStore } from './connection/connection.store';
     IntegrationStore,
     TemplateStore,
     ConnectionStore,
+    FunctionService,
+    FunctionStore,
   ],
 })
 export class StoreModule {

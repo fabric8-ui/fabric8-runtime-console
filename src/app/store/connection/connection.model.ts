@@ -1,7 +1,7 @@
-import * as moment from 'moment';
+import * as moment from "moment";
+import {KubernetesResource} from "../../kubernetes-restangular/kuberentes.model";
 
-import { BaseEntity } from '../entity/entity.model';
-
+/*
 export interface Connection extends BaseEntity {
   configuredProperties: Map<string, string>;
   createdBy: string;
@@ -14,5 +14,26 @@ export interface Connection extends BaseEntity {
   type: string;
 }
 
-
 export type Connections = Array<Connection>;
+
+*/
+
+
+export class Connection extends KubernetesResource {
+  configuredProperties: Map<string, string>;
+  createdBy: string;
+  createdOn: moment.Moment;
+  icon: string;
+  modifiedBy: string;
+  modifiedOn: moment.Moment;
+  type: string;
+
+  constructor(resource) {
+    super(resource);
+  }
+}
+
+export class Connections extends Array<Connection> {
+}
+
+

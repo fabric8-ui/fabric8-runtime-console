@@ -35,10 +35,36 @@ cd ipaas-client
 yarn
 
 # start the server
-ng serve
+npm start
 ```
 
 Go to [http://0.0.0.0:4200](http://0.0.0.0:4200) or [http://localhost:4200](http://localhost:4200) in your browser.
+
+### Using the Kubernetes back end
+
+To be able to use the kubernetes & funktion back end for resources like Integrations, Connections, Functions you will need to run
+
+```bash
+kubectl proxy
+```
+
+To see how to use [funktion](https://funktion.fabric8.io/) to populate some connectors and create some functions see the [example](https://funktion.fabric8.io/#portfolio)
+
+e.g.
+
+```bash
+kubectl create namespace funky
+kubectl config set-context `kubectl config current-context` --namespace=funky
+
+
+funktion install runtime
+funktion install connector http4 timer twitter
+
+funktion create fn -n myfunk -s 'module.exports = function(context, callback) { callback(200, "Hello, world!\n"); }'
+funktion create flow timer://bar?period=5000 http://myfunk/
+```       
+
+
 
 ## Table of Contents
 
@@ -115,7 +141,7 @@ What you need to run this app:
 * `fork` the ipaas repo
 * `clone` your fork
 * `yarn` to install all dependencies
-* `ng serve` to start the dev server
+* `npm start` to start the dev server
 
 ### Running
 
@@ -123,8 +149,13 @@ After you have installed all dependencies you can now run the app. Run `ng serve
 
 #### Development
 
+# in one shell to expose your kubernetes cluster:
 ```bash
-ng serve
+kubectl proxy
+```
+
+```bash
+npm start
 ```
 
 #### Production
