@@ -13,10 +13,15 @@ import {FunctionViewPage} from "./view-page/view-page.function";
 import {FunctionViewWrapperComponent} from "./view-wrapper/view-wrapper.function";
 import {FunctionViewToolbarComponent} from "./view-toolbar/view-toolbar.function";
 import {FunctionViewComponent} from "./view/view.function";
+import {FunctionEditPage} from "./edit-page/edit-page.function";
+import {FunctionEditWrapperComponent} from "./edit-wrapper/edit-wrapper.function";
+import {FunctionEditToolbarComponent} from "./edit-toolbar/edit-toolbar.function";
+import {FunctionEditComponent} from "./edit/edit.function";
 
 const routes: Routes = [
   { path: '', component: FunctionsListPage, pathMatch: 'full' },
   { path: ':id', component: FunctionViewPage, pathMatch: 'full' },
+  { path: ':id/edit', component: FunctionEditPage, pathMatch: 'full' },
   { path: 'create', component: FunctionsCreatePage, pathMatch: 'full' },
 ];
 
@@ -37,6 +42,10 @@ const routes: Routes = [
     FunctionViewWrapperComponent,
     FunctionViewToolbarComponent,
     FunctionViewComponent,
+    FunctionEditPage,
+    FunctionEditWrapperComponent,
+    FunctionEditToolbarComponent,
+    FunctionEditComponent,
   ],
 })
 export class FunctionsModule {
