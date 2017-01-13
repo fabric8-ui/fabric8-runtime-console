@@ -34,10 +34,10 @@
         <div class='list-view-pf-body'>
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
-              {{ integration.name }}
+              <a [routerLink]="[integration.id]" class="card-title">{{ integration.name }}</a>
             </div>
             <div class='list-group-item-text'>
-              {{ integration.description }}              
+              {{ integration.description }}
             </div>
           </div>
           <div class='list-view-pf-additional-info'>

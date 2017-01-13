@@ -31,11 +31,10 @@ export class Integration extends ConfigMap {
   configText: string;
 
 
-  updateResource() {
-    this.resource.data["funktion.yml"] = this.flowYaml;
-    super.updateResource();
+  updateResource(resource) {
+    resource.data["funktion.yml"] = this.flowYaml;
+    super.updateResource(resource);
   }
-
 
   updateValuesFromResource() {
     super.updateValuesFromResource();
