@@ -9,9 +9,14 @@ import { FunctionsFilterPipe } from './functions-filter.pipe';
 import { FunctionsListComponent } from './list/list.function';
 import { FunctionsCreatePage } from './create-page/create-page.function';
 import { IPaaSCommonModule } from '../common/common.module';
+import {FunctionViewPage} from "./view-page/view-page.function";
+import {FunctionViewWrapperComponent} from "./view-wrapper/view-wrapper.function";
+import {FunctionViewToolbarComponent} from "./view-toolbar/view-toolbar.function";
+import {FunctionViewComponent} from "./view/view.function";
 
 const routes: Routes = [
   { path: '', component: FunctionsListPage, pathMatch: 'full' },
+  { path: ':id', component: FunctionViewPage, pathMatch: 'full' },
   { path: 'create', component: FunctionsCreatePage, pathMatch: 'full' },
 ];
 
@@ -28,6 +33,10 @@ const routes: Routes = [
     FunctionsListComponent,
     FunctionsFilterPipe,
     FunctionsCreatePage,
+    FunctionViewPage,
+    FunctionViewWrapperComponent,
+    FunctionViewToolbarComponent,
+    FunctionViewComponent,
   ],
 })
 export class FunctionsModule {

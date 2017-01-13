@@ -1,5 +1,5 @@
 import * as moment from "moment";
-import {KubernetesResource} from "../../kubernetes-restangular/kuberentes.model";
+import {ConfigMap} from "../../kubernetes-restangular/kuberentes.configmap.model";
 
 /*
 export interface Connection extends BaseEntity {
@@ -18,18 +18,26 @@ export type Connections = Array<Connection>;
 
 */
 
-
-export class Connection extends KubernetesResource {
+export class Connection extends ConfigMap {
   configuredProperties: Map<string, string>;
   createdBy: string;
   createdOn: moment.Moment;
-  icon: string;
   modifiedBy: string;
   modifiedOn: moment.Moment;
   type: string;
 
-  constructor(resource) {
-    super(resource);
+
+  updateValues() {
+    super.updateValues();
+    this.type = this.labels["type"];
+
+    // TODO load configured properties from the data
+    // then remove the key camel.component.${this.name}. keys
+    //
+    // e.g. an entry may be "camel.component.twitter.access-token=foo"
+    //
+    //var propertiesFile = this.data["application.properties"];
+    this.configuredProperties = new Map<string, string>();
   }
 }
 

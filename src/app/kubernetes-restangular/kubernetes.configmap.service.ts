@@ -1,12 +1,12 @@
 import {Inject} from "@angular/core";
 import {Restangular} from "ng2-restangular";
 import {Observable} from "rxjs";
-
 import {RESTService} from "../store/entity/rest.service";
 import {KUBERNETES_RESTANGULAR} from "./kubernetes.restangular";
 import {KubernetesResource} from "./kuberentes.model";
 import {Connection} from "../store/connection/connection.model";
 import {Function} from "../store/function/function.model";
+import {Integration} from "../store/integration/integration.model";
 
 var kindAnnotation = "funktion.fabric8.io/kind";
 
@@ -21,18 +21,21 @@ export abstract class KubernetesConfigMapService<T extends KubernetesResource, L
           return element;
         }
         var resource = element || {};
+        // TODO would be nice to make this bit more modular so we could register other kinds of resource more easily
         var metadata = resource.metadata || {};
         var labels = metadata.labels || {};
         var kindLabel = labels[kindAnnotation];
 
-        // TODO would be nice to make this bit more modular so we could register other kinds of resource more easily
         if (kindLabel == "Function") {
-          return new Function(resource);
+          return new Function().setResource(resource);
         } else if (kindLabel == "Connector") {
-          return new Connection(resource);
-        } else {
-          return new KubernetesResource(resource);
+          return new Connection().setResource(resource);
+        } else if (kindLabel == "Flow") {
+          return new Integration().setResource(resource);
+        } else if (resource.kind) {
+          return new KubernetesResource().setResource(resource);
         }
+        return resource;
       });
     }).service(configMapUrl));
   }
