@@ -10,12 +10,24 @@ export class KubernetesResource implements BaseEntity {
   resource: any;
 
   public setResource(resource) {
-    this.resource = resource;
-    this.updateValues();
+    this.resource = resource || {};
+    this.updateValuesFromResource();
     return this;
   }
 
-  updateValues() {
+  updateResource(resource) {
+    this.annotations["description"] = this.description;
+
+    var metadata = resource.metadata;
+    if (!metadata) {
+      metadata = {};
+      resource.metadata = metadata;
+    }
+    metadata.labels = this.labels;
+    metadata.annotations = this.annotations;
+  }
+
+  updateValuesFromResource() {
     var resource = this.resource || {};
     var metadata = resource.metadata || {};
     this.name = metadata.name || "";

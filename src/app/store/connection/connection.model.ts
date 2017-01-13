@@ -28,8 +28,17 @@ export class Connection extends ConfigMap {
   configText: string;
 
 
-  updateValues() {
-    super.updateValues();
+  updateResource(resource) {
+    if (!resource.data) {
+      resource.data = {};
+    }
+    resource.data["application.properties"] = this.configText;
+    super.updateResource(resource);
+  }
+
+
+  updateValuesFromResource() {
+    super.updateValuesFromResource();
     this.type = this.labels["type"];
     this.configText = this.data["application.properties"] || "";
 

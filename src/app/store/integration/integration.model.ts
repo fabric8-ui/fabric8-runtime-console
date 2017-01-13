@@ -27,11 +27,24 @@ export class Integration extends ConfigMap {
   modifiedOn: Moment;
   position: string;
   type: string;
+  flowYaml: string;
+  configText: string;
 
-  updateValues() {
-    super.updateValues();
+
+  updateResource() {
+    this.resource.data["funktion.yml"] = this.flowYaml;
+    super.updateResource();
+  }
+
+
+  updateValuesFromResource() {
+    super.updateValuesFromResource();
     this.type = this.labels["type"];
 
+    this.flowYaml = this.data["funktion.yml"];
+    // TODO parse the flow YAML?
+
+    this.configText = this.data["application.properties"] || "";
     // TODO load configured properties from the data
     // e.g. an entry may be "camel.component.twitter.access-token=foo"
     //

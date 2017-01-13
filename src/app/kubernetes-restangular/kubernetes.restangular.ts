@@ -1,9 +1,32 @@
 import {NgModule, OpaqueToken} from "@angular/core";
 import {Restangular} from "ng2-restangular";
+import {Connection} from "../store/connection/connection.model";
+import {Integration} from "../store/integration/integration.model";
+import {KubernetesResource} from "./kuberentes.model";
+import {Function} from "../store/function/function.model";
 
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
 
+export const FunktionKindAnnotation = "funktion.fabric8.io/kind";
+
+
+function convertToKubernetesResource(resource) {
+  // TODO would be nice to make this bit more modular so we could register other kinds of resource more easily
+  var metadata = resource.metadata || {};
+  var labels = metadata.labels || {};
+  var kindLabel = labels[FunktionKindAnnotation];
+
+  if (kindLabel == "Function") {
+    return new Function().setResource(resource);
+  } else if (kindLabel == "Connector") {
+    return new Connection().setResource(resource);
+  } else if (kindLabel == "Flow") {
+    return new Integration().setResource(resource);
+  } else if (resource.kind) {
+    return new KubernetesResource().setResource(resource);
+  }
+}
 export function KubernetesRestangularFactory(restangular: Restangular) {
   console.log('kubernetes-restangular');
 
@@ -29,8 +52,10 @@ export function KubernetesRestangularFactory(restangular: Restangular) {
       if (operation === "getList") {
         // // TODO lets copy the metadata.resourceVersion into all the items!
         if (data && data.constructor !== Array) {
-          return data.items || [];
+          return (data.items || []).map(convertToKubernetesResource);
         }
+      } else if (data && data.kind) {
+        return convertToKubernetesResource(data);
       }
       return data;
     });
