@@ -3,8 +3,9 @@ import { Observable } from 'rxjs/Observable';
 
 import { FunctionStore } from '../../store/function/function.store';
 import { Functions } from '../../store/function/function.model';
-import {Service} from "../../kubernetes-restangular/kuberentes.service.model";
-import {KubernetesServiceMapper} from "../../kubernetes-restangular/kubernetes.service.mapper";
+import {Services} from "../../kubernetes-restangular/kuberentes.service.model";
+import {RuntimeFunctions, createRuntimeFunctions} from "../model/runtime.function.model";
+import {KubernetesServiceStore} from "../../kubernetes-restangular/kubernetes.service.store";
 
 @Component({
   selector: 'ipaas-functions-list-page',
@@ -12,21 +13,21 @@ import {KubernetesServiceMapper} from "../../kubernetes-restangular/kubernetes.s
   styleUrls: ['./list-page.function.scss'],
 })
 export class FunctionsListPage implements OnInit {
-
   private readonly functions: Observable<Functions>;
+  private readonly services: Observable<Services>;
   private readonly loading: Observable<boolean>;
+  private readonly runtimeFunctions: Observable<RuntimeFunctions>;
 
-  // TODO make this Observable too?
-  private readonly serviceMap: Map<string, Service>;
-
-  constructor(private store: FunctionStore, private serviceMapper: KubernetesServiceMapper) {
-    this.functions = this.store.list;
-    this.loading = this.store.loading;
-    this.serviceMap = this.serviceMapper.map;
+  constructor(private functionsStore: FunctionStore, private serviceStore: KubernetesServiceStore) {
+    this.functions = this.functionsStore.list;
+    this.services = this.serviceStore.list;
+    this.loading = this.functionsStore.loading.combineLatest(this.serviceStore.loading, (f, s) => f && s);
+    this.runtimeFunctions = this.functions.combineLatest(this.services, createRuntimeFunctions);
   }
 
   ngOnInit() {
-    this.store.loadAll();
+    this.functionsStore.loadAll();
+    this.serviceStore.loadAll();
   }
 
 }

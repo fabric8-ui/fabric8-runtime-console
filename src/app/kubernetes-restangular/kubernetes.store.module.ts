@@ -1,7 +1,6 @@
 import {NgModule, Optional, SkipSelf} from "@angular/core";
 import {RestangularModule} from "ng2-restangular";
 import {StoreModule} from "../store/store.module";
-import {KubernetesServiceMapper} from "./kubernetes.service.mapper";
 import {KubernetesServiceStore} from "./kubernetes.service.store";
 import {KubernetesServiceService} from "./kubernetes.service.service";
 
@@ -11,7 +10,6 @@ import {KubernetesServiceService} from "./kubernetes.service.service";
     StoreModule,
   ],
   providers: [
-    KubernetesServiceMapper,
     KubernetesServiceStore,
     KubernetesServiceService,
   ],

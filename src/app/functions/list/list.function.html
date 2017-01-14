@@ -1,7 +1,7 @@
 <div class='list-group list-view-pf list-view-pf-view'>
 
   <ipaas-loading [loading]="loading">
-    <div class='list-group-item function' *ngFor='let function of functions'>
+    <div class='list-group-item function' *ngFor='let function of runtimeFunctions'>
       <div class='list-view-pf-checkbox'>
         <input type='checkbox'>
       </div>
@@ -47,8 +47,8 @@
               &nbsp;
 -->
               <a target="fn"
-                 *ngIf="serviceMap[function.name]?.exposeUrl"
-                 [href]="serviceMap[function.name]?.exposeUrl"
+                 *ngIf="function.exposeUrl"
+                 [href]="function.exposeUrl"
                  title="Open this function in a separate browser tab">
                 <i class="fa fa-external-link" aria-hidden="true"></i>
               </a>

@@ -1,7 +1,5 @@
-import { Component, Input } from '@angular/core';
-
-import { Functions } from '../../store/function/function.model';
-import {Service} from "../../kubernetes-restangular/kuberentes.service.model";
+import {Component, Input} from "@angular/core";
+import {RuntimeFunctions} from "../model/runtime.function.model";
 
 @Component({
   selector: 'ipaas-functions-list',
@@ -10,10 +8,8 @@ import {Service} from "../../kubernetes-restangular/kuberentes.service.model";
 })
 export class FunctionsListComponent {
 
-  @Input() functions: Functions;
+  @Input() runtimeFunctions: RuntimeFunctions;
 
   @Input() loading: boolean;
-
-  @Input() serviceMap: Map<string, Service>;
 
 }
