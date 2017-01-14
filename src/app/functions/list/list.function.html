@@ -42,7 +42,16 @@
           </div>
           <div class='list-view-pf-additional-info'>
             <div class='list-view-pf-additional-info-item'>
+<!--
               <a class='btn btn-primary'>Active</a>
+              &nbsp;
+-->
+              <a target="fn"
+                 *ngIf="serviceMap[function.name]?.exposeUrl"
+                 [href]="serviceMap[function.name]?.exposeUrl"
+                 title="Open this function in a separate browser tab">
+                <i class="fa fa-external-link" aria-hidden="true"></i>
+              </a>
             </div>
           </div>
         </div>

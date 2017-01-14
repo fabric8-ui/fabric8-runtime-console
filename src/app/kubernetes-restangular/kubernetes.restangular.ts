@@ -4,6 +4,9 @@ import {Connection} from "../store/connection/connection.model";
 import {Integration} from "../store/integration/integration.model";
 import {KubernetesResource} from "./kuberentes.model";
 import {Function} from "../store/function/function.model";
+import {Service} from "./kuberentes.service.model";
+import {Deployment} from "./kuberentes.deployment.model";
+import {ConfigMap} from "./kuberentes.configmap.model";
 
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
@@ -16,17 +19,32 @@ function convertToKubernetesResource(resource) {
   var metadata = resource.metadata || {};
   var labels = metadata.labels || {};
   var kindLabel = labels[FunktionKindAnnotation];
-
-  if (kindLabel == "Function") {
-    return new Function().setResource(resource);
-  } else if (kindLabel == "Connector") {
-    return new Connection().setResource(resource);
-  } else if (kindLabel == "Flow") {
-    return new Integration().setResource(resource);
-  } else if (resource.kind) {
-    return new KubernetesResource().setResource(resource);
+  var kind = resource.kind;
+  if (!kind) {
+    return resource;
+  }
+  switch (kind) {
+    case "ConfigMap":
+      switch (kindLabel) {
+        case  "Function" :
+          return new Function().setResource(resource);
+        case  "Connector" :
+          return new Connection().setResource(resource);
+        case  "Flow" :
+          return new Integration().setResource(resource);
+        default:
+          return new ConfigMap().setResource(resource);
+      }
+    case "Service":
+      return new Service().setResource(resource);
+    case "Deployment":
+      return new Deployment().setResource(resource);
+    default:
+      console.log("Unknown resource kind " + kind);
+      return new KubernetesResource().setResource(resource);
   }
 }
+
 export function KubernetesRestangularFactory(restangular: Restangular) {
   console.log('kubernetes-restangular');
 
@@ -49,12 +67,25 @@ export function KubernetesRestangularFactory(restangular: Restangular) {
 
     //RestangularConfigurer.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
     RestangularConfigurer.addResponseInterceptor(function (data, operation) {
+      var kind = data ? data.kind : null;
       if (operation === "getList") {
-        // // TODO lets copy the metadata.resourceVersion into all the items!
         if (data && data.constructor !== Array) {
-          return (data.items || []).map(convertToKubernetesResource);
+          if (kind.endsWith("List")) {
+            kind = kind.substring(0, kind.length - 4);
+          }
+          var resourceApiVersion = (data.metadata || {}).apiVersion;
+          return (data.items || []).map((object) => {
+            // ensure each item has a kind and api version
+            if (!object.apiVersion) {
+              object.apiVersion = resourceApiVersion;
+            }
+            if (!object.kind) {
+              object.kind = kind;
+            }
+            return convertToKubernetesResource(object);
+          });
         }
-      } else if (data && data.kind) {
+      } else if (data && kind) {
         return convertToKubernetesResource(data);
       }
       return data;
