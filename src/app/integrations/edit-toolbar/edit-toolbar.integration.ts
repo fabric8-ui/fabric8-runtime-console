@@ -16,7 +16,12 @@ export class IntegrationEditToolbarComponent {
   }
 
   save() {
-/*
+    console.log("TODO - waiting for store.update() function to merge! " + this.store);
+    this.router.navigate(["integrations"]);
+
+  /*
+    TODO waiting for https://github.com/redhat-ipaas/ipaas-client/pull/112 to merge
+
     this.store.update(this.integration).subscribe(
       () => this.router.navigate(["integrations"])
     );
