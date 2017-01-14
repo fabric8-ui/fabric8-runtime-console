@@ -14,10 +14,15 @@ import {IntegrationViewPage} from "./view-page/view-page.integration";
 import {IntegrationViewWrapperComponent} from "./view-wrapper/view-wrapper.integration";
 import {IntegrationViewComponent} from "./view/view.integration";
 import {IntegrationViewToolbarComponent} from "./view-toolbar/view-toolbar.integration";
+import {IntegrationEditPage} from "./edit-page/edit-page.integration";
+import {IntegrationEditWrapperComponent} from "./edit-wrapper/edit-wrapper.integration";
+import {IntegrationEditToolbarComponent} from "./edit-toolbar/edit-toolbar.integration";
+import {IntegrationEditComponent} from "./edit/edit.integration";
 
 const routes: Routes = [
   { path: '', component: IntegrationsListPage, pathMatch: 'full' },
   { path: ':id', component: IntegrationViewPage, pathMatch: 'full' },
+  { path: ':id/edit', component: IntegrationEditPage, pathMatch: 'full' },
   { path: 'create', component: IntegrationsCreatePage, pathMatch: 'full' },
 ];
 
@@ -38,6 +43,10 @@ const routes: Routes = [
     IntegrationViewWrapperComponent,
     IntegrationViewToolbarComponent,
     IntegrationViewComponent,
+    IntegrationEditPage,
+    IntegrationEditWrapperComponent,
+    IntegrationEditToolbarComponent,
+    IntegrationEditComponent,
   ],
 })
 export class IntegrationsModule {
