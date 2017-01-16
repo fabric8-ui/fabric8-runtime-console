@@ -32,7 +32,7 @@ export class Integration extends ConfigMap {
 
 
   updateResource(resource) {
-    resource.data["funktion.yml"] = this.flowYaml;
+    resource.data["funktion.yml"] = this.flowYaml || "";
     super.updateResource(resource);
   }
 
@@ -55,6 +55,9 @@ export class Integration extends ConfigMap {
     this.configuredProperties = new Map<string, string>();
   }
 
+  defaultFunctionKind() {
+    return "Flow";
+  }
 }
 
 export class Integrations extends Array<Integration> {

@@ -16,12 +16,14 @@ export abstract class KubernetesService<T extends KubernetesResource, L extends 
   }
 
   create(obj: T): Observable<T> {
-    var resource = obj.resource;
+    var resource = obj.resource || {};
+    if (!resource.kind) {
+      resource.kind = obj.defaultKind();
+    }
     obj.updateResource(resource);
     console.log("Creating resource with value " + JSON.stringify(resource, null, "  "));
 
-    var resty: any = obj;
-    return resty.customPOST(resource);
+    return this.restangularService.post(resource);
   }
 
   update(obj: T): Observable<T> {
@@ -31,5 +33,9 @@ export abstract class KubernetesService<T extends KubernetesResource, L extends 
     console.log("Updating key " + id + " with value " + JSON.stringify(resource, null, "  "));
     var resty: any = obj;
     return resty.customPUT(resource);
+  }
+
+  defaultKind() {
+    return "Service";
   }
 }

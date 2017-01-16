@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from "@angular/core";
 
 @Component({
-  selector: 'ipaas-functions-create-page',
+  selector: 'ipaas-function-create-page',
   templateUrl: './create-page.function.html',
   styleUrls: ['./create-page.function.scss'],
 })
-export class FunctionsCreatePage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
+export class FunctionCreatePage {
 
 }

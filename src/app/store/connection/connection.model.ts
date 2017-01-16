@@ -32,7 +32,7 @@ export class Connection extends ConfigMap {
     if (!resource.data) {
       resource.data = {};
     }
-    resource.data["application.properties"] = this.configText;
+    resource.data["application.properties"] = this.configText || "";
     super.updateResource(resource);
   }
 
@@ -49,6 +49,10 @@ export class Connection extends ConfigMap {
     //
     // parse this.configText using properties file notation
     this.configuredProperties = new Map<string, string>();
+  }
+
+  defaultFunctionKind() {
+    return "Connector";
   }
 }
 

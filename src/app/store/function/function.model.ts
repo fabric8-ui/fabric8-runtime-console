@@ -4,15 +4,21 @@ export class Function extends ConfigMap {
   source: string;
   envVars: Map<string,string>;
   envVarText: string;
-  runtime: string;
+  runtime: string = "nodejs";
   runtimeVersion: string;
 
   updateResource(resource) {
-    if (!resource.data) {
-      resource.data = {};
+    if (!this.labels) {
+      this.labels = new Map<string,string>();
     }
-    resource.data["source"] = this.source;
-    resource.data["envVars"] = this.envVarText;
+    if (this.runtime) {
+      this.labels["runtime"] = this.runtime;
+    }
+    if (!this.data) {
+      this.data = new Map<string,string>();
+    }
+    this.data["source"] = this.source || "";
+    this.data["envVars"] = this.envVarText || "";
     super.updateResource(resource);
   }
 
@@ -24,6 +30,10 @@ export class Function extends ConfigMap {
     this.envVarText = this.data["envVars"] || "";
     // TODO load env vars as a Map
     this.envVars = new Map<string,string>();
+  }
+
+  defaultFunctionKind() {
+    return "Function";
   }
 }
 

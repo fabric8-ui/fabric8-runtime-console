@@ -7,15 +7,14 @@ import { MockBackend } from '@angular/http/testing';
 import { RequestOptions, BaseRequestOptions, Http } from '@angular/http';
 import { RestangularModule } from 'ng2-restangular';
 
-import { FunctionCreatePage } from './create-pagefunction';
-import { FunctionCreateWrapperComponent } from '../view-wrapper/view-wrapper.function';
-import { FunctionCreateToolbarComponent } from '../view-toolbar/view-toolbar.function';
-import { FunctionCreateComponent } from '../view/view.function';
+import { FunctionCreateWrapperComponent } from './create-wrapper.function';
+import { FunctionCreateToolbarComponent } from '../create-toolbar/create-toolbar.function';
+import { FunctionCreateComponent } from '../create/create.function';
 import { StoreModule } from '../../store/store.module';
 
-describe('FunctionCreatePage', () => {
-  let fn: FunctionCreatePage;
-  let fixture: ComponentFixture<FunctionCreatePage>;
+describe('FunctionCreateWrapperComponent', () => {
+  let fn: FunctionCreateWrapperComponent;
+  let fixture: ComponentFixture<FunctionCreateWrapperComponent>;
 
   beforeEach(async(() => {
     TestBed
@@ -26,7 +25,6 @@ describe('FunctionCreatePage', () => {
           RestangularModule.forRoot(),
         ],
         declarations: [
-          FunctionCreatePage,
           FunctionCreateWrapperComponent,
           FunctionCreateToolbarComponent,
           FunctionCreateComponent,
@@ -45,7 +43,7 @@ describe('FunctionCreatePage', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FunctionCreatePage);
+    fixture = TestBed.createComponent(FunctionCreateWrapperComponent);
     fn = fixture.functionInstance;
     fixture.detectChanges();
   });

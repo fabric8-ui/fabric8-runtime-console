@@ -1,6 +1,6 @@
 import {BaseEntity} from "../store/entity/entity.model";
 
-export class KubernetesResource implements BaseEntity {
+export abstract class KubernetesResource implements BaseEntity {
   id: string;
   name: string;
   description: string;
@@ -16,12 +16,21 @@ export class KubernetesResource implements BaseEntity {
   }
 
   updateResource(resource) {
+    if (!this.labels) {
+      this.labels = new Map<string,string>();
+    }
+    if (!this.annotations) {
+      this.annotations = new Map<string,string>();
+    }
     this.annotations["description"] = this.description;
 
     var metadata = resource.metadata;
     if (!metadata) {
       metadata = {};
       resource.metadata = metadata;
+    }
+    if (this.name) {
+      metadata.name = this.name;
     }
     metadata.labels = this.labels;
     metadata.annotations = this.annotations;
@@ -42,5 +51,9 @@ export class KubernetesResource implements BaseEntity {
 
   defaultIconUrl() {
     return "";
+  }
+
+  defaultKind() {
+    return "Unknown";
   }
 }
