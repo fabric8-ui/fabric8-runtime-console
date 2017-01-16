@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: '', component: IntegrationsListPage, pathMatch: 'full' },
   { path: ':id', component: IntegrationViewPage, pathMatch: 'full' },
   { path: ':id/edit', component: IntegrationEditPage, pathMatch: 'full' },
-  { path: 'create', component: IntegrationsCreatePage, pathMatch: 'full' },
+  { path: '-/create', component: IntegrationsCreatePage, pathMatch: 'full' },
 ];
 
 @NgModule({
