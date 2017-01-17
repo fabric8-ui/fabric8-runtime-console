@@ -1,6 +1,6 @@
-import {Service, Services} from "./kuberentes.service.model";
-import {KubernetesServiceService} from "./kubernetes.service.service";
-import {AbstractStore} from "../store/entity/entity.store";
+import {Service, Services} from "../model/kuberentes.service.model";
+import {KubernetesServiceService} from "../service/kubernetes.service.service";
+import {AbstractStore} from "../../store/entity/entity.store";
 import {Injectable} from "@angular/core";
 
 @Injectable()

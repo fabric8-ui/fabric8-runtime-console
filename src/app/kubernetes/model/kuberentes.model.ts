@@ -1,6 +1,6 @@
-import {BaseEntity} from "../store/entity/entity.model";
+import {BaseEntity} from "../../store/entity/entity.model";
 
-export abstract class KubernetesResource implements BaseEntity {
+export class KubernetesResource implements BaseEntity {
   id: string;
   name: string;
   description: string;

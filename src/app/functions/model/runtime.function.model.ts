@@ -1,5 +1,5 @@
 import {Function, Functions} from '../../store/function/function.model';
-import {Service, Services} from "../../kubernetes-restangular/kuberentes.service.model";
+import {Service, Services} from "../../kubernetes/model/kuberentes.service.model";
 
 export class RuntimeFunction {
     public readonly fn: Function;

@@ -1,4 +1,4 @@
-import {ConfigMap} from "../../kubernetes-restangular/kuberentes.configmap.model";
+import {ConfigMap} from "../../kubernetes/model/kuberentes.configmap.model";
 
 export class Function extends ConfigMap {
   source: string;

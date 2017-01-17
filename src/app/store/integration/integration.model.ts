@@ -1,5 +1,5 @@
 import {Moment} from "moment";
-import {ConfigMap} from "../../kubernetes-restangular/kuberentes.configmap.model";
+import {ConfigMap} from "../../kubernetes/model/kuberentes.configmap.model";
 
 /*
 export interface Integration extends BaseEntity {

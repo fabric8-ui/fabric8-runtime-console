@@ -2,7 +2,7 @@ import {Inject, Injectable} from "@angular/core";
 import {Restangular} from "ng2-restangular";
 import {Observable} from "rxjs";
 import {KUBERNETES_RESTANGULAR, FunktionKindAnnotation} from "./kubernetes.restangular";
-import {KubernetesResource} from "./kuberentes.model";
+import {KubernetesResource} from "../model/kuberentes.model";
 import {KubernetesService} from "./kubernetes.service";
 
 

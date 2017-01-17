@@ -1,9 +1,9 @@
 import {Inject} from "@angular/core";
 import {Restangular} from "ng2-restangular";
 import {Observable} from "rxjs";
-import {RESTService} from "../store/entity/rest.service";
+import {RESTService} from "../../store/entity/rest.service";
 import {KUBERNETES_RESTANGULAR} from "./kubernetes.restangular";
-import {KubernetesResource} from "./kuberentes.model";
+import {KubernetesResource} from "../model/kuberentes.model";
 
 
 export abstract class KubernetesService<T extends KubernetesResource, L extends Array<T>> extends RESTService<T, L> {

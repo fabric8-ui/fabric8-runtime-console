@@ -1,8 +1,8 @@
 import {Injectable, Inject} from "@angular/core";
 import {Restangular} from "ng2-restangular";
 import {Integration, Integrations} from "./integration.model";
-import {KubernetesConfigMapService} from "../../kubernetes-restangular/kubernetes.configmap.service";
-import {KUBERNETES_RESTANGULAR} from "../../kubernetes-restangular/kubernetes.restangular";
+import {KubernetesConfigMapService} from "../../kubernetes/service/kubernetes.configmap.service";
+import {KUBERNETES_RESTANGULAR} from "../../kubernetes/service/kubernetes.restangular";
 
 /*@Injectable()
 export class IntegrationService extends RESTService<Integration, Integrations> {

@@ -12,8 +12,8 @@ import { IPaaSCommonModule } from './common/common.module';
 
 import { AppComponent } from './app.component';
 import { ConfigService, configServiceInitializer } from './config.service';
-import {KubernetesRestangularModule} from "./kubernetes-restangular/kubernetes.restangular";
-import {KuberentesStoreModule} from "./kubernetes-restangular/kubernetes.store.module";
+import {KubernetesRestangularModule} from "./kubernetes/service/kubernetes.restangular";
+import {KuberentesStoreModule} from "./kubernetes/kubernetes.store.module";
 
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
   restangularProvider.setBaseUrl(config.getSettings().apiEndpoint);

@@ -1,12 +1,12 @@
 import {NgModule, OpaqueToken} from "@angular/core";
 import {Restangular} from "ng2-restangular";
-import {Connection} from "../store/connection/connection.model";
-import {Integration} from "../store/integration/integration.model";
-import {KubernetesResource} from "./kuberentes.model";
-import {Function} from "../store/function/function.model";
-import {Service} from "./kuberentes.service.model";
-import {Deployment} from "./kuberentes.deployment.model";
-import {ConfigMap} from "./kuberentes.configmap.model";
+import {Connection} from "../../store/connection/connection.model";
+import {Integration} from "../../store/integration/integration.model";
+import {KubernetesResource} from "../model/kuberentes.model";
+import {Function} from "../../store/function/function.model";
+import {Service} from "../model/kuberentes.service.model";
+import {Deployment} from "../model/kuberentes.deployment.model";
+import {ConfigMap} from "../model/kuberentes.configmap.model";
 
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');

@@ -3,9 +3,9 @@ import { Observable } from 'rxjs/Observable';
 
 import { FunctionStore } from '../../store/function/function.store';
 import { Functions } from '../../store/function/function.model';
-import {Services} from "../../kubernetes-restangular/kuberentes.service.model";
+import {Services} from "../../kubernetes/model/kuberentes.service.model";
 import {RuntimeFunctions, createRuntimeFunctions} from "../model/runtime.function.model";
-import {KubernetesServiceStore} from "../../kubernetes-restangular/kubernetes.service.store";
+import {KubernetesServiceStore} from "../../kubernetes/store/kubernetes.service.store";
 
 @Component({
   selector: 'ipaas-functions-list-page',
