@@ -35,6 +35,11 @@ export abstract class KubernetesService<T extends KubernetesResource, L extends 
     return resty.customPUT(resource);
   }
 
+  delete(obj: T): any {
+    var resty: any = obj;
+    return resty.customDELETE();
+  }
+
   defaultKind() {
     return "Service";
   }

@@ -2,6 +2,8 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
+import {ModalModule} from "ng2-modal";
+
 import {FunctionsListPage} from "./list-page/list-page.function";
 import {FunctionsListToolbarComponent} from "./list-toolbar/list-toolbar.function";
 import {FunctionsFilterPipe} from "./functions-filter.pipe";
@@ -19,6 +21,7 @@ import {FunctionEditComponent} from "./edit/edit.function";
 import {FunctionCreateComponent} from "./create/create.function";
 import {FunctionCreateWrapperComponent} from "./create-wrapper/create-wrapper.function";
 import {FunctionCreateToolbarComponent} from "./create-toolbar/create-toolbar.function";
+import {FunctionDeleteDialog} from "./delete-dialog/delete-dialog.function";
 
 const routes: Routes = [
   { path: '', component: FunctionsListPage, pathMatch: 'full' },
@@ -31,6 +34,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
+    ModalModule,
     RouterModule.forChild(routes),
     IPaaSCommonModule,
   ],
@@ -51,7 +55,10 @@ const routes: Routes = [
     FunctionEditWrapperComponent,
     FunctionEditToolbarComponent,
     FunctionEditComponent,
+    FunctionDeleteDialog,
   ],
+  entryComponents: [FunctionDeleteDialog],
+  exports: [ModalModule]
 })
 export class FunctionsModule {
 }

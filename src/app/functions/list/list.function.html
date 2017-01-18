@@ -21,7 +21,7 @@
               <a>Duplicate</a>
             </li>
             <li>
-              <a>Delete</a>
+              <a (click)="openDeleteDialog(deleteFunctionModal, function.fn)">Delete</a>
             </li>
           </ul>
         </div>
@@ -59,3 +59,10 @@
     </div>
   </ipaas-loading>
 </div>
+
+<modal #deleteFunctionModal title="Delete Function">
+  <modal-content>
+    <delete-function-dialog></delete-function-dialog>
+  </modal-content>
+</modal>
+
