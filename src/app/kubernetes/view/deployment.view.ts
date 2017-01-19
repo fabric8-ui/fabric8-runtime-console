@@ -15,6 +15,7 @@ export class DeploymentView {
     public readonly labels: Map<string,string>;
     public readonly images: Array<String>;
     public readonly annotations: Map<string,string>;
+    public readonly creationTimestamp: any;
 
     constructor(deployment: Deployment, service: Service) {
         this.deployment = deployment;
@@ -25,6 +26,7 @@ export class DeploymentView {
         this.description = deployment.description;
         this.labels = deployment.labels;
         this.annotations = deployment.annotations;
+        this.creationTimestamp = deployment.creationTimestamp;
         if (service) {
             this.exposeUrl = service.exposeUrl;
         }

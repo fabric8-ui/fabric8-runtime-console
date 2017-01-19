@@ -58,6 +58,9 @@
             <div class='list-view-pf-additional-info-item' title="number of available pods and the replicas">
               {{deployment.availableReplicas}} / {{deployment.replicas}}
             </div>
+            <div class='list-view-pf-additional-info-item' title="created time">
+              {{deployment.creationTimestamp | amTimeAgo}}
+            </div>
             <div class='list-view-pf-additional-info-item' title="labels" *ngFor='let entry of deployment.labels | entries'>
               {{entry.key}}: {{entry.value}}
             </div>
