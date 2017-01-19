@@ -281,6 +281,12 @@ angular-cli@^1.0.0-beta.24:
     yam "0.0.18"
     zone.js "^0.7.2"
 
+angular2-moment@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/angular2-moment/-/angular2-moment-1.1.0.tgz#9514d4abe60d32cd80af7e1cbf35dbe83c8146eb"
+  dependencies:
+    moment "^2.16.0"
+
 ansi-align@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ansi-align/-/ansi-align-1.1.0.tgz#2f0c1658829739add5ebb15e6b0c6e3423f016ba"
@@ -3971,6 +3977,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
 mktemp@~0.3.4:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/mktemp/-/mktemp-0.3.5.tgz#a1504c706d0d2b198c6a0eb645f7fdaf8181f7de"
+
+moment@^2.16.0:
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 
 moment@~2.14.1:
   version "2.14.1"

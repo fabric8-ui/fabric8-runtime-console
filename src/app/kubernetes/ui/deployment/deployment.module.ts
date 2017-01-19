@@ -18,6 +18,7 @@ import {DeploymentDeleteDialog} from "./delete-dialog/delete-dialog.deployment";
 import {IPaaSCommonModule} from "../../../common/common.module";
 import {EntriesPipe} from "../../view/entries.pipe";
 import {DeploymentScaleDialog} from "./scale-dialog/scale-dialog.deployment";
+import {MomentModule} from "angular2-moment";
 
 const routes: Routes = [
   { path: '', component: DeploymentsListPage, pathMatch: 'full' },
@@ -30,6 +31,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     ModalModule,
+    MomentModule,
     RouterModule.forChild(routes),
     IPaaSCommonModule,
   ],

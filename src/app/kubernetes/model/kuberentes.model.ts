@@ -8,6 +8,7 @@ export class KubernetesResource implements BaseEntity {
   labels: Map<string,string>;
   annotations: Map<string,string>;
   resource: any;
+  creationTimestamp: any;
 
   public setResource(resource) {
     this.resource = resource || {};
@@ -41,6 +42,7 @@ export class KubernetesResource implements BaseEntity {
     var metadata = resource.metadata || {};
     this.name = metadata.name || "";
     this.id = this.name;
+    this.creationTimestamp = metadata.creationTimestamp;
     this.labels = metadata.labels || new Map<string,string>();
     this.annotations = metadata.annotations || new Map<string,string>();
     this.icon = this.annotations["fabric8.io/iconUrl"] || this.defaultIconUrl();
