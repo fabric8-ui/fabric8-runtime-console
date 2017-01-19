@@ -1,6 +1,6 @@
-import {Input, Component} from '@angular/core';
+import {Input, Component} from "@angular/core";
 import {Deployment} from "../../../model/kuberentes.deployment.model";
-
+import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
   selector: 'ipaas-deployment-edit',
@@ -11,4 +11,7 @@ export class DeploymentEditComponent {
 
   @Input() deployment: Deployment;
 
+  @Input() yamlEditor: YamlEditor;
+
 }
+

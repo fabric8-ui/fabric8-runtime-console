@@ -1,4 +1,4 @@
 <div class='deployments detail' *ngIf='deployment'>
-  <ipaas-deployment-edit-toolbar [deployment]="deployment | async"></ipaas-deployment-edit-toolbar>
-  <ipaas-deployment-edit [deployment]="deployment | async"></ipaas-deployment-edit>
+  <ipaas-deployment-edit-toolbar [deployment]="deployment | async" [yamlEditor]="yamlEditor"></ipaas-deployment-edit-toolbar>
+  <ipaas-deployment-edit [deployment]="deployment | async" [yamlEditor]="yamlEditor"></ipaas-deployment-edit>
 </div>

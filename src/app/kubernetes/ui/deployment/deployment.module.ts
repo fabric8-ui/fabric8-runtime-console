@@ -50,7 +50,8 @@ const routes: Routes = [
     EntriesPipe,
   ],
   entryComponents: [
-    DeploymentDeleteDialog
+    DeploymentDeleteDialog,
+    DeploymentEditPage,
   ],
   exports: [
     ModalModule,

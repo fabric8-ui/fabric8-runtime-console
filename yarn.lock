@@ -3180,7 +3180,7 @@ js-tokens@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-2.0.0.tgz#79903f5563ee778cc1162e6dcf1a0027c97f9cb5"
 
-js-yaml@3.x, js-yaml@^3.4.6, js-yaml@^3.5.1, js-yaml@^3.5.4:
+js-yaml@3.x, js-yaml@^3.4.6, js-yaml@^3.5.1, js-yaml@^3.5.4, js-yaml@^3.7.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.7.0.tgz#5c967ddd837a9bfdca5f2de84253abe8a1c03b80"
   dependencies:
@@ -4023,6 +4023,10 @@ negotiator@0.4.9:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+ng2-modal@0.0.25:
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/ng2-modal/-/ng2-modal-0.0.25.tgz#61755f6da76017b1b0e42f38eeca3e92bd484206"
 
 ng2-restangular@^0.1.23:
   version "0.1.23"
@@ -5250,6 +5254,10 @@ restore-cursor@^1.0.1:
   dependencies:
     exit-hook "^1.0.0"
     onetime "^1.0.0"
+
+retyped-js-yaml-tsd-ambient@^3.0.2-0:
+  version "3.0.2-0"
+  resolved "https://registry.yarnpkg.com/retyped-js-yaml-tsd-ambient/-/retyped-js-yaml-tsd-ambient-3.0.2-0.tgz#3f01ec02e017c4a9beb7834b2daed2ec8da284df"
 
 right-align@^0.1.1:
   version "0.1.3"

@@ -29,6 +29,10 @@ export abstract class KubernetesService<T extends KubernetesResource, L extends 
   update(obj: T): Observable<T> {
     var resource = obj.resource;
     obj.updateResource(resource);
+    return this.updateResource(obj, resource);
+  }
+
+  updateResource(obj: T, resource: any) {
     var id = obj.id;
     console.log("Updating key " + id + " with value " + JSON.stringify(resource, null, "  "));
     var resty: any = obj;

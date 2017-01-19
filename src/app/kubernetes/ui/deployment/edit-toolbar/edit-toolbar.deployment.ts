@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {Router} from "@angular/router";
 import {DeploymentService} from "../../../service/deployment.service";
+import {YamlEditor} from "../../../view/yaml.editor";
 import {Deployment} from "../../../model/kuberentes.deployment.model";
 
 @Component({
@@ -12,11 +13,14 @@ export class DeploymentEditToolbarComponent {
 
   @Input() deployment: Deployment;
 
+  @Input() yamlEditor: YamlEditor;
+
   constructor(private deploymentService: DeploymentService, private router: Router) {
   }
 
   save() {
-    this.deploymentService.update(this.deployment).subscribe(
+    var resource = this.yamlEditor.parseYaml();
+    this.deploymentService.updateResource(this.deployment, resource).subscribe(
       () => this.router.navigate(["deployments"])
     );
   }
