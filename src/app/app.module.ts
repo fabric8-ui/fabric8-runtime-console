@@ -1,18 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RestangularModule } from 'ng2-restangular';
-
-import { AppRoutingModule } from './approuting/approuting.module';
-import { StoreModule } from './store/store.module';
-import { IPaaSCommonModule } from './common/common.module';
-
-import { AppComponent } from './app.component';
-import { ConfigService, configServiceInitializer } from './config.service';
-import {KubernetesRestangularModule} from "./kubernetes/service/kubernetes.restangular";
+import {BrowserModule} from "@angular/platform-browser";
+import {NgModule, APP_INITIALIZER} from "@angular/core";
+import {FormsModule} from "@angular/forms";
+import {HttpModule} from "@angular/http";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {RestangularModule} from "ng2-restangular";
+import {AppRoutingModule} from "./approuting/approuting.module";
+import {StoreModule} from "./store/store.module";
+import {IPaaSCommonModule} from "./common/common.module";
+import {AppComponent} from "./app.component";
+import {ConfigService, configServiceInitializer} from "./config.service";
+import {KubernetesUIModule} from "./kubernetes/ui/ui.module";
 import {KuberentesStoreModule} from "./kubernetes/kubernetes.store.module";
 
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
@@ -32,8 +29,8 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     AppRoutingModule,
     StoreModule,
     IPaaSCommonModule,
-    KubernetesRestangularModule,
     KuberentesStoreModule,
+    KubernetesUIModule,
   ],
   providers: [
     ConfigService,

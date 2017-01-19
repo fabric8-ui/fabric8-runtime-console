@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'connections', loadChildren: '../connections/connections.module#ConnectionsModule' },
   { path: 'functions', loadChildren: '../functions/functions.module#FunctionsModule' },
   { path: 'templates', loadChildren: '../templates/templates-routes.module#TemplateRoutesModule' },
+  { path: 'run', loadChildren: '../kubernetes/ui/ui.module#KubernetesUIModule' },
 ];
 
 @NgModule({

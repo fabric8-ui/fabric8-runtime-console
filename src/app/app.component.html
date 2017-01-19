@@ -89,6 +89,12 @@
         <span class="list-group-item-value">Admin</span>
       </a>
     </li>
+    <li class="list-group-item" routerLinkActive="active">
+      <a [routerLink]=" ['run', 'funky', 'deployments'] ">
+        <span class="fa fa-lock" data-toggle="tooltip" title="Deployments"></span>
+        <span class="list-group-item-value">Deployments</span>
+      </a>
+    </li>
   </ul>
 </div>
 <main class="container-fluid container-pf-nav-pf-vertical">
