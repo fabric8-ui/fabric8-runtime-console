@@ -1,20 +1,6 @@
 import {Service, Services} from "../../kubernetes/model/kuberentes.service.model";
 import {Deployment, Deployments} from "../model/kuberentes.deployment.model";
 
-export class Entry {
-  constructor(public key: string, public value: string) {}
-}
-
-/**
- * Creates an array of entries from the given map
- */
-export function createEntryArray(labels: Map<string,string>): Array<Entry> {
-  var entries = new Array<Entry>();
-  if (labels) {
-    Object.keys(labels).forEach((k) => entries.push(new Entry(k, labels[k])));
-  }
-  return entries;
-}
 
 export class DeploymentView {
     public readonly deployment: Deployment;
@@ -27,7 +13,6 @@ export class DeploymentView {
     public readonly replicas: number;
     public readonly availableReplicas: number;
     public readonly labels: Map<string,string>;
-    public readonly labelEntries: Array<Entry>;
     public readonly images: Array<String>;
     public readonly annotations: Map<string,string>;
 
@@ -39,7 +24,6 @@ export class DeploymentView {
         this.icon = deployment.icon;
         this.description = deployment.description;
         this.labels = deployment.labels;
-        this.labelEntries = createEntryArray(this.labels);
         this.annotations = deployment.annotations;
         if (service) {
             this.exposeUrl = service.exposeUrl;

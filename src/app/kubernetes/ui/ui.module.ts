@@ -17,8 +17,6 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     DeploymentsModule,
   ],
-  declarations: [
-  ],
 })
 export class KubernetesUIModule {
 }

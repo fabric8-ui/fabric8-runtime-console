@@ -3,7 +3,6 @@ import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
 import {ModalModule} from "ng2-modal";
-
 import {DeploymentsListPage} from "./list-page/list-page.deployment";
 import {DeploymentsListToolbarComponent} from "./list-toolbar/list-toolbar.deployment";
 import {DeploymentsListComponent} from "./list/list.deployment";
@@ -17,6 +16,7 @@ import {DeploymentEditToolbarComponent} from "./edit-toolbar/edit-toolbar.deploy
 import {DeploymentEditComponent} from "./edit/edit.deployment";
 import {DeploymentDeleteDialog} from "./delete-dialog/delete-dialog.deployment";
 import {IPaaSCommonModule} from "../../../common/common.module";
+import {EntriesPipe} from "../../view/entries.pipe";
 
 const routes: Routes = [
   { path: '', component: DeploymentsListPage, pathMatch: 'full' },
@@ -45,9 +45,14 @@ const routes: Routes = [
     DeploymentEditToolbarComponent,
     DeploymentEditComponent,
     DeploymentDeleteDialog,
+    EntriesPipe,
   ],
-  entryComponents: [DeploymentDeleteDialog],
-  exports: [ModalModule]
+  entryComponents: [
+    DeploymentDeleteDialog
+  ],
+  exports: [
+    ModalModule,
+  ]
 })
 export class DeploymentsModule {
 }
