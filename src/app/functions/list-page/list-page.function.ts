@@ -5,7 +5,7 @@ import { FunctionStore } from '../../store/function/function.store';
 import { Functions } from '../../store/function/function.model';
 import {Services} from "../../kubernetes/model/kuberentes.service.model";
 import {RuntimeFunctions, createRuntimeFunctions} from "../model/runtime.function.model";
-import {KubernetesServiceStore} from "../../kubernetes/store/kubernetes.service.store";
+import {ServiceStore} from "../../kubernetes/store/service.store";
 
 @Component({
   selector: 'ipaas-functions-list-page',
@@ -18,7 +18,7 @@ export class FunctionsListPage implements OnInit {
   private readonly loading: Observable<boolean>;
   private readonly runtimeFunctions: Observable<RuntimeFunctions>;
 
-  constructor(private functionsStore: FunctionStore, private serviceStore: KubernetesServiceStore) {
+  constructor(private functionsStore: FunctionStore, private serviceStore: ServiceStore) {
     this.functions = this.functionsStore.list;
     this.services = this.serviceStore.list;
     this.loading = this.functionsStore.loading.combineLatest(this.serviceStore.loading, (f, s) => f && s);

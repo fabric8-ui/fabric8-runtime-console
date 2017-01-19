@@ -16,7 +16,7 @@ export class FunctionsListComponent {
   @ViewChild(FunctionDeleteDialog) deleteDialog: FunctionDeleteDialog;
 
   openDeleteDialog(deleteFunctionModal, fn) {
-    console.log("showing dialog for fn " + fn.name);
+    console.log("showing dialog for deployment " + fn.name);
     this.deleteDialog.modal = deleteFunctionModal;
     this.deleteDialog.fn = fn;
     deleteFunctionModal.open();

@@ -1,7 +1,7 @@
 import {Injectable, Inject} from "@angular/core";
 import {Restangular} from "ng2-restangular";
 import {Integration, Integrations} from "./integration.model";
-import {KubernetesConfigMapService} from "../../kubernetes/service/kubernetes.configmap.service";
+import {ConfigMapService} from "../../kubernetes/service/configmap.service";
 import {KUBERNETES_RESTANGULAR} from "../../kubernetes/service/kubernetes.restangular";
 
 /*@Injectable()
@@ -14,7 +14,7 @@ export class IntegrationService extends RESTService<Integration, Integrations> {
 }*/
 
 @Injectable()
-export class IntegrationService extends KubernetesConfigMapService<Integration, Integrations> {
+export class IntegrationService extends ConfigMapService<Integration, Integrations> {
 
   constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular) {
     super(kubernetesRestangular, "Flow");

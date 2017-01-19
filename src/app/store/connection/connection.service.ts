@@ -2,7 +2,7 @@ import {Injectable, Inject} from "@angular/core";
 import {Restangular} from "ng2-restangular";
 import {Connections, Connection} from "./connection.model";
 import {KUBERNETES_RESTANGULAR} from "../../kubernetes/service/kubernetes.restangular";
-import {KubernetesConfigMapService} from "../../kubernetes/service/kubernetes.configmap.service";
+import {ConfigMapService} from "../../kubernetes/service/configmap.service";
 
 /*
 @Injectable()
@@ -13,7 +13,7 @@ export class ConnectionService extends RESTService<Connection, Connections> {
 
 */
 @Injectable()
-export class ConnectionService extends KubernetesConfigMapService<Connection, Connections> {
+export class ConnectionService extends ConfigMapService<Connection, Connections> {
 
   constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular) {
     super(kubernetesRestangular, "Connector");

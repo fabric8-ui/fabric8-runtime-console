@@ -10,7 +10,7 @@ import {KubernetesService} from "./kubernetes.service";
 var configMapUrl = '/api/v1/namespaces/funky/configmaps';
 
 @Injectable()
-export abstract class KubernetesConfigMapService<T extends KubernetesResource, L extends Array<T>> extends KubernetesService<T, L> {
+export abstract class ConfigMapService<T extends KubernetesResource, L extends Array<T>> extends KubernetesService<T, L> {
   constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, public kind: string) {
     super(kubernetesRestangular.service(configMapUrl));
   }
