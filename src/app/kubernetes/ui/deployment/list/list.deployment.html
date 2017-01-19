@@ -18,14 +18,14 @@
               </a>
             </li>
             <li>
-              <a>Scale</a>
+              <a (click)="openScaleDialog(scaleDeploymentModal, deployment.deployment)" title="Scale the number of pods">Scale</a>
             </li>
             <li>
               <a [routerLink]="[deployment.id, 'edit']">Edit</a>
             </li>
 
             <li>
-              <a (click)="openDeleteDialog(deleteDeploymentModal, deployment.deployment)">Delete</a>
+              <a (click)="openDeleteDialog(deleteDeploymentModal, deployment.deployment)" title="Delete this Deployment">Delete</a>
             </li>
           </ul>
         </div>
@@ -71,6 +71,12 @@
 <modal #deleteDeploymentModal title="Delete Deployment">
   <modal-content>
     <delete-deployment-dialog></delete-deployment-dialog>
+  </modal-content>
+</modal>
+
+<modal #scaleDeploymentModal title="Scale Deployment">
+  <modal-content>
+    <scale-deployment-dialog></scale-deployment-dialog>
   </modal-content>
 </modal>
 

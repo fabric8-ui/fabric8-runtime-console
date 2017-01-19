@@ -17,6 +17,7 @@ import {DeploymentEditComponent} from "./edit/edit.deployment";
 import {DeploymentDeleteDialog} from "./delete-dialog/delete-dialog.deployment";
 import {IPaaSCommonModule} from "../../../common/common.module";
 import {EntriesPipe} from "../../view/entries.pipe";
+import {DeploymentScaleDialog} from "./scale-dialog/scale-dialog.deployment";
 
 const routes: Routes = [
   { path: '', component: DeploymentsListPage, pathMatch: 'full' },
@@ -45,6 +46,7 @@ const routes: Routes = [
     DeploymentEditToolbarComponent,
     DeploymentEditComponent,
     DeploymentDeleteDialog,
+    DeploymentScaleDialog,
     EntriesPipe,
   ],
   entryComponents: [

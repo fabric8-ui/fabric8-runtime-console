@@ -1,6 +1,7 @@
 import {Component, Input, ViewChild} from "@angular/core";
 import {DeploymentDeleteDialog} from "../delete-dialog/delete-dialog.deployment";
 import {DeploymentViews} from "../../../view/deployment.view";
+import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 
 @Component({
   selector: 'ipaas-deployments-list',
@@ -15,11 +16,17 @@ export class DeploymentsListComponent {
 
   @ViewChild(DeploymentDeleteDialog) deleteDialog: DeploymentDeleteDialog;
 
+  @ViewChild(DeploymentScaleDialog) scaleDialog: DeploymentScaleDialog;
+
   openDeleteDialog(deleteDeploymentModal, deployment) {
-    console.log("showing dialog for deployment " + deployment.name);
     this.deleteDialog.modal = deleteDeploymentModal;
     this.deleteDialog.deployment = deployment;
     deleteDeploymentModal.open();
+  }
+
+  openScaleDialog(scaleDeploymentModal, deployment) {
+    this.scaleDialog.configure(scaleDeploymentModal, deployment);
+    scaleDeploymentModal.open();
   }
 
 }
