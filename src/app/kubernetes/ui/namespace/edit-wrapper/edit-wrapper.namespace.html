@@ -1,0 +1,4 @@
+<div class='namespaces detail' *ngIf='namespace'>
+  <ipaas-namespace-edit-toolbar [namespace]="namespace | async" [yamlEditor]="yamlEditor"></ipaas-namespace-edit-toolbar>
+  <ipaas-namespace-edit [namespace]="namespace | async" [yamlEditor]="yamlEditor"></ipaas-namespace-edit>
+</div>

@@ -1,3 +1,4 @@
 {
-  "apiEndpoint": "https://ipaas-api-staging.b6ff.rh-idev.openshiftapps.com/v1"
+  "apiEndpoint": "https://ipaas-api-staging.b6ff.rh-idev.openshiftapps.com/v1",
+  "kubernetesEndpoint": "http://192.168.64.30:31282"
 }

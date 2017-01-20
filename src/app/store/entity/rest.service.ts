@@ -5,7 +5,7 @@ import { BaseEntity } from './entity.model';
 
 export abstract class RESTService<T extends BaseEntity, L extends Array<T>> {
 
-  protected constructor(private restangularService: Restangular) { }
+  protected constructor(protected restangularService: Restangular) { }
 
   get(id: string): Observable<T> {
     return this.restangularService.one(id).get();

@@ -3,6 +3,7 @@ import { plural } from 'pluralize';
 
 import { RESTService } from './rest.service';
 import { BaseEntity } from './entity.model';
+import {Observable} from "rxjs";
 
 export abstract class AbstractStore<T extends BaseEntity, L extends Array<T>,
   R extends RESTService<T, L>> {
@@ -20,11 +21,11 @@ export abstract class AbstractStore<T extends BaseEntity, L extends Array<T>,
 
   protected abstract get kind(): string;
 
-  get list() { return this._list.asObservable(); }
+  get list(): Observable<L>  { return this._list.asObservable(); }
 
-  get resource() { return this._current.asObservable(); }
+  get resource(): Observable<T> { return this._current.asObservable(); }
 
-  get loading() { return this._loading.asObservable(); }
+  get loading(): Observable<boolean>  { return this._loading.asObservable(); }
 
   loadAll() {
     this._loading.next(true);
