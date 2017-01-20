@@ -1,0 +1,107 @@
+@import '../../assets/stylesheets/base';
+
+.dropdown {
+    a:hover {
+        text-decoration: none;
+    }
+    a {
+        color: white;
+        background-color: transparent !important;
+    }
+}
+
+.vertical-center {
+    min-height: 100%;
+    /* Fallback for browsers do NOT support vh unit */
+    min-height: 100vh;
+    /* These two lines are counted as one :-)       */
+    display: flex;
+    align-items: center;
+}
+.navbar-pf {
+    .navbar-nav li a {
+        line-height: em(20);
+        text-shadow:none;
+        cursor: pointer;
+        .img-icon{
+            width: em(25);
+            height: em(25);
+            margin-top: em(-3);
+        }
+    }
+     .navbar-collapse span.fa,span.pficon {
+         font-size:em(20);
+     }
+ }
+  @media (max-width: $grid-float-breakpoint){
+    .navbar-collapse {
+        max-height: none;
+    }
+    .nav-mob-scroll{
+        overflow-x: scroll !important;
+        .nav-list-mob-scroll{
+            width: 170%;
+        }
+    }
+ }
+.navbar-pf {
+    .navbar-primary
+    {
+      position:relative;
+      height:auto !important;
+    }
+    .navbar-primary.persistent-secondary
+    >li
+    {
+      a{
+        // hack:ensures elements do not cause secondsry menu to  'jiggle'
+        max-height:$navbar-height;
+      }
+      &.active {
+        &.with-no-children
+        {
+          margin-bottom:0px
+        }
+      }
+    }
+}
+.no-link {
+    color: $color-pf-white;
+    text-decoration: none;
+}
+
+.toggle-btn{
+    max-width: em(132);
+    padding: em(20) 0;
+    .detail-status-dropdown {
+        text-align: $textRight;
+        .dropdown-icon {
+            float: left;
+            margin-right: em(5);
+            font-size: em(12);
+            margin-top: em(5);
+        }
+        .dropdown-text {
+            float: left;
+            text-transform: capitalize;
+            text-align:left;
+        }
+        .caret{
+            margin-top: em(5);
+        }
+        .dropdown-ul {
+            min-width: em(132);
+            width: em(132);
+            top: em(25);
+            .dropdown-li {
+                width: $width100;
+                float: left;
+                a{
+                    width: $width100;
+                    float: left;
+                    padding: em(2) em(10);
+                }
+            }
+        }
+    }
+}

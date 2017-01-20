@@ -1,30 +1,32 @@
 import {NgModule, OpaqueToken} from "@angular/core";
 import {Restangular} from "ng2-restangular";
-import {Connection} from "../../store/connection/connection.model";
-import {Integration} from "../../store/integration/integration.model";
 import {KubernetesResource} from "../model/kuberentes.model";
-import {Function} from "../../store/function/function.model";
 import {Service} from "../model/kuberentes.service.model";
 import {Deployment} from "../model/kuberentes.deployment.model";
 import {ConfigMap} from "../model/kuberentes.configmap.model";
+import {Namespace} from "../model/namespace.model";
+import {Pod} from "../model/pod.model";
+import {ReplicaSet} from "../model/replicaset.model";
+import {ReplicationController} from "../model/replicationcontroller.model";
 
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
 
-export const FunktionKindAnnotation = "funktion.fabric8.io/kind";
+//export const FunktionKindAnnotation = "funktion.fabric8.io/kind";
 
 
 function convertToKubernetesResource(resource) {
   // TODO would be nice to make this bit more modular so we could register other kinds of resource more easily
-  var metadata = resource.metadata || {};
-  var labels = metadata.labels || {};
-  var kindLabel = labels[FunktionKindAnnotation];
   var kind = resource.kind;
   if (!kind) {
     return resource;
   }
   switch (kind) {
     case "ConfigMap":
+/*
+      var metadata = resource.metadata || {};
+      var labels = metadata.labels || {};
+      var kindLabel = labels[FunktionKindAnnotation];
       switch (kindLabel) {
         case  "Function" :
           return new Function().setResource(resource);
@@ -35,10 +37,20 @@ function convertToKubernetesResource(resource) {
         default:
           return new ConfigMap().setResource(resource);
       }
+*/
+      return new ConfigMap().setResource(resource);
     case "Service":
       return new Service().setResource(resource);
     case "Deployment":
       return new Deployment().setResource(resource);
+    case "Namespace":
+      return new Namespace().setResource(resource);
+    case "Pod":
+      return new Pod().setResource(resource);
+    case "ReplicaSet":
+      return new ReplicaSet().setResource(resource);
+    case "ReplicationController":
+      return new ReplicationController().setResource(resource);
     default:
       console.log("Unknown resource kind " + kind);
       return new KubernetesResource().setResource(resource);

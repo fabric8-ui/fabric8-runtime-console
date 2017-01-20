@@ -7,7 +7,7 @@ import {RestangularModule} from "ng2-restangular";
 import {DeploymentEditWrapperComponent} from "./edit-wrapper.deployment";
 import {DeploymentEditToolbarComponent} from "../edit-toolbar/edit-toolbar.deployment";
 import {DeploymentEditComponent} from "../edit/edit.deployment";
-import {StoreModule} from "../../../../store/store.module";
+
 import {KuberentesStoreModule} from "../../../kubernetes.store.module";
 import {MomentModule} from "angular2-moment";
 import {ModalModule} from "ng2-modal";
@@ -21,7 +21,7 @@ describe('DeploymentEditWrapperComponent', () => {
     TestBed
       .configureTestingModule({
         imports: [
-          StoreModule,
+
           KuberentesStoreModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),

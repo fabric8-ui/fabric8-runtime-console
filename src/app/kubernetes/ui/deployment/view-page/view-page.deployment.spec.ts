@@ -8,9 +8,9 @@ import {DeploymentViewPage} from "./view-page.deployment";
 import {DeploymentViewWrapperComponent} from "../view-wrapper/view-wrapper.deployment";
 import {DeploymentViewToolbarComponent} from "../view-toolbar/view-toolbar.deployment";
 import {DeploymentViewComponent} from "../view/view.deployment";
-import {StoreModule} from "../../../../store/store.module";
+
 import {MomentModule} from "angular2-moment";
-import {EntriesPipe} from "../../../view/entries.pipe";
+import {EntriesPipe} from "../../../../common/entries.pipe";
 import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
@@ -24,7 +24,7 @@ describe('DeploymentViewPage', () => {
     TestBed
       .configureTestingModule({
         imports: [
-          StoreModule,
+
           KuberentesStoreModule,
           FormsModule,
           MomentModule,

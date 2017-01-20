@@ -1,102 +1,13 @@
-<header>
-
-  <!-- Navbar: Logged Out -->
-  <nav class="navbar navbar-fixed-top navbar-light loggedOut" *ngIf="!loggedIn">
-    <!-- Logo -->
-    <a [routerLink]=" ['/'] ">
-      <img src="{{ logoWhiteBg }}">
-    </a>
-  </nav>
-
-  <!-- Navbar: Logged In -->
-  <nav class="navbar navbar-pf-vertical">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-      </button>
-      <a [routerLink]=" ['/'] " class="navbar-brand">
-        <!--
-                <img class="navbar-brand-icon"
-                     src="/assets/images/logo-alt.svg"
-                     alt=""/>
-                <img class="navbar-brand-name"
-                     src="/assets/images/brand-alt.svg"
-                     alt="iPaaS" />
-                     -->
-        <img class="navbar-brand-icon" [src]="iconDarkBg" alt="" />
-        <img class="navbar-brand-name" [src]="logoDarkBg" alt="iPaaS" />
-      </a>
-    </div>
-    <nav class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-right navbar-iconic">
-
-        <!-- User Dropdown -->
-        <li class="dropdown">
-          <a class="dropdown-toggle nav-item-iconic" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <span title="Username" class="fa pficon-user"></span>&nbsp;Clint Eastwood
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <li><a href="#">Preferences</a></li>
-            <li><a href="#">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </nav>
-  <!--/.navbar-->
+<header class="padding-bottom-10" >
+  <alm-app-header></alm-app-header>
 </header>
-
-<!-- Sidebar -->
-<div class="nav-pf-vertical hidden-icons-pf">
-  <ul class="list-group">
-    <li class="list-group-item" routerLinkActive="active">
-      <a [routerLink]=" ['dashboard'] ">
-        <span class="fa fa-tachometer" data-toggle="tooltip" title="Dashboard"></span>
-        <span class="list-group-item-value">Dashboard</span>
-      </a>
-    </li>
-    <li class="list-group-item" routerLinkActive="active">
-      <a [routerLink]=" ['integrations'] ">
-        <span class="pficon pficon-topology" data-toggle="tooltip" title="Integrations"></span>
-        <span class="list-group-item-value">Integrations</span>
-      </a>
-    </li>
-    <li class="list-group-item" routerLinkActive="active">
-      <a [routerLink]=" ['connections'] ">
-        <span class="pficon pficon-network" data-toggle="tooltip" title="Connections"></span>
-        <span class="list-group-item-value">Connections</span>
-      </a>
-    </li>
-    <li class="list-group-item" routerLinkActive="active">
-      <a [routerLink]=" ['functions'] ">
-        <span class="pficon pficon-topology" data-toggle="tooltip" title="Functions"></span>
-        <span class="list-group-item-value">Functions</span>
-      </a>
-    </li>
-    <li class="list-group-item" routerLinkActive="active">
-      <a [routerLink]=" ['templates'] ">
-        <span class="pficon pficon-replicator" data-toggle="tooltip" title="Templates"></span>
-        <span class="list-group-item-value">Templates</span>
-      </a>
-    </li>
-    <li class="list-group-item" routerLinkActive="active">
-      <a [routerLink]=" ['admin'] ">
-        <span class="fa fa-lock" data-toggle="tooltip" title="Admin"></span>
-        <span class="list-group-item-value">Admin</span>
-      </a>
-    </li>
-    <li class="list-group-item" routerLinkActive="active">
-      <a [routerLink]=" ['run', 'funky', 'deployments'] ">
-        <span class="fa fa-lock" data-toggle="tooltip" title="Deployments"></span>
-        <span class="list-group-item-value">Deployments</span>
-      </a>
-    </li>
-  </ul>
-</div>
-<main class="container-fluid container-pf-nav-pf-vertical">
-  <router-outlet></router-outlet>
+<main class="view-container flex-container in-column-direction">
+  <div class="view overflow-auto">
+    <router-outlet></router-outlet>
+  </div>
 </main>
+<!--
+<footer>
+  <alm-app-footer ></alm-app-footer>
+</footer>
+-->

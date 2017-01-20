@@ -5,21 +5,27 @@ import {HttpModule} from "@angular/http";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {RestangularModule} from "ng2-restangular";
 import {AppRoutingModule} from "./approuting/approuting.module";
-import {StoreModule} from "./store/store.module";
+
 import {IPaaSCommonModule} from "./common/common.module";
 import {AppComponent} from "./app.component";
 import {ConfigService, configServiceInitializer} from "./config.service";
 import {KubernetesUIModule} from "./kubernetes/ui/ui.module";
 import {KuberentesStoreModule} from "./kubernetes/kubernetes.store.module";
+import {HeaderComponent} from "./header/header.component";
+import {DummyService} from "./dummy/dummy.service";
+import {Broadcaster} from "./shared/broadcaster.service";
+import {ContextService} from "./shared/context.service";
+import {Logger} from "./shared/logger.service";
+//import {LocalStorageModule} from 'angular-2-local-storage';
+//import {DropdownModule} from 'ng2-dropdown';
+//import {DropdownModule} from "./shared-component/dropdown/dropdown.module";
+import {DropdownModule} from "ngx-dropdown";
 
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
   restangularProvider.setBaseUrl(config.getSettings().apiEndpoint);
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -27,10 +33,21 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     RestangularModule.forRoot([ConfigService], restangularProviderConfigurer),
     NgbModule.forRoot(),
     AppRoutingModule,
-    StoreModule,
+    DropdownModule,
+
     IPaaSCommonModule,
     KuberentesStoreModule,
     KubernetesUIModule,
+/*
+    LocalStorageModule.withConfig({
+      prefix: 'fabric8',
+      storageType: 'localStorage'
+    }),
+*/
+  ],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
   ],
   providers: [
     ConfigService,
@@ -40,6 +57,10 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
       deps: [ConfigService],
       multi: true,
     },
+    Broadcaster,
+    ContextService,
+    DummyService,
+    Logger,
   ],
   bootstrap: [AppComponent],
 })

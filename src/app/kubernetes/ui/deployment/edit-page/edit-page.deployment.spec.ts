@@ -5,7 +5,7 @@ import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
 import {DeploymentEditPage} from "./edit-page.deployment";
-import {StoreModule} from "../../../../store/store.module";
+
 import {DeploymentEditWrapperComponent} from "../edit-wrapper/edit-wrapper.deployment";
 import {DeploymentEditToolbarComponent} from "../edit-toolbar/edit-toolbar.deployment";
 import {DeploymentEditComponent} from "../edit/edit.deployment";
@@ -21,7 +21,7 @@ describe('DeploymentEditPage', () => {
     TestBed
       .configureTestingModule({
         imports: [
-          StoreModule,
+
           KuberentesStoreModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),

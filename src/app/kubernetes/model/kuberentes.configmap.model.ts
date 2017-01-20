@@ -1,5 +1,5 @@
 import {KubernetesResource} from "./kuberentes.model";
-import {FunktionKindAnnotation} from "../service/kubernetes.restangular";
+//import {FunktionKindAnnotation} from "../service/kubernetes.restangular";
 
 export class ConfigMap extends KubernetesResource {
   data: Map<string,string>;
@@ -9,13 +9,21 @@ export class ConfigMap extends KubernetesResource {
     resource.data = this.data;
     super.updateResource(resource);
 
+/*
     if (!this.labels[FunktionKindAnnotation]) {
       var funktionKind = this.defaultFunctionKind();
       if (funktionKind) {
         this.labels[FunktionKindAnnotation] = funktionKind;
       }
     }
+*/
   }
+
+/*
+  defaultFunctionKind() {
+    return "";
+  }
+*/
 
   updateValuesFromResource() {
     super.updateValuesFromResource();
@@ -25,8 +33,8 @@ export class ConfigMap extends KubernetesResource {
   defaultKind() {
     return "ConfigMap";
   }
-
-  defaultFunctionKind() {
-    return "";
-  }
 }
+
+export class ConfigMaps extends Array<ConfigMap>{
+}
+

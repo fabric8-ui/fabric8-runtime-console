@@ -7,9 +7,9 @@ import {RestangularModule} from "ng2-restangular";
 import {DeploymentViewWrapperComponent} from "./view-wrapper.deployment";
 import {DeploymentViewToolbarComponent} from "../view-toolbar/view-toolbar.deployment";
 import {DeploymentViewComponent} from "../view/view.deployment";
-import {StoreModule} from "../../../../store/store.module";
+
 import {MomentModule} from "angular2-moment";
-import {EntriesPipe} from "../../../view/entries.pipe";
+import {EntriesPipe} from "../../../../common/entries.pipe";
 import {DeploymentDeleteDialog} from "../delete-dialog/delete-dialog.deployment";
 import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 import {ModalModule} from "ng2-modal";
@@ -24,7 +24,7 @@ describe('DeploymentViewWrapperComponent', () => {
     TestBed
       .configureTestingModule({
         imports: [
-          StoreModule,
+
           KuberentesStoreModule,
           FormsModule,
           MomentModule,

@@ -16,7 +16,6 @@ import {DeploymentEditToolbarComponent} from "./edit-toolbar/edit-toolbar.deploy
 import {DeploymentEditComponent} from "./edit/edit.deployment";
 import {DeploymentDeleteDialog} from "./delete-dialog/delete-dialog.deployment";
 import {IPaaSCommonModule} from "../../../common/common.module";
-import {EntriesPipe} from "../../view/entries.pipe";
 import {DeploymentScaleDialog} from "./scale-dialog/scale-dialog.deployment";
 import {MomentModule} from "angular2-moment";
 
@@ -49,7 +48,6 @@ const routes: Routes = [
     DeploymentEditComponent,
     DeploymentDeleteDialog,
     DeploymentScaleDialog,
-    EntriesPipe,
   ],
   entryComponents: [
     DeploymentDeleteDialog,
