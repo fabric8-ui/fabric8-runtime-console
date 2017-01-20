@@ -11,12 +11,12 @@ describe('IntegrationViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({declarations: [IntegrationViewComponent]})
-        .compileIntegrations();
+        .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createIntegration(IntegrationViewComponent);
-    fn = fixture.fnInstance;
+    fixture = TestBed.createComponent(IntegrationViewComponent);
+    fn = fixture.componentInstance;
     fixture.detectChanges();
   });
 

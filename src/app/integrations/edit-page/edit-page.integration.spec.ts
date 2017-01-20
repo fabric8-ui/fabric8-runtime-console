@@ -14,7 +14,7 @@ import { IntegrationEditComponent } from '../view/view.integration';
 import { StoreModule } from '../../store/store.module';
 
 describe('IntegrationEditPage', () => {
-  let fn: IntegrationEditPage;
+  let component: IntegrationEditPage;
   let fixture: ComponentFixture<IntegrationEditPage>;
 
   beforeEach(async(() => {
@@ -46,9 +46,9 @@ describe('IntegrationEditPage', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(IntegrationEditPage);
-    fn = fixture.integrationInstance;
+    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => { expect(fn).toBeTruthy(); });
+  it('should create', () => { expect(component).toBeTruthy(); });
 });

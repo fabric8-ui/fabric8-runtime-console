@@ -88,6 +88,18 @@
             <span class="nowrap">8080/TCP</span>
           </dd>
         </div>
+
+        <div *ngIf="container.env">
+          <dt class="pod-template-key"><span data-icon="" aria-hidden="true"
+                                             style="font-size:16px;line-height:normal"></span> Ports:
+          </dt>
+          <!--
+                  <span *ngFor="let port of container.ports | orderBy: 'containerPort'">
+          -->
+          <dd *ngFor="let port of container.ports">
+            <span class="nowrap">8080/TCP</span>
+          </dd>
+        </div>
       </dl>
     </div>
   </div>

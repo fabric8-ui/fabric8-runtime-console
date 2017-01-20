@@ -10,6 +10,7 @@ import { TemplatesListPage } from './list-page.component';
 import { TemplatesListComponent } from '../list/list.component';
 import { ListToolbarComponent } from '../list-toolbar/list-toolbar.component';
 import { StoreModule } from '../../store/store.module';
+import {KuberentesStoreModule} from "../../kubernetes/kubernetes.store.module";
 
 describe('TemplatesListPage', () => {
   let component: TemplatesListPage;
@@ -17,7 +18,7 @@ describe('TemplatesListPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [IPaaSCommonModule, StoreModule, RestangularModule.forRoot(), RouterTestingModule.withRoutes([])],
+      imports: [IPaaSCommonModule, StoreModule, KuberentesStoreModule, RestangularModule.forRoot(), RouterTestingModule.withRoutes([])],
       declarations: [TemplatesListPage, ListToolbarComponent, TemplatesListComponent],
       providers: [
         MockBackend,

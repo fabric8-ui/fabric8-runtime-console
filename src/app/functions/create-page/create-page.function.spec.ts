@@ -1,17 +1,18 @@
 /* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockBackend } from '@angular/http/testing';
 import { RequestOptions, BaseRequestOptions, Http } from '@angular/http';
 import { RestangularModule } from 'ng2-restangular';
 
-import { FunctionCreatePage } from './create-pagefunction';
-import { FunctionCreateWrapperComponent } from '../view-wrapper/view-wrapper.function';
-import { FunctionCreateToolbarComponent } from '../view-toolbar/view-toolbar.function';
-import { FunctionCreateComponent } from '../view/view.function';
 import { StoreModule } from '../../store/store.module';
+import {FunctionCreatePage} from "./create-page.function";
+import {FunctionCreateWrapperComponent} from "../create-wrapper/create-wrapper.function";
+import {FunctionCreateToolbarComponent} from "../create-toolbar/create-toolbar.function";
+import {FunctionCreateComponent} from "../create/create.function";
+import {KubernetesRestangularModule} from "../../kubernetes/service/kubernetes.restangular";
+import {FormsModule} from "@angular/forms";
 
 describe('FunctionCreatePage', () => {
   let fn: FunctionCreatePage;
@@ -21,7 +22,9 @@ describe('FunctionCreatePage', () => {
     TestBed
       .configureTestingModule({
         imports: [
+          FormsModule,
           StoreModule,
+          KubernetesRestangularModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
         ],
@@ -46,7 +49,7 @@ describe('FunctionCreatePage', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FunctionCreatePage);
-    fn = fixture.functionInstance;
+    fn = fixture.componentInstance;
     fixture.detectChanges();
   });
 

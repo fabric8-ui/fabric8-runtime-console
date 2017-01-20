@@ -1,17 +1,16 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MockBackend } from '@angular/http/testing';
-import { RequestOptions, BaseRequestOptions, Http } from '@angular/http';
-import { RestangularModule } from 'ng2-restangular';
-
-import { FunctionEditPage } from './edit-pagefunction';
-import { FunctionEditWrapperComponent } from '../view-wrapper/view-wrapper.function';
-import { FunctionEditToolbarComponent } from '../view-toolbar/view-toolbar.function';
-import { FunctionEditComponent } from '../view/view.function';
-import { StoreModule } from '../../store/store.module';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {RouterTestingModule} from "@angular/router/testing";
+import {MockBackend} from "@angular/http/testing";
+import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
+import {RestangularModule} from "ng2-restangular";
+import {StoreModule} from "../../store/store.module";
+import {FunctionEditPage} from "./edit-page.function";
+import {FunctionEditToolbarComponent} from "../edit-toolbar/edit-toolbar.function";
+import {FunctionEditWrapperComponent} from "../edit-wrapper/edit-wrapper.function";
+import {FunctionEditComponent} from "../edit/edit.function";
+import {FormsModule} from "@angular/forms";
+import {KuberentesStoreModule} from "../../kubernetes/kubernetes.store.module";
 
 describe('FunctionEditPage', () => {
   let fn: FunctionEditPage;
@@ -21,7 +20,9 @@ describe('FunctionEditPage', () => {
     TestBed
       .configureTestingModule({
         imports: [
+          FormsModule,
           StoreModule,
+          KuberentesStoreModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
         ],
@@ -46,7 +47,7 @@ describe('FunctionEditPage', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FunctionEditPage);
-    fn = fixture.functionInstance;
+    fn = fixture.componentInstance;
     fixture.detectChanges();
   });
 

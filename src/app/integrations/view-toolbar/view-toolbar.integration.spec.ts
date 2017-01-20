@@ -21,7 +21,7 @@ describe('IntegrationViewToolbarComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(IntegrationViewToolbarComponent);
-    fn = fixture.integrationInstance;
+    fn = fixture.componentInstance;
     fixture.detectChanges();
   });
 

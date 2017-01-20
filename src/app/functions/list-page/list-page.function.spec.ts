@@ -10,6 +10,9 @@ import { FunctionsListPage } from './list-page.function';
 import { FunctionsListComponent } from '../list/list.function';
 import { FunctionsListToolbarComponent } from '../list-toolbar/list-toolbar.function';
 import { StoreModule } from '../../store/store.module';
+import {KuberentesStoreModule} from "../../kubernetes/kubernetes.store.module";
+import {FunctionDeleteDialog} from "../delete-dialog/delete-dialog.function";
+import {ModalModule} from "ng2-modal";
 
 describe('FunctionsListPage', () => {
   let component: FunctionsListPage;
@@ -17,8 +20,19 @@ describe('FunctionsListPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [IPaaSCommonModule, StoreModule, RouterTestingModule.withRoutes([]), RestangularModule.forRoot()],
-      declarations: [FunctionsListPage, FunctionsListComponent, FunctionsListToolbarComponent],
+      imports: [
+        IPaaSCommonModule,
+        StoreModule,
+        KuberentesStoreModule,
+        ModalModule,
+        RouterTestingModule.withRoutes([]),
+        RestangularModule.forRoot()],
+      declarations: [
+        FunctionsListPage,
+        FunctionsListComponent,
+        FunctionsListToolbarComponent,
+        FunctionDeleteDialog,
+      ],
       providers: [
         MockBackend,
         { provide: RequestOptions, useClass: BaseRequestOptions },

@@ -10,6 +10,7 @@ import { ConnectionsListPage } from './list-page.component';
 import { ConnectionsListComponent } from '../list/list.component';
 import { ConnectionsListToolbarComponent } from '../list-toolbar/list-toolbar.component';
 import { StoreModule } from '../../store/store.module';
+import {KuberentesStoreModule} from "../../kubernetes/kubernetes.store.module";
 
 describe('ConnectionListPage', () => {
   let component: ConnectionsListPage;
@@ -17,7 +18,7 @@ describe('ConnectionListPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [IPaaSCommonModule, StoreModule, RouterTestingModule.withRoutes([]), RestangularModule.forRoot()],
+      imports: [IPaaSCommonModule, StoreModule, KuberentesStoreModule, RouterTestingModule.withRoutes([]), RestangularModule.forRoot()],
       declarations: [ConnectionsListPage, ConnectionsListComponent, ConnectionsListToolbarComponent],
       providers: [
         MockBackend,

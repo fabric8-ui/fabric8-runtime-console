@@ -13,7 +13,9 @@ describe('DeploymentViewToolbarComponent', () => {
   beforeEach(async(() => {
     TestBed
         .configureTestingModule({
-          imports: [RouterTestingModule.withRoutes([])],
+          imports: [
+            RouterTestingModule.withRoutes([]),
+          ],
           declarations: [DeploymentViewToolbarComponent],
         })
         .compileComponents();
@@ -21,7 +23,7 @@ describe('DeploymentViewToolbarComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DeploymentViewToolbarComponent);
-    deployment = fixture.deploymentInstance;
+    deployment = fixture.componentInstance;
     fixture.detectChanges();
   });
 

@@ -12,6 +12,7 @@ import { FunctionViewWrapperComponent } from '../view-wrapper/view-wrapper.funct
 import { FunctionViewToolbarComponent } from '../view-toolbar/view-toolbar.function';
 import { FunctionViewComponent } from '../view/view.function';
 import { StoreModule } from '../../store/store.module';
+import {KuberentesStoreModule} from "../../kubernetes/kubernetes.store.module";
 
 describe('FunctionViewPage', () => {
   let fn: FunctionViewPage;
@@ -22,6 +23,7 @@ describe('FunctionViewPage', () => {
       .configureTestingModule({
         imports: [
           StoreModule,
+          KuberentesStoreModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
         ],
@@ -46,7 +48,7 @@ describe('FunctionViewPage', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FunctionViewPage);
-    fn = fixture.functionInstance;
+    fn = fixture.componentInstance;
     fixture.detectChanges();
   });
 

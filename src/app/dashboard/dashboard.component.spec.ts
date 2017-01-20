@@ -13,6 +13,7 @@ import { EmptyStateComponent } from './emptystate.component';
 import { PopularTemplatesComponent } from './populartemplates.component';
 import { TemplatesListComponent } from '../templates/list/list.component';
 import { StoreModule } from '../store/store.module';
+import {KuberentesStoreModule} from "../kubernetes/kubernetes.store.module";
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -20,7 +21,7 @@ describe('DashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [IPaaSCommonModule, StoreModule, RouterTestingModule.withRoutes([]), RestangularModule.forRoot()],
+      imports: [IPaaSCommonModule, StoreModule, KuberentesStoreModule, RouterTestingModule.withRoutes([]), RestangularModule.forRoot()],
       declarations: [DashboardComponent, EmptyStateComponent, PopularTemplatesComponent, TemplatesListComponent],
       providers: [
         MockBackend,

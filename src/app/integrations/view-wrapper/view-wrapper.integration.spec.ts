@@ -11,6 +11,7 @@ import { IntegrationViewWrapperComponent } from './view-wrapper.integration';
 import { IntegrationViewToolbarComponent } from '../view-toolbar/view-toolbar.integration';
 import { IntegrationViewComponent } from '../view/view.integration';
 import { StoreModule } from '../../store/store.module';
+import {KuberentesStoreModule} from "../../kubernetes/kubernetes.store.module";
 
 describe('IntegrationViewWrapperComponent', () => {
   let fn: IntegrationViewWrapperComponent;
@@ -21,6 +22,7 @@ describe('IntegrationViewWrapperComponent', () => {
       .configureTestingModule({
         imports: [
           StoreModule,
+          KuberentesStoreModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
         ],
@@ -44,7 +46,7 @@ describe('IntegrationViewWrapperComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(IntegrationViewWrapperComponent);
-    fn = fixture.integrationInstance;
+    fn = fixture.componentInstance;
     fixture.detectChanges();
   });
 

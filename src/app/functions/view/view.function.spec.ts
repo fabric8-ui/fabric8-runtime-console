@@ -11,12 +11,12 @@ describe('FunctionViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({declarations: [FunctionViewComponent]})
-        .compileFunctions();
+        .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createFunction(FunctionViewComponent);
-    fn = fixture.fnInstance;
+    fixture = TestBed.createComponent(FunctionViewComponent);
+    fn = fixture.componentInstance;
     fixture.detectChanges();
   });
 

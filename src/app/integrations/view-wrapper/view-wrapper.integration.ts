@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-
-import { Integration } from '../../store/integration/integration.model';
-import { IntegrationStore } from '../../store/integration/integration.store';
+import {Component, OnInit} from "@angular/core";
+import {Observable} from "rxjs/Observable";
+import {Integration} from "../../store/integration/integration.model";
+import {IntegrationStore} from "../../store/integration/integration.store";
 
 @Component({
   selector: 'ipaas-integration-view-wrapper',
@@ -12,7 +11,10 @@ import { IntegrationStore } from '../../store/integration/integration.store';
 export class IntegrationViewWrapperComponent implements OnInit {
   integration: Observable<Integration>;
 
-  constructor(private store: IntegrationStore) { }
+  constructor(private store: IntegrationStore) {
+  }
 
-  ngOnInit() { this.integration = this.store.resource; }
+  ngOnInit() {
+    this.integration = this.store.resource;
+  }
 }

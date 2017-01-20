@@ -1,17 +1,17 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MockBackend } from '@angular/http/testing';
-import { RequestOptions, BaseRequestOptions, Http } from '@angular/http';
-import { RestangularModule } from 'ng2-restangular';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {RouterTestingModule} from "@angular/router/testing";
+import {MockBackend} from "@angular/http/testing";
+import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
+import {RestangularModule} from "ng2-restangular";
+import {DeploymentEditPage} from "./edit-page.deployment";
+import {StoreModule} from "../../../../store/store.module";
+import {DeploymentEditWrapperComponent} from "../edit-wrapper/edit-wrapper.deployment";
+import {DeploymentEditToolbarComponent} from "../edit-toolbar/edit-toolbar.deployment";
+import {DeploymentEditComponent} from "../edit/edit.deployment";
+import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {FormsModule} from "@angular/forms";
 
-import { DeploymentEditPage } from './edit-pagedeployment';
-import { DeploymentEditWrapperComponent } from '../view-wrapper/view-wrapper.deployment';
-import { DeploymentEditToolbarComponent } from '../view-toolbar/view-toolbar.deployment';
-import { DeploymentEditComponent } from '../view/view.deployment';
-import { StoreModule } from '../../store/store.module';
 
 describe('DeploymentEditPage', () => {
   let deployment: DeploymentEditPage;
@@ -22,8 +22,10 @@ describe('DeploymentEditPage', () => {
       .configureTestingModule({
         imports: [
           StoreModule,
+          KuberentesStoreModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
+          FormsModule,
         ],
         declarations: [
           DeploymentEditPage,
@@ -46,7 +48,7 @@ describe('DeploymentEditPage', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DeploymentEditPage);
-    deployment = fixture.deploymentInstance;
+    deployment = fixture.componentInstance;
     fixture.detectChanges();
   });
 

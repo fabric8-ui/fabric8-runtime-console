@@ -11,6 +11,7 @@ import { IntegrationEditWrapperComponent } from './edit-wrapper.integration';
 import { IntegrationEditToolbarComponent } from '../edit-toolbar/edit-toolbar.integration';
 import { IntegrationEditComponent } from '../view/view.integration';
 import { StoreModule } from '../../store/store.module';
+import {KuberentesStoreModule} from "../../kubernetes/kubernetes.store.module";
 
 describe('IntegrationEditWrapperComponent', () => {
   let fn: IntegrationEditWrapperComponent;
@@ -21,6 +22,7 @@ describe('IntegrationEditWrapperComponent', () => {
       .configureTestingModule({
         imports: [
           StoreModule,
+          KuberentesStoreModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
         ],
@@ -44,7 +46,7 @@ describe('IntegrationEditWrapperComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(IntegrationEditWrapperComponent);
-    fn = fixture.integrationInstance;
+    fn = fixture.componentInstance;
     fixture.detectChanges();
   });
 

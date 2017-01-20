@@ -1,24 +1,31 @@
 /* tslint:disable:no-unused-variable */
-import {async, DeploymentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-
-import {DeploymentEditComponent} from './edit.deployment';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {DeploymentEditComponent} from "./edit.deployment";
+import {FormsModule} from "@angular/forms";
 
 describe('DeploymentEditComponent', () => {
   let deployment: DeploymentEditComponent;
-  let fixture: DeploymentFixture<DeploymentEditComponent>;
+  let fixture: ComponentFixture<DeploymentEditComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({declarations: [DeploymentEditComponent]})
-        .compileDeployments();
+    TestBed.configureTestingModule({
+      imports: [
+        FormsModule,
+      ],
+      declarations: [
+        DeploymentEditComponent,
+      ]
+    })
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createDeployment(DeploymentEditComponent);
-    deployment = fixture.deploymentInstance;
+    fixture = TestBed.createComponent(DeploymentEditComponent);
+    deployment = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => { expect(deployment).toBeTruthy(); });
+  it('should create', () => {
+    expect(deployment).toBeTruthy();
+  });
 });

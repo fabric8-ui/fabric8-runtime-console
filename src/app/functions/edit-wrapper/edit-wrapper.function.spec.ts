@@ -11,6 +11,8 @@ import { FunctionEditWrapperComponent } from './edit-wrapper.function';
 import { FunctionEditToolbarComponent } from '../edit-toolbar/edit-toolbar.function';
 import { FunctionEditComponent } from '../edit/edit.function';
 import { StoreModule } from '../../store/store.module';
+import {FormsModule} from "@angular/forms";
+import {KuberentesStoreModule} from "../../kubernetes/kubernetes.store.module";
 
 describe('FunctionEditWrapperComponent', () => {
   let fn: FunctionEditWrapperComponent;
@@ -20,7 +22,9 @@ describe('FunctionEditWrapperComponent', () => {
     TestBed
       .configureTestingModule({
         imports: [
+          FormsModule,
           StoreModule,
+          KuberentesStoreModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
         ],
@@ -44,7 +48,7 @@ describe('FunctionEditWrapperComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FunctionEditWrapperComponent);
-    fn = fixture.functionInstance;
+    fn = fixture.componentInstance;
     fixture.detectChanges();
   });
 

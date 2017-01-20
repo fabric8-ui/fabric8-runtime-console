@@ -11,6 +11,7 @@ import { ConnectionViewWrapperComponent } from './view-wrapper.component';
 import { ConnectionViewToolbarComponent } from '../view-toolbar/view-toolbar.component';
 import { ConnectionViewComponent } from '../view/view.component';
 import { StoreModule } from '../../store/store.module';
+import {KubernetesRestangularModule} from "../../kubernetes/service/kubernetes.restangular";
 
 describe('ConnectionViewWrapperComponent', () => {
   let component: ConnectionViewWrapperComponent;
@@ -21,6 +22,7 @@ describe('ConnectionViewWrapperComponent', () => {
       .configureTestingModule({
         imports: [
           StoreModule,
+          KubernetesRestangularModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
         ],

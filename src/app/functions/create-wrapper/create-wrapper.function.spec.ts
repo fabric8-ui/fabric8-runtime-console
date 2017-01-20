@@ -11,6 +11,8 @@ import { FunctionCreateWrapperComponent } from './create-wrapper.function';
 import { FunctionCreateToolbarComponent } from '../create-toolbar/create-toolbar.function';
 import { FunctionCreateComponent } from '../create/create.function';
 import { StoreModule } from '../../store/store.module';
+import {FormsModule} from "@angular/forms";
+import {KuberentesStoreModule} from "../../kubernetes/kubernetes.store.module";
 
 describe('FunctionCreateWrapperComponent', () => {
   let fn: FunctionCreateWrapperComponent;
@@ -20,7 +22,9 @@ describe('FunctionCreateWrapperComponent', () => {
     TestBed
       .configureTestingModule({
         imports: [
+          FormsModule,
           StoreModule,
+          KuberentesStoreModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
         ],
@@ -44,7 +48,7 @@ describe('FunctionCreateWrapperComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FunctionCreateWrapperComponent);
-    fn = fixture.functionInstance;
+    fn = fixture.componentInstance;
     fixture.detectChanges();
   });
 

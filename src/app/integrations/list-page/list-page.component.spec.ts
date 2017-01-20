@@ -10,6 +10,7 @@ import { IntegrationsListPage } from './list-page.component';
 import { IntegrationsListComponent } from '../list/list.component';
 import { IntegrationsListToolbarComponent } from '../list-toolbar/list-toolbar.component';
 import { StoreModule } from '../../store/store.module';
+import {KuberentesStoreModule} from "../../kubernetes/kubernetes.store.module";
 
 describe('IntegrationsListPage', () => {
   let component: IntegrationsListPage;
@@ -17,7 +18,7 @@ describe('IntegrationsListPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [IPaaSCommonModule, StoreModule, RouterTestingModule.withRoutes([]), RestangularModule.forRoot()],
+      imports: [IPaaSCommonModule, StoreModule, KuberentesStoreModule, RouterTestingModule.withRoutes([]), RestangularModule.forRoot()],
       declarations: [IntegrationsListPage, IntegrationsListComponent, IntegrationsListToolbarComponent],
       providers: [
         MockBackend,

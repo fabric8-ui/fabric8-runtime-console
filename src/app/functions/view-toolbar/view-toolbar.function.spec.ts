@@ -21,7 +21,7 @@ describe('FunctionViewToolbarComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FunctionViewToolbarComponent);
-    fn = fixture.functionInstance;
+    fn = fixture.componentInstance;
     fixture.detectChanges();
   });
 
