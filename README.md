@@ -1,10 +1,6 @@
-# Red Hat iPaaS Client
+# Fabric8 Runtime Client
 
-[![CircleCI](https://circleci.com/gh/redhat-ipaas/ipaas-client.svg?style=svg)](https://circleci.com/gh/redhat-ipaas/ipaas-client)
-
-The front end application for Red Hat iPaaS - a flexible, customizable, cloud-hosted platform that provides core integration capabilities as a service. It leverages Red Hat's existing product architecture using OpenShift Online/Dedicated and Fuse Integration Services.
-
-For the middle tier API that this client communicates with, please see [this](https://github.com/redhat-ipaas/ipaas-api-java) repo.
+This is the new angular 2 based console for building and running applications on kubernetes and openshift
 
 Included in this stack are the following technologies:
 
@@ -26,10 +22,8 @@ Clone/download the repo start editing `app.component.ts` inside [`/src/app/`](/s
 
 ```bash
 # clone our repo
-git clone https://github.com/redhat-ipaas/ipaas-client.git
-
-# change directory to iPaaS
-cd ipaas-client
+git clone https://github.com/fabric8-ui/fabric8-runtime-console.git
+cd abric8-runtime-console
 
 # install the dependencies
 yarn
@@ -42,28 +36,11 @@ Go to [http://0.0.0.0:4200](http://0.0.0.0:4200) or [http://localhost:4200](http
 
 ### Using the Kubernetes back end
 
-To be able to use the kubernetes & funktion back end for resources like Integrations, Connections, Functions you will need to run
+To be able to use the kubernetes / openshift back end for builds and runtime resources you will need to run
 
 ```bash
 kubectl proxy
 ```
-
-To see how to use [funktion](https://funktion.fabric8.io/) to populate some connectors and create some functions see the [example](https://funktion.fabric8.io/#portfolio)
-
-e.g.
-
-```bash
-kubectl create namespace funky
-kubectl config set-context `kubectl config current-context` --namespace=funky
-
-
-funktion install runtime
-funktion install connector http4 timer twitter
-
-funktion create fn -n myfunk -s 'module.exports = function(context, callback) { callback(200, "Hello, world!\n"); }'
-funktion create flow timer://bar?period=5000 http://myfunk/
-```       
-
 
 
 ## Table of Contents
@@ -189,17 +166,3 @@ Configuration files live in `/config`. Configuration files are currently availab
 ## Contributing
 
 Pull requests are always welcome. Please read through our [Contribution](/docs/contributing.md) guidelines in the `/docs` directory.
-
-## Resources
-
-Resources used in planning and developing this project.
-
-* [Backend of iPaaS](https://github.com/fabric8io/fabric8-forge)
-* [Design Prototype](https://projects.invisionapp.com/share/4P84NS9K6#/screens)
-* [Entity Relationships](/docs/entities.md)
-* [Google Drive iPaaS Folder](https://drive.google.com/drive/folders/0B8Kpb4FsPn_fQ3NsOVRlNzIzZTg?usp=sharing)
-* [User Flow](https://drive.google.com/a/redhat.com/file/d/0B5uwxxDGbUVzNTl4aFQ4NVNnWlE/view)
-
-## Frequently Asked Questions (FAQ)
-
-You can read our FAQ, located in our `/docs` directory, [here](/docs/faq.md).
