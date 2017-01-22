@@ -1,4 +1,4 @@
-# Fabric8 Runtime Client
+# Fabric8 Runtime Console foooo
 
 This is the new angular 2 based console for building and running applications on kubernetes and openshift
 
@@ -23,7 +23,7 @@ Clone/download the repo start editing `app.component.ts` inside [`/src/app/`](/s
 ```bash
 # clone our repo
 git clone https://github.com/fabric8-ui/fabric8-runtime-console.git
-cd abric8-runtime-console
+cd fabric8-runtime-console
 
 # install the dependencies
 yarn
