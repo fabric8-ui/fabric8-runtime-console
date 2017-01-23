@@ -6,12 +6,12 @@ import {
   Output,
   OnInit,
   OnChanges,
-  HostListener
+  HostListener,
 } from '@angular/core';
 
 @Directive({
     selector: '[almInfiniteScroll]',
-    exportAs: 'almInfiniteScroll'
+    exportAs: 'almInfiniteScroll',
 })
 export class InfiniteScrollDirective implements OnInit {
 
@@ -38,7 +38,7 @@ export class InfiniteScrollDirective implements OnInit {
 
   initContentItems() {
     this.initItems.emit({
-      pageSize: this.pageSize
+      pageSize: this.pageSize,
     });
   }
 

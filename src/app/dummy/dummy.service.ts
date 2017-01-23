@@ -1,18 +1,18 @@
-import {Context} from "./../models/context";
-import {ContextType} from "./../models/context-type";
-import {Space} from "./../models/space";
-import {Resources} from "./../models/resources";
-import {ProcessTemplate} from "./../models/process-template";
-import {User} from "./../models/user";
-import {Team} from "./../models/team";
-import {Entity} from "./../models/entity";
-import {Injectable, OnInit} from "@angular/core";
+import {Context} from './../models/context';
+import {ContextType} from './../models/context-type';
+import {Space} from './../models/space';
+import {Resources} from './../models/resources';
+import {ProcessTemplate} from './../models/process-template';
+import {User} from './../models/user';
+import {Team} from './../models/team';
+import {Entity} from './../models/entity';
+import {Injectable, OnInit} from '@angular/core';
 //import {LocalStorageService} from "angular-2-local-storage";
-import {Broadcaster} from "../shared/broadcaster.service";
-import "rxjs/add/operator/toPromise";
-import {Observable} from "rxjs";
-import {Namespaces} from "../kubernetes/model/namespace.model";
-import {NamespaceStore} from "../kubernetes/store/namespace.store";
+import {Broadcaster} from '../shared/broadcaster.service';
+import 'rxjs/add/operator/toPromise';
+import {Observable} from 'rxjs';
+import {Namespaces} from '../kubernetes/model/namespace.model';
+import {NamespaceStore} from '../kubernetes/store/namespace.store';
 
 // A service responsible for providing dummy data for the UI prototypes.
 
@@ -26,19 +26,19 @@ export class DummyService implements OnInit {
       {
         type: {
           name: 'Pipeline',
-          unit: 'minutes'
+          unit: 'minutes',
         },
         value: 124,
-        max: 200
+        max: 200,
       }, {
         type: {
           name: 'Environments',
-          unit: 'RAM-minutes'
+          unit: 'RAM-minutes',
         },
         value: 7185,
-        max: 18000
-      }
-    ]
+        max: 18000,
+      },
+    ],
   };
 
   readonly USERS: Map<string, User> = new Map<string, User>(
@@ -51,11 +51,11 @@ export class DummyService implements OnInit {
             imageURL: 'https://avatars2.githubusercontent.com/u/157761?v=3&s=460',
             email: 'pmuir@fabric8.io',
             username: 'pmuir',
-            bio: 'I like writing clever one-line bios about myself. See? I just did.'
+            bio: 'I like writing clever one-line bios about myself. See? I just did.',
           },
           id: '111',
-          type: ''
-        } as User
+          type: '',
+        } as User,
       ], [
         'qodfathr',
         {
@@ -64,22 +64,22 @@ export class DummyService implements OnInit {
             imageURL: 'https://avatars1.githubusercontent.com/u/16322190?v=3&s=460',
             email: 'tmancini@fabric8.io',
             bio: 'I like writing clever one-line bios about myself. But, I can\'t!',
-            username: 'qodfathr'
+            username: 'qodfathr',
           },
           id: '222',
-          type: ''
-        } as User
-      ]
-    ]
+          type: '',
+        } as User,
+      ],
+    ],
   );
 
   readonly ORGANIZATIONS: Map<string, Entity> = new Map<string, Entity>([
     [
       'redhat',
       {
-        id: 'redhat'
-      } as Entity
-    ]
+        id: 'redhat',
+      } as Entity,
+    ],
   ]);
 
   readonly CONTEXT_TYPES: Map<string, ContextType> = new Map<string, ContextType>([
@@ -91,7 +91,7 @@ export class DummyService implements OnInit {
         menus: [
           {
             name: 'Namespaces',
-            path: '/run/spaces'
+            path: '/run/spaces',
           },
 /*
           {
@@ -131,8 +131,8 @@ export class DummyService implements OnInit {
             ]
           },
 */
-        ]
-      } as ContextType
+        ],
+      } as ContextType,
     ],
     [
       'space',
@@ -185,21 +185,21 @@ export class DummyService implements OnInit {
             menus: [
               {
                 name: 'Dev',
-                path: ''
+                path: '',
               },
               {
                 name: 'Test',
-                path: ''
+                path: '',
               },
               {
                 name: 'Staging',
-                path: ''
+                path: '',
               },
               {
                 name: 'Production',
-                path: ''
+                path: '',
               },
-            ]
+            ],
           },
           {
             name: 'Build',
@@ -207,9 +207,9 @@ export class DummyService implements OnInit {
             menus: [
               {
                 name: 'Pipelines',
-                path: ''
-              }
-            ]
+                path: '',
+              },
+            ],
           },
           {
             name: '',
@@ -220,36 +220,36 @@ export class DummyService implements OnInit {
                 name: 'Overview',
                 path: '',
                 icon: '',
-                menus: []
+                menus: [],
               }, {
                 name: 'Work',
-                path: 'work'
+                path: 'work',
               }, {
                 name: 'Security',
-                path: 'security'
+                path: 'security',
               }, {
                 name: 'Alerts',
-                path: 'alerts'
-              }
-            ]
+                path: 'alerts',
+              },
+            ],
           },
-        ]
-      } as ContextType
+        ],
+      } as ContextType,
     ],
     [
       'team',
       {
         name: 'Team',
-        icon: 'fa fa-users'
-      } as ContextType
+        icon: 'fa fa-users',
+      } as ContextType,
     ],
     [
       'organization',
       {
         name: 'Organization',
-        icon: 'fa fa-cubes'
-      } as ContextType
-    ]
+        icon: 'fa fa-cubes',
+      } as ContextType,
+    ],
   ]);
 
   readonly TEAMS: Map<string, Team> = new Map<string, Team>([
@@ -258,8 +258,8 @@ export class DummyService implements OnInit {
       {
         name: '',
         members: [
-          this.USERS.get('qodfathr')
-        ]
+          this.USERS.get('qodfathr'),
+        ],
       } as Team,
     ], [
       'balloonpopgame',
@@ -267,10 +267,10 @@ export class DummyService implements OnInit {
         name: '',
         members: [
           this.USERS.get('pmuir'),
-          this.USERS.get('qodfathr')
-        ]
-      } as Team
-    ]
+          this.USERS.get('qodfathr'),
+        ],
+      } as Team,
+    ],
   ]);
 
   readonly SPACES: Map<string, Space> = new Map<string, Space>([
@@ -287,10 +287,10 @@ export class DummyService implements OnInit {
           name: 'Bobo',
           'created-at': '2017-01-01',
           'updated-at': '2017-01-02',
-          version: 1
+          version: 1,
         },
-        type: 'spaces'
-      } as Space
+        type: 'spaces',
+      } as Space,
     ], [
       'hysterix',
       {
@@ -304,10 +304,10 @@ export class DummyService implements OnInit {
           name: 'Hysterix',
           'created-at': '2017-01-01',
           'updated-at': '2017-01-02',
-          version: 1
+          version: 1,
         },
-        type: 'spaces'
-      } as Space
+        type: 'spaces',
+      } as Space,
     ], [
       'fabric8',
       {
@@ -321,10 +321,10 @@ export class DummyService implements OnInit {
           name: 'fabric8io',
           'created-at': '2017-01-01',
           'updated-at': '2017-01-02',
-          version: 1
+          version: 1,
         },
-        type: 'spaces'
-      } as Space
+        type: 'spaces',
+      } as Space,
     ], [
       'balloonpopgame',
       {
@@ -333,7 +333,7 @@ export class DummyService implements OnInit {
         description: 'Balloon popping fun for everyone!',
         teams: [
           this.TEAMS.get('balloonpopgame'),
-          this.TEAMS.get('balloonpopgame_ux')
+          this.TEAMS.get('balloonpopgame_ux'),
         ],
         defaultTeam: this.TEAMS.get('balloonpopgame'),
         id: '3',
@@ -341,11 +341,11 @@ export class DummyService implements OnInit {
           name: 'BalloonPopGame',
           'created-at': '2017-01-01',
           'updated-at': '2017-01-02',
-          version: 1
+          version: 1,
         },
-        type: 'spaces'
-      } as Space
-    ]
+        type: 'spaces',
+      } as Space,
+    ],
   ]);
 
   readonly CONTEXTS: Map<string, Context> = new Map<string, Context>([
@@ -355,8 +355,8 @@ export class DummyService implements OnInit {
         entity: this.USERS.get('pmuir'),
         type: this.CONTEXT_TYPES.get('user'),
         path: '/pmuir',
-        name: 'pmuir'
-      } as Context
+        name: 'pmuir',
+      } as Context,
     ], [
       'balloonpopgame',
       {
@@ -364,8 +364,8 @@ export class DummyService implements OnInit {
         space: this.SPACES.get('balloonpopgame'),
         type: this.CONTEXT_TYPES.get('space'),
         path: '/pmuir/BalloonPopGame',
-        name: 'BalloonPopGame'
-      } as Context
+        name: 'BalloonPopGame',
+      } as Context,
     ], [
       'ux',
       {
@@ -374,24 +374,24 @@ export class DummyService implements OnInit {
         team: this.TEAMS.get('balloonpopgame_ux'),
         type: this.CONTEXT_TYPES.get('team'),
         path: null,
-        name: 'BalloonPopGame / UX Team'
-      } as Context
+        name: 'BalloonPopGame / UX Team',
+      } as Context,
     ], [
       'redhat',
       {
         entity: this.ORGANIZATIONS.get('redhat'),
         type: this.CONTEXT_TYPES.get('organization'),
         path: null,
-        name: 'Red Hat Organization'
-      } as Context
-    ]
+        name: 'Red Hat Organization',
+      } as Context,
+    ],
   ]);
 
   readonly PROCESS_TEMPLATES: ProcessTemplate[] = [
     { name: 'Agile' },
     { name: 'Scrum' },
     { name: 'Issue Tracking' },
-    { name: 'Scenario Driven Planning' }
+    { name: 'Scenario Driven Planning' },
   ];
   private _spaces: Space[];
   private _contexts: Context[];
@@ -404,7 +404,7 @@ export class DummyService implements OnInit {
     //private http: Http,
     //private localStorageService: LocalStorageService,
     private broadcaster: Broadcaster,
-    private namespaceStore: NamespaceStore
+    private namespaceStore: NamespaceStore,
   ) {
     this._spaces = this.initDummy('spaces', this.SPACES);
     this._contexts = this.initDummy('contexts', this.CONTEXTS);
@@ -419,12 +419,12 @@ export class DummyService implements OnInit {
     this.broadcaster.on<User>('currentUserInit').subscribe(
       message => {
         this.addUser(message);
-      }
+      },
     );
     this.broadcaster.on<string>('logout').subscribe(
       () => {
         this._currentUser = null;
-      }
+      },
     );
     this.save();
 
@@ -439,13 +439,13 @@ export class DummyService implements OnInit {
    }
 
   private createContextsFromNamespaces(ns: Namespaces): Context[] {
-    var answer = new Array<Context>();
+    let answer = new Array<Context>();
     ns.forEach(namespace => {
       answer.push({
              entity: namespace,
              type: this.CONTEXT_TYPES.get('space'),
-             path: '/run/namespaces/' + namespace.name + "/deployments",
-             name: namespace.name
+             path: '/run/namespaces/' + namespace.name + '/deployments',
+             name: namespace.name,
            });
     });
     return answer;
@@ -541,7 +541,7 @@ export class DummyService implements OnInit {
 
   private initDummy<T>(key: string, def: Map<any, T>): T[] {
     if (!key) {
-      console.log("no key for initDummy()!");
+      console.log('no key for initDummy()!');
     }
     let res = this.copyValuesToArray(def);
     return res;

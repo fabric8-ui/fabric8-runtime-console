@@ -14,7 +14,7 @@ describe('NamespaceEditComponent', () => {
       ],
       declarations: [
         NamespaceEditComponent,
-      ]
+      ],
     })
       .compileComponents();
   }));

@@ -7,14 +7,12 @@ import {RestangularModule} from "ng2-restangular";
 import {NamespaceViewWrapperComponent} from "./view-wrapper.namespace";
 import {NamespaceViewToolbarComponent} from "../view-toolbar/view-toolbar.namespace";
 import {NamespaceViewComponent} from "../view/view.namespace";
-
 import {MomentModule} from "angular2-moment";
-import {EntriesPipe} from "../../../../common/entries.pipe";
 import {NamespaceDeleteDialog} from "../delete-dialog/delete-dialog.namespace";
-import {NamespaceScaleDialog} from "../scale-dialog/scale-dialog.namespace";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('NamespaceViewWrapperComponent', () => {
   let namespace: NamespaceViewWrapperComponent;
@@ -24,21 +22,19 @@ describe('NamespaceViewWrapperComponent', () => {
     TestBed
       .configureTestingModule({
         imports: [
-
-          KuberentesStoreModule,
+          RouterTestingModule.withRoutes([]),
+          IPaaSCommonModule,
           FormsModule,
           MomentModule,
           ModalModule,
-          RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
+          KuberentesStoreModule,
         ],
         declarations: [
           NamespaceViewWrapperComponent,
           NamespaceViewToolbarComponent,
           NamespaceViewComponent,
           NamespaceDeleteDialog,
-          NamespaceScaleDialog,
-          EntriesPipe,
         ],
         providers: [
           MockBackend,

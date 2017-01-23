@@ -6,6 +6,6 @@ import { AlmEditableDirective }   from './almeditable.directive';
 @NgModule({
   imports:      [ CommonModule ],
   declarations: [ AlmEditableDirective ],
-  exports:      [ AlmEditableDirective ]
+  exports:      [ AlmEditableDirective ],
 })
 export class AlmEditableModule { }

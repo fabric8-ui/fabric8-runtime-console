@@ -4,7 +4,7 @@ import {
   fakeAsync,
   inject,
   TestBed,
-  tick
+  tick,
 } from '@angular/core/testing';
 
 import { DebugElement } from '@angular/core';
@@ -30,34 +30,34 @@ describe('Dropdown component - ', () => {
         id: 1,
         option: 'option1',
         option_class: 'option1',
-        active_class: 'option1_active'
+        active_class: 'option1_active',
       },
       {
         id: 2,
         option: 'option2',
         option_class: 'option2',
-        active_class: 'option2_active'
+        active_class: 'option2_active',
       },
       {
         id: 3,
         option: 'option3',
         option_class: 'option3',
-        active_class: 'option3_active'
-      }
+        active_class: 'option3_active',
+      },
     ] as DropdownOption[];
 
     slectedOption = {
       id: 1,
       option: 'option1',
       option_class: 'option1',
-      active_class: 'option1_active'
+      active_class: 'option1_active',
     } as DropdownOption;
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule],
-      declarations: [DropdownComponent]
+      declarations: [DropdownComponent],
     })
       .compileComponents()
       .then(() => {

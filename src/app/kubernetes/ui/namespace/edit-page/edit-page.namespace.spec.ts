@@ -5,7 +5,6 @@ import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
 import {NamespaceEditPage} from "./edit-page.namespace";
-
 import {NamespaceEditWrapperComponent} from "../edit-wrapper/edit-wrapper.namespace";
 import {NamespaceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.namespace";
 import {NamespaceEditComponent} from "../edit/edit.namespace";
@@ -21,11 +20,10 @@ describe('NamespaceEditPage', () => {
     TestBed
       .configureTestingModule({
         imports: [
-
-          KuberentesStoreModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
           FormsModule,
+          KuberentesStoreModule,
         ],
         declarations: [
           NamespaceEditPage,

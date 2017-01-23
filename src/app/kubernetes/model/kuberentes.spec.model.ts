@@ -1,4 +1,4 @@
-import {KubernetesResource} from "./kuberentes.model";
+import {KubernetesResource} from './kuberentes.model';
 
 export class KubernetesSpecResource extends KubernetesResource {
   spec: any;

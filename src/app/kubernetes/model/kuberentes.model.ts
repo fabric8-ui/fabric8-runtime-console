@@ -1,4 +1,4 @@
-import {BaseEntity} from "../../store/entity/entity.model";
+import {BaseEntity} from '../../store/entity/entity.model';
 
 export class KubernetesResource implements BaseEntity {
   id: string;
@@ -23,9 +23,9 @@ export class KubernetesResource implements BaseEntity {
     if (!this.annotations) {
       this.annotations = new Map<string,string>();
     }
-    this.annotations["description"] = this.description;
+    this.annotations['description'] = this.description;
 
-    var metadata = resource.metadata;
+    let metadata = resource.metadata;
     if (!metadata) {
       metadata = {};
       resource.metadata = metadata;
@@ -38,24 +38,24 @@ export class KubernetesResource implements BaseEntity {
   }
 
   updateValuesFromResource() {
-    var resource = this.resource || {};
-    var metadata = resource.metadata || {};
-    this.name = metadata.name || "";
+    let resource = this.resource || {};
+    let metadata = resource.metadata || {};
+    this.name = metadata.name || '';
     this.id = this.name;
     this.creationTimestamp = metadata.creationTimestamp;
     this.labels = metadata.labels || new Map<string,string>();
     this.annotations = metadata.annotations || new Map<string,string>();
-    this.icon = this.annotations["fabric8.io/iconUrl"] || this.defaultIconUrl();
+    this.icon = this.annotations['fabric8.io/iconUrl'] || this.defaultIconUrl();
 
     // TODO any other annotations we should look for?
-    this.description = this.annotations["description"] || "";
+    this.description = this.annotations['description'] || '';
   }
 
   defaultIconUrl() {
-    return "";
+    return '';
   }
 
   defaultKind() {
-    return "Unknown";
+    return 'Unknown';
   }
 }

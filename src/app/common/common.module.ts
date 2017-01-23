@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TruncateCharactersPipe } from './truncate-characters.pipe';
 import { TruncateWordsPipe } from './truncate-words.pipe';
 import { LoadingComponent } from './loading/loading.component';
-import {EntriesPipe} from "./entries.pipe";
+import {EntriesPipe} from './entries.pipe';
 
 @NgModule({
   imports: [

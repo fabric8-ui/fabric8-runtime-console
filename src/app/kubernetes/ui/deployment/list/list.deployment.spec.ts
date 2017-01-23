@@ -4,13 +4,11 @@ import {DeploymentsListComponent} from "./list.deployment";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MomentModule} from "angular2-moment";
-import {EntriesPipe} from "../../../../common/entries.pipe";
 import {DeploymentDeleteDialog} from "../delete-dialog/delete-dialog.deployment";
 import {KuberentesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 import {FormsModule} from "@angular/forms";
-
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
 import {MockBackend} from "@angular/http/testing";
@@ -22,20 +20,18 @@ describe('DeploymentsListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule.withRoutes([]),
         IPaaSCommonModule,
         FormsModule,
         MomentModule,
         ModalModule,
-
-        KuberentesStoreModule,
-        RouterTestingModule.withRoutes([]),
         RestangularModule.forRoot(),
+        KuberentesStoreModule,
       ],
       declarations: [
         DeploymentsListComponent,
         DeploymentDeleteDialog,
         DeploymentScaleDialog,
-        EntriesPipe,
       ],
       providers: [
         MockBackend,
@@ -45,7 +41,7 @@ describe('DeploymentsListComponent', () => {
             return new Http(backend, options);
           }, deps: [MockBackend, RequestOptions],
         },
-      ]
+      ],
     })
       .compileComponents();
   }));

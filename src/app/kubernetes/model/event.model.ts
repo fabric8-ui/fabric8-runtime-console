@@ -1,9 +1,9 @@
-import {KubernetesResource} from "./kuberentes.model";
+import {KubernetesResource} from './kuberentes.model';
 
 export class Event extends KubernetesResource {
 
   defaultKind() {
-    return "Event";
+    return 'Event';
   }
 }
 

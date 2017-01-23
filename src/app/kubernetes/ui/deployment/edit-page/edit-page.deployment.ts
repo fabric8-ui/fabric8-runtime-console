@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import {Component, OnDestroy} from "@angular/core";
+import {ActivatedRoute, Params} from "@angular/router";
+import {Subscription} from "rxjs/Subscription";
 import {DeploymentStore} from "../../../store/deployment.store";
 
 @Component({

@@ -1,19 +1,17 @@
-import {Inject} from "@angular/core";
 import {Restangular} from "ng2-restangular";
-import {KUBERNETES_RESTANGULAR} from "./kubernetes.restangular";
 import {KubernetesService} from "./kubernetes.service";
 import {Subscription, Observable} from "rxjs";
 import {KubernetesResource} from "../model/kuberentes.model";
-import {NamespaceContext} from "./namespace.context";
+import {NamespaceScope} from "./namespace.scope";
 
 function createUrl(urlPrefix: string, namespace: string, urlSuffix: string) {
   if (namespace) {
     // TODO use a nicer path joiner function
-    var url = urlPrefix + namespace + urlSuffix;
+    let url = urlPrefix + namespace + urlSuffix;
     //console.log("setting url to: " + url);
     return url;
   }
-  return "";
+  return '';
 }
 
 
@@ -22,15 +20,19 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
   private _namespace: string;
   private serviceUrl: string;
 
-  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceContext: NamespaceContext, private urlSuffix: string, private urlPrefix: string = "/api/v1/namespaces/") {
+  constructor(kubernetesRestangular: Restangular,
+              private namespaceScope: NamespaceScope,
+              private urlSuffix: string, private urlPrefix: string = '/api/v1/namespaces/') {
     super(kubernetesRestangular);
-    this.namespace = namespaceContext.defaultNamespace();
+    this.namespace = namespaceScope.defaultNamespace();
 
-    this.namespaceSubscription = namespaceContext.namespace.subscribe(
-      namespace => {
-        this.namespace = namespace;
-      }
-    );
+    if (this.namespaceScope) {
+      this.namespaceSubscription = this.namespaceScope.namespace.subscribe(
+        namespace => {
+          this.namespace = namespace;
+        },
+      );
+    }
   }
 
   get namespace(): string {

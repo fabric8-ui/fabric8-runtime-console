@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {Component, OnInit} from "@angular/core";
+import {Observable} from "rxjs/Observable";
 import {Deployments} from "../../../model/kuberentes.deployment.model";
 import {Services} from "../../../model/kuberentes.service.model";
 import {DeploymentStore} from "../../../store/deployment.store";

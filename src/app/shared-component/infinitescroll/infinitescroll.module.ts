@@ -6,6 +6,6 @@ import { InfiniteScrollDirective }   from './infinitescroll.directive';
 @NgModule({
   imports:      [ CommonModule ],
   declarations: [ InfiniteScrollDirective ],
-  exports:      [ InfiniteScrollDirective ]
+  exports:      [ InfiniteScrollDirective ],
 })
 export class InfiniteScrollModule { }

@@ -1,9 +1,9 @@
-import {KubernetesResource} from "./kuberentes.model";
+import {KubernetesResource} from './kuberentes.model';
 
 export class ReplicationController extends KubernetesResource {
 
   defaultKind() {
-    return "ReplicationController";
+    return 'ReplicationController';
   }
 }
 

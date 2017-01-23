@@ -6,6 +6,6 @@ import { AlmIconDirective }   from './almicon.directive';
 @NgModule({
   imports:      [ CommonModule ],
   declarations: [ AlmIconDirective ],
-  exports:      [ AlmIconDirective ]
+  exports:      [ AlmIconDirective ],
 })
 export class AlmIconModule { }

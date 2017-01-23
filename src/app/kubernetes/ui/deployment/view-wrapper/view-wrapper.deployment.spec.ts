@@ -7,14 +7,13 @@ import {RestangularModule} from "ng2-restangular";
 import {DeploymentViewWrapperComponent} from "./view-wrapper.deployment";
 import {DeploymentViewToolbarComponent} from "../view-toolbar/view-toolbar.deployment";
 import {DeploymentViewComponent} from "../view/view.deployment";
-
 import {MomentModule} from "angular2-moment";
-import {EntriesPipe} from "../../../../common/entries.pipe";
 import {DeploymentDeleteDialog} from "../delete-dialog/delete-dialog.deployment";
 import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('DeploymentViewWrapperComponent', () => {
   let deployment: DeploymentViewWrapperComponent;
@@ -24,13 +23,13 @@ describe('DeploymentViewWrapperComponent', () => {
     TestBed
       .configureTestingModule({
         imports: [
-
-          KuberentesStoreModule,
+          IPaaSCommonModule,
           FormsModule,
           MomentModule,
           ModalModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
+          KuberentesStoreModule,
         ],
         declarations: [
           DeploymentViewWrapperComponent,
@@ -38,7 +37,6 @@ describe('DeploymentViewWrapperComponent', () => {
           DeploymentViewComponent,
           DeploymentDeleteDialog,
           DeploymentScaleDialog,
-          EntriesPipe,
         ],
         providers: [
           MockBackend,

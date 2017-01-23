@@ -1,5 +1,5 @@
 {
-  "name": "ipaas-client-cli",
+  "name": "fabric8-runtime-console",
   "version": "0.0.0",
   "license": "MIT",
   "angular-cli": {},

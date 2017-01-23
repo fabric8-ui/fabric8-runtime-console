@@ -6,6 +6,6 @@ import { DropdownComponent }   from './dropdown.component';
 @NgModule({
   imports:      [ CommonModule ],
   declarations: [ DropdownComponent ],
-  exports:      [ DropdownComponent ]
+  exports:      [ DropdownComponent ],
 })
 export class DropdownModule { }

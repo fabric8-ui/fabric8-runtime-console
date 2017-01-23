@@ -1,5 +1,5 @@
-import {Service, Services} from "../../kubernetes/model/kuberentes.service.model";
-import {Deployment, Deployments} from "../model/kuberentes.deployment.model";
+import {Service, Services} from '../../kubernetes/model/kuberentes.service.model';
+import {Deployment, Deployments} from '../model/kuberentes.deployment.model';
 
 
 export class DeploymentView {
@@ -31,16 +31,16 @@ export class DeploymentView {
             this.exposeUrl = service.exposeUrl;
         }
         this.images = new  Array<String>();
-        var spec = deployment.spec;
+        let spec = deployment.spec;
         if (spec) {
-          var template = spec.template;
+          let template = spec.template;
           if (template) {
-            var podSpec = template.spec;
+            let podSpec = template.spec;
             if (podSpec) {
-              var containers = podSpec.containers;
+              let containers = podSpec.containers;
               if (containers) {
                 containers.forEach((c) => {
-                  var image = c.image;
+                  let image = c.image;
                   if (image) {
                     this.images.push(image);
                   }
@@ -51,7 +51,7 @@ export class DeploymentView {
         }
         this.replicas = 0;
         this.availableReplicas = 0;
-        var status = deployment.status;
+        let status = deployment.status;
         if (status) {
             this.replicas = status.replicas;
             this.availableReplicas = status.availableReplicas;
@@ -63,7 +63,7 @@ export class DeploymentViews extends Array<DeploymentView> {
 }
 
 export function createDeploymentViews(deployments: Deployments, services: Services): DeploymentViews {
-   var map = {};
+   let map = {};
    services.forEach(s => map[s.name] = s);
    return deployments.map(d => new DeploymentView(d, map[d.name]));
 }
