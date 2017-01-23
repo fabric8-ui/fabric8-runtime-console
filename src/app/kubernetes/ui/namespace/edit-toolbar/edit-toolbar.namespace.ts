@@ -19,9 +19,9 @@ export class NamespaceEditToolbarComponent {
   }
 
   save() {
-    var resource = this.yamlEditor.parseYaml();
+    let resource = this.yamlEditor.parseYaml();
     this.namespaceService.updateResource(this.namespace, resource).subscribe(
-      () => this.router.navigate(["namespaces"])
+      () => this.router.navigate(['namespaces']),
     );
   }
 }

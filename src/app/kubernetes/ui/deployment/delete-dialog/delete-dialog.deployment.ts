@@ -6,7 +6,7 @@ import {DeploymentService} from "../../../service/deployment.service";
 @Component({
   selector: 'delete-deployment-dialog',
   templateUrl: './delete-dialog.deployment.html',
-  styleUrls: ['./delete-dialog.deployment.scss']
+  styleUrls: ['./delete-dialog.deployment.scss'],
 })
 export class DeploymentDeleteDialog {
   deployment: Deployment = new Deployment();
@@ -16,12 +16,12 @@ export class DeploymentDeleteDialog {
   }
 
   ok() {
-    console.log("deleting deployment " + this.deployment.name);
+    console.log('deleting deployment ' + this.deployment.name);
     this.modal.close();
     this.deploymentService.delete(this.deployment).subscribe(
       () => {
         this.deploymentStore.loadAll();
-      }
+      },
     );
   }
 

@@ -7,7 +7,7 @@ import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements AfterViewInit {
-  name = 'Red Hat iPaaS';
+  name = 'Fabric8 Console';
 
   // White BG
   logoWhiteBg = 'assets/images/rh_ipaas_small.svg';
@@ -17,8 +17,8 @@ export class AppComponent implements AfterViewInit {
   logoDarkBg = 'assets/images/rh_ipaas_small.svg';
   iconDarkBg = 'assets/images/glasses_logo.svg';
 
-  title = 'Red Hat iPaaS';
-  url = 'https://www.twitter.com/jboss';
+  title = 'Fabric8 Console';
+  url = 'https://www.twitter.com/fabric8io';
   loggedIn = true;
 
   ngAfterViewInit() {

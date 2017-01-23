@@ -1,8 +1,8 @@
-import {ScalableResource} from "./kuberentes.scalable.model";
+import {ScalableResource} from './kuberentes.scalable.model';
 
 export class Deployment extends ScalableResource {
   defaultKind() {
-    return "Deployment";
+    return 'Deployment';
   }
 }
 

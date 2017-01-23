@@ -1,9 +1,9 @@
-import {KubernetesResource} from "./kuberentes.model";
+import {KubernetesResource} from './kuberentes.model';
 
 export class Pod extends KubernetesResource {
 
   defaultKind() {
-    return "Pod";
+    return 'Pod';
   }
 }
 

@@ -21,7 +21,7 @@ import { ContextService } from '../shared/context.service';
 })
 
 export class HeaderComponent implements OnInit {
-  title = 'Almighty';
+  title = 'Fabric8';
   imgLoaded: Boolean = false;
   //togglePaths: Toggle[];
   urlFeatureToggle: string = '';
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
 */
     private broadcaster: Broadcaster,
     public dummy: DummyService,
-    public context: ContextService
+    public context: ContextService,
   ) {
     router.events.subscribe(this.onNavigate);
   }

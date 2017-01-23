@@ -1,13 +1,13 @@
-import {Injectable} from "@angular/core";
-import {EventService} from "../service/event.service";
-import {Event, Events} from "../model/event.model";
-import {NamespacedResourceStore} from "./namespaced.resource.store";
-import {NamespaceContext} from "../service/namespace.context";
+import {Injectable} from '@angular/core';
+import {EventService} from '../service/event.service';
+import {Event, Events} from '../model/event.model';
+import {NamespacedResourceStore} from './namespaced.resource.store';
+import {NamespaceScope} from '../service/namespace.scope';
 
 @Injectable()
 export class EventStore extends NamespacedResourceStore<Event, Events, EventService> {
-  constructor(eventEvent: EventService, namespaceContext: NamespaceContext) {
-    super(eventEvent, [], <Event>{}, namespaceContext);
+  constructor(eventEvent: EventService, namespaceScope: NamespaceScope) {
+    super(eventEvent, [], <Event>{}, namespaceScope);
   }
 
   protected get kind() {

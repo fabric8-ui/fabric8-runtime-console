@@ -56,7 +56,7 @@ const routes: Routes = [
   ],
   exports: [
     ModalModule,
-  ]
+  ],
 })
 export class DeploymentsModule {
 }

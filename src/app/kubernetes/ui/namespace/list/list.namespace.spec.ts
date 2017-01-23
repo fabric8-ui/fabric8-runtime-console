@@ -4,13 +4,10 @@ import {NamespacesListComponent} from "./list.namespace";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MomentModule} from "angular2-moment";
-import {EntriesPipe} from "../../../../common/entries.pipe";
 import {NamespaceDeleteDialog} from "../delete-dialog/delete-dialog.namespace";
 import {KuberentesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
-import {NamespaceScaleDialog} from "../scale-dialog/scale-dialog.namespace";
 import {FormsModule} from "@angular/forms";
-
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
 import {MockBackend} from "@angular/http/testing";
@@ -26,16 +23,13 @@ describe('NamespacesListComponent', () => {
         FormsModule,
         MomentModule,
         ModalModule,
-
-        KuberentesStoreModule,
         RouterTestingModule.withRoutes([]),
         RestangularModule.forRoot(),
+        KuberentesStoreModule,
       ],
       declarations: [
         NamespacesListComponent,
         NamespaceDeleteDialog,
-        NamespaceScaleDialog,
-        EntriesPipe,
       ],
       providers: [
         MockBackend,
@@ -45,7 +39,7 @@ describe('NamespacesListComponent', () => {
             return new Http(backend, options);
           }, deps: [MockBackend, RequestOptions],
         },
-      ]
+      ],
     })
       .compileComponents();
   }));

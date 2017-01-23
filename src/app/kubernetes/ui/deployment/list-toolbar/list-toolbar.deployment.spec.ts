@@ -1,8 +1,7 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-
-import { DeploymentsListToolbarComponent } from './list-toolbar.deployment';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {RouterTestingModule} from "@angular/router/testing";
+import {DeploymentsListToolbarComponent} from "./list-toolbar.deployment";
 
 describe('DeploymentsListToolbarComponent', () => {
   let component: DeploymentsListToolbarComponent;

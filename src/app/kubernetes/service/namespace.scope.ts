@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router, NavigationEnd} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable} from 'rxjs';
 
 @Injectable()
-export class NamespaceContext {
+export class NamespaceScope {
   public namespace: Observable<string>;
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router) {
@@ -20,6 +20,6 @@ export class NamespaceContext {
 
   defaultNamespace(): string {
     // TODO use some other mechanism to return the default?
-    return "default";
+    return 'default';
   }
 }

@@ -11,5 +11,5 @@ export const IconMap = {
     'system.feature'           : ['fa', 'fa-mouse-pointer'],
     'system.bug'               : ['fa', 'fa-bug'],
     'system.planneritem'       : ['fa', 'fa-paint-brush'],
-    'default'                  : ['fa', 'fa-crosshairs'] // Never remove this line
+    'default'                  : ['fa', 'fa-crosshairs'], // Never remove this line
 };

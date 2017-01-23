@@ -21,7 +21,7 @@ import {NamespacesListToolbarComponent} from "./list-toolbar/list-toolbar.namesp
 const routes: Routes = [
   { path: '', component: NamespacesListPage},
   { path: ':id', component: NamespaceViewPage },
-  { path: ':id/edit', component: NamespaceEditPage, },
+  { path: ':id/edit', component: NamespaceEditPage },
 ];
 
 @NgModule({
@@ -54,7 +54,7 @@ const routes: Routes = [
   ],
   exports: [
     ModalModule,
-  ]
+  ],
 })
 export class NamespacesModule {
 }

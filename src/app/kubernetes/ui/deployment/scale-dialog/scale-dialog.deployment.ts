@@ -6,7 +6,7 @@ import {DeploymentService} from "../../../service/deployment.service";
 @Component({
   selector: 'scale-deployment-dialog',
   templateUrl: './scale-dialog.deployment.html',
-  styleUrls: ['./scale-dialog.deployment.scss']
+  styleUrls: ['./scale-dialog.deployment.scss'],
 })
 export class DeploymentScaleDialog {
   deployment: Deployment = new Deployment();
@@ -22,14 +22,14 @@ export class DeploymentScaleDialog {
     this.replicas = deployment.replicas || 0;
   }
   ok() {
-    console.log("scaling deployment " + this.deployment.name);
+    console.log('scaling deployment ' + this.deployment.name);
     this.modal.close();
     if (this.replicas !== this.deployment.replicas) {
       this.deployment.replicas = this.replicas;
       this.deploymentService.update(this.deployment).subscribe(
         () => {
           this.deploymentStore.loadAll();
-        }
+        },
       );
     }
   }

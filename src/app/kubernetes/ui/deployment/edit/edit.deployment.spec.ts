@@ -14,7 +14,7 @@ describe('DeploymentEditComponent', () => {
       ],
       declarations: [
         DeploymentEditComponent,
-      ]
+      ],
     })
       .compileComponents();
   }));

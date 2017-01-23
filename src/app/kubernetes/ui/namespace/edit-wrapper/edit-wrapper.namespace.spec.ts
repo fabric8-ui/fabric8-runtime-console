@@ -7,7 +7,6 @@ import {RestangularModule} from "ng2-restangular";
 import {NamespaceEditWrapperComponent} from "./edit-wrapper.namespace";
 import {NamespaceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.namespace";
 import {NamespaceEditComponent} from "../edit/edit.namespace";
-
 import {KuberentesStoreModule} from "../../../kubernetes.store.module";
 import {MomentModule} from "angular2-moment";
 import {ModalModule} from "ng2-modal";
@@ -21,13 +20,12 @@ describe('NamespaceEditWrapperComponent', () => {
     TestBed
       .configureTestingModule({
         imports: [
-
-          KuberentesStoreModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
           FormsModule,
           MomentModule,
           ModalModule,
+          KuberentesStoreModule,
         ],
         declarations: [
           NamespaceEditWrapperComponent,

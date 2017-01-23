@@ -19,9 +19,9 @@ export class DeploymentEditToolbarComponent {
   }
 
   save() {
-    var resource = this.yamlEditor.parseYaml();
+    let resource = this.yamlEditor.parseYaml();
     this.deploymentService.updateResource(this.deployment, resource).subscribe(
-      () => this.router.navigate(["deployments"])
+      () => this.router.navigate(['deployments']),
     );
   }
 }

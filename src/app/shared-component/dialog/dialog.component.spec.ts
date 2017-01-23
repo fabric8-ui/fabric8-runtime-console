@@ -4,7 +4,7 @@ import {
   fakeAsync,
   inject,
   TestBed,
-  tick
+  tick,
 } from '@angular/core/testing';
 
 import { DebugElement } from '@angular/core';
@@ -26,14 +26,14 @@ describe('Dialog component - ', () => {
     dialog = {
       'title': 'Dialog Title',
       'message': 'Dialog Message',
-      'actionButtons': [{'title': 'Yes', 'value': 1, 'default': false}, {'title': 'No', 'value': 0, 'default': true}]
+      'actionButtons': [{'title': 'Yes', 'value': 1, 'default': false}, {'title': 'No', 'value': 0, 'default': true}],
     } as Dialog;
   });
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [FormsModule],
-      declarations: [DialogComponent]
+      declarations: [DialogComponent],
     })
       .compileComponents()
       .then(() => {

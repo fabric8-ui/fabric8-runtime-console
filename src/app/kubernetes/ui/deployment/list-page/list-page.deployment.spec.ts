@@ -7,12 +7,10 @@ import {RestangularModule} from "ng2-restangular";
 import {DeploymentsListPage} from "./list-page.deployment";
 import {DeploymentsListComponent} from "../list/list.deployment";
 import {DeploymentsListToolbarComponent} from "../list-toolbar/list-toolbar.deployment";
-
 import {IPaaSCommonModule} from "../../../../common/common.module";
 import {KuberentesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
-import {EntriesPipe} from "../../../../common/entries.pipe";
 import {DeploymentDeleteDialog} from "../delete-dialog/delete-dialog.deployment";
 import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 import {FormsModule} from "@angular/forms";
@@ -25,13 +23,12 @@ describe('DeploymentsListPage', () => {
     TestBed.configureTestingModule({
       imports: [
         IPaaSCommonModule,
-
-        KuberentesStoreModule,
         RouterTestingModule.withRoutes([]),
         RestangularModule.forRoot(),
         FormsModule,
         MomentModule,
         ModalModule,
+        KuberentesStoreModule,
       ],
       declarations: [
         DeploymentsListPage,
@@ -39,7 +36,6 @@ describe('DeploymentsListPage', () => {
         DeploymentsListToolbarComponent,
         DeploymentDeleteDialog,
         DeploymentScaleDialog,
-        EntriesPipe,
       ],
       providers: [
         MockBackend,

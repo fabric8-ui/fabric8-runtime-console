@@ -39,6 +39,15 @@
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
               <a [routerLink]="[deployment.id]" class="card-title" title="view deployment">{{ deployment.name }}</a>
+
+              <span class='open-service-icon'>
+                <a target="deployment"
+                   *ngIf="deployment.exposeUrl"
+                   [href]="deployment.exposeUrl"
+                   title="Open this deployment's service in a separate browser tab">
+                  <i class="fa fa-external-link" aria-hidden="true"></i>
+                </a>
+              </span>
             </div>
             <div class='list-group-item-text'>
               <span class="" *ngFor='let image of deployment.images' title="docker image">
@@ -47,14 +56,7 @@
             </div>
           </div>
           <div class='list-view-pf-additional-info'>
-            <div class='list-view-pf-additional-info-item'>
-              <a target="deployment"
-                 *ngIf="deployment.exposeUrl"
-                 [href]="deployment.exposeUrl"
-                 title="Open this deployment in a separate browser tab">
-                <i class="fa fa-external-link" aria-hidden="true"></i>
-              </a>
-            </div>
+
             <div class='list-view-pf-additional-info-item' title="number of available pods and the replicas">
               {{deployment.availableReplicas}} / {{deployment.replicas}}
             </div>

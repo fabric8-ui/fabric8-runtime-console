@@ -3,7 +3,7 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
 
 import { DropdownOption } from './dropdown-option';
@@ -43,7 +43,7 @@ export class DropdownComponent implements OnInit {
   onChange(option: DropdownOption): void {
     this.onUpdate.emit({
       currentOption: this.selected,
-      newOption: option
+      newOption: option,
     });
     this.toggle();
   }

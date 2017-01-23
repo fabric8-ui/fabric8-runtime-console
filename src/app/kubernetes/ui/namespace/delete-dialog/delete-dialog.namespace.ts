@@ -6,7 +6,7 @@ import {NamespaceService} from "../../../service/namespace.service";
 @Component({
   selector: 'delete-namespace-dialog',
   templateUrl: './delete-dialog.namespace.html',
-  styleUrls: ['./delete-dialog.namespace.scss']
+  styleUrls: ['./delete-dialog.namespace.scss'],
 })
 export class NamespaceDeleteDialog {
   namespace: Namespace = new Namespace();
@@ -16,12 +16,12 @@ export class NamespaceDeleteDialog {
   }
 
   ok() {
-    console.log("deleting namespace " + this.namespace.name);
+    console.log('deleting namespace ' + this.namespace.name);
     this.modal.close();
     this.namespaceService.delete(this.namespace).subscribe(
       () => {
         this.namespaceStore.loadAll();
-      }
+      },
     );
   }
 

@@ -7,12 +7,12 @@ import {
   Output,
   OnInit,
   OnChanges,
-  HostListener
+  HostListener,
 } from '@angular/core';
 
 @Directive({
     selector: '[almEditable]',
-    exportAs: 'almEditable'
+    exportAs: 'almEditable',
 })
 export class AlmEditableDirective implements OnInit, OnChanges {
 
