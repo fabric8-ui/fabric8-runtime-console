@@ -4,10 +4,11 @@ import {KUBERNETES_RESTANGULAR} from './kubernetes.restangular';
 import {ReplicaSet, ReplicaSets} from '../model/replicaset.model';
 import {NamespacedResourceService} from './namespaced.resource.service';
 import {NamespaceScope} from './namespace.scope';
+import {apisExtensionsNamespacesUrl} from "./deployment.service";
 
 @Injectable()
 export class ReplicaSetService extends NamespacedResourceService<ReplicaSet, ReplicaSets> {
   constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: NamespaceScope) {
-    super(kubernetesRestangular, namespaceScope, '/replicasets');
+    super(kubernetesRestangular, namespaceScope, '/replicasets', apisExtensionsNamespacesUrl);
   }
 }

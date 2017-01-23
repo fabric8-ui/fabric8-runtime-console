@@ -12,6 +12,9 @@
             </button>
           <ul class='dropdown-menu dropdown-menu-right' aria-labelledby='dropdownKebabRight9'>
             <li>
+              <a [routerLink]="[namespace.id]">View Details</a>
+            </li>
+            <li>
               <a [routerLink]="[namespace.id, 'edit']">Edit</a>
             </li>
             <li>
@@ -28,7 +31,7 @@
         <div class='list-view-pf-body'>
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
-              <a [routerLink]="[namespace.id]" class="card-title" title="view namespace">{{ namespace.name }}</a>
+              <a [routerLink]="['../namespaces', namespace.id, 'deployments']" class="card-title" title="view the deployments in this namespace">{{ namespace.name }}</a>
             </div>
             <div class='list-group-item-text'>
               <span class="" *ngFor='let image of namespace.images' title="docker image">

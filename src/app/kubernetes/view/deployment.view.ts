@@ -53,8 +53,8 @@ export class DeploymentView {
         this.availableReplicas = 0;
         let status = deployment.status;
         if (status) {
-            this.replicas = status.replicas;
-            this.availableReplicas = status.availableReplicas;
+            this.replicas = status.replicas || 0;
+            this.availableReplicas = status.availableReplicas || 0;
         }
     }
 }

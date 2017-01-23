@@ -1,6 +1,6 @@
-import {KubernetesResource} from './kuberentes.model';
+import {ScalableResource} from "./kuberentes.scalable.model";
 
-export class ReplicaSet extends KubernetesResource {
+export class ReplicaSet extends ScalableResource {
 
   defaultKind() {
     return 'ReplicaSet';

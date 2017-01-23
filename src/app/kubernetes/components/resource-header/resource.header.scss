@@ -1,0 +1,82 @@
+@import '../../../../assets/stylesheets/base';
+
+/*
+// TODO lets shrink the height of the navbar / navbar-collapse
+.navbar {
+  min-height: 26px;
+  height: 26px;
+}
+
+
+// TODO can't get this CSS ninja stuff to work!!! :)
+.navbar-collapse {
+  height: 26px;
+  @media (min-width: 768px) {
+    height: 26px;
+    &.collapse {
+      height: 26px;
+    }
+  }
+}
+*/
+
+
+.dropdown {
+  a:hover {
+    text-decoration: none;
+  }
+  a {
+    color: white;
+    background-color: transparent !important;
+  }
+}
+
+.vertical-center {
+  min-height: 100%;
+  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh;
+  /* These two lines are counted as one :-)       */
+  display: flex;
+  align-items: center;
+}
+
+.no-link {
+  color: $color-pf-white;
+  text-decoration: none;
+}
+
+.toggle-btn {
+  max-width: em(132);
+  padding: em(20) 0;
+  .detail-status-dropdown {
+    text-align: $textRight;
+    .dropdown-icon {
+      float: left;
+      margin-right: em(5);
+      font-size: em(12);
+      margin-top: em(5);
+    }
+    .dropdown-text {
+      float: left;
+      text-transform: capitalize;
+      text-align: left;
+    }
+    .caret {
+      margin-top: em(5);
+    }
+    .dropdown-ul {
+      min-width: em(132);
+      width: em(132);
+      top: em(25);
+      .dropdown-li {
+        width: $width100;
+        float: left;
+        a {
+          width: $width100;
+          float: left;
+          padding: em(2) em(10);
+        }
+      }
+    }
+  }
+}
