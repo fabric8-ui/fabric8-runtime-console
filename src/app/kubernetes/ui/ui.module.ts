@@ -19,6 +19,9 @@ const routes: Routes = [
     NamespacesModule,
     RouterModule.forChild(routes),
   ],
+  exports: [
+    RouterModule,
+  ],
 })
 export class KubernetesUIModule {
 }
