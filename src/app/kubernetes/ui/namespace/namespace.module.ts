@@ -19,9 +19,9 @@ import {NamespaceEditPage} from "./edit-page/edit-page.namespace";
 import {NamespacesListToolbarComponent} from "./list-toolbar/list-toolbar.namespace";
 
 const routes: Routes = [
-  { path: '', component: NamespacesListPage, pathMatch: 'full' },
-  { path: ':id', component: NamespaceViewPage, pathMatch: 'full' },
-  { path: ':id/edit', component: NamespaceEditPage, pathMatch: 'full' },
+  { path: '', component: NamespacesListPage},
+  { path: ':id', component: NamespaceViewPage },
+  { path: ':id/edit', component: NamespaceEditPage, },
 ];
 
 @NgModule({
@@ -31,6 +31,7 @@ const routes: Routes = [
     ModalModule,
     MomentModule,
     RouterModule.forChild(routes),
+    RouterModule,
     IPaaSCommonModule,
   ],
   declarations: [

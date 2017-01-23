@@ -16,6 +16,7 @@ import {ReplicaSetStore} from "./store/replicaset.store";
 import {ReplicationControllerService} from "./service/replicationcontroller.service";
 import {ReplicationControllerStore} from "./store/replicationcontroller.store";
 import {RestangularModule} from "ng2-restangular";
+import {NamespaceContext} from "./service/namespace.context";
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import {RestangularModule} from "ng2-restangular";
     KubernetesRestangularModule,
   ],
   providers: [
+    NamespaceContext,
     DeploymentService,
     DeploymentStore,
     EventService,

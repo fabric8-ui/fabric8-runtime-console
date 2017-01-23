@@ -7,8 +7,8 @@ import {NamespacesModule} from "./namespace/namespace.module";
 
 
 const routes: Routes = [
-  { path: 'spaces', loadChildren: './namespace/namespace.module#NamespacesModule' },
   { path: 'namespaces/:namespace/deployments', loadChildren: './deployment/deployment.module#DeploymentsModule' },
+  { path: 'spaces', loadChildren: './namespace/namespace.module#NamespacesModule' },
 ];
 
 @NgModule({

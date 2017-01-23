@@ -14,7 +14,9 @@ export abstract class AbstractStore<T extends BaseEntity, L extends Array<T>,
 
   private _loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private service: R, initialList: L, initialCurrent: T) {
+  private _loadId: string = null;
+
+  constructor(protected service: R, initialList: L, initialCurrent: T) {
     this._list = new BehaviorSubject(initialList);
     this._current = new BehaviorSubject(initialCurrent);
   }
@@ -28,6 +30,7 @@ export abstract class AbstractStore<T extends BaseEntity, L extends Array<T>,
   get loading(): Observable<boolean>  { return this._loading.asObservable(); }
 
   loadAll() {
+    this._loadId = null;
     this._loading.next(true);
     this.service.list().subscribe(
       (list) => {
@@ -41,6 +44,7 @@ export abstract class AbstractStore<T extends BaseEntity, L extends Array<T>,
   }
 
   load(id: string) {
+    this._loadId = id;
     this._loading.next(true);
     this.service.get(id).subscribe(
       (entity) => {
@@ -53,4 +57,12 @@ export abstract class AbstractStore<T extends BaseEntity, L extends Array<T>,
       });
   }
 
+  reload() {
+    let id = this._loadId;
+    if (id) {
+      this.load(id);
+    } else {
+      this.loadAll();
+    }
+  }
 }
