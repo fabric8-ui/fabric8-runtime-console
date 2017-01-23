@@ -2,6 +2,7 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {ReplicaSetsListToolbarComponent} from "./list-toolbar.replicaset";
+import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('ReplicaSetsListToolbarComponent', () => {
   let component: ReplicaSetsListToolbarComponent;
@@ -9,7 +10,10 @@ describe('ReplicaSetsListToolbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([])],
+      imports: [
+        RouterTestingModule.withRoutes([]),
+        IPaaSCommonModule,
+      ],
       declarations: [ReplicaSetsListToolbarComponent],
     })
       .compileComponents();

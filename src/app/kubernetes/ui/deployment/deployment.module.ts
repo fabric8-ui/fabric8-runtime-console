@@ -32,7 +32,6 @@ const routes: Routes = [
     ModalModule,
     MomentModule,
     RouterModule.forChild(routes),
-    RouterModule,
     IPaaSCommonModule,
   ],
   declarations: [
