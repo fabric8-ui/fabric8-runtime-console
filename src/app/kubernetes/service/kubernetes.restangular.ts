@@ -12,8 +12,6 @@ import {ReplicationController} from "../model/replicationcontroller.model";
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
 
-//export const FunktionKindAnnotation = "funktion.fabric8.io/kind";
-
 
 function convertToKubernetesResource(resource) {
   // TODO would be nice to make this bit more modular so we could register other kinds of resource more easily
@@ -23,21 +21,21 @@ function convertToKubernetesResource(resource) {
   }
   switch (kind) {
     case "ConfigMap":
-/*
-      var metadata = resource.metadata || {};
-      var labels = metadata.labels || {};
-      var kindLabel = labels[FunktionKindAnnotation];
-      switch (kindLabel) {
-        case  "Function" :
-          return new Function().setResource(resource);
-        case  "Connector" :
-          return new Connection().setResource(resource);
-        case  "Flow" :
-          return new Integration().setResource(resource);
-        default:
-          return new ConfigMap().setResource(resource);
-      }
-*/
+      /*
+       var metadata = resource.metadata || {};
+       var labels = metadata.labels || {};
+       var kindLabel = labels[FunktionKindAnnotation];
+       switch (kindLabel) {
+       case  "Function" :
+       return new Function().setResource(resource);
+       case  "Connector" :
+       return new Connection().setResource(resource);
+       case  "Flow" :
+       return new Integration().setResource(resource);
+       default:
+       return new ConfigMap().setResource(resource);
+       }
+       */
       return new ConfigMap().setResource(resource);
     case "Service":
       return new Service().setResource(resource);

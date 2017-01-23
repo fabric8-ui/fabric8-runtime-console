@@ -20,9 +20,9 @@ import {DeploymentScaleDialog} from "./scale-dialog/scale-dialog.deployment";
 import {MomentModule} from "angular2-moment";
 
 const routes: Routes = [
-  { path: '', component: DeploymentsListPage, pathMatch: 'full' },
-  { path: ':id', component: DeploymentViewPage, pathMatch: 'full' },
-  { path: ':id/edit', component: DeploymentEditPage, pathMatch: 'full' },
+  { path: '', component: DeploymentsListPage },
+  { path: ':id', component: DeploymentViewPage },
+  { path: ':id/edit', component: DeploymentEditPage },
 ];
 
 @NgModule({
@@ -32,6 +32,7 @@ const routes: Routes = [
     ModalModule,
     MomentModule,
     RouterModule.forChild(routes),
+    RouterModule,
     IPaaSCommonModule,
   ],
   declarations: [

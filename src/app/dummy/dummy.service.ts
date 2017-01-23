@@ -90,9 +90,11 @@ export class DummyService implements OnInit {
         icon: 'fa fa-user',
         menus: [
           {
-            name: 'Home',
-            path: '/run'
-          }, {
+            name: 'Namespaces',
+            path: '/run/spaces'
+          },
+/*
+          {
             name: 'Profile',
             path: '',
             menus: [
@@ -115,11 +117,11 @@ export class DummyService implements OnInit {
               {
                 name: 'Profile',
                 path: ''
-              }/*, {
+              }/!*, {
                 // Account is disabled as we don't yet support users creating accounts
                 name: 'Account',
                 path: 'account'
-              }*/, {
+              }*!/, {
                 name: 'Emails',
                 path: 'emails'
               }, {
@@ -128,6 +130,7 @@ export class DummyService implements OnInit {
               }
             ]
           },
+*/
         ]
       } as ContextType
     ],
