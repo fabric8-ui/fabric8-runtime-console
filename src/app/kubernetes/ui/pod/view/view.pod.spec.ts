@@ -31,7 +31,6 @@ describe('PodViewComponent', () => {
         declarations: [
           PodViewComponent,
           PodDeleteDialog,
-          PodScaleDialog,
         ],
       providers: [
         MockBackend,
