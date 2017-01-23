@@ -35,7 +35,6 @@ describe('PodsListPage', () => {
         PodsListComponent,
         PodsListToolbarComponent,
         PodDeleteDialog,
-        PodScaleDialog,
       ],
       providers: [
         MockBackend,

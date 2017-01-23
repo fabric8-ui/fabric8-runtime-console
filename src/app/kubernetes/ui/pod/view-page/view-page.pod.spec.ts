@@ -36,7 +36,6 @@ describe('PodViewPage', () => {
           PodViewWrapperComponent,
           PodViewToolbarComponent,
           PodViewComponent,
-          PodScaleDialog,
         ],
         providers: [
           MockBackend,
