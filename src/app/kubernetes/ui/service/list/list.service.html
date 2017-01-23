@@ -1,7 +1,7 @@
 <div class='list-group list-view-pf list-view-pf-view'>
 
   <ipaas-loading [loading]="loading">
-    <div class='list-group-item pod' *ngFor='let pod of pods'>
+    <div class='list-group-item service' *ngFor='let service of services'>
       <div class='list-view-pf-checkbox'>
         <input type='checkbox'>
       </div>
@@ -12,11 +12,11 @@
             </button>
           <ul class='dropdown-menu dropdown-menu-right' aria-labelledby='dropdownKebabRight9'>
             <li>
-              <a [routerLink]="[pod.id, 'edit']">Edit</a>
+              <a [routerLink]="[service.id, 'edit']">Edit</a>
             </li>
 
             <li>
-              <a (click)="openDeleteDialog(deletePodModal, pod)" title="Delete this Pod">Delete</a>
+              <a (click)="openDeleteDialog(deleteServiceModal, service)" title="Delete this Service">Delete</a>
             </li>
           </ul>
         </div>
@@ -24,24 +24,33 @@
       </div>
       <div class='list-view-pf-main-info'>
         <div class='list-view-pf-left'>
-          <img class='list-view-pf-icon-sm' src="{{pod.icon}}" height="30" width="30"/>
+          <img class='list-view-pf-icon-sm' src="{{service.icon}}" height="30" width="30"/>
         </div>
         <div class='list-view-pf-body'>
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
-              <a [routerLink]="[pod.id]" class="card-title" title="view pod">{{ pod.name }}</a>
+              <a [routerLink]="[service.id]" class="card-title" title="view service">{{ service.name }}</a>
+
+              <span class='open-service-icon'>
+                <a target="service"
+                   *ngIf="service.exposeUrl"
+                   [href]="service.exposeUrl"
+                   title="Open this service's service in a separate browser tab">
+                  <i class="fa fa-external-link" aria-hidden="true"></i>
+                </a>
+              </span>
             </div>
             <div class='list-group-item-text'>
-              <span class="" *ngFor='let image of pod.images' title="docker image">
+              <span class="" *ngFor='let image of service.images' title="docker image">
                    {{image}}
                </span>
             </div>
           </div>
           <div class='list-view-pf-additional-info'>
             <div class='list-view-pf-additional-info-item' title="created time">
-              {{pod.creationTimestamp | amTimeAgo}}
+              {{service.creationTimestamp | amTimeAgo}}
             </div>
-            <div class='list-view-pf-additional-info-item' title="labels" *ngFor='let entry of pod.labels | entries'>
+            <div class='list-view-pf-additional-info-item' title="labels" *ngFor='let entry of service.labels | entries'>
               {{entry.key}}: {{entry.value}}
             </div>
           </div>
@@ -51,9 +60,9 @@
   </ipaas-loading>
 </div>
 
-<modal #deletePodModal title="Delete Pod">
+<modal #deleteServiceModal title="Delete Service">
   <modal-content>
-    <delete-pod-dialog></delete-pod-dialog>
+    <delete-service-dialog></delete-service-dialog>
   </modal-content>
 </modal>
 

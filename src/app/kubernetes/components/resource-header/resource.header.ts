@@ -29,6 +29,10 @@ export class ResourceHeaderComponent implements OnInit {
         name: "ReplicaSets",
         path: "replicasets",
       },
+      {
+        name: "Services",
+        path: "services",
+      },
     ];
     this.current = this.menus[0];
 
