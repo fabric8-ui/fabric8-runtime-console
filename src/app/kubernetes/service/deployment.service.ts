@@ -5,9 +5,11 @@ import {Deployment, Deployments} from '../model/kuberentes.deployment.model';
 import {NamespacedResourceService} from './namespaced.resource.service';
 import {NamespaceScope} from './namespace.scope';
 
+export const apisExtensionsNamespacesUrl = '/apis/extensions/v1beta1/namespaces/';
+
 @Injectable()
 export class DeploymentService extends NamespacedResourceService<Deployment, Deployments> {
   constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: NamespaceScope) {
-    super(kubernetesRestangular, namespaceScope, '/deployments', '/apis/extensions/v1beta1/namespaces/');
+    super(kubernetesRestangular, namespaceScope, '/deployments', apisExtensionsNamespacesUrl);
   }
 }
