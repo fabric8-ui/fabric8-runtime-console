@@ -540,7 +540,9 @@ export class DummyService implements OnInit {
   }
 
   private initDummy<T>(key: string, def: Map<any, T>): T[] {
-    console.log("loading " + key);
+    if (!key) {
+      console.log("no key for initDummy()!");
+    }
     let res = this.copyValuesToArray(def);
     return res;
   }

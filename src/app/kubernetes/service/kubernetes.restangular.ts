@@ -56,8 +56,6 @@ function convertToKubernetesResource(resource) {
 }
 
 export function KubernetesRestangularFactory(restangular: Restangular) {
-  console.log('kubernetes-restangular');
-
   return restangular.withConfig((RestangularConfigurer) => {
     // TODO setting the baseUrl to empty string doesn't seem to work so lets use the absolute URL of the app
     var baseUrl = "";
@@ -72,7 +70,7 @@ export function KubernetesRestangularFactory(restangular: Restangular) {
         }
       }
     }
-    console.log("Found URL " + baseUrl);
+    //console.log("using Restangular base URL " + baseUrl);
     RestangularConfigurer.setBaseUrl(baseUrl);
 
     //RestangularConfigurer.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
