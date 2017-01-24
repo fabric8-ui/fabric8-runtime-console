@@ -87,7 +87,7 @@ export class DummyService implements OnInit {
       'user',
       {
         name: 'User',
-        icon: 'fa fa-user',
+        icon: 'pficon-user',
         menus: [
           {
             name: 'Namespaces',
@@ -138,7 +138,7 @@ export class DummyService implements OnInit {
       'space',
       {
         name: 'Space',
-        icon: 'fa fa-space-shuttle',
+        icon: 'pficon-project',
         menus: [
 /*
           {
