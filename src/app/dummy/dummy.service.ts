@@ -1,18 +1,18 @@
-import {Context} from './../models/context';
-import {ContextType} from './../models/context-type';
-import {Space} from './../models/space';
-import {Resources} from './../models/resources';
-import {ProcessTemplate} from './../models/process-template';
-import {User} from './../models/user';
-import {Team} from './../models/team';
-import {Entity} from './../models/entity';
-import {Injectable, OnInit} from '@angular/core';
+import {Context} from "./../models/context";
+import {ContextType} from "./../models/context-type";
+import {Space} from "./../models/space";
+import {Resources} from "./../models/resources";
+import {ProcessTemplate} from "./../models/process-template";
+import {User} from "./../models/user";
+import {Team} from "./../models/team";
+import {Entity} from "./../models/entity";
+import {Injectable, OnInit} from "@angular/core";
 //import {LocalStorageService} from "angular-2-local-storage";
-import {Broadcaster} from '../shared/broadcaster.service';
-import 'rxjs/add/operator/toPromise';
-import {Observable} from 'rxjs';
-import {Namespaces} from '../kubernetes/model/namespace.model';
-import {NamespaceStore} from '../kubernetes/store/namespace.store';
+import {Broadcaster} from "../shared/broadcaster.service";
+import "rxjs/add/operator/toPromise";
+import {Observable} from "rxjs";
+import {Namespaces, Namespace} from "../kubernetes/model/namespace.model";
+import {NamespaceStore} from "../kubernetes/store/namespace.store";
 
 // A service responsible for providing dummy data for the UI prototypes.
 
@@ -182,6 +182,7 @@ export class DummyService implements OnInit {
           {
             name: 'Run',
             path: 'run',
+/*
             menus: [
               {
                 name: 'Dev',
@@ -200,16 +201,18 @@ export class DummyService implements OnInit {
                 path: '',
               },
             ],
+*/
           },
           {
             name: 'Build',
             path: 'build',
-            menus: [
+/*            menus: [
               {
                 name: 'Pipelines',
                 path: '',
               },
             ],
+            */
           },
           {
             name: '',
@@ -431,6 +434,7 @@ export class DummyService implements OnInit {
 
     this.namespaces.subscribe( ns => {
       this._contexts = this.createContextsFromNamespaces(ns);
+      this.broadcaster.broadcast('refreshContext');
     });
   }
 
@@ -441,16 +445,116 @@ export class DummyService implements OnInit {
   private createContextsFromNamespaces(ns: Namespaces): Context[] {
     let answer = new Array<Context>();
     ns.forEach(namespace => {
+
+      let runPath = '/run/namespaces/' + namespace.name + '/deployments';
+      let buildPath = '/run/namespaces/' + namespace.name + '/builds';
       answer.push({
              entity: namespace,
-             type: this.CONTEXT_TYPES.get('space'),
-             path: '/run/namespaces/' + namespace.name + '/deployments',
+             type: this.createNamespaceContextType(namespace, runPath, buildPath),
+             path: runPath,
              name: namespace.name,
            });
     });
     return answer;
   }
 
+
+  private createNamespaceContextType(ns: Namespace, runPath: string, buildPath: string) {
+    var environments = ns.environments;
+    var runMenus = [];
+    if (environments) {
+      environments.forEach(env => {
+        runMenus.push({
+          name: env.name,
+          path: env.path,
+        })
+      });
+    }
+
+    return {
+      name: 'Space',
+      icon: 'pficon-project',
+      menus: [
+/*
+        {
+          name: 'Analyze',
+          path: '',
+          menus: [
+            {
+              name: 'Overview',
+              path: ''
+            }, {
+              name: 'README',
+              path: 'readme'
+            }
+          ]
+        }, {
+          name: 'Plan',
+          path: 'plan',
+          menus: [
+            {
+              name: 'Backlog',
+              path: ''
+            }, {
+              name: 'Board',
+              path: 'board'
+            }
+          ]
+        }, {
+          name: 'Create',
+          path: 'create',
+          menus: [
+            {
+              name: 'Codebases',
+              path: ''
+            }, {
+              name: 'Workspaces',
+              path: 'workspaces'
+            }
+          ]
+        },
+*/
+        {
+          name: 'Run',
+          path: runPath,
+          menus: environments,
+        },
+        {
+          name: 'Build',
+          path: buildPath,
+/*            menus: [
+            {
+              name: 'Pipelines',
+              path: '',
+            },
+          ],
+          */
+        },
+        {
+          name: '',
+          path: 'settings',
+          icon: 'pficon pficon-settings',
+          menus: [
+            {
+              name: 'Overview',
+              path: '',
+              icon: '',
+              menus: [],
+            }, {
+              name: 'Work',
+              path: 'work',
+            }, {
+              name: 'Security',
+              path: 'security',
+            }, {
+              name: 'Alerts',
+              path: 'alerts',
+            },
+          ],
+        },
+      ],
+    } as ContextType;
+  }
 
 
   get spaces(): Space[] {
