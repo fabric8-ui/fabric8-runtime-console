@@ -447,7 +447,7 @@ export class DummyService implements OnInit {
     ns.forEach(namespace => {
 
       let runPath = '/run/namespaces/' + namespace.name + '/deployments';
-      let buildPath = '/run/namespaces/' + namespace.name + '/builds';
+      let buildPath = '/run/namespaces/' + namespace.name + '/buildconfigs';
       answer.push({
              entity: namespace,
              type: this.createNamespaceContextType(namespace, runPath, buildPath),
@@ -515,11 +515,6 @@ export class DummyService implements OnInit {
         },
 */
         {
-          name: 'Run',
-          path: runPath,
-          menus: environments,
-        },
-        {
           name: 'Build',
           path: buildPath,
 /*            menus: [
@@ -529,6 +524,12 @@ export class DummyService implements OnInit {
             },
           ],
           */
+          menus: [],
+        },
+        {
+          name: 'Run',
+          path: runPath,
+          menus: environments,
         },
         {
           name: '',

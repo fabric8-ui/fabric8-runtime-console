@@ -18,6 +18,8 @@ import {RestangularModule} from "ng2-restangular";
 import {NamespaceScope} from "./service/namespace.scope";
 import {ConfigMapService} from "./service/configmap.service";
 import {ConfigMapStore} from "./store/configmap.store";
+import {BuildConfigService} from "./service/buildconfig.service";
+import {BuildConfigStore} from "./store/buildconfig.store";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -33,6 +35,8 @@ import {BrowserModule} from "@angular/platform-browser";
     KubernetesRestangularModule,
   ],
   providers: [
+    BuildConfigService,
+    BuildConfigStore,
     ConfigMapService,
     ConfigMapStore,
     NamespaceScope,

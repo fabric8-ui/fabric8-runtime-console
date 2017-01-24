@@ -4,6 +4,7 @@ import { RouterModule, Routes, PreloadAllModules } from '@angular/router';
 const routes: Routes = [
   { path: '', redirectTo: 'run/spaces', pathMatch: 'full' },
   { path: 'home', redirectTo: 'run/spaces', pathMatch: 'full' },
+  { path: 'run/namespaces/:namespace/buildconfigs', loadChildren: '../kubernetes/ui/buildconfig/buildconfig.module#BuildConfigModule' },
   { path: 'run/namespaces/:namespace/configmaps', loadChildren: '../kubernetes/ui/configmap/configmap.module#ConfigMapModule' },
   { path: 'run/namespaces/:namespace/deployments', loadChildren: '../kubernetes/ui/deployment/deployment.module#DeploymentsModule' },
   { path: 'run/namespaces/:namespace/events', loadChildren: '../kubernetes/ui/event/event.module#EventModule' },

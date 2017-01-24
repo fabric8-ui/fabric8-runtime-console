@@ -4,16 +4,6 @@ import {Subscription, Observable} from "rxjs";
 import {KubernetesResource} from "../model/kuberentes.model";
 import {NamespaceScope} from "./namespace.scope";
 
-function createUrl(urlPrefix: string, namespace: string, urlSuffix: string) {
-  if (namespace) {
-    // TODO use a nicer path joiner function
-    let url = urlPrefix + namespace + urlSuffix;
-    //console.log("setting url to: " + url);
-    return url;
-  }
-  return '';
-}
-
 
 export abstract class NamespacedResourceService<T extends KubernetesResource, L extends Array<T>> extends KubernetesService<T, L> {
   private namespaceSubscription: Subscription;
@@ -41,8 +31,19 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
 
   set namespace(namespace: string) {
     this._namespace = namespace;
-    this.serviceUrl = createUrl(this.urlPrefix, namespace, this.urlSuffix);
+    this.serviceUrl = this.createUrl(this.urlPrefix, namespace, this.urlSuffix);
   }
+
+  protected createUrl(urlPrefix: string, namespace: string, urlSuffix: string): string {
+    if (namespace) {
+      // TODO use a nicer path joiner function
+      let url = urlPrefix + namespace + urlSuffix;
+      //console.log("setting url to: " + url);
+      return url;
+    }
+    return '';
+  }
+
 
   get(id: string): Observable<T> {
     return this.restangularService.one(this.serviceUrl, id).get();

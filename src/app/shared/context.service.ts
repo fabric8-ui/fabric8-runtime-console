@@ -55,7 +55,6 @@ export class ContextService {
   private computeContext() {
     // lets use the namespace to find the context
     var ns = this._namespace;
-    //if (ns && this.router.url.startsWith("/run/namespaces")) {
     if (ns) {
       var contexts = this.dummy.contexts;
       if (contexts) {
