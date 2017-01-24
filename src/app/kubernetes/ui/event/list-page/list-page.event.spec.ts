@@ -11,8 +11,6 @@ import {IPaaSCommonModule} from "../../../../common/common.module";
 import {KuberentesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
-import {EventDeleteDialog} from "../delete-dialog/delete-dialog.event";
-import {EventScaleDialog} from "../scale-dialog/scale-dialog.event";
 import {FormsModule} from "@angular/forms";
 
 describe('EventsListPage', () => {
@@ -34,7 +32,6 @@ describe('EventsListPage', () => {
         EventsListPage,
         EventsListComponent,
         EventsListToolbarComponent,
-        EventDeleteDialog,
       ],
       providers: [
         MockBackend,

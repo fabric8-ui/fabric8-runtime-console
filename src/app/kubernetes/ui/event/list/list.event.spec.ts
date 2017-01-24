@@ -4,7 +4,6 @@ import {EventsListComponent} from "./list.event";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MomentModule} from "angular2-moment";
-import {EventDeleteDialog} from "../delete-dialog/delete-dialog.event";
 import {KuberentesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
@@ -29,7 +28,6 @@ describe('EventsListComponent', () => {
       ],
       declarations: [
         EventsListComponent,
-        EventDeleteDialog,
       ],
       providers: [
         MockBackend,

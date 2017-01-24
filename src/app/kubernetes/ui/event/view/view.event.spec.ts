@@ -2,8 +2,6 @@
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
 import {EventViewComponent} from "./view.event";
 import {MomentModule} from "angular2-moment";
-import {EventScaleDialog} from "../scale-dialog/scale-dialog.event";
-import {EventDeleteDialog} from "../delete-dialog/delete-dialog.event";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KuberentesStoreModule} from "../../../kubernetes.store.module";
@@ -30,7 +28,6 @@ describe('EventViewComponent', () => {
         ],
         declarations: [
           EventViewComponent,
-          EventDeleteDialog,
         ],
       providers: [
         MockBackend,

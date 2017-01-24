@@ -8,8 +8,6 @@ import {EventViewWrapperComponent} from "./view-wrapper.event";
 import {EventViewToolbarComponent} from "../view-toolbar/view-toolbar.event";
 import {EventViewComponent} from "../view/view.event";
 import {MomentModule} from "angular2-moment";
-import {EventDeleteDialog} from "../delete-dialog/delete-dialog.event";
-import {EventScaleDialog} from "../scale-dialog/scale-dialog.event";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KuberentesStoreModule} from "../../../kubernetes.store.module";
@@ -35,7 +33,6 @@ describe('EventViewWrapperComponent', () => {
           EventViewWrapperComponent,
           EventViewToolbarComponent,
           EventViewComponent,
-          EventDeleteDialog,
         ],
         providers: [
           MockBackend,
