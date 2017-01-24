@@ -8,7 +8,7 @@ import {ServicesListPage} from "./list-page.service";
 import {ServicesListComponent} from "../list/list.service";
 import {ServicesListToolbarComponent} from "../list-toolbar/list-toolbar.service";
 import {IPaaSCommonModule} from "../../../../common/common.module";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
 import {ServiceDeleteDialog} from "../delete-dialog/delete-dialog.service";
@@ -28,7 +28,7 @@ describe('ServicesListPage', () => {
         FormsModule,
         MomentModule,
         ModalModule,
-        KuberentesStoreModule,
+        KubernetesStoreModule,
       ],
       declarations: [
         ServicesListPage,

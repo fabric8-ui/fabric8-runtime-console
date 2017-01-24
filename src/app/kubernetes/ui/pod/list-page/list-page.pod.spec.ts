@@ -8,7 +8,7 @@ import {PodsListPage} from "./list-page.pod";
 import {PodsListComponent} from "../list/list.pod";
 import {PodsListToolbarComponent} from "../list-toolbar/list-toolbar.pod";
 import {IPaaSCommonModule} from "../../../../common/common.module";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
 import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod";
@@ -28,7 +28,7 @@ describe('PodsListPage', () => {
         FormsModule,
         MomentModule,
         ModalModule,
-        KuberentesStoreModule,
+        KubernetesStoreModule,
       ],
       declarations: [
         PodsListPage,

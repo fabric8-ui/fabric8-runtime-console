@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {ConfigMapEditToolbarComponent} from "./edit-toolbar.configmap";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {RestangularModule} from "ng2-restangular";
 
 describe('ConfigMapEditToolbarComponent', () => {
@@ -17,7 +17,7 @@ describe('ConfigMapEditToolbarComponent', () => {
           imports: [
             RouterTestingModule.withRoutes([]),
             RestangularModule.forRoot(),
-            KuberentesStoreModule,
+            KubernetesStoreModule,
           ],
           declarations: [ConfigMapEditToolbarComponent],
           providers: [

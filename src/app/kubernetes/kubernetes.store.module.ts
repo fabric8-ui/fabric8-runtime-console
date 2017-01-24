@@ -18,6 +18,9 @@ import {RestangularModule} from "ng2-restangular";
 import {NamespaceScope} from "./service/namespace.scope";
 import {ConfigMapService} from "./service/configmap.service";
 import {ConfigMapStore} from "./store/configmap.store";
+import {BuildConfigService} from "./service/buildconfig.service";
+import {BuildConfigStore} from "./store/buildconfig.store";
+import {APIsStore} from "./store/apis.store";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -33,6 +36,9 @@ import {BrowserModule} from "@angular/platform-browser";
     KubernetesRestangularModule,
   ],
   providers: [
+    APIsStore,
+    BuildConfigService,
+    BuildConfigStore,
     ConfigMapService,
     ConfigMapStore,
     NamespaceScope,
@@ -52,11 +58,11 @@ import {BrowserModule} from "@angular/platform-browser";
     ServiceStore,
   ],
 })
-export class KuberentesStoreModule {
-  constructor( @Optional() @SkipSelf() parentModule: KuberentesStoreModule) {
+export class KubernetesStoreModule {
+  constructor( @Optional() @SkipSelf() parentModule: KubernetesStoreModule) {
     if (parentModule) {
       throw new Error(
-        'KuberentesStoreModule is already loaded. Import it in the AppModule only');
+        'KubernetesStoreModule is already loaded. Import it in the AppModule only');
     }
   }
 }

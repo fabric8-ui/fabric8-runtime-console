@@ -10,7 +10,7 @@ import {EventViewComponent} from "../view/view.event";
 import {MomentModule} from "angular2-moment";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('EventViewWrapperComponent', () => {
@@ -27,7 +27,7 @@ describe('EventViewWrapperComponent', () => {
           ModalModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           EventViewWrapperComponent,

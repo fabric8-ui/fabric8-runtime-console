@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {ReplicaSetEditToolbarComponent} from "./edit-toolbar.replicaset";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {RestangularModule} from "ng2-restangular";
 
 describe('ReplicaSetEditToolbarComponent', () => {
@@ -17,7 +17,7 @@ describe('ReplicaSetEditToolbarComponent', () => {
           imports: [
             RouterTestingModule.withRoutes([]),
             RestangularModule.forRoot(),
-            KuberentesStoreModule,
+            KubernetesStoreModule,
           ],
           declarations: [ReplicaSetEditToolbarComponent],
           providers: [

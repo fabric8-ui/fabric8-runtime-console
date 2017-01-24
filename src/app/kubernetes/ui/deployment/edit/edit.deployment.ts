@@ -1,5 +1,5 @@
 import {Input, Component} from "@angular/core";
-import {Deployment} from "../../../model/kuberentes.deployment.model";
+import {Deployment} from "../../../model/deployment.model";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({

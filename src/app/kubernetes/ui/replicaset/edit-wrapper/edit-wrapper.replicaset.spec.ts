@@ -7,7 +7,7 @@ import {RestangularModule} from "ng2-restangular";
 import {ReplicaSetEditWrapperComponent} from "./edit-wrapper.replicaset";
 import {ReplicaSetEditToolbarComponent} from "../edit-toolbar/edit-toolbar.replicaset";
 import {ReplicaSetEditComponent} from "../edit/edit.replicaset";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {MomentModule} from "angular2-moment";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
@@ -25,7 +25,7 @@ describe('ReplicaSetEditWrapperComponent', () => {
           FormsModule,
           MomentModule,
           ModalModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           ReplicaSetEditWrapperComponent,

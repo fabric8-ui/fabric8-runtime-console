@@ -7,7 +7,7 @@ import {RestangularModule} from "ng2-restangular";
 import {ServiceEditWrapperComponent} from "./edit-wrapper.service";
 import {ServiceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.service";
 import {ServiceEditComponent} from "../edit/edit.service";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {MomentModule} from "angular2-moment";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
@@ -25,7 +25,7 @@ describe('ServiceEditWrapperComponent', () => {
           FormsModule,
           MomentModule,
           ModalModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           ServiceEditWrapperComponent,

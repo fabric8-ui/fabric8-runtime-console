@@ -12,7 +12,7 @@ import {MomentModule} from "angular2-moment";
 import {ReplicaSetScaleDialog} from "../scale-dialog/scale-dialog.replicaset";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('ReplicaSetViewPage', () => {
@@ -29,7 +29,7 @@ describe('ReplicaSetViewPage', () => {
           ModalModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           ReplicaSetViewPage,

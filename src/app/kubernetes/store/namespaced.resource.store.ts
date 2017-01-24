@@ -1,6 +1,6 @@
 import {AbstractStore} from '../../store/entity/entity.store';
 import {Injectable} from '@angular/core';
-import {KubernetesResource} from '../model/kuberentes.model';
+import {KubernetesResource} from '../model/kubernetesresource.model';
 import {NamespacedResourceService} from '../service/namespaced.resource.service';
 import {NamespaceScope} from '../service/namespace.scope';
 import {Subscription} from 'rxjs';

@@ -1,4 +1,4 @@
-import {ScalableResource} from "./kuberentes.scalable.model";
+import {ScalableResource} from "./scalableresource.model";
 
 export class ReplicaSet extends ScalableResource {
 

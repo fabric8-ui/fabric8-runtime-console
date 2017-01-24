@@ -1,13 +1,14 @@
 import {NgModule, OpaqueToken} from '@angular/core';
 import {Restangular} from 'ng2-restangular';
-import {KubernetesResource} from '../model/kuberentes.model';
+import {KubernetesResource} from '../model/kubernetesresource.model';
 import {Service} from '../model/service.model';
-import {Deployment} from '../model/kuberentes.deployment.model';
+import {Deployment} from '../model/deployment.model';
 import {ConfigMap} from '../model/configmap.model';
 import {Namespace} from '../model/namespace.model';
 import {Pod} from '../model/pod.model';
 import {ReplicaSet} from '../model/replicaset.model';
 import {ReplicationController} from '../model/replicationcontroller.model';
+import {BuildConfig} from "../model/buildconfig.model";
 
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
@@ -20,6 +21,8 @@ function convertToKubernetesResource(resource) {
     return resource;
   }
   switch (kind) {
+    case 'BuildConfig':
+      return new BuildConfig().setResource(resource);
     case 'ConfigMap':
       /*
        var metadata = resource.metadata || {};
@@ -78,8 +81,12 @@ export function KubernetesRestangularFactory(restangular: Restangular) {
       let kind = data ? data.kind : null;
       if (operation === 'getList') {
         if (data && data.constructor !== Array) {
-          if (kind.endsWith('List')) {
+          if (kind && kind.endsWith('List')) {
             kind = kind.substring(0, kind.length - 4);
+          }
+          if (!kind) {
+            // TODO lets assume for now its a 'BuildConfig' from jenkinsshift
+            kind = "BuildConfig";
           }
           let resourceApiVersion = (data.metadata || {}).apiVersion;
           return (data.items || []).map((object) => {

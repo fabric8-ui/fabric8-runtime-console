@@ -12,7 +12,7 @@ import {ServiceDeleteDialog} from "../delete-dialog/delete-dialog.service";
 import {ServiceScaleDialog} from "../scale-dialog/scale-dialog.service";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('ServiceViewWrapperComponent', () => {
@@ -29,7 +29,7 @@ describe('ServiceViewWrapperComponent', () => {
           ModalModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           ServiceViewWrapperComponent,

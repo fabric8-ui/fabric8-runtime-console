@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {Deployment} from "../../../model/kuberentes.deployment.model";
+import {Deployment} from "../../../model/deployment.model";
 
 @Component({
   selector: 'ipaas-deployment-view-toolbar',

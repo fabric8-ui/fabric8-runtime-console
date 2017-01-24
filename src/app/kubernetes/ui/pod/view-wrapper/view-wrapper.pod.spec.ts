@@ -12,7 +12,7 @@ import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod";
 import {PodScaleDialog} from "../scale-dialog/scale-dialog.pod";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('PodViewWrapperComponent', () => {
@@ -29,7 +29,7 @@ describe('PodViewWrapperComponent', () => {
           ModalModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           PodViewWrapperComponent,

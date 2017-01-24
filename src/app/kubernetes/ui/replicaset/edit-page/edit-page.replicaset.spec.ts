@@ -8,7 +8,7 @@ import {ReplicaSetEditPage} from "./edit-page.replicaset";
 import {ReplicaSetEditWrapperComponent} from "../edit-wrapper/edit-wrapper.replicaset";
 import {ReplicaSetEditToolbarComponent} from "../edit-toolbar/edit-toolbar.replicaset";
 import {ReplicaSetEditComponent} from "../edit/edit.replicaset";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 
 
@@ -23,7 +23,7 @@ describe('ReplicaSetEditPage', () => {
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
           FormsModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           ReplicaSetEditPage,

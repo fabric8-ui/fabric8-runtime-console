@@ -12,7 +12,7 @@ import {MomentModule} from "angular2-moment";
 import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('DeploymentViewPage', () => {
@@ -29,7 +29,7 @@ describe('DeploymentViewPage', () => {
           ModalModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           DeploymentViewPage,

@@ -8,7 +8,7 @@ import {ConfigMapEditPage} from "./edit-page.configmap";
 import {ConfigMapEditWrapperComponent} from "../edit-wrapper/edit-wrapper.configmap";
 import {ConfigMapEditToolbarComponent} from "../edit-toolbar/edit-toolbar.configmap";
 import {ConfigMapEditComponent} from "../edit/edit.configmap";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 
 
@@ -23,7 +23,7 @@ describe('ConfigMapEditPage', () => {
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
           FormsModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           ConfigMapEditPage,

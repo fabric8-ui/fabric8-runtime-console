@@ -2,21 +2,21 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
-import {DeploymentsModule} from "./deployment/deployment.module";
-import {NamespacesModule} from "./namespace/namespace.module";
+import {DeploymentModule} from "./deployment/deployment.module";
+import {NamespaceModule} from "./namespace/namespace.module";
 
 
 const routes: Routes = [
-  { path: 'namespaces/:namespace/deployments', loadChildren: './deployment/deployment.module#DeploymentsModule' },
-  { path: 'spaces', loadChildren: './namespace/namespace.module#NamespacesModule' },
+  { path: 'namespaces/:namespace/deployments', loadChildren: './deployment/deployment.module#DeploymentModule' },
+  { path: 'spaces', loadChildren: './namespace/namespace.module#NamespaceModule' },
 ];
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    DeploymentsModule,
-    NamespacesModule,
+    DeploymentModule,
+    NamespaceModule,
     RouterModule.forChild(routes),
   ],
   exports: [

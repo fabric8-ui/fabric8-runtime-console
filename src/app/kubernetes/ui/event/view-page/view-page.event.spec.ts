@@ -12,7 +12,7 @@ import {MomentModule} from "angular2-moment";
 import {EventScaleDialog} from "../scale-dialog/scale-dialog.event";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('EventViewPage', () => {
@@ -29,7 +29,7 @@ describe('EventViewPage', () => {
           ModalModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           EventViewPage,

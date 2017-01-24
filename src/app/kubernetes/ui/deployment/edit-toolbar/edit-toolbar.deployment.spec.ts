@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {DeploymentEditToolbarComponent} from "./edit-toolbar.deployment";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {RestangularModule} from "ng2-restangular";
 
 describe('DeploymentEditToolbarComponent', () => {
@@ -17,7 +17,7 @@ describe('DeploymentEditToolbarComponent', () => {
           imports: [
             RouterTestingModule.withRoutes([]),
             RestangularModule.forRoot(),
-            KuberentesStoreModule,
+            KubernetesStoreModule,
           ],
           declarations: [DeploymentEditToolbarComponent],
           providers: [

@@ -5,7 +5,7 @@ import {IPaaSCommonModule} from "../../../../common/common.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MomentModule} from "angular2-moment";
 import {NamespaceDeleteDialog} from "../delete-dialog/delete-dialog.namespace";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
@@ -25,7 +25,7 @@ describe('NamespacesListComponent', () => {
         ModalModule,
         RouterTestingModule.withRoutes([]),
         RestangularModule.forRoot(),
-        KuberentesStoreModule,
+        KubernetesStoreModule,
       ],
       declarations: [
         NamespacesListComponent,

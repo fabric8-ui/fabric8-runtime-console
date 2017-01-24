@@ -5,7 +5,7 @@ import {IPaaSCommonModule} from "../../../../common/common.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MomentModule} from "angular2-moment";
 import {ReplicaSetDeleteDialog} from "../delete-dialog/delete-dialog.replicaset";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {ReplicaSetScaleDialog} from "../scale-dialog/scale-dialog.replicaset";
 import {FormsModule} from "@angular/forms";
@@ -26,7 +26,7 @@ describe('ReplicaSetsListComponent', () => {
         MomentModule,
         ModalModule,
         RestangularModule.forRoot(),
-        KuberentesStoreModule,
+        KubernetesStoreModule,
       ],
       declarations: [
         ReplicaSetsListComponent,

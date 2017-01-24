@@ -8,7 +8,7 @@ import {ReplicaSetsListPage} from "./list-page.replicaset";
 import {ReplicaSetsListComponent} from "../list/list.replicaset";
 import {ReplicaSetsListToolbarComponent} from "../list-toolbar/list-toolbar.replicaset";
 import {IPaaSCommonModule} from "../../../../common/common.module";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
 import {ReplicaSetDeleteDialog} from "../delete-dialog/delete-dialog.replicaset";
@@ -28,7 +28,7 @@ describe('ReplicaSetsListPage', () => {
         FormsModule,
         MomentModule,
         ModalModule,
-        KuberentesStoreModule,
+        KubernetesStoreModule,
       ],
       declarations: [
         ReplicaSetsListPage,

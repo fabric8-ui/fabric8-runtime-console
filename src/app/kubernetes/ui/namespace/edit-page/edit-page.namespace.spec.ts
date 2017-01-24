@@ -8,7 +8,7 @@ import {NamespaceEditPage} from "./edit-page.namespace";
 import {NamespaceEditWrapperComponent} from "../edit-wrapper/edit-wrapper.namespace";
 import {NamespaceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.namespace";
 import {NamespaceEditComponent} from "../edit/edit.namespace";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 
 
@@ -23,7 +23,7 @@ describe('NamespaceEditPage', () => {
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
           FormsModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           NamespaceEditPage,
