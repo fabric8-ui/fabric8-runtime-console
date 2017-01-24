@@ -1,4 +1,4 @@
-import {Service, Services} from '../../kubernetes/model/kuberentes.service.model';
+import {Service, Services} from '../model/service.model';
 import {Deployment, Deployments} from '../model/kuberentes.deployment.model';
 
 

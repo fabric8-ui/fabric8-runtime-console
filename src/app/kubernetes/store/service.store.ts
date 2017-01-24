@@ -1,4 +1,4 @@
-import {Service, Services} from '../model/kuberentes.service.model';
+import {Service, Services} from '../model/service.model';
 import {ServiceService} from '../service/service.service';
 import {Injectable} from '@angular/core';
 import {NamespacedResourceStore} from './namespaced.resource.store';

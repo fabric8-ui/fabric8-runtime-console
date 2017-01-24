@@ -22,12 +22,20 @@ export class ResourceHeaderComponent implements OnInit {
         path: "deployments",
       },
       {
+        name: "Events",
+        path: "events",
+      },
+      {
         name: "Pods",
         path: "pods",
       },
       {
         name: "ReplicaSets",
         path: "replicasets",
+      },
+      {
+        name: "Services",
+        path: "services",
       },
     ];
     this.current = this.menus[0];

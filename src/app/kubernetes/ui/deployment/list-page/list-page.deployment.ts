@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {Deployments} from "../../../model/kuberentes.deployment.model";
-import {Services} from "../../../model/kuberentes.service.model";
+import {Services} from "../../../model/service.model";
 import {DeploymentStore} from "../../../store/deployment.store";
 import {DeploymentViews, createDeploymentViews} from "../../../view/deployment.view";
 import {ServiceStore} from "../../../store/service.store";

@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {ReplicaSets} from "../../../model/replicaset.model";
-import {Services} from "../../../model/kuberentes.service.model";
+import {Services} from "../../../model/service.model";
 import {ReplicaSetStore} from "../../../store/replicaset.store";
 import {ReplicaSetViews, createReplicaSetViews} from "../../../view/replicaset.view";
 import {ServiceStore} from "../../../store/service.store";

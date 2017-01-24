@@ -30,15 +30,6 @@
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
               <a [routerLink]="[pod.id]" class="card-title" title="view pod">{{ pod.name }}</a>
-
-              <span class='open-service-icon'>
-                <a target="pod"
-                   *ngIf="pod.exposeUrl"
-                   [href]="pod.exposeUrl"
-                   title="Open this pod's service in a separate browser tab">
-                  <i class="fa fa-external-link" aria-hidden="true"></i>
-                </a>
-              </span>
             </div>
             <div class='list-group-item-text'>
               <span class="" *ngFor='let image of pod.images' title="docker image">

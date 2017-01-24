@@ -3,6 +3,7 @@ import {BaseEntity} from '../../store/entity/entity.model';
 export class KubernetesResource implements BaseEntity {
   id: string;
   name: string;
+  namespace: string;
   description: string;
   icon: string;
   labels: Map<string,string>;
@@ -41,6 +42,7 @@ export class KubernetesResource implements BaseEntity {
     let resource = this.resource || {};
     let metadata = resource.metadata || {};
     this.name = metadata.name || '';
+    this.namespace = metadata.namespace || '';
     this.id = this.name;
     this.creationTimestamp = metadata.creationTimestamp;
     this.labels = metadata.labels || new Map<string,string>();

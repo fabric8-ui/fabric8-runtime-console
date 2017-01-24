@@ -1,0 +1,4 @@
+<div class='services detail' *ngIf='service'>
+  <ipaas-service-edit-toolbar [service]="service | async" [yamlEditor]="yamlEditor"></ipaas-service-edit-toolbar>
+  <ipaas-service-edit [service]="service | async" [yamlEditor]="yamlEditor"></ipaas-service-edit>
+</div>

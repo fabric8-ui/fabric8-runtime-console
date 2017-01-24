@@ -1,7 +1,7 @@
 import {NgModule, OpaqueToken} from '@angular/core';
 import {Restangular} from 'ng2-restangular';
 import {KubernetesResource} from '../model/kuberentes.model';
-import {Service} from '../model/kuberentes.service.model';
+import {Service} from '../model/service.model';
 import {Deployment} from '../model/kuberentes.deployment.model';
 import {ConfigMap} from '../model/kuberentes.configmap.model';
 import {Namespace} from '../model/namespace.model';
