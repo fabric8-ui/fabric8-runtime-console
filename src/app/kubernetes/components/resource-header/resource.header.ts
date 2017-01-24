@@ -22,6 +22,10 @@ export class ResourceHeaderComponent implements OnInit {
         path: "deployments",
       },
       {
+        name: "Events",
+        path: "events",
+      },
+      {
         name: "Pods",
         path: "pods",
       },
