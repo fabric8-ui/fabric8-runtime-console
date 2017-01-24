@@ -28,7 +28,6 @@ export class CompositeDeploymentStore {
     this.apiStore.loading.distinctUntilChanged().subscribe((flag) => {
       if (!flag) {
         var openshift = this.apiStore.isOpenShift();
-        console.log("is OpenShift: " + openshift);
         if (openshift) {
           this.deploymentConfigsStore.loadAll();
         }
@@ -43,7 +42,6 @@ export class CompositeDeploymentStore {
     this.apiStore.loading.distinctUntilChanged().subscribe((flag) => {
       if (!flag) {
         var openshift = this.apiStore.isOpenShift();
-        console.log("is OpenShift: " + openshift);
         if (openshift) {
           this.deploymentConfigsStore.load(id);
         }

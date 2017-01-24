@@ -40,6 +40,14 @@ module.exports = function (config) {
       ? ['progress', 'karma-remap-istanbul', 'junit']
       : ['progress'],
     port: 9876,
+    proxies: {
+      '/swaggerapi': 'http://127.0.0.1:8001/swaggerapi',
+/*
+      '/proxyfied': {
+        'changeOrigin': true
+      }
+*/
+    },
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
