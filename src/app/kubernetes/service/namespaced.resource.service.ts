@@ -8,7 +8,7 @@ import {NamespaceScope} from "./namespace.scope";
 export abstract class NamespacedResourceService<T extends KubernetesResource, L extends Array<T>> extends KubernetesService<T, L> {
   private namespaceSubscription: Subscription;
   private _namespace: string;
-  private _serviceUrl: string;
+  protected _serviceUrl: string;
 
   constructor(kubernetesRestangular: Restangular,
               private namespaceScope: NamespaceScope,

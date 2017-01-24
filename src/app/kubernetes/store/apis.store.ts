@@ -6,23 +6,27 @@ import {Http} from "@angular/http";
 /**
  * Lets keep around the singleton results to avoid doing too many requests for this static data
  */
-var latestAPIs: APIs = null;
+var _latestAPIs: APIs = null;
+
+var _startedLoadingAPIs = false;
+
+let _currentAPIs: BehaviorSubject<APIs> = new BehaviorSubject(_latestAPIs);
+let _loadingAPIs: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
 
 @Injectable()
 export class APIsStore {
-  private _current: BehaviorSubject<APIs> = new BehaviorSubject(new APIs());
-  private _loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private http: Http) {
     this.load();
   }
 
   get resource(): Observable<APIs> {
-    return this._current.asObservable();
+    return _currentAPIs.asObservable();
   }
 
   get loading(): Observable<boolean> {
-    return this._loading.asObservable();
+    return _loadingAPIs.asObservable();
   }
 
   /**
@@ -33,7 +37,7 @@ export class APIsStore {
    * @return {boolean} true if this cluster is using openshift
    */
   isOpenShift(): boolean {
-    let apis = latestAPIs;
+    let apis = _latestAPIs;
     if (!apis) {
       console.log("WARNING: invoked the isOpenShift() method before the APIsStore has loaded!");
       return true;
@@ -43,8 +47,12 @@ export class APIsStore {
 
   load() {
     // we only need to load once really on startup
-    if (!latestAPIs) {
-      this._loading.next(true);
+    if (_startedLoadingAPIs) {
+      return;
+    }
+    _startedLoadingAPIs = true;
+    if (!_latestAPIs) {
+      console.log("Loading Swagger as latest is: " + _latestAPIs);
       this.http.get("/swaggerapi")
         .map(res => {
           var body = res.json() || {};
@@ -52,15 +60,14 @@ export class APIsStore {
         })
         .subscribe(
           (apis) => {
-            latestAPIs = apis;
-            this._current.next(apis);
-            this._loading.next(false);
+            _latestAPIs = apis;
+            _currentAPIs.next(apis);
+            _loadingAPIs.next(false);
           },
           (error) => {
             console.log('Error retrieving APIs: ' + error);
-            this._current.error(error);
-            this._loading.error(error);
-
+            _currentAPIs.error(error);
+            _loadingAPIs.error(error);
           });
     }
   }

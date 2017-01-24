@@ -21,9 +21,9 @@ export class BuildConfigsListPage implements OnInit {
 
   ngOnInit() {
     this.apiStore.load();
-    this.apiStore.loading.subscribe((flag) => {
-      if (flag) {
-        console.log("Loaded the APIs!");
+    this.apiStore.loading.distinctUntilChanged().subscribe((flag) => {
+      if (!flag) {
+        // lets wait until we've loaded the APIS before trying to load the BuildConfigs
         this.buildconfigsStore.loadAll();
       }
     });

@@ -11,6 +11,13 @@ export class BuildConfigService extends NamespacedResourceService<BuildConfig, B
 
   constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: NamespaceScope, private apiStore: APIsStore) {
     super(kubernetesRestangular, namespaceScope, '/buildconfigs', '/oapi/v1/namespaces/');
+
+    apiStore.loading.subscribe(loading => {
+      if (!loading) {
+        // force recalculation of the URL
+        this._serviceUrl = null;
+      }
+    })
   }
 
   protected createUrl(urlPrefix: string, namespace: string, urlSuffix: string): string {
