@@ -3,7 +3,7 @@ def dummy
 
 nodejsNode {
   def name = 'fabric8-runtime-console'
-  def org = 'fabric8io'
+  def org = 'fabric8-ui'
   ws(name){
     git "https://github.com/${org}/${name}.git"
 
