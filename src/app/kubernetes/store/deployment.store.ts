@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Deployment, Deployments} from '../model/kuberentes.deployment.model';
+import {Deployment, Deployments} from '../model/deployment.model';
 import {DeploymentService} from '../service/deployment.service';
 import {NamespacedResourceStore} from './namespaced.resource.store';
 import {NamespaceScope} from '../service/namespace.scope';

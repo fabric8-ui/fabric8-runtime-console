@@ -1,5 +1,5 @@
 import {Service, Services} from '../model/service.model';
-import {Deployment, Deployments} from '../model/kuberentes.deployment.model';
+import {Deployment, Deployments} from '../model/deployment.model';
 
 
 export class DeploymentView {

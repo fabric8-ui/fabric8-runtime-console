@@ -1,4 +1,4 @@
-import {KubernetesSpecResource} from './kuberentes.spec.model';
+import {KubernetesSpecResource} from './kuberentesspecresource.model';
 
 export class Service extends KubernetesSpecResource {
   exposeUrl: string;

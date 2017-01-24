@@ -1,7 +1,7 @@
 import {Restangular} from "ng2-restangular";
 import {KubernetesService} from "./kubernetes.service";
 import {Subscription, Observable} from "rxjs";
-import {KubernetesResource} from "../model/kuberentes.model";
+import {KubernetesResource} from "../model/kubernetesresource.model";
 import {NamespaceScope} from "./namespace.scope";
 
 

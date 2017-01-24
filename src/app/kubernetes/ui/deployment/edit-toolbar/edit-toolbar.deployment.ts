@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 import {Router} from "@angular/router";
 import {DeploymentService} from "../../../service/deployment.service";
 import {YamlEditor} from "../../../view/yaml.editor";
-import {Deployment} from "../../../model/kuberentes.deployment.model";
+import {Deployment} from "../../../model/deployment.model";
 
 @Component({
   selector: 'ipaas-deployment-edit-toolbar',

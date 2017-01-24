@@ -1,5 +1,5 @@
 import {Input, Component, ViewChild} from "@angular/core";
-import {Deployment} from "../../../model/kuberentes.deployment.model";
+import {Deployment} from "../../../model/deployment.model";
 import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 
 @Component({
