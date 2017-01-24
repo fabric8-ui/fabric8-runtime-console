@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Context } from './../models/context';
-import { DummyService } from './../dummy/dummy.service';
-import { Broadcaster } from '../shared/broadcaster.service';
+import {Injectable} from "@angular/core";
+import {Router, ActivatedRoute, NavigationEnd} from "@angular/router";
+import {Context} from "./../models/context";
+import {DummyService} from "./../dummy/dummy.service";
+import {Broadcaster} from "../shared/broadcaster.service";
 
 
 /*
@@ -15,9 +14,12 @@ import { Broadcaster } from '../shared/broadcaster.service';
 export class ContextService {
 
   private _current: Context;
+  private _namespace: string;
+
   constructor(
     private dummy: DummyService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private broadcaster: Broadcaster,
   ) {
     // Listen for any context refreshes requested by the app
@@ -26,13 +28,52 @@ export class ContextService {
     });
     // Compute the initial context
     this.computeContext();
+
+    this.router.events
+      .filter(event => event instanceof NavigationEnd)
+      .map(() => this.activatedRoute)
+      .map(route => {
+        while (route.firstChild) route = route.firstChild;
+        return route;
+      })
+      .filter(route => route.outlet === 'primary')
+      .mergeMap(route => route.params).map(params => params['namespace']).distinctUntilChanged()
+      .subscribe(ns => this.namespace = ns);
+
+    this.activatedRoute.params.subscribe(params => this.namespace = params['namespace']);
   }
 
   get current(): Context {
     return this._current;
   }
 
+  set namespace(namespace: string) {
+    this._namespace = namespace;
+    this.computeContext();
+
+  }
   private computeContext() {
+    // lets use the namespace to find the context
+    var ns = this._namespace;
+    //if (ns && this.router.url.startsWith("/run/namespaces")) {
+    if (ns) {
+      var contexts = this.dummy.contexts;
+      if (contexts) {
+        var selected: Context = null;
+        contexts.forEach(context => {
+          var name = context.name;
+          if (!selected && name && name === ns) {
+            selected = context;
+          }
+        });
+        if (selected) {
+          this._current = selected;
+          return;
+        }
+      }
+    }
+
+
     // Find the most specific context menu path and display it
     let c;
     for (let m of this.dummy.contexts) {
