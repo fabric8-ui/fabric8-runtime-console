@@ -1,26 +1,13 @@
-import {Inject, Injectable} from '@angular/core';
-import {Restangular} from 'ng2-restangular';
-import {Observable} from 'rxjs';
-import {KUBERNETES_RESTANGULAR} from './kubernetes.restangular';
-import {ConfigMap} from '../model/kuberentes.configmap.model';
-import {NamespacedResourceService} from './namespaced.resource.service';
-import {NamespaceScope} from './namespace.scope';
-
-export const FunktionKindAnnotation = 'funktion.fabric8.io/kind';
+import {Inject, Injectable} from "@angular/core";
+import {Restangular} from "ng2-restangular";
+import {KUBERNETES_RESTANGULAR} from "./kubernetes.restangular";
+import {ConfigMap, ConfigMaps} from "../model/configmap.model";
+import {NamespacedResourceService} from "./namespaced.resource.service";
+import {NamespaceScope} from "./namespace.scope";
 
 @Injectable()
-export abstract class ConfigMapService<T extends ConfigMap, L extends Array<T>> extends NamespacedResourceService<T, L> {
-  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: NamespaceScope, public funktionKind: string = '') {
+export class ConfigMapService extends NamespacedResourceService<ConfigMap, ConfigMaps> {
+  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: NamespaceScope) {
     super(kubernetesRestangular, namespaceScope, '/configmaps');
-  }
-
-  list(): Observable<L> {
-    if (this.funktionKind) {
-      return this.restangularService.getList({
-        labelSelector: FunktionKindAnnotation + '=' + this.funktionKind,
-      });
-    } else {
-      return super.list();
-    }
   }
 }

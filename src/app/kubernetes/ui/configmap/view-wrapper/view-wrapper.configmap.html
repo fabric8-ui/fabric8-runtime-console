@@ -1,0 +1,4 @@
+<div class='configmaps detail' *ngIf='configmap'>
+  <ipaas-configmap-view-toolbar [configmap]="configmap | async"></ipaas-configmap-view-toolbar>
+  <ipaas-configmap-view [configmap]="configmap | async"></ipaas-configmap-view>
+</div>

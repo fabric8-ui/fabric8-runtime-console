@@ -54,7 +54,7 @@ export class KubernetesResource implements BaseEntity {
   }
 
   defaultIconUrl() {
-    return '';
+    return '/img/kubernetes.svg';
   }
 
   defaultKind() {

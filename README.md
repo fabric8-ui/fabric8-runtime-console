@@ -1,4 +1,4 @@
-# Fabric8 Runtime Client
+# Fabric8 Runtime Console
 
 This is the new angular 2 based console for building and running applications on kubernetes and openshift
 
@@ -23,7 +23,7 @@ Clone/download the repo start editing `app.component.ts` inside [`/src/app/`](/s
 ```bash
 # clone our repo
 git clone https://github.com/fabric8-ui/fabric8-runtime-console.git
-cd abric8-runtime-console
+cd fabric8-runtime-console
 
 # install the dependencies
 yarn
@@ -32,15 +32,19 @@ yarn
 npm start
 ```
 
-Go to [http://0.0.0.0:4200](http://0.0.0.0:4200) or [http://localhost:4200](http://localhost:4200) in your browser.
-
-### Using the Kubernetes back end
-
-To be able to use the kubernetes / openshift back end for builds and runtime resources you will need to run
+Then to be able to use the kubernetes / openshift back end for builds and runtime resources you will need to run the following in another shell:
 
 ```bash
 kubectl proxy
 ```
+
+Now go to [http://0.0.0.0:4200](http://0.0.0.0:4200) or [http://localhost:4200](http://localhost:4200) in your browser.
+
+### If you don't have a kubernetes or openshift cluster
+
+To setup your own local kubernetes or openshift cluster the [fabric8 getting started guide](https://fabric8.io/guide/getStarted/gofabric8.html)
+
+Or you can setup `kubectl` or `oc` to point to a known cluster. 
 
 
 ## Table of Contents

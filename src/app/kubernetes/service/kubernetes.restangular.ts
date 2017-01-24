@@ -3,7 +3,7 @@ import {Restangular} from 'ng2-restangular';
 import {KubernetesResource} from '../model/kuberentes.model';
 import {Service} from '../model/service.model';
 import {Deployment} from '../model/kuberentes.deployment.model';
-import {ConfigMap} from '../model/kuberentes.configmap.model';
+import {ConfigMap} from '../model/configmap.model';
 import {Namespace} from '../model/namespace.model';
 import {Pod} from '../model/pod.model';
 import {ReplicaSet} from '../model/replicaset.model';

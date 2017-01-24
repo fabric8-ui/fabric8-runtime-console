@@ -1,0 +1,58 @@
+/* tslint:disable:no-unused-variable */
+import {async, TestBed, ComponentFixture} from "@angular/core/testing";
+import {ConfigMapViewComponent} from "./view.configmap";
+import {MomentModule} from "angular2-moment";
+import {ConfigMapScaleDialog} from "../scale-dialog/scale-dialog.configmap";
+import {ConfigMapDeleteDialog} from "../delete-dialog/delete-dialog.configmap";
+import {ModalModule} from "ng2-modal";
+import {FormsModule} from "@angular/forms";
+import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
+import {MockBackend} from "@angular/http/testing";
+import {RestangularModule} from "ng2-restangular";
+import {RouterTestingModule} from "@angular/router/testing";
+import {IPaaSCommonModule} from "../../../../common/common.module";
+
+describe('ConfigMapViewComponent', () => {
+  let configmap: ConfigMapViewComponent;
+  let fixture: ComponentFixture<ConfigMapViewComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+        imports: [
+          RouterTestingModule.withRoutes([]),
+          IPaaSCommonModule,
+          FormsModule,
+          MomentModule,
+          ModalModule,
+          RestangularModule.forRoot(),
+          KuberentesStoreModule,
+        ],
+        declarations: [
+          ConfigMapViewComponent,
+          ConfigMapDeleteDialog,
+        ],
+      providers: [
+        MockBackend,
+        { provide: RequestOptions, useClass: BaseRequestOptions },
+        {
+          provide: Http, useFactory: (backend, options) => {
+            return new Http(backend, options);
+          }, deps: [MockBackend, RequestOptions],
+        },
+      ],
+      },
+    )
+      .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ConfigMapViewComponent);
+    configmap = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(configmap).toBeTruthy();
+  });
+});

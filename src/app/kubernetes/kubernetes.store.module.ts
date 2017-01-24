@@ -16,6 +16,8 @@ import {ReplicationControllerService} from "./service/replicationcontroller.serv
 import {ReplicationControllerStore} from "./store/replicationcontroller.store";
 import {RestangularModule} from "ng2-restangular";
 import {NamespaceScope} from "./service/namespace.scope";
+import {ConfigMapService} from "./service/configmap.service";
+import {ConfigMapStore} from "./store/configmap.store";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -31,6 +33,8 @@ import {BrowserModule} from "@angular/platform-browser";
     KubernetesRestangularModule,
   ],
   providers: [
+    ConfigMapService,
+    ConfigMapStore,
     NamespaceScope,
     DeploymentService,
     DeploymentStore,

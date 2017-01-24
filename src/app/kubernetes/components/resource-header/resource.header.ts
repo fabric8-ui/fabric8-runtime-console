@@ -18,6 +18,10 @@ export class ResourceHeaderComponent implements OnInit {
   constructor(public router: Router) {
     this.menus = [
       {
+        name: "ConfigMap",
+        path: "configmaps",
+      },
+      {
         name: "Deployments",
         path: "deployments",
       },
