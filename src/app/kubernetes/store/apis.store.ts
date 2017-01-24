@@ -56,7 +56,9 @@ export class APIsStore {
       this.http.get("/swaggerapi")
         .map(res => {
           var body = res.json() || {};
-          return new APIs(body.apis || []);
+          var apiObjects = body.apis || [];
+          var apiPaths = apiObjects.map(o => o.path);
+          return new APIs(apiPaths);
         })
         .subscribe(
           (apis) => {

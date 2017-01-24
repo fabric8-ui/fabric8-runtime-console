@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {Deployment} from "../../../model/deployment.model";
-import {DeploymentStore} from "../../../store/deployment.store";
+import {CompositeDeploymentStore} from "../../../store/compositedeployment.store";
 
 @Component({
   selector: 'ipaas-deployment-view-wrapper',
@@ -11,7 +11,7 @@ import {DeploymentStore} from "../../../store/deployment.store";
 export class DeploymentViewWrapperComponent implements OnInit {
   deployment: Observable<Deployment>;
 
-  constructor(private store: DeploymentStore) { }
+  constructor(private store: CompositeDeploymentStore) { }
 
   ngOnInit() { this.deployment = this.store.resource; }
 }

@@ -9,6 +9,7 @@ import {Pod} from '../model/pod.model';
 import {ReplicaSet} from '../model/replicaset.model';
 import {ReplicationController} from '../model/replicationcontroller.model';
 import {BuildConfig} from "../model/buildconfig.model";
+import {DeploymentConfig} from "../model/deploymentconfig.model";
 
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
@@ -44,6 +45,8 @@ function convertToKubernetesResource(resource) {
       return new Service().setResource(resource);
     case 'Deployment':
       return new Deployment().setResource(resource);
+    case 'DeploymentConfig':
+      return new DeploymentConfig().setResource(resource);
     case 'Namespace':
       return new Namespace().setResource(resource);
     case 'Pod':

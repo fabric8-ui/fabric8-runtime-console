@@ -51,7 +51,7 @@
             </div>
             <div class='list-group-item-text'>
               <span class="" *ngFor='let image of deployment.images' title="docker image">
-                   {{image}}
+                   {{image | truncate}}
                </span>
             </div>
           </div>

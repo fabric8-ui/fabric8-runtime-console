@@ -1,6 +1,6 @@
-import {ScalableResource} from './scalableresource.model';
+import {Deployment} from "./deployment.model";
 
-export class DeploymentConfig extends ScalableResource {
+export class DeploymentConfig extends Deployment {
   defaultKind() {
     return 'DeploymentConfig';
   }
