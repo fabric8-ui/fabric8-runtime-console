@@ -20,6 +20,7 @@ import {ConfigMapService} from "./service/configmap.service";
 import {ConfigMapStore} from "./store/configmap.store";
 import {BuildConfigService} from "./service/buildconfig.service";
 import {BuildConfigStore} from "./store/buildconfig.store";
+import {APIsStore} from "./store/apis.store";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -35,6 +36,7 @@ import {BrowserModule} from "@angular/platform-browser";
     KubernetesRestangularModule,
   ],
   providers: [
+    APIsStore,
     BuildConfigService,
     BuildConfigStore,
     ConfigMapService,
