@@ -56,5 +56,5 @@ const routes: Routes = [
     ModalModule,
   ],
 })
-export class NamespacesModule {
+export class NamespaceModule {
 }
