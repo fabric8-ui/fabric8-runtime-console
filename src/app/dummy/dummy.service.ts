@@ -534,7 +534,7 @@ export class DummyService implements OnInit {
           name: '',
           path: 'settings',
           icon: 'pficon pficon-settings',
-          menus: [
+/*          menus: [
             {
               name: 'Overview',
               path: '',
@@ -550,7 +550,7 @@ export class DummyService implements OnInit {
               name: 'Alerts',
               path: 'alerts',
             },
-          ],
+          ],*/
         },
       ],
     } as ContextType;

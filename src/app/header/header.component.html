@@ -28,13 +28,13 @@
       </li>
       <li *ngFor="let m of context.current.type.menus" [class.active]="m.active"
           [class.with-no-children]="(m.menus||[]).length===0">
-        <a [routerLink]="[m.path]">
+        <a [routerLink]="[m.path]" *ngIf="m.path">
           <span *ngIf="m.icon" class="{{m.icon}}"></span>
           <span *ngIf="m.name">{{m.name}}</span>
         </a>
         <ul class="nav navbar-nav navbar-persistent" *ngIf="m.menus">
           <li *ngFor="let n of m.menus" [class.active]="n.active">
-            <a [routerLink]="[n.path]">{{n.name}}</a>
+            <a [routerLink]="[n.path]" *ngIf="n.path">{{n.name}}</a>
           </li>
         </ul>
       </li>
