@@ -12,7 +12,7 @@ import {ConfigMapDeleteDialog} from "../delete-dialog/delete-dialog.configmap";
 import {ConfigMapScaleDialog} from "../scale-dialog/scale-dialog.configmap";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('ConfigMapViewWrapperComponent', () => {
@@ -29,7 +29,7 @@ describe('ConfigMapViewWrapperComponent', () => {
           ModalModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           ConfigMapViewWrapperComponent,

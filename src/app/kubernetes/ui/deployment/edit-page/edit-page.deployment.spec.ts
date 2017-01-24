@@ -8,7 +8,7 @@ import {DeploymentEditPage} from "./edit-page.deployment";
 import {DeploymentEditWrapperComponent} from "../edit-wrapper/edit-wrapper.deployment";
 import {DeploymentEditToolbarComponent} from "../edit-toolbar/edit-toolbar.deployment";
 import {DeploymentEditComponent} from "../edit/edit.deployment";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 
 
@@ -23,7 +23,7 @@ describe('DeploymentEditPage', () => {
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
           FormsModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           DeploymentEditPage,

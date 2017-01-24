@@ -11,7 +11,7 @@ import {MomentModule} from "angular2-moment";
 import {NamespaceDeleteDialog} from "../delete-dialog/delete-dialog.namespace";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('NamespaceViewWrapperComponent', () => {
@@ -28,7 +28,7 @@ describe('NamespaceViewWrapperComponent', () => {
           MomentModule,
           ModalModule,
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           NamespaceViewWrapperComponent,

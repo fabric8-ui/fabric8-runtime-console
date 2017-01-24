@@ -8,7 +8,7 @@ import {BuildConfigsListPage} from "./list-page.buildconfig";
 import {BuildConfigsListComponent} from "../list/list.buildconfig";
 import {BuildConfigsListToolbarComponent} from "../list-toolbar/list-toolbar.buildconfig";
 import {IPaaSCommonModule} from "../../../../common/common.module";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
 import {BuildConfigDeleteDialog} from "../delete-dialog/delete-dialog.buildconfig";
@@ -28,7 +28,7 @@ describe('BuildConfigsListPage', () => {
         FormsModule,
         MomentModule,
         ModalModule,
-        KuberentesStoreModule,
+        KubernetesStoreModule,
       ],
       declarations: [
         BuildConfigsListPage,

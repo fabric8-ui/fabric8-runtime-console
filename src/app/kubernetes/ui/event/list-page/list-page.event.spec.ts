@@ -8,7 +8,7 @@ import {EventsListPage} from "./list-page.event";
 import {EventsListComponent} from "../list/list.event";
 import {EventsListToolbarComponent} from "../list-toolbar/list-toolbar.event";
 import {IPaaSCommonModule} from "../../../../common/common.module";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
 import {FormsModule} from "@angular/forms";
@@ -26,7 +26,7 @@ describe('EventsListPage', () => {
         FormsModule,
         MomentModule,
         ModalModule,
-        KuberentesStoreModule,
+        KubernetesStoreModule,
       ],
       declarations: [
         EventsListPage,

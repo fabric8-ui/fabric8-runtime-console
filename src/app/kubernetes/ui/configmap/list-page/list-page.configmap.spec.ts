@@ -8,7 +8,7 @@ import {ConfigMapsListPage} from "./list-page.configmap";
 import {ConfigMapsListComponent} from "../list/list.configmap";
 import {ConfigMapsListToolbarComponent} from "../list-toolbar/list-toolbar.configmap";
 import {IPaaSCommonModule} from "../../../../common/common.module";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
 import {ConfigMapDeleteDialog} from "../delete-dialog/delete-dialog.configmap";
@@ -28,7 +28,7 @@ describe('ConfigMapsListPage', () => {
         FormsModule,
         MomentModule,
         ModalModule,
-        KuberentesStoreModule,
+        KubernetesStoreModule,
       ],
       declarations: [
         ConfigMapsListPage,

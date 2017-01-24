@@ -12,7 +12,7 @@ import {DeploymentDeleteDialog} from "../delete-dialog/delete-dialog.deployment"
 import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('DeploymentViewWrapperComponent', () => {
@@ -29,7 +29,7 @@ describe('DeploymentViewWrapperComponent', () => {
           ModalModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           DeploymentViewWrapperComponent,

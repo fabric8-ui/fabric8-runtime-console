@@ -12,7 +12,7 @@ import {ReplicaSetDeleteDialog} from "../delete-dialog/delete-dialog.replicaset"
 import {ReplicaSetScaleDialog} from "../scale-dialog/scale-dialog.replicaset";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('ReplicaSetViewWrapperComponent', () => {
@@ -29,7 +29,7 @@ describe('ReplicaSetViewWrapperComponent', () => {
           ModalModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           ReplicaSetViewWrapperComponent,

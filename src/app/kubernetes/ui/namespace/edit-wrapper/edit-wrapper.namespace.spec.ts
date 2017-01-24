@@ -7,7 +7,7 @@ import {RestangularModule} from "ng2-restangular";
 import {NamespaceEditWrapperComponent} from "./edit-wrapper.namespace";
 import {NamespaceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.namespace";
 import {NamespaceEditComponent} from "../edit/edit.namespace";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {MomentModule} from "angular2-moment";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
@@ -25,7 +25,7 @@ describe('NamespaceEditWrapperComponent', () => {
           FormsModule,
           MomentModule,
           ModalModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           NamespaceEditWrapperComponent,

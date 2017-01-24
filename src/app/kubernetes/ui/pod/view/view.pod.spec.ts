@@ -6,7 +6,7 @@ import {PodScaleDialog} from "../scale-dialog/scale-dialog.pod";
 import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {MockBackend} from "@angular/http/testing";
 import {RestangularModule} from "ng2-restangular";
@@ -26,7 +26,7 @@ describe('PodViewComponent', () => {
           MomentModule,
           ModalModule,
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           PodViewComponent,

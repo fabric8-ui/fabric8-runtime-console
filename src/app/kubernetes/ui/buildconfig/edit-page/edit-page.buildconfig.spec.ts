@@ -8,7 +8,7 @@ import {BuildConfigEditPage} from "./edit-page.buildconfig";
 import {BuildConfigEditWrapperComponent} from "../edit-wrapper/edit-wrapper.buildconfig";
 import {BuildConfigEditToolbarComponent} from "../edit-toolbar/edit-toolbar.buildconfig";
 import {BuildConfigEditComponent} from "../edit/edit.buildconfig";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 
 
@@ -23,7 +23,7 @@ describe('BuildConfigEditPage', () => {
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
           FormsModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           BuildConfigEditPage,

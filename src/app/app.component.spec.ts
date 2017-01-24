@@ -11,7 +11,7 @@ import {DummyService} from "./dummy/dummy.service";
 import {Logger} from "./shared/logger.service";
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";
-import {KuberentesStoreModule} from "./kubernetes/kubernetes.store.module";
+import {KubernetesStoreModule} from "./kubernetes/kubernetes.store.module";
 import {RestangularModule} from "ng2-restangular";
 
 describe('AppComponent', () => {
@@ -22,7 +22,7 @@ describe('AppComponent', () => {
         BrowserModule,
         HttpModule,
         RestangularModule.forRoot(),
-        KuberentesStoreModule,
+        KubernetesStoreModule,
       ],
       declarations: [
         AppComponent,

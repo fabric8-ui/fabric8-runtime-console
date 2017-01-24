@@ -10,7 +10,7 @@ import {IPaaSCommonModule} from "./common/common.module";
 import {AppComponent} from "./app.component";
 import {ConfigService, configServiceInitializer} from "./config.service";
 import {KubernetesUIModule} from "./kubernetes/ui/ui.module";
-import {KuberentesStoreModule} from "./kubernetes/kubernetes.store.module";
+import {KubernetesStoreModule} from "./kubernetes/kubernetes.store.module";
 import {HeaderComponent} from "./header/header.component";
 import {DummyService} from "./dummy/dummy.service";
 import {Broadcaster} from "./shared/broadcaster.service";
@@ -36,7 +36,7 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     DropdownModule,
 
     IPaaSCommonModule,
-    KuberentesStoreModule,
+    KubernetesStoreModule,
     KubernetesUIModule,
 /*
     LocalStorageModule.withConfig({

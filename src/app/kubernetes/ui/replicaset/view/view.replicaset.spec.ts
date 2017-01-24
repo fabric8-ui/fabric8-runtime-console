@@ -6,7 +6,7 @@ import {ReplicaSetScaleDialog} from "../scale-dialog/scale-dialog.replicaset";
 import {ReplicaSetDeleteDialog} from "../delete-dialog/delete-dialog.replicaset";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {MockBackend} from "@angular/http/testing";
 import {RestangularModule} from "ng2-restangular";
@@ -26,7 +26,7 @@ describe('ReplicaSetViewComponent', () => {
           MomentModule,
           ModalModule,
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           ReplicaSetViewComponent,

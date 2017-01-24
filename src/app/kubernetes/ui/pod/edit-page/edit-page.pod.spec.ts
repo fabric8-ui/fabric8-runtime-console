@@ -8,7 +8,7 @@ import {PodEditPage} from "./edit-page.pod";
 import {PodEditWrapperComponent} from "../edit-wrapper/edit-wrapper.pod";
 import {PodEditToolbarComponent} from "../edit-toolbar/edit-toolbar.pod";
 import {PodEditComponent} from "../edit/edit.pod";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 
 
@@ -23,7 +23,7 @@ describe('PodEditPage', () => {
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
           FormsModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           PodEditPage,

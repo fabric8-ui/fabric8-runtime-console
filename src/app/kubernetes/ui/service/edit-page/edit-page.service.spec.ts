@@ -8,7 +8,7 @@ import {ServiceEditPage} from "./edit-page.service";
 import {ServiceEditWrapperComponent} from "../edit-wrapper/edit-wrapper.service";
 import {ServiceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.service";
 import {ServiceEditComponent} from "../edit/edit.service";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 
 
@@ -23,7 +23,7 @@ describe('ServiceEditPage', () => {
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
           FormsModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           ServiceEditPage,

@@ -7,7 +7,7 @@ import {RestangularModule} from "ng2-restangular";
 import {BuildConfigEditWrapperComponent} from "./edit-wrapper.buildconfig";
 import {BuildConfigEditToolbarComponent} from "../edit-toolbar/edit-toolbar.buildconfig";
 import {BuildConfigEditComponent} from "../edit/edit.buildconfig";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {MomentModule} from "angular2-moment";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
@@ -25,7 +25,7 @@ describe('BuildConfigEditWrapperComponent', () => {
           FormsModule,
           MomentModule,
           ModalModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           BuildConfigEditWrapperComponent,

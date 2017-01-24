@@ -7,7 +7,7 @@ import {RestangularModule} from "ng2-restangular";
 import {ConfigMapEditWrapperComponent} from "./edit-wrapper.configmap";
 import {ConfigMapEditToolbarComponent} from "../edit-toolbar/edit-toolbar.configmap";
 import {ConfigMapEditComponent} from "../edit/edit.configmap";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {MomentModule} from "angular2-moment";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
@@ -25,7 +25,7 @@ describe('ConfigMapEditWrapperComponent', () => {
           FormsModule,
           MomentModule,
           ModalModule,
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           ConfigMapEditWrapperComponent,

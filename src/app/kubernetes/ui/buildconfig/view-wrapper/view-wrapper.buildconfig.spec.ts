@@ -12,7 +12,7 @@ import {BuildConfigDeleteDialog} from "../delete-dialog/delete-dialog.buildconfi
 import {BuildConfigScaleDialog} from "../scale-dialog/scale-dialog.buildconfig";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {IPaaSCommonModule} from "../../../../common/common.module";
 
 describe('BuildConfigViewWrapperComponent', () => {
@@ -29,7 +29,7 @@ describe('BuildConfigViewWrapperComponent', () => {
           ModalModule,
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
-          KuberentesStoreModule,
+          KubernetesStoreModule,
         ],
         declarations: [
           BuildConfigViewWrapperComponent,

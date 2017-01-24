@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {NamespaceEditToolbarComponent} from "./edit-toolbar.namespace";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
-import {KuberentesStoreModule} from "../../../kubernetes.store.module";
+import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {RestangularModule} from "ng2-restangular";
 
 describe('NamespaceEditToolbarComponent', () => {
@@ -17,7 +17,7 @@ describe('NamespaceEditToolbarComponent', () => {
           imports: [
             RouterTestingModule.withRoutes([]),
             RestangularModule.forRoot(),
-            KuberentesStoreModule,
+            KubernetesStoreModule,
           ],
           declarations: [NamespaceEditToolbarComponent],
           providers: [
