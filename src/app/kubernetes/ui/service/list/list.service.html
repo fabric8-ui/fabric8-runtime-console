@@ -41,9 +41,7 @@
               </span>
             </div>
             <div class='list-group-item-text'>
-              <span class="" *ngFor='let image of service.images' title="docker image">
-                   {{image}}
-               </span>
+              {{service?.spec?.clusterIP || ''}}
             </div>
           </div>
           <div class='list-view-pf-additional-info'>
