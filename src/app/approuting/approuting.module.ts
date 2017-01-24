@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: 'home', redirectTo: 'run/spaces', pathMatch: 'full' },
   { path: 'run/namespaces/:namespace/buildconfigs', loadChildren: '../kubernetes/ui/buildconfig/buildconfig.module#BuildConfigModule' },
   { path: 'run/namespaces/:namespace/configmaps', loadChildren: '../kubernetes/ui/configmap/configmap.module#ConfigMapModule' },
-  { path: 'run/namespaces/:namespace/deployments', loadChildren: '../kubernetes/ui/deployment/deployment.module#DeploymentsModule' },
+  { path: 'run/namespaces/:namespace/deployments', loadChildren: '../kubernetes/ui/deployment/deployment.module#DeploymentModule' },
   { path: 'run/namespaces/:namespace/events', loadChildren: '../kubernetes/ui/event/event.module#EventModule' },
   { path: 'run/namespaces/:namespace/replicasets', loadChildren: '../kubernetes/ui/replicaset/replicaset.module#ReplicaSetModule' },
   { path: 'run/namespaces/:namespace/pods', loadChildren: '../kubernetes/ui/pod/pod.module#PodModule' },
