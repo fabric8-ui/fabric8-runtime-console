@@ -1,22 +1,27 @@
 import {NgModule} from "@angular/core";
-import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
-import {DeploymentModule} from "./deployment/deployment.module";
-import {NamespaceModule} from "./namespace/namespace.module";
 
 
 const routes: Routes = [
+  { path: 'namespaces/:namespace/buildconfigs', loadChildren: './buildconfig/buildconfig.module#BuildConfigModule' },
+  { path: 'namespaces/:namespace/configmaps', loadChildren: './configmap/configmap.module#ConfigMapModule' },
   { path: 'namespaces/:namespace/deployments', loadChildren: './deployment/deployment.module#DeploymentModule' },
+  { path: 'namespaces/:namespace/events', loadChildren: './event/event.module#EventModule' },
+  { path: 'namespaces/:namespace/replicasets', loadChildren: './replicaset/replicaset.module#ReplicaSetModule' },
+  { path: 'namespaces/:namespace/pods', loadChildren: './pod/pod.module#PodModule' },
+  { path: 'namespaces/:namespace/services', loadChildren: './service/service.module#ServiceModule' },
   { path: 'spaces', loadChildren: './namespace/namespace.module#NamespaceModule' },
 ];
 
+
 @NgModule({
   imports: [
+/*
     CommonModule,
     FormsModule,
     DeploymentModule,
     NamespaceModule,
+*/
     RouterModule.forChild(routes),
   ],
   exports: [

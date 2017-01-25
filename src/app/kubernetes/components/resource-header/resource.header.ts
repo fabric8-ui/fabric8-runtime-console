@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Router, NavigationEnd} from "@angular/router";
 import {MenuItem} from "../../../models/menu-item";
+import {ParentLinkFactory} from "../../../common/parent-link-factory";
 
 var resourceKindIndex = 4;
 
@@ -15,7 +16,7 @@ export class ResourceHeaderComponent implements OnInit {
   current: MenuItem;
 
 
-  constructor(public router: Router) {
+  constructor(public router: Router, parentLinkFactory: ParentLinkFactory) {
     this.menus = [
       {
         name: "ConfigMap",
@@ -42,6 +43,14 @@ export class ResourceHeaderComponent implements OnInit {
         path: "services",
       },
     ];
+
+    var urlPrefix = parentLinkFactory.parentLink;
+    this.menus.forEach(menu => {
+      if (!menu.fullPath) {
+        var path = menu.path;
+        menu.fullPath = urlPrefix + path;
+      }
+    });
     this.current = this.menus[0];
 
     router.events.subscribe(event => {

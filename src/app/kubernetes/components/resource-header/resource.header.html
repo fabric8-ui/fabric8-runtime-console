@@ -11,8 +11,9 @@
         </a>
         <ul class="dropdown-menu">
           <li *ngFor="let m of menus">
-            <a [routerLink]="['..', m.path]" *ngIf="m.path !== null && m != current.path"><span
-                    class="{{m.icon}}"></span> {{m.name}}</a>
+            <a [routerLink]="[m.fullPath]" *ngIf="m.path !== null && m != current.path">
+              <span class="{{m.icon}}"></span> {{m.name}}
+            </a>
             <span *ngIf="m.path === null"><span class="{{m.icon}}"></span> {{m.name}}</span>
           </li>
           <li class="divider"></li>
