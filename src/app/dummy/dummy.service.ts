@@ -451,7 +451,7 @@ export class DummyService implements OnInit {
       answer.push({
              entity: namespace,
              type: this.createNamespaceContextType(namespace, runPath, buildPath),
-             path: runPath,
+             path: buildPath,
              name: namespace.name,
            });
     });
@@ -515,7 +515,7 @@ export class DummyService implements OnInit {
         },
 */
         {
-          name: 'Build',
+          name: 'Apps',
           path: buildPath,
 /*            menus: [
             {
