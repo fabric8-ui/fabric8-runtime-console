@@ -8,6 +8,7 @@ import { LoadingComponent } from './loading/loading.component';
 import {EntriesPipe} from './entries.pipe';
 import {ResourceHeaderComponent} from "../kubernetes/components/resource-header/resource.header";
 import {DropdownModule} from "ngx-dropdown";
+import {ParentLinkFactory} from "./parent-link-factory";
 
 @NgModule({
   imports: [
@@ -28,6 +29,9 @@ import {DropdownModule} from "ngx-dropdown";
     TruncateWordsPipe,
     LoadingComponent,
     ResourceHeaderComponent,
+  ],
+  providers: [
+    ParentLinkFactory,
   ],
 })
 export class IPaaSCommonModule { }
