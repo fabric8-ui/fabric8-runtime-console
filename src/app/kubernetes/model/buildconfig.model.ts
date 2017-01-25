@@ -2,6 +2,7 @@ import {KubernetesSpecResource} from "./kuberentesspecresource.model";
 
 export class BuildConfig extends KubernetesSpecResource {
   gitUrl: string;
+  jenkinsJobUrl: string;
   type: string;
   lastVersion: number;
   lastBuildPath: string;
@@ -25,7 +26,7 @@ export class BuildConfig extends KubernetesSpecResource {
       gitUrl = git.uri || "";
     }
     this.gitUrl = gitUrl;
-
+    this.jenkinsJobUrl = this.annotations["fabric8.link.jenkins.job/url"] || "";
   }
 
   defaultKind() {

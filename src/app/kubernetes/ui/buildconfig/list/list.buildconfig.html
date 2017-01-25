@@ -16,6 +16,11 @@
                 View last build
               </a>
             </li>
+            <li *ngIf="buildconfig.jenkinsJobUrl">
+              <a href="{{buildconfig.jenkinsJobUrl}}"  title="view Jenksin Job" target="jenkins">
+                View Jenkins Job
+              </a>
+            </li>
             <li>
               <a [routerLink]="[buildconfig.id, 'edit']">Edit</a>
             </li>
