@@ -1,6 +1,6 @@
-import {KubernetesResource} from './kubernetesresource.model';
+import {KubernetesSpecResource} from "./kuberentesspecresource.model";
 
-export class Build extends KubernetesResource {
+export class Build extends KubernetesSpecResource {
 
   defaultKind() {
     return 'Build';
