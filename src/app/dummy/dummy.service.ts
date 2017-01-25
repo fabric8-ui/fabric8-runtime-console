@@ -411,6 +411,7 @@ export class DummyService implements OnInit {
   private _users: User[];
   private _defaultContext: Context;
   private _currentUser: User;
+  private _parentContexts: Context[];
 
   private readonly buildConfigs: Observable<BuildConfigs>;
   private readonly namespaces: Observable<Namespaces>;
@@ -477,15 +478,21 @@ export class DummyService implements OnInit {
     var app = params["app"];
     console.log("route params space: " + space + " app: " + app + " namespace: " + ns);
     this._currentContext = null;
+    this._parentContexts = [];
     if (ns) {
       var buildConfig: BuildConfig = null;
+      var namespace = namespaces.find(o => o.name === ns);
+
       if (app) {
         buildConfig = buildConfigs.find(o => o.name === app);
+        if (namespace) {
+          let namespaceContext = this.createNamespaceContext(namespace);
+          this._parentContexts.push(namespaceContext);
+        }
       }
       if (buildConfig) {
         this._currentContext = this.createBuildConfigContext(buildConfig);
       } else {
-        var namespace = namespaces.find(o => o.name === ns);
         if (namespace) {
           this._currentContext = this.createNamespaceContext(namespace);
         }
@@ -743,8 +750,8 @@ export class DummyService implements OnInit {
     }
 
     return {
-      name: 'Space',
-      icon: 'pficon-project',
+      name: 'App',
+      icon: 'pficon-build',
       menus: [
 /*
         {
@@ -844,6 +851,10 @@ export class DummyService implements OnInit {
 
   get currentContext(): Context {
     return this._currentContext || this._defaultContext;
+  }
+
+  get parentContexts(): MenuItem[] {
+    return this._parentContexts || [];
   }
 
   get currentContextMenus(): MenuItem[] {

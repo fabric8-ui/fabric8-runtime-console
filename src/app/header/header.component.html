@@ -12,7 +12,11 @@
         </a>
         <ul class="dropdown-menu">
           <li>
-            <a [routerLink]="['/run/spaces']" title="Browse all spaces">Spaces</a>
+            <a [routerLink]="['/run/spaces']" title="Browse all spaces">browse spaces</a>
+          </li>
+          <li *ngFor="let m of dummy.parentContexts">
+            <a [routerLink]="[m.path]">
+              <span class="{{m.type.icon}}"></span> {{m.name}}</a>
           </li>
           <li class="divider"></li>
           <li *ngFor="let m of dummy.contexts">
