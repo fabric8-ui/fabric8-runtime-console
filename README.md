@@ -38,6 +38,10 @@ Then to be able to use the kubernetes / openshift back end for builds and runtim
 kubectl proxy
 ```
 
+If you want to use an existing OpenShift cluster then make sure you run the necessary `oc login` command first. 
+
+To find out how to `oc login` for an openshift server URL you can append the `/oauth/token/request` path in your browser and it should show you what to copy and paste into your command line.
+
 Now go to [http://0.0.0.0:4200](http://0.0.0.0:4200) or [http://localhost:4200](http://localhost:4200) in your browser.
 
 ### If you don't have a kubernetes or openshift cluster
