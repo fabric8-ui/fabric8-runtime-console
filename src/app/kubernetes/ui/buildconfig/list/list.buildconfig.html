@@ -33,7 +33,7 @@
       </div>
       <div class='list-view-pf-main-info'>
         <div class='list-view-pf-left'>
-          <img class='list-view-pf-icon-sm' src="{{buildconfig.icon}}" height="30" width="30"/>
+          <span class="{{buildconfig.iconStyle}}" title="{{buildconfig.statusPhase}}"></span>
         </div>
         <div class='list-view-pf-body'>
           <div class='list-view-pf-description'>
@@ -59,6 +59,11 @@
               <a routerLink="{{buildconfig.lastBuildPath}}" *ngIf="buildconfig.lastBuildPath" title="view last build">
                 #{{buildconfig.lastVersion}}
               </a>
+            </div>
+            <div class='list-view-pf-additional-info-item' title="build duration">
+              <span *ngIf="buildconfig.duration">
+                {{buildconfig.duration | amDuration: 'second'}}
+              </span>
             </div>
 <!--
             <div class='list-view-pf-additional-info-item' title="labels" *ngFor='let entry of buildconfig.labels | entries'>
