@@ -1,0 +1,4 @@
+<div class='builds detail' *ngIf='build'>
+  <ipaas-build-edit-toolbar [build]="build | async" [yamlEditor]="yamlEditor"></ipaas-build-edit-toolbar>
+  <ipaas-build-edit [build]="build | async" [yamlEditor]="yamlEditor"></ipaas-build-edit>
+</div>

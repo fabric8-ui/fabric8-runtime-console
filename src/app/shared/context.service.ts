@@ -37,7 +37,7 @@ export class ContextService {
         return route;
       })
       .filter(route => route.outlet === 'primary')
-      .mergeMap(route => route.params).map(params => params['namespace']).distinctUntilChanged()
+      .mergeMap(route => route.params).map(params => params['namespace'])
       .subscribe(ns => this.namespace = ns);
 
     this.activatedRoute.params.subscribe(params => this.namespace = params['namespace']);
@@ -54,6 +54,7 @@ export class ContextService {
   }
   private computeContext() {
     // lets use the namespace to find the context
+    this._current = null;
     var ns = this._namespace;
     if (ns) {
       var contexts = this.dummy.contexts;
@@ -67,7 +68,6 @@ export class ContextService {
         });
         if (selected) {
           this._current = selected;
-          return;
         }
       }
     }
@@ -82,11 +82,21 @@ export class ContextService {
         }
       }
     }
-    this._current = c || this.dummy.defaultContext;
-    if (this.current.type.menus) {
+    if (!this._current) {
+      this._current = c || this.dummy.defaultContext;
+    }
+    if (this.current) {
+      var found = false;
       for (let n of this.current.type.menus) {
         // Build the fullPath if not already done
-        n.fullPath = n.fullPath || this.buildPath(this.current.path, n.path);
+        if (!n.fullPath) {
+          var path = n.path;
+          if (path && path.startsWith("/")) {
+            n.fullPath = path;
+          } else {
+            n.fullPath = this.buildPath(this.current.path, path);
+          }
+        }
         // Clear the menu's active state
         n.active = false;
         if (n.menus) {
@@ -95,13 +105,35 @@ export class ContextService {
             o.fullPath = o.fullPath || this.buildPath(this.current.path, n.path, o.path);
             // Clear the menu's active state
             o.active = false;
-            if (o.fullPath === this.router.url) {
+            if (!found && o.fullPath === this.router.url) {
               o.active = true;
               n.active = true;
+              found = true;
             }
           }
-        } else if (n.fullPath === this.router.url) {
+        }
+        if (!found && n.fullPath === this.router.url) {
           n.active = true;
+          found = true;
+        }
+      }
+      if (!found) {
+        for (let n of this.current.type.menus) {
+          if (n.menus) {
+            for (let o of n.menus) {
+              if (!found && o.defaultActive) {
+                o.active = true;
+                n.active = true;
+                found = true;
+                break;
+              }
+            }
+          }
+          if (!found && n.defaultActive) {
+            n.active = true;
+            found = true;
+            break;
+          }
         }
       }
     }

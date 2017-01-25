@@ -90,7 +90,7 @@ export class DummyService implements OnInit {
         icon: 'pficon-user',
         menus: [
           {
-            name: 'Namespaces',
+            name: 'Spaces',
             path: '/run/spaces',
           },
 /*
@@ -447,11 +447,12 @@ export class DummyService implements OnInit {
     ns.forEach(namespace => {
 
       let runPath = '/run/namespaces/' + namespace.name + '/deployments';
-      let buildPath = '/run/namespaces/' + namespace.name + '/buildconfigs';
+      let buildPath = '/run/namespaces/' + namespace.name + '/builds';
+      let buildConfigPath = '/run/namespaces/' + namespace.name + '/buildconfigs';
       answer.push({
              entity: namespace,
-             type: this.createNamespaceContextType(namespace, runPath, buildPath),
-             path: runPath,
+             type: this.createNamespaceContextType(namespace, buildConfigPath, buildPath, runPath),
+             path: buildConfigPath,
              name: namespace.name,
            });
     });
@@ -459,7 +460,7 @@ export class DummyService implements OnInit {
   }
 
 
-  private createNamespaceContextType(ns: Namespace, runPath: string, buildPath: string) {
+  private createNamespaceContextType(ns: Namespace, buildConfigPath: string, buildPath: string, runPath: string) {
     var environments = ns.environments;
     var runMenus = [];
     if (environments) {
@@ -515,6 +516,18 @@ export class DummyService implements OnInit {
         },
 */
         {
+          name: 'App',
+          path: buildConfigPath,
+/*            menus: [
+            {
+              name: 'Pipelines',
+              path: '',
+            },
+          ],
+          */
+          menus: [],
+        },
+        {
           name: 'Build',
           path: buildPath,
 /*            menus: [
@@ -530,6 +543,7 @@ export class DummyService implements OnInit {
           name: 'Run',
           path: runPath,
           menus: environments,
+          defaultActive: true,
         },
         {
           name: '',

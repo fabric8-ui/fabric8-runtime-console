@@ -3,6 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 
 
 const routes: Routes = [
+  { path: 'namespaces/:namespace/builds', loadChildren: './build/build.module#BuildModule' },
   { path: 'namespaces/:namespace/buildconfigs', loadChildren: './buildconfig/buildconfig.module#BuildConfigModule' },
   { path: 'namespaces/:namespace/configmaps', loadChildren: './configmap/configmap.module#ConfigMapModule' },
   { path: 'namespaces/:namespace/deployments', loadChildren: './deployment/deployment.module#DeploymentModule' },

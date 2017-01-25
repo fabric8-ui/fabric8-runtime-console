@@ -11,15 +11,16 @@
           <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
+          <li>
+            <a [routerLink]="['/run/spaces']" title="Browse all spaces">Spaces</a>
+          </li>
+          <li class="divider"></li>
           <li *ngFor="let m of dummy.contexts">
             <a [routerLink]="[m.path]" *ngIf="m.path !== null && m != context.current"><span
                     class="{{m.type.icon}}"></span> {{m.name}}</a>
             <span *ngIf="m.path === null"><span class="{{m.type.icon}}"></span> {{m.name}}</span>
           </li>
           <li class="divider"></li>
-          <li>
-            <a [routerLink]="['/run/spaces']">Browse all</a>
-          </li>
           <li>
             <!-- TODO: This should pop up the new space dialog -->
             <a>New space</a>

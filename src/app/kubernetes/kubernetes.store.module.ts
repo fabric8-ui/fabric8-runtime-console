@@ -24,6 +24,8 @@ import {APIsStore} from "./store/apis.store";
 import {DeploymentConfigService} from "./service/deploymentconfig.service";
 import {DeploymentConfigStore} from "./store/deploymentconfig.store";
 import {CompositeDeploymentStore} from "./store/compositedeployment.store";
+import {BuildService} from "./service/build.service";
+import {BuildStore} from "./store/build.store";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -40,6 +42,8 @@ import {BrowserModule} from "@angular/platform-browser";
   ],
   providers: [
     APIsStore,
+    BuildService,
+    BuildStore,
     BuildConfigService,
     BuildConfigStore,
     CompositeDeploymentStore,

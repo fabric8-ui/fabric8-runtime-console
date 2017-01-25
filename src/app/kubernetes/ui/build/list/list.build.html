@@ -1,7 +1,7 @@
 <div class='list-group list-view-pf list-view-pf-view'>
 
   <ipaas-loading [loading]="loading">
-    <div class='list-group-item namespace' *ngFor='let namespace of namespaces'>
+    <div class='list-group-item build' *ngFor='let build of builds'>
       <div class='list-view-pf-checkbox'>
         <input type='checkbox'>
       </div>
@@ -12,13 +12,11 @@
             </button>
           <ul class='dropdown-menu dropdown-menu-right' aria-labelledby='dropdownKebabRight9'>
             <li>
-              <a [routerLink]="[namespace.id]">View Details</a>
+              <a [routerLink]="[build.id, 'edit']">Edit</a>
             </li>
+
             <li>
-              <a [routerLink]="[namespace.id, 'edit']">Edit</a>
-            </li>
-            <li>
-              <a (click)="openDeleteDialog(deleteNamespaceModal, namespace)" title="Delete this Namespace">Delete</a>
+              <a (click)="openDeleteDialog(deleteBuildModal, build)" title="Delete this Build">Delete</a>
             </li>
           </ul>
         </div>
@@ -26,30 +24,26 @@
       </div>
       <div class='list-view-pf-main-info'>
         <div class='list-view-pf-left'>
-          <span *ngIf="!namespace.icon" class="pficon-project"></span>
-          <img *ngIf="namespace.icon" class='list-view-pf-icon-sm' src="{{namespace.icon}}" height="30" width="30"/>
+          <img class='list-view-pf-icon-sm' src="{{build.icon}}" height="30" width="30"/>
         </div>
         <div class='list-view-pf-body'>
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
-              <a [routerLink]="[parentLink, 'namespaces', namespace.id, 'buildconfigs']" class="card-title" title="view the deployments in this namespace">{{ namespace.name }}</a>
+              <a [routerLink]="[build.id]" class="card-title" title="view build">{{ build.name }}</a>
             </div>
             <div class='list-group-item-text'>
-              <span class="" *ngFor='let image of namespace.images' title="docker image">
+              <span class="" *ngFor='let image of build.images' title="docker image">
                    {{image}}
                </span>
             </div>
           </div>
           <div class='list-view-pf-additional-info'>
-<!--
-            <div class='list-view-pf-additional-info-item' title="number of available pods and the replicas">
-              {{namespace.availableReplicas}} / {{namespace.replicas}}
-            </div>
--->
             <div class='list-view-pf-additional-info-item' title="created time">
-              {{namespace.creationTimestamp | amTimeAgo}}
+              <span *ngIf="creationTimestamp">
+                {{build.creationTimestamp | amTimeAgo}}
+              </span>
             </div>
-            <div class='list-view-pf-additional-info-item' title="labels" *ngFor='let entry of namespace.labels | entries'>
+            <div class='list-view-pf-additional-info-item' title="labels" *ngFor='let entry of build.labels | entries'>
               {{entry.key}}: {{entry.value}}
             </div>
           </div>
@@ -59,9 +53,9 @@
   </ipaas-loading>
 </div>
 
-<modal #deleteNamespaceModal title="Delete Namespace">
+<modal #deleteBuildModal title="Delete Build">
   <modal-content>
-    <delete-namespace-dialog></delete-namespace-dialog>
+    <delete-build-dialog></delete-build-dialog>
   </modal-content>
 </modal>
 
