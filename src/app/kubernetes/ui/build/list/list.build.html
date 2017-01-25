@@ -24,7 +24,7 @@
       </div>
       <div class='list-view-pf-main-info'>
         <div class='list-view-pf-left'>
-          <img class='list-view-pf-icon-sm' src="{{build.icon}}" height="30" width="30"/>
+          <span class="{{build.iconStyle}}" title="{{build.statusPhase}}"></span>
         </div>
         <div class='list-view-pf-body'>
           <div class='list-view-pf-description'>
@@ -38,14 +38,19 @@
             </div>
           </div>
           <div class='list-view-pf-additional-info'>
+            <div class='list-view-pf-additional-info-item' title="build duration">
+              <span *ngIf="build.duration">
+                {{build.duration | amDuration: 'second'}}
+              </span>
+            </div>
             <div class='list-view-pf-additional-info-item' title="created time">
               <span *ngIf="build.creationTimestamp">
                 {{build.creationTimestamp | amTimeAgo}}
               </span>
             </div>
-            <div class='list-view-pf-additional-info-item' title="labels" *ngFor='let entry of build.labels | entries'>
+            <!--<div class='list-view-pf-additional-info-item' title="labels" *ngFor='let entry of build.labels | entries'>
               {{entry.key}}: {{entry.value}}
-            </div>
+            </div>-->
           </div>
         </div>
       </div>

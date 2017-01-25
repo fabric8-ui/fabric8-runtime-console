@@ -1,12 +1,34 @@
 import {KubernetesSpecResource} from "./kuberentesspecresource.model";
+import {Build, Builds} from "./build.model";
+
+export const defaultBuildIconStyle = "pficon-build";
 
 export class BuildConfig extends KubernetesSpecResource {
   gitUrl: string;
   jenkinsJobUrl: string;
   type: string;
   lastVersion: number;
-  lastBuildPath: string;
 
+  lastBuildPath: string;
+  lastBuildName: string;
+
+  // last build related data
+  statusPhase: string;
+  duration: number;
+  iconStyle: string;
+
+  private _lastBuild: Build;
+
+  get lastBuild(): Build {
+    return this._lastBuild;
+  }
+
+  set lastBuild(build: Build) {
+    this._lastBuild = build;
+    this.statusPhase = build ? build.statusPhase : "";
+    this.duration = build ? build.duration : 0;
+    this.iconStyle = build ? build.iconStyle : defaultBuildIconStyle;
+  }
 
   updateValuesFromResource() {
     super.updateValuesFromResource();
@@ -17,8 +39,11 @@ export class BuildConfig extends KubernetesSpecResource {
     let git = source.git || {};
     let strategy = spec.strategy || {};
     let type = strategy.type || "";
+
     this.lastVersion = status.lastVersion || 0;
-    this.lastBuildPath = this.lastVersion ? this.name + "/builds/" + this.name + "-" +  this.lastVersion: "";
+    this.lastBuildName = this.lastVersion ? this.name + "-" +  this.lastVersion: "";
+    this.lastBuildPath = this.lastBuildName ? this.name + "/builds/" + this.lastBuildName: "";
+    this.iconStyle = defaultBuildIconStyle;
 
     this.type = type;
     var gitUrl = this.annotations["fabric8.io/git-clone-url"];
@@ -32,7 +57,33 @@ export class BuildConfig extends KubernetesSpecResource {
   defaultKind() {
     return 'BuildConfig';
   }
+
+  defaultIconUrl(): string {
+    return "";
+  }
 }
 
 export class BuildConfigs extends Array<BuildConfig> {
+}
+
+
+export function combineBuildConfigAndBuilds(buildConfigs: BuildConfigs, builds: Builds): BuildConfigs {
+  let map = {};
+  if (builds) {
+    builds.forEach(s => map[s.name] = s);
+  }
+  if (buildConfigs) {
+    buildConfigs.forEach(bc => {
+      let lastVersionName = bc.lastBuildName;
+      if (lastVersionName) {
+        let build = map[lastVersionName];
+        if (build) {
+          bc.lastBuild = build;
+        }
+      }
+    });
+  }
+  return buildConfigs;
+
+
 }
