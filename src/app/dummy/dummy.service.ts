@@ -90,7 +90,7 @@ export class DummyService implements OnInit {
         icon: 'pficon-user',
         menus: [
           {
-            name: 'Namespaces',
+            name: 'Spaces',
             path: '/run/spaces',
           },
 /*
@@ -543,6 +543,7 @@ export class DummyService implements OnInit {
           name: 'Run',
           path: runPath,
           menus: environments,
+          defaultActive: true,
         },
         {
           name: '',
