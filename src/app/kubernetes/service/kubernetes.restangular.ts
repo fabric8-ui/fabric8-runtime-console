@@ -10,6 +10,7 @@ import {ReplicaSet} from '../model/replicaset.model';
 import {ReplicationController} from '../model/replicationcontroller.model';
 import {BuildConfig} from "../model/buildconfig.model";
 import {DeploymentConfig} from "../model/deploymentconfig.model";
+import {Build} from "../model/build.model";
 
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
@@ -22,6 +23,8 @@ function convertToKubernetesResource(resource) {
     return resource;
   }
   switch (kind) {
+    case 'Build':
+      return new Build().setResource(resource);
     case 'BuildConfig':
       return new BuildConfig().setResource(resource);
     case 'ConfigMap':

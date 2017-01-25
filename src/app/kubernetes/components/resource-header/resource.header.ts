@@ -3,9 +3,6 @@ import {Router, NavigationEnd} from "@angular/router";
 import {MenuItem} from "../../../models/menu-item";
 import {ParentLinkFactory} from "../../../common/parent-link-factory";
 
-var resourceKindIndex = 4;
-
-
 @Component({
   selector: 'kube-resource-header',
   templateUrl: './resource.header.html',
@@ -73,8 +70,8 @@ export class ResourceHeaderComponent implements OnInit {
     var menus = this.menus;
     if (url && menus) {
       var paths = url.split("/");
-      if (paths && paths.length > resourceKindIndex) {
-        var path = paths[resourceKindIndex];
+      if (paths && paths.length) {
+        var path = paths[paths.length - 1];
         this.current = null;
         menus.forEach(menu => {
           if (path === menu.path) {

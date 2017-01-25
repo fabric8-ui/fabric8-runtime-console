@@ -5,8 +5,8 @@
       <!-- This part of the menu is dynamic based on context -->
       <li class="context dropdown" dropdown>
         <a dropdown-open>
-                    <span>
-                        <span class="{{context.current.type.icon}}"></span> {{context.current.name}}
+                    <span *ngIf="dummy.currentContext">
+                        <span class="{{dummy.currentContext.type.icon}}"></span> {{dummy.currentContext.name}}
                     </span>
           <b class="caret"></b>
         </a>
@@ -16,7 +16,7 @@
           </li>
           <li class="divider"></li>
           <li *ngFor="let m of dummy.contexts">
-            <a [routerLink]="[m.path]" *ngIf="m.path !== null && m != context.current"><span
+            <a [routerLink]="[m.path]" *ngIf="m.path !== null && m != dummy.currentContext"><span
                     class="{{m.type.icon}}"></span> {{m.name}}</a>
             <span *ngIf="m.path === null"><span class="{{m.type.icon}}"></span> {{m.name}}</span>
           </li>
@@ -27,7 +27,7 @@
           </li>
         </ul>
       </li>
-      <li *ngFor="let m of context.current.type.menus" [class.active]="m.active"
+      <li *ngFor="let m of dummy.currentContextMenus" [class.active]="m.active"
           [class.with-no-children]="(m.menus||[]).length===0">
         <a [routerLink]="[m.path]" *ngIf="m.path">
           <span *ngIf="m.icon" class="{{m.icon}}"></span>

@@ -13,8 +13,16 @@ import "rxjs/add/operator/toPromise";
 import {Observable} from "rxjs";
 import {Namespaces, Namespace} from "../kubernetes/model/namespace.model";
 import {NamespaceStore} from "../kubernetes/store/namespace.store";
+import {Router, NavigationEnd, ActivatedRoute, Params} from "@angular/router";
+import {BuildConfigStore} from "../kubernetes/store/buildconfig.store";
+import {BuildConfigs, BuildConfig} from "../kubernetes/model/buildconfig.model";
+import {MenuItem} from "../models/menu-item";
 
 // A service responsible for providing dummy data for the UI prototypes.
+
+export class AppContext {
+  constructor(public params: Params, public namespaces: Namespaces, public buildConfigs: BuildConfigs) {}
+}
 
 @Injectable()
 export class DummyService implements OnInit {
@@ -397,23 +405,42 @@ export class DummyService implements OnInit {
     { name: 'Scenario Driven Planning' },
   ];
   private _spaces: Space[];
+  private _currentContext: Context;
   private _contexts: Context[];
+  private _defaultContexts: Context[];
   private _users: User[];
   private _defaultContext: Context;
   private _currentUser: User;
+
+  private readonly buildConfigs: Observable<BuildConfigs>;
   private readonly namespaces: Observable<Namespaces>;
+  private readonly params: Observable<Params>;
 
   constructor(
     //private http: Http,
     //private localStorageService: LocalStorageService,
     private broadcaster: Broadcaster,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
     private namespaceStore: NamespaceStore,
+    private buildConfigStore: BuildConfigStore,
   ) {
+    this._defaultContexts = this.initDummy('contexts', this.CONTEXTS);
     this._spaces = this.initDummy('spaces', this.SPACES);
-    this._contexts = this.initDummy('contexts', this.CONTEXTS);
+    this._contexts = this._defaultContexts;
     this._users = this.initDummy('users', this.USERS);
     this._defaultContext = this._contexts[0];
     this.namespaces = this.namespaceStore.list;
+    this.buildConfigs = this.buildConfigStore.list;
+    this.params = this.router.events
+      .filter(event => event instanceof NavigationEnd)
+      .map(() => this.activatedRoute)
+      .map(route => {
+        while (route.firstChild) route = route.firstChild;
+        return route;
+      })
+      .filter(route => route.outlet === 'primary')
+      .mergeMap(route => route.params);
 
     this.broadcaster.on<string>('save')
       .subscribe(() => {
@@ -431,32 +458,141 @@ export class DummyService implements OnInit {
     );
     this.save();
 
-
-    this.namespaces.subscribe( ns => {
-      this._contexts = this.createContextsFromNamespaces(ns);
-      this.broadcaster.broadcast('refreshContext');
-    });
+    Observable.combineLatest(this.params, this.namespaces, this.buildConfigs,
+      (params, namespaces, buildConfigs) => new AppContext(params, namespaces, buildConfigs))
+      .subscribe(ac => this.updateContext(ac));
   }
 
    ngOnInit() {
      this.namespaceStore.loadAll();
    }
 
+  private updateContext(appContext: AppContext) {
+    let params = appContext.params;
+    let namespaces = appContext.namespaces;
+    let buildConfigs = appContext.buildConfigs;
+
+    var ns = params["namespace"];
+    var space = params["space"];
+    var app = params["app"];
+    console.log("route params space: " + space + " app: " + app + " namespace: " + ns);
+    this._currentContext = null;
+    if (ns) {
+      var buildConfig: BuildConfig = null;
+      if (app) {
+        buildConfig = buildConfigs.find(o => o.name === app);
+      }
+      if (buildConfig) {
+        this._currentContext = this.createBuildConfigContext(buildConfig);
+      } else {
+        var namespace = namespaces.find(o => o.name === ns);
+        if (namespace) {
+          this._currentContext = this.createNamespaceContext(namespace);
+        }
+      }
+      this._contexts = this.createContextsFromBuildConfigs(buildConfigs);
+    } else {
+      this._contexts = this.createContextsFromNamespaces(namespaces);
+      this._currentContext = this._defaultContext;
+      //this._contexts = this._defaultContexts;
+    }
+    if (!this._currentContext && this._contexts.length) {
+      this._currentContext = this._contexts[0];
+    }
+    this.updateActive();
+    this.broadcaster.broadcast('refreshContext');
+  }
+
+  private updateActive() {
+    let current = this.currentContext;
+    if (current) {
+      var found = false;
+      for (let n of current.type.menus) {
+        // Build the fullPath if not already done
+        if (!n.fullPath) {
+          var path = n.path;
+          if (path && path.startsWith("/")) {
+            n.fullPath = path;
+          } else {
+            n.fullPath = this.buildPath(current.path, path);
+          }
+        }
+        // Clear the menu's active state
+        n.active = false;
+        if (n.menus) {
+          for (let o of n.menus) {
+            // Build the fullPath if not already done
+            o.fullPath = o.fullPath || this.buildPath(current.path, n.path, o.path);
+            // Clear the menu's active state
+            o.active = false;
+            if (!found && o.fullPath === this.router.url) {
+              o.active = true;
+              n.active = true;
+              found = true;
+            }
+          }
+        }
+        if (!found && n.fullPath === this.router.url) {
+          n.active = true;
+          found = true;
+        }
+      }
+      if (!found) {
+        for (let n of current.type.menus) {
+          if (n.menus) {
+            for (let o of n.menus) {
+              if (!found && o.defaultActive) {
+                o.active = true;
+                n.active = true;
+                found = true;
+                break;
+              }
+            }
+          }
+          if (!found && n.defaultActive) {
+            n.active = true;
+            found = true;
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  private buildPath(...args: string[]): string {
+    let res = '';
+    for (let p of args) {
+      if (p.startsWith('/')) {
+        res = p;
+      } else {
+        res = res + '/' + p;
+      }
+      res = res.replace(/\/*$/, '');
+    }
+    return res;
+  }
+
+
   private createContextsFromNamespaces(ns: Namespaces): Context[] {
     let answer = new Array<Context>();
     ns.forEach(namespace => {
-
-      let runPath = '/run/namespaces/' + namespace.name + '/deployments';
-      let buildPath = '/run/namespaces/' + namespace.name + '/builds';
-      let buildConfigPath = '/run/namespaces/' + namespace.name + '/buildconfigs';
-      answer.push({
-             entity: namespace,
-             type: this.createNamespaceContextType(namespace, buildConfigPath, buildPath, runPath),
-             path: buildConfigPath,
-             name: namespace.name,
-           });
+      answer.push(this.createNamespaceContext(namespace));
     });
     return answer;
+  }
+
+  private createNamespaceContext(namespace: Namespace) {
+    let ns = namespace.name;
+    let runPath = '/run/namespaces/' + ns + '/deployments';
+    let buildPath = '/run/namespaces/' + ns + '/builds';
+    let buildConfigPath = '/run/namespaces/' + ns + '/buildconfigs';
+    let context = {
+      entity: namespace,
+      type: this.createNamespaceContextType(namespace, buildConfigPath, buildPath, runPath),
+      path: buildConfigPath,
+      name: ns,
+    };
+    return context;
   }
 
 
@@ -571,6 +707,128 @@ export class DummyService implements OnInit {
     } as ContextType;
   }
 
+  private createContextsFromBuildConfigs(bcs: BuildConfigs): Context[] {
+    let answer = new Array<Context>();
+    bcs.forEach(bc => {
+      answer.push(this.createBuildConfigContext(bc));
+    });
+    return answer;
+  }
+
+  private createBuildConfigContext(bc: BuildConfig) {
+    var ns = bc.namespace;
+    var prefix = "/spaces/" + ns + "/apps/" + bc.name + "/namespaces/";
+    let runPath = prefix + ns + '/deployments';
+    let buildPath = prefix + ns + '/builds';
+    let context = {
+      entity: bc,
+      type: this.createBuildConfigContextType(bc, buildPath, runPath),
+      path: buildPath,
+      name: bc.name,
+    };
+    return context;
+  }
+
+
+  private createBuildConfigContextType(bc: BuildConfig, buildPath: string, runPath: string) {
+    var environments = bc['environments'];
+    var runMenus = [];
+    if (environments) {
+      environments.forEach(env => {
+        runMenus.push({
+          name: env.name,
+          path: env.path,
+        })
+      });
+    }
+
+    return {
+      name: 'Space',
+      icon: 'pficon-project',
+      menus: [
+/*
+        {
+          name: 'Analyze',
+          path: '',
+          menus: [
+            {
+              name: 'Overview',
+              path: ''
+            }, {
+              name: 'README',
+              path: 'readme'
+            }
+          ]
+        }, {
+          name: 'Plan',
+          path: 'plan',
+          menus: [
+            {
+              name: 'Backlog',
+              path: ''
+            }, {
+              name: 'Board',
+              path: 'board'
+            }
+          ]
+        }, {
+          name: 'Create',
+          path: 'create',
+          menus: [
+            {
+              name: 'Codebases',
+              path: ''
+            }, {
+              name: 'Workspaces',
+              path: 'workspaces'
+            }
+          ]
+        },
+*/
+        {
+          name: 'Build',
+          path: buildPath,
+/*            menus: [
+            {
+              name: 'Pipelines',
+              path: '',
+            },
+          ],
+          */
+          menus: [],
+        },
+        {
+          name: 'Run',
+          path: runPath,
+          menus: environments,
+          defaultActive: true,
+        },
+        {
+          name: '',
+          path: 'settings',
+          icon: 'pficon pficon-settings',
+/*          menus: [
+            {
+              name: 'Overview',
+              path: '',
+              icon: '',
+              menus: [],
+            }, {
+              name: 'Work',
+              path: 'work',
+            }, {
+              name: 'Security',
+              path: 'security',
+            }, {
+              name: 'Alerts',
+              path: 'alerts',
+            },
+          ],*/
+        },
+      ],
+    } as ContextType;
+  }
+
 
   get spaces(): Space[] {
     return this._spaces;
@@ -582,6 +840,21 @@ export class DummyService implements OnInit {
 
   get contexts(): Context[] {
     return this._contexts;
+  }
+
+  get currentContext(): Context {
+    return this._currentContext || this._defaultContext;
+  }
+
+  get currentContextMenus(): MenuItem[] {
+    var current = this.currentContext;
+    if (current) {
+      var type = current.type;
+      if (type) {
+        return type.menus || [];
+      }
+    }
+    return [];
   }
 
   get processTemplates(): ProcessTemplate[] {
