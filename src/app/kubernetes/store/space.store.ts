@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Namespaces, Namespace} from "../model/namespace.model";
+import {Namespaces, Namespace, isSystemNamespace, isSecretsNamespace} from "../model/namespace.model";
 import {Observable, BehaviorSubject} from "rxjs";
 import {NamespaceStore} from "./namespace.store";
 import {ConfigMapService} from "../service/configmap.service";
@@ -71,6 +71,9 @@ export class SpaceStore {
   }
 
   protected enrichNamespace(namespaces: Namespaces, namespace: Namespace): Observable<Space> {
+    if (isSecretsNamespace(namespace) || isSystemNamespace(namespace)) {
+      return Observable.of(new Space(namespace, namespaces, null));
+    }
     let ns = namespace.name;
     return this.configMapService.list(ns, {
       labelSelector: "kind=environments"

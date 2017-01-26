@@ -1,7 +1,7 @@
 /// <reference path="../../../../node_modules/retyped-js-yaml-tsd-ambient/js-yaml.d.ts"/>
 import * as jsyaml from 'js-yaml';
 
-import {Namespace, Namespaces} from "./namespace.model";
+import {Namespace, Namespaces, isSecretsNamespace, isSystemNamespace} from "./namespace.model";
 import {ConfigMap} from "./configmap.model";
 
 
@@ -82,11 +82,6 @@ export class Spaces extends Array<Space>{
   systemNamespaces = new Array<Space>();
 }
 
-const systemNamespaceNames = {
-  'kube-system': 'kubernetes',
-  'openshift': 'openshift',
-  'openshift-infra': 'openshift',
-};
 
 export function asSpaces(spaces: Space[]): Spaces {
   var answer = new Spaces();
@@ -107,9 +102,9 @@ export function asSpaces(spaces: Space[]): Spaces {
         let nsName = space.name;
         if (!nsNameToEnvMap[nsName]) {
           // this is a top level space not an environment
-          if (space.namespace.labels["group"] === "secrets") {
+          if (isSecretsNamespace(space.namespace)) {
             answer.secretNamespaces.push(space);
-          } else if (systemNamespaceNames[space.name]) {
+          } else if (isSystemNamespace(space.namespace)) {
             answer.systemNamespaces.push(space);
           } else {
             answer.push(space);

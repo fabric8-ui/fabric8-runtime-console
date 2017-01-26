@@ -18,3 +18,18 @@ export class Namespace extends KubernetesResource {
 
 export class Namespaces extends Array<Namespace>{
 }
+
+export function isSecretsNamespace(namespace: Namespace) {
+  return namespace && namespace.labels["group"] === "secrets";
+}
+
+export function isSystemNamespace(namespace: Namespace) {
+  return namespace && systemNamespaceNames[namespace.name];
+}
+
+const systemNamespaceNames = {
+  'kube-system': 'kubernetes',
+  'openshift': 'openshift',
+  'openshift-infra': 'openshift',
+};
+
