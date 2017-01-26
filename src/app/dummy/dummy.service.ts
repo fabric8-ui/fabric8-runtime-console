@@ -1,6 +1,6 @@
 import {Context} from "./../models/context";
 import {ContextType} from "./../models/context-type";
-import {Space} from "./../models/space";
+import {DevSpace} from "./../models/space";
 import {Resources} from "./../models/resources";
 import {ProcessTemplate} from "./../models/process-template";
 import {User} from "./../models/user";
@@ -11,8 +11,8 @@ import {Injectable, OnInit} from "@angular/core";
 import {Broadcaster} from "../shared/broadcaster.service";
 import "rxjs/add/operator/toPromise";
 import {Observable} from "rxjs";
-import {Namespaces, Namespace} from "../kubernetes/model/namespace.model";
-import {NamespaceStore} from "../kubernetes/store/namespace.store";
+import {Spaces, Space} from "../kubernetes/model/space.model";
+import {SpaceStore} from "../kubernetes/store/space.store";
 import {Router, NavigationEnd, ActivatedRoute, Params} from "@angular/router";
 import {BuildConfigStore} from "../kubernetes/store/buildconfig.store";
 import {BuildConfigs, BuildConfig} from "../kubernetes/model/buildconfig.model";
@@ -21,7 +21,7 @@ import {MenuItem} from "../models/menu-item";
 // A service responsible for providing dummy data for the UI prototypes.
 
 export class AppContext {
-  constructor(public params: Params, public namespaces: Namespaces, public buildConfigs: BuildConfigs) {}
+  constructor(public params: Params, public spaces: Spaces, public buildConfigs: BuildConfigs) {}
 }
 
 @Injectable()
@@ -145,7 +145,7 @@ export class DummyService implements OnInit {
     [
       'space',
       {
-        name: 'Space',
+        name: 'DevSpace',
         icon: 'pficon-project',
         menus: [
 /*
@@ -284,7 +284,7 @@ export class DummyService implements OnInit {
     ],
   ]);
 
-  readonly SPACES: Map<string, Space> = new Map<string, Space>([
+  readonly SPACES: Map<string, DevSpace> = new Map<string, DevSpace>([
     [
       'bobo',
       {
@@ -301,7 +301,7 @@ export class DummyService implements OnInit {
           version: 1,
         },
         type: 'spaces',
-      } as Space,
+      } as DevSpace,
     ], [
       'hysterix',
       {
@@ -318,7 +318,7 @@ export class DummyService implements OnInit {
           version: 1,
         },
         type: 'spaces',
-      } as Space,
+      } as DevSpace,
     ], [
       'fabric8',
       {
@@ -335,7 +335,7 @@ export class DummyService implements OnInit {
           version: 1,
         },
         type: 'spaces',
-      } as Space,
+      } as DevSpace,
     ], [
       'balloonpopgame',
       {
@@ -355,7 +355,7 @@ export class DummyService implements OnInit {
           version: 1,
         },
         type: 'spaces',
-      } as Space,
+      } as DevSpace,
     ],
   ]);
 
@@ -404,7 +404,7 @@ export class DummyService implements OnInit {
     { name: 'Issue Tracking' },
     { name: 'Scenario Driven Planning' },
   ];
-  private _spaces: Space[];
+  private _devSpaces: DevSpace[];
   private _currentContext: Context;
   private _contexts: Context[];
   private _defaultContexts: Context[];
@@ -412,9 +412,11 @@ export class DummyService implements OnInit {
   private _defaultContext: Context;
   private _currentUser: User;
   private _parentContexts: Context[];
+  private _urlPrefix: string;
+  private _appContext: AppContext;
 
   private readonly buildConfigs: Observable<BuildConfigs>;
-  private readonly namespaces: Observable<Namespaces>;
+  private readonly spaces: Observable<Spaces>;
   private readonly params: Observable<Params>;
 
   constructor(
@@ -423,15 +425,15 @@ export class DummyService implements OnInit {
     private broadcaster: Broadcaster,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private namespaceStore: NamespaceStore,
+    private spaceStore: SpaceStore,
     private buildConfigStore: BuildConfigStore,
   ) {
     this._defaultContexts = this.initDummy('contexts', this.CONTEXTS);
-    this._spaces = this.initDummy('spaces', this.SPACES);
+    this._devSpaces = this.initDummy('spaces', this.SPACES);
     this._contexts = this._defaultContexts;
     this._users = this.initDummy('users', this.USERS);
     this._defaultContext = this._contexts[0];
-    this.namespaces = this.namespaceStore.list;
+    this.spaces = this.spaceStore.list;
     this.buildConfigs = this.buildConfigStore.list;
     this.params = this.router.events
       .filter(event => event instanceof NavigationEnd)
@@ -459,47 +461,55 @@ export class DummyService implements OnInit {
     );
     this.save();
 
-    Observable.combineLatest(this.params, this.namespaces, this.buildConfigs,
-      (params, namespaces, buildConfigs) => new AppContext(params, namespaces, buildConfigs))
+    Observable.combineLatest(this.params, this.spaces, this.buildConfigs,
+      (params, spaces, buildConfigs) => new AppContext(params, spaces, buildConfigs))
       .subscribe(ac => this.updateContext(ac));
   }
 
    ngOnInit() {
-     this.namespaceStore.loadAll();
+     this.spaceStore.loadAll();
    }
 
   private updateContext(appContext: AppContext) {
     let params = appContext.params;
-    let namespaces = appContext.namespaces;
+    let spaces = appContext.spaces;
     let buildConfigs = appContext.buildConfigs;
 
+    this._appContext = appContext;
     var ns = params["namespace"];
-    var space = params["space"];
+    var spaceName = params["space"];
     var app = params["app"];
-    console.log("route params space: " + space + " app: " + app + " namespace: " + ns);
+    console.log("route params space: " + spaceName + " app: " + app + " namespace: " + ns);
     this._currentContext = null;
     this._parentContexts = [];
+    this._urlPrefix = "/run/space";
     if (ns) {
+      this._urlPrefix = "/run/space/" + ns;
+      if (spaceName) {
+        this._urlPrefix = "/run/space/" + spaceName + "/namespaces/" + ns;
+      }
+
       var buildConfig: BuildConfig = null;
-      var namespace = namespaces.find(o => o.name === ns);
+      var space = spaces.find(o => o.name === ns);
 
       if (app) {
+        this._urlPrefix = "/run/app/" + app + "/space/" + spaceName + "/namespaces/" + ns;
         buildConfig = buildConfigs.find(o => o.name === app);
-        if (namespace) {
-          let namespaceContext = this.createNamespaceContext(namespace);
-          this._parentContexts.push(namespaceContext);
+        if (space) {
+          let spaceContext = this.createSpaceContext(space);
+          this._parentContexts.push(spaceContext);
         }
       }
       if (buildConfig) {
         this._currentContext = this.createBuildConfigContext(buildConfig);
       } else {
-        if (namespace) {
-          this._currentContext = this.createNamespaceContext(namespace);
+        if (space) {
+          this._currentContext = this.createSpaceContext(space);
         }
       }
       this._contexts = this.createContextsFromBuildConfigs(buildConfigs);
     } else {
-      this._contexts = this.createContextsFromNamespaces(namespaces);
+      this._contexts = this.createContextsFromSpaces(spaces);
       this._currentContext = this._defaultContext;
       //this._contexts = this._defaultContexts;
     }
@@ -569,33 +579,37 @@ export class DummyService implements OnInit {
   private buildPath(...args: string[]): string {
     let res = '';
     for (let p of args) {
-      if (p.startsWith('/')) {
-        res = p;
-      } else {
-        res = res + '/' + p;
+      if (p) {
+        if (p.startsWith('/')) {
+          res = p;
+        } else {
+          res = res + '/' + p;
+        }
+        res = res.replace(/\/*$/, '');
       }
-      res = res.replace(/\/*$/, '');
     }
     return res;
   }
 
 
-  private createContextsFromNamespaces(ns: Namespaces): Context[] {
+  private createContextsFromSpaces(ns: Spaces): Context[] {
     let answer = new Array<Context>();
-    ns.forEach(namespace => {
-      answer.push(this.createNamespaceContext(namespace));
+    ns.forEach(space => {
+      answer.push(this.createSpaceContext(space));
     });
     return answer;
   }
 
-  private createNamespaceContext(namespace: Namespace) {
-    let ns = namespace.name;
-    let runPath = '/run/namespaces/' + ns + '/deployments';
-    let buildPath = '/run/namespaces/' + ns + '/builds';
-    let buildConfigPath = '/run/namespaces/' + ns + '/buildconfigs';
+  private createSpaceContext(space: Space) {
+    var ns = space.name;
+    //var urlPrefix = this._urlPrefix + "/" + ns + "/namespaces/" + ns;
+    var urlPrefix = this._urlPrefix;
+    let runPath = urlPrefix + '/deployments';
+    let buildPath = urlPrefix + '/builds';
+    let buildConfigPath = urlPrefix + '/buildconfigs';
     let context = {
-      entity: namespace,
-      type: this.createNamespaceContextType(namespace, buildConfigPath, buildPath, runPath),
+      entity: space,
+      type: this.createSpaceContextType(space, buildConfigPath, buildPath, runPath),
       path: buildConfigPath,
       name: ns,
     };
@@ -603,23 +617,25 @@ export class DummyService implements OnInit {
   }
 
 
-  private createNamespaceContextType(ns: Namespace, buildConfigPath: string, buildPath: string, runPath: string) {
+  private createSpaceContextType(ns: Space, buildConfigPath: string, buildPath: string, runPath: string) {
     var environments = ns.environments;
     var runMenus = [];
     if (environments) {
       environments.forEach(env => {
         var envName = env.name
         // TODO
-        var path = "/run/namespaces/" + envName + "/";
+        var path = "/run/spaces/" + envName + "/";
         runMenus.push({
           name: envName,
           path: path,
         })
       });
     }
+    // the UI looks a bit wacky for now - lets disable ;)
+    environments = [];
 
     return {
-      name: 'Space',
+      name: 'DevSpace',
       icon: 'pficon-project',
       menus: [
 /*
@@ -726,10 +742,15 @@ export class DummyService implements OnInit {
   }
 
   private createBuildConfigContext(bc: BuildConfig) {
-    var ns = bc.namespace;
-    var prefix = "/spaces/" + ns + "/apps/" + bc.name + "/namespaces/";
-    let runPath = prefix + ns + '/deployments';
-    let buildPath = prefix + ns + '/builds';
+    var appContext = this._appContext;
+    let params = appContext.params;
+    var ns = params["namespace"];
+    var spaceName = params["space"];
+    var app = bc.name;
+
+    var prefix = "/run/app/" + app + "/space/" + spaceName + "/namespaces/" + ns;
+    let runPath = prefix + '/deployments';
+    let buildPath = prefix + '/builds';
     let context = {
       entity: bc,
       type: this.createBuildConfigContextType(bc, buildPath, runPath),
@@ -840,8 +861,8 @@ export class DummyService implements OnInit {
   }
 
 
-  get spaces(): Space[] {
-    return this._spaces;
+  get devSpaces(): DevSpace[] {
+    return this._devSpaces;
   }
 
   get resources(): Resources {

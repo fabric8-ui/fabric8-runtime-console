@@ -5,7 +5,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'run/spaces', pathMatch: 'full' },
   { path: 'home', redirectTo: 'run/spaces', pathMatch: 'full' },
   { path: 'run', loadChildren: '../kubernetes/ui/ui.module#KubernetesUIModule' },
-  { path: 'spaces/:space/apps/:app', loadChildren: '../kubernetes/ui/ui.module#KubernetesUIModule' },
+  { path: 'run/space/:space', loadChildren: '../kubernetes/ui/ui.module#KubernetesUIModule' },
+  { path: 'run/app/:app/space/:space', loadChildren: '../kubernetes/ui/ui.module#KubernetesUIModule' },
 ];
 
 @NgModule({

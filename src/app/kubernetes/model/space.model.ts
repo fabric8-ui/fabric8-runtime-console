@@ -6,11 +6,13 @@ import {ConfigMap} from "./configmap.model";
 
 
 export class Space {
+  id: string;
   name: string;
   environments: Environment[] = [];
 
   constructor(public namespace: Namespace, namespaces: Namespaces, public configMap: ConfigMap) {
     if (namespace) {
+      this.id = namespace.id;
       this.name = namespace.name;
     }
 

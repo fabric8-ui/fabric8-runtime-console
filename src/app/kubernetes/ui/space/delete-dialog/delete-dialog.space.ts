@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {Space} from "../../../model/space.model";
 import {SpaceStore} from "../../../store/space.store";
+import {Namespaces} from "../../../model/namespace.model";
 
 @Component({
   selector: 'delete-space-dialog',
@@ -8,7 +9,7 @@ import {SpaceStore} from "../../../store/space.store";
   styleUrls: ['./delete-dialog.space.scss'],
 })
 export class SpaceDeleteDialog {
-  space: Space = new Space(null);
+  space: Space = new Space(null, new Namespaces(), null);
   modal: any;
 
   constructor(private spaceStore: SpaceStore) {

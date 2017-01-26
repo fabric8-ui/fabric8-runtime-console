@@ -18,6 +18,6 @@ export class SpaceEditWrapperComponent implements OnInit {
 
   ngOnInit() {
     this.space = this.store.resource;
-    this.space.subscribe((d) => this.yamlEditor.loadResource(d));
+    this.space.subscribe((d) => this.yamlEditor.loadResource(d.namespace));
   }
 }
