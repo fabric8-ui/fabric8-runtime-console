@@ -15,6 +15,7 @@ export abstract class KubernetesService<T extends KubernetesResource, L extends 
     return super.get(id);
   }
 
+
   create(obj: T): Observable<T> {
     let resource = obj.resource || {};
     if (!resource.kind) {

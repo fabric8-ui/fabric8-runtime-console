@@ -29,6 +29,14 @@ export abstract class AbstractStore<T extends BaseEntity, L extends Array<T>,
 
   get loading(): Observable<boolean>  { return this._loading.asObservable(); }
 
+  delete(obj: T): Observable<any> {
+    return this.service.delete(obj);
+  }
+
+  update(obj: T): Observable<T> {
+   return this.service.update(obj);
+  }
+
   loadAll() {
     this._loadId = null;
     this._loading.next(true);

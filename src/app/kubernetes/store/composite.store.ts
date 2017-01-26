@@ -3,13 +3,13 @@ import {BehaviorSubject, Observable} from "rxjs";
 
 export abstract class CompositeStore<T extends BaseEntity, L extends Array<T>> {
 
-  private _list: BehaviorSubject<L>;
+  protected _list: BehaviorSubject<L>;
 
-  private _current: BehaviorSubject<T>;
+  protected _current: BehaviorSubject<T>;
 
-  private _loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  protected _loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  private _loadId: string = null;
+  protected _loadId: string = null;
 
   constructor(initialList: L, initialCurrent: T) {
     this._list = new BehaviorSubject(initialList);
