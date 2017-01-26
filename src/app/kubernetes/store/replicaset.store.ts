@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ReplicaSetService} from '../service/replicaset.service';
 import {ReplicaSet, ReplicaSets} from '../model/replicaset.model';
-import {NamespacedResourceStore} from './namespaced.resource.store';
+import {NamespacedResourceStore} from './namespacedresource.store';
 import {NamespaceScope} from '../service/namespace.scope';
 
 @Injectable()

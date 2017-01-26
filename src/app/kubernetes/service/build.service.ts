@@ -20,10 +20,10 @@ export class BuildService extends NamespacedResourceService<Build, Builds> {
     })
   }
 
-  protected createUrl(urlPrefix: string, namespace: string, urlSuffix: string): string {
+  protected createServiceUrl(urlPrefix: string, namespace: string, urlSuffix: string): string {
     if (namespace) {
       if (this.apiStore.isOpenShift()) {
-        return super.createUrl(urlPrefix, namespace, urlSuffix);
+        return super.createServiceUrl(urlPrefix, namespace, urlSuffix);
       }
       // TODO use a nicer path joiner function
       return "/api/v1/proxy/namespaces/" + namespace + "/services/jenkinshift:80/oapi/v1/namespaces/" + namespace + "/builds";

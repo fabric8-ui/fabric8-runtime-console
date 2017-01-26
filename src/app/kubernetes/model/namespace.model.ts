@@ -1,7 +1,10 @@
 import {KubernetesResource} from './kubernetesresource.model';
 
 export class Namespace extends KubernetesResource {
-  environments: Array<any>;
+  environments: Map<string, Namespace>;
+
+  /* The owning space/team for an environment - or null for an environment */
+  space: Namespace;
 
   defaultKind() {
     return 'Namespace';

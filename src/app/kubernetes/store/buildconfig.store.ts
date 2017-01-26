@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BuildConfigService} from '../service/buildconfig.service';
 import {BuildConfig, BuildConfigs} from '../model/buildconfig.model';
-import {NamespacedResourceStore} from './namespaced.resource.store';
+import {NamespacedResourceStore} from './namespacedresource.store';
 import {NamespaceScope} from '../service/namespace.scope';
 
 @Injectable()

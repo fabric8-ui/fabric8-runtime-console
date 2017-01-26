@@ -608,9 +608,12 @@ export class DummyService implements OnInit {
     var runMenus = [];
     if (environments) {
       environments.forEach(env => {
+        var envName = env.name
+        // TODO
+        var path = "/run/namespaces/" + envName + "/";
         runMenus.push({
-          name: env.name,
-          path: env.path,
+          name: envName,
+          path: path,
         })
       });
     }

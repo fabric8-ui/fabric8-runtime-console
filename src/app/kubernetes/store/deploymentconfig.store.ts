@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {NamespacedResourceStore} from './namespaced.resource.store';
+import {NamespacedResourceStore} from './namespacedresource.store';
 import {NamespaceScope} from '../service/namespace.scope';
 import {DeploymentConfig, DeploymentConfigs} from "../model/deploymentconfig.model";
 import {DeploymentConfigService} from "../service/deploymentconfig.service";

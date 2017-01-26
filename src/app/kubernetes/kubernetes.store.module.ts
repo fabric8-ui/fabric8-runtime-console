@@ -26,6 +26,7 @@ import {DeploymentConfigStore} from "./store/deploymentconfig.store";
 import {CompositeDeploymentStore} from "./store/compositedeployment.store";
 import {BuildService} from "./service/build.service";
 import {BuildStore} from "./store/build.store";
+import {SpaceStore} from "./store/space.store";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -66,6 +67,7 @@ import {BrowserModule} from "@angular/platform-browser";
     ReplicationControllerStore,
     ServiceService,
     ServiceStore,
+    SpaceStore,
   ],
 })
 export class KubernetesStoreModule {

@@ -11,7 +11,7 @@ export abstract class RESTService<T extends BaseEntity, L extends Array<T>> {
     return this.restangularService.one(id).get();
   }
 
-  list(): Observable<L> { return this.restangularService.getList(); }
+  list(queryParams: any = null): Observable<L> { return this.restangularService.getList(queryParams); }
 
   create(obj: T): Observable<T> { return this.restangularService.post(obj); }
 

@@ -34,14 +34,36 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
     this._serviceUrl = null;
   }
 
+  get(id: string, namespace: string = null): Observable<T> {
+    let url = namespace ? this.serviceUrlForNamespace(namespace) : this.serviceUrl;
+    return this.restangularService.one(url, id).get();
+  }
+
+  list(namespace: string = null, queryParams: any = null): Observable<L> {
+    let url = namespace ? this.serviceUrlForNamespace(namespace) : this.serviceUrl;
+    return this.restangularService.all(url).getList(queryParams);
+  }
+
+  // TODO implement create using an optional namespace?
+
+  /**
+   * Returns the service URL to use for the current namespace scope
+   */
   get serviceUrl(): string {
     if (!this._serviceUrl) {
-      this._serviceUrl = this.createUrl(this.urlPrefix, this.namespace, this.urlSuffix);
+      this._serviceUrl = this.serviceUrlForNamespace(this.namespace);
     }
     return this._serviceUrl;
   }
 
-  protected createUrl(urlPrefix: string, namespace: string, urlSuffix: string): string {
+  /**
+   * Returns the base URL to use for the given namespace
+   */
+  protected serviceUrlForNamespace(namespace: string) {
+    return this.createServiceUrl(this.urlPrefix, namespace, this.urlSuffix);
+  }
+
+  protected createServiceUrl(urlPrefix: string, namespace: string, urlSuffix: string): string {
     if (namespace) {
       // TODO use a nicer path joiner function
       let url = urlPrefix + namespace + urlSuffix;
@@ -51,14 +73,6 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
     return '';
   }
 
-
-  get(id: string): Observable<T> {
-    return this.restangularService.one(this.serviceUrl, id).get();
-  }
-
-  list(): Observable<L> {
-    return this.restangularService.all(this.serviceUrl).getList();
-  }
 
   // TODO
   ngOnDestroy() {
