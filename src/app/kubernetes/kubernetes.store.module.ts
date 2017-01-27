@@ -28,6 +28,7 @@ import {BuildService} from "./service/build.service";
 import {BuildStore} from "./store/build.store";
 import {SpaceStore} from "./store/space.store";
 import {DevNamespaceScope} from "./service/devnamespace.scope";
+import {OAuthService} from "angular2-oauth2/oauth-service";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -61,6 +62,7 @@ import {BrowserModule} from "@angular/platform-browser";
     EventStore,
     NamespaceService,
     NamespaceStore,
+    OAuthService,
     PodService,
     PodStore,
     ReplicaSetService,
