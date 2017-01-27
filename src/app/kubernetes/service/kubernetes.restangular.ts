@@ -12,7 +12,6 @@ import {BuildConfig} from "../model/buildconfig.model";
 import {DeploymentConfig} from "../model/deploymentconfig.model";
 import {Build} from "../model/build.model";
 
-
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
 
 
@@ -112,9 +111,7 @@ export function KubernetesRestangularFactory(restangular: Restangular) {
       return data;
     });
 
-
-    // TODO add token
-    //RestangularConfigurer.setDefaultHeaders({'Authorization': 'Bearer UDXPx-Xko0w4BRKajozCVy20X11MRZs1'});
+    //RestangularConfigurer.setDefaultHeaders({'Authorization': 'Bearer'  + oauthService.getAccessToken()});
   });
 }
 
