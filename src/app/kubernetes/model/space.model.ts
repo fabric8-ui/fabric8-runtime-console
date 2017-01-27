@@ -10,10 +10,16 @@ export class Space {
   name: string;
   environments: Environment[] = [];
 
+  /**
+   * Returns the namespace of the first environment or if there are none then this namespace name
+   */
+  firstEnvironmentNamespace: string;
+
   constructor(public namespace: Namespace, namespaces: Namespaces, public configMap: ConfigMap) {
     if (namespace) {
       this.id = namespace.id;
       this.name = namespace.name;
+      this.firstEnvironmentNamespace = this.name;
     }
 
     let map = new Map<string, Namespace>();
@@ -22,6 +28,10 @@ export class Space {
     }
     if (configMap) {
       this.environments = this.loadEnvironments(configMap, map);
+
+      if (this.environments.length) {
+        this.firstEnvironmentNamespace = this.environments[0].namespaceName || this.name;
+      }
     }
   }
 
@@ -50,7 +60,20 @@ export class Space {
     } else {
       console.log("No data for ConfigMap " + configMap.name + " in namespace " + configMap.namespace);
     }
-    // TODO sort in order!
+    answer.sort((a: Environment, b: Environment) => {
+      if (a.order < b.order) {
+        return -1;
+      } else if (a.order > b.order) {
+        return 1;
+      }
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
     return answer;
   }
 }

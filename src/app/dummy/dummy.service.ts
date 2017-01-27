@@ -21,7 +21,8 @@ import {MenuItem} from "../models/menu-item";
 // A service responsible for providing dummy data for the UI prototypes.
 
 export class AppContext {
-  constructor(public params: Params, public spaces: Spaces, public buildConfigs: BuildConfigs) {}
+  constructor(public params: Params, public spaces: Spaces, public buildConfigs: BuildConfigs) {
+  }
 }
 
 @Injectable()
@@ -65,19 +66,19 @@ export class DummyService implements OnInit {
           type: '',
         } as User,
       ], [
-        'qodfathr',
-        {
-          attributes: {
-            fullName: 'Todd Manicini',
-            imageURL: 'https://avatars1.githubusercontent.com/u/16322190?v=3&s=460',
-            email: 'tmancini@fabric8.io',
-            bio: 'I like writing clever one-line bios about myself. But, I can\'t!',
-            username: 'qodfathr',
-          },
-          id: '222',
-          type: '',
-        } as User,
-      ],
+      'qodfathr',
+      {
+        attributes: {
+          fullName: 'Todd Manicini',
+          imageURL: 'https://avatars1.githubusercontent.com/u/16322190?v=3&s=460',
+          email: 'tmancini@fabric8.io',
+          bio: 'I like writing clever one-line bios about myself. But, I can\'t!',
+          username: 'qodfathr',
+        },
+        id: '222',
+        type: '',
+      } as User,
+    ],
     ],
   );
 
@@ -101,44 +102,44 @@ export class DummyService implements OnInit {
             name: 'Spaces',
             path: '/run/spaces',
           },
-/*
-          {
-            name: 'Profile',
-            path: '',
-            menus: [
-              {
-                name: 'Profile',
-                path: ''
-              }, {
-                name: 'Collaboration Spaces',
-                path: 'spaces'
-              }, {
-                name: 'Resources',
-                path: 'resources'
-              }
-            ]
-          },
-          {
-            path: 'settings',
-            icon: 'pficon pficon-settings',
-            menus: [
-              {
-                name: 'Profile',
-                path: ''
-              }/!*, {
-                // Account is disabled as we don't yet support users creating accounts
-                name: 'Account',
-                path: 'account'
-              }*!/, {
-                name: 'Emails',
-                path: 'emails'
-              }, {
-                name: 'Notifications',
-                path: 'notifications'
-              }
-            ]
-          },
-*/
+          /*
+           {
+           name: 'Profile',
+           path: '',
+           menus: [
+           {
+           name: 'Profile',
+           path: ''
+           }, {
+           name: 'Collaboration Spaces',
+           path: 'spaces'
+           }, {
+           name: 'Resources',
+           path: 'resources'
+           }
+           ]
+           },
+           {
+           path: 'settings',
+           icon: 'pficon pficon-settings',
+           menus: [
+           {
+           name: 'Profile',
+           path: ''
+           }/!*, {
+           // Account is disabled as we don't yet support users creating accounts
+           name: 'Account',
+           path: 'account'
+           }*!/, {
+           name: 'Emails',
+           path: 'emails'
+           }, {
+           name: 'Notifications',
+           path: 'notifications'
+           }
+           ]
+           },
+           */
         ],
       } as ContextType,
     ],
@@ -148,79 +149,79 @@ export class DummyService implements OnInit {
         name: 'DevSpace',
         icon: 'pficon-project',
         menus: [
-/*
-          {
-            name: 'Analyze',
-            path: '',
-            menus: [
-              {
-                name: 'Overview',
-                path: ''
-              }, {
-                name: 'README',
-                path: 'readme'
-              }
-            ]
-          }, {
-            name: 'Plan',
-            path: 'plan',
-            menus: [
-              {
-                name: 'Backlog',
-                path: ''
-              }, {
-                name: 'Board',
-                path: 'board'
-              }
-            ]
-          }, {
-            name: 'Create',
-            path: 'create',
-            menus: [
-              {
-                name: 'Codebases',
-                path: ''
-              }, {
-                name: 'Workspaces',
-                path: 'workspaces'
-              }
-            ]
-          },
-*/
+          /*
+           {
+           name: 'Analyze',
+           path: '',
+           menus: [
+           {
+           name: 'Overview',
+           path: ''
+           }, {
+           name: 'README',
+           path: 'readme'
+           }
+           ]
+           }, {
+           name: 'Plan',
+           path: 'plan',
+           menus: [
+           {
+           name: 'Backlog',
+           path: ''
+           }, {
+           name: 'Board',
+           path: 'board'
+           }
+           ]
+           }, {
+           name: 'Create',
+           path: 'create',
+           menus: [
+           {
+           name: 'Codebases',
+           path: ''
+           }, {
+           name: 'Workspaces',
+           path: 'workspaces'
+           }
+           ]
+           },
+           */
           {
             name: 'Run',
             path: 'run',
-/*
-            menus: [
-              {
-                name: 'Dev',
-                path: '',
-              },
-              {
-                name: 'Test',
-                path: '',
-              },
-              {
-                name: 'Staging',
-                path: '',
-              },
-              {
-                name: 'Production',
-                path: '',
-              },
-            ],
-*/
+            /*
+             menus: [
+             {
+             name: 'Dev',
+             path: '',
+             },
+             {
+             name: 'Test',
+             path: '',
+             },
+             {
+             name: 'Staging',
+             path: '',
+             },
+             {
+             name: 'Production',
+             path: '',
+             },
+             ],
+             */
           },
           {
             name: 'Build',
             path: 'build',
-/*            menus: [
-              {
-                name: 'Pipelines',
-                path: '',
-              },
-            ],
-            */
+            /*            menus: [
+             {
+             name: 'Pipelines',
+             path: '',
+             },
+             ],
+             */
           },
           {
             name: '',
@@ -399,10 +400,10 @@ export class DummyService implements OnInit {
   ]);
 
   readonly PROCESS_TEMPLATES: ProcessTemplate[] = [
-    { name: 'Agile' },
-    { name: 'Scrum' },
-    { name: 'Issue Tracking' },
-    { name: 'Scenario Driven Planning' },
+    {name: 'Agile'},
+    {name: 'Scrum'},
+    {name: 'Issue Tracking'},
+    {name: 'Scenario Driven Planning'},
   ];
   private _devSpaces: DevSpace[];
   private _currentContext: Context;
@@ -418,15 +419,13 @@ export class DummyService implements OnInit {
   private readonly spaces: Observable<Spaces>;
   private readonly params: Observable<Params>;
 
-  constructor(
-    //private http: Http,
-    //private localStorageService: LocalStorageService,
-    private broadcaster: Broadcaster,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private spaceStore: SpaceStore,
-    private buildConfigStore: BuildConfigStore,
-  ) {
+  constructor(//private http: Http,
+              //private localStorageService: LocalStorageService,
+              private broadcaster: Broadcaster,
+              private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private spaceStore: SpaceStore,
+              private buildConfigStore: BuildConfigStore,) {
     this._defaultContexts = this.initDummy('contexts', this.CONTEXTS);
     this._devSpaces = this.initDummy('spaces', this.SPACES);
     this._contexts = this._defaultContexts;
@@ -465,9 +464,9 @@ export class DummyService implements OnInit {
       .subscribe(ac => this.updateContext(ac));
   }
 
-   ngOnInit() {
-     this.spaceStore.loadAll();
-   }
+  ngOnInit() {
+    this.spaceStore.loadAll();
+  }
 
   private updateContext(appContext: AppContext) {
     let params = appContext.params;
@@ -492,13 +491,13 @@ export class DummyService implements OnInit {
         this._parentContexts.push(spaceContext);
       }
       if (buildConfig) {
-        this._currentContext = this.createBuildConfigContext(buildConfig);
+        this._currentContext = this.createBuildConfigContext(space, buildConfig);
       } else {
         if (space) {
           this._currentContext = this.createSpaceContext(space);
         }
       }
-      this._contexts = this.createContextsFromBuildConfigs(buildConfigs);
+      this._contexts = this.createContextsFromBuildConfigs(space, buildConfigs);
     } else {
       this._contexts = this.createContextsFromSpaces(spaces);
       this._currentContext = this._defaultContext;
@@ -611,7 +610,11 @@ export class DummyService implements OnInit {
     var spaceName = space.name;
     let params = this._appContext.params || {};
     var app = params["app"];
-    var ns = params["namespace"] || spaceName;
+    var firstEnvNamespace = "";
+    if (space.environments.length) {
+      firstEnvNamespace = space.environments[0].namespaceName;
+    }
+    var ns = params["namespace"] || firstEnvNamespace || spaceName;
     let prefix = this.createUrlPrefix(ns, spaceName, app);
 
     let runPath = prefix + '/deployments';
@@ -628,6 +631,100 @@ export class DummyService implements OnInit {
 
 
   private createSpaceContextType(space: Space, buildConfigPath: string, buildPath: string, runPath: string) {
+    var runMenus = this.createRunMenus(space);
+    return {
+      name: 'DevSpace',
+      icon: 'pficon-project',
+      menus: [
+        /*
+         {
+         name: 'Analyze',
+         path: '',
+         menus: [
+         {
+         name: 'Overview',
+         path: ''
+         }, {
+         name: 'README',
+         path: 'readme'
+         }
+         ]
+         }, {
+         name: 'Plan',
+         path: 'plan',
+         menus: [
+         {
+         name: 'Backlog',
+         path: ''
+         }, {
+         name: 'Board',
+         path: 'board'
+         }
+         ]
+         }, {
+         name: 'Create',
+         path: 'create',
+         menus: [
+         {
+         name: 'Codebases',
+         path: ''
+         }, {
+         name: 'Workspaces',
+         path: 'workspaces'
+         }
+         ]
+         },
+         */
+        {
+          name: 'App',
+          path: buildConfigPath,
+          menus: [],
+        },
+        {
+          name: 'Build',
+          path: buildPath,
+          /*            menus: [
+           {
+           name: 'Pipelines',
+           path: '',
+           },
+           ],
+           */
+          menus: [],
+        },
+        {
+          name: 'Run',
+          path: runPath,
+          menus: runMenus,
+          defaultActive: true,
+        },
+        {
+          name: '',
+          path: 'settings',
+          icon: 'pficon pficon-settings',
+          /*          menus: [
+           {
+           name: 'Overview',
+           path: '',
+           icon: '',
+           menus: [],
+           }, {
+           name: 'Work',
+           path: 'work',
+           }, {
+           name: 'Security',
+           path: 'security',
+           }, {
+           name: 'Alerts',
+           path: 'alerts',
+           },
+           ],*/
+        },
+      ],
+    } as ContextType;
+  }
+
+  protected createRunMenus(space: Space) {
     var environments = space.environments;
     let params = this._appContext.params || {};
     var app = params["app"];
@@ -650,65 +747,92 @@ export class DummyService implements OnInit {
         })
       });
     }
+    return runMenus;
+  }
 
+  private createContextsFromBuildConfigs(space: Space, bcs: BuildConfigs): Context[] {
+    let answer = new Array<Context>();
+    bcs.forEach(bc => {
+      answer.push(this.createBuildConfigContext(space, bc));
+    });
+    return answer;
+  }
+
+  private createBuildConfigContext(space: Space, bc: BuildConfig) {
+    var appContext = this._appContext;
+    let params = appContext.params;
+    var ns = params["namespace"];
+    var spaceName = params["space"];
+    var app = bc.name;
+
+    var prefix = "/run/app/" + app + "/space/" + spaceName + "/namespaces/" + ns;
+    let runPath = prefix + '/deployments';
+    let buildPath = prefix + '/builds';
+    let context = {
+      entity: bc,
+      type: this.createBuildConfigContextType(space, buildPath, runPath),
+      path: buildPath,
+      name: bc.name,
+    };
+    return context;
+  }
+
+
+  private createBuildConfigContextType(space: Space, buildPath: string, runPath: string) {
+    var runMenus = this.createRunMenus(space);
     return {
-      name: 'DevSpace',
-      icon: 'pficon-project',
+      name: 'App',
+      icon: 'pficon-build',
       menus: [
-/*
-        {
-          name: 'Analyze',
-          path: '',
-          menus: [
-            {
-              name: 'Overview',
-              path: ''
-            }, {
-              name: 'README',
-              path: 'readme'
-            }
-          ]
-        }, {
-          name: 'Plan',
-          path: 'plan',
-          menus: [
-            {
-              name: 'Backlog',
-              path: ''
-            }, {
-              name: 'Board',
-              path: 'board'
-            }
-          ]
-        }, {
-          name: 'Create',
-          path: 'create',
-          menus: [
-            {
-              name: 'Codebases',
-              path: ''
-            }, {
-              name: 'Workspaces',
-              path: 'workspaces'
-            }
-          ]
-        },
-*/
-        {
-          name: 'App',
-          path: buildConfigPath,
-          menus: [],
-        },
+        /*
+         {
+         name: 'Analyze',
+         path: '',
+         menus: [
+         {
+         name: 'Overview',
+         path: ''
+         }, {
+         name: 'README',
+         path: 'readme'
+         }
+         ]
+         }, {
+         name: 'Plan',
+         path: 'plan',
+         menus: [
+         {
+         name: 'Backlog',
+         path: ''
+         }, {
+         name: 'Board',
+         path: 'board'
+         }
+         ]
+         }, {
+         name: 'Create',
+         path: 'create',
+         menus: [
+         {
+         name: 'Codebases',
+         path: ''
+         }, {
+         name: 'Workspaces',
+         path: 'workspaces'
+         }
+         ]
+         },
+         */
         {
           name: 'Build',
           path: buildPath,
-/*            menus: [
-            {
-              name: 'Pipelines',
-              path: '',
-            },
-          ],
-          */
+          /*            menus: [
+           {
+           name: 'Pipelines',
+           path: '',
+           },
+           ],
+           */
           menus: [],
         },
         {
@@ -721,150 +845,23 @@ export class DummyService implements OnInit {
           name: '',
           path: 'settings',
           icon: 'pficon pficon-settings',
-/*          menus: [
-            {
-              name: 'Overview',
-              path: '',
-              icon: '',
-              menus: [],
-            }, {
-              name: 'Work',
-              path: 'work',
-            }, {
-              name: 'Security',
-              path: 'security',
-            }, {
-              name: 'Alerts',
-              path: 'alerts',
-            },
-          ],*/
-        },
-      ],
-    } as ContextType;
-  }
-
-  private createContextsFromBuildConfigs(bcs: BuildConfigs): Context[] {
-    let answer = new Array<Context>();
-    bcs.forEach(bc => {
-      answer.push(this.createBuildConfigContext(bc));
-    });
-    return answer;
-  }
-
-  private createBuildConfigContext(bc: BuildConfig) {
-    var appContext = this._appContext;
-    let params = appContext.params;
-    var ns = params["namespace"];
-    var spaceName = params["space"];
-    var app = bc.name;
-
-    var prefix = "/run/app/" + app + "/space/" + spaceName + "/namespaces/" + ns;
-    let runPath = prefix + '/deployments';
-    let buildPath = prefix + '/builds';
-    let context = {
-      entity: bc,
-      type: this.createBuildConfigContextType(bc, buildPath, runPath),
-      path: buildPath,
-      name: bc.name,
-    };
-    return context;
-  }
-
-
-  private createBuildConfigContextType(bc: BuildConfig, buildPath: string, runPath: string) {
-    var environments = bc['environments'];
-    var runMenus = [];
-    if (environments) {
-      environments.forEach(env => {
-        runMenus.push({
-          name: env.name,
-          path: env.path,
-        })
-      });
-    }
-
-    return {
-      name: 'App',
-      icon: 'pficon-build',
-      menus: [
-/*
-        {
-          name: 'Analyze',
-          path: '',
-          menus: [
-            {
-              name: 'Overview',
-              path: ''
-            }, {
-              name: 'README',
-              path: 'readme'
-            }
-          ]
-        }, {
-          name: 'Plan',
-          path: 'plan',
-          menus: [
-            {
-              name: 'Backlog',
-              path: ''
-            }, {
-              name: 'Board',
-              path: 'board'
-            }
-          ]
-        }, {
-          name: 'Create',
-          path: 'create',
-          menus: [
-            {
-              name: 'Codebases',
-              path: ''
-            }, {
-              name: 'Workspaces',
-              path: 'workspaces'
-            }
-          ]
-        },
-*/
-        {
-          name: 'Build',
-          path: buildPath,
-/*            menus: [
-            {
-              name: 'Pipelines',
-              path: '',
-            },
-          ],
-          */
-          menus: [],
-        },
-        {
-          name: 'Run',
-          path: runPath,
-          menus: environments,
-          defaultActive: true,
-        },
-        {
-          name: '',
-          path: 'settings',
-          icon: 'pficon pficon-settings',
-/*          menus: [
-            {
-              name: 'Overview',
-              path: '',
-              icon: '',
-              menus: [],
-            }, {
-              name: 'Work',
-              path: 'work',
-            }, {
-              name: 'Security',
-              path: 'security',
-            }, {
-              name: 'Alerts',
-              path: 'alerts',
-            },
-          ],*/
+          /*          menus: [
+           {
+           name: 'Overview',
+           path: '',
+           icon: '',
+           menus: [],
+           }, {
+           name: 'Work',
+           path: 'work',
+           }, {
+           name: 'Security',
+           path: 'security',
+           }, {
+           name: 'Alerts',
+           path: 'alerts',
+           },
+           ],*/
         },
       ],
     } as ContextType;
@@ -924,11 +921,11 @@ export class DummyService implements OnInit {
   }
 
   save(): void {
-/*
-    this.localStorageService.set('spaces', this._spaces);
-    this.localStorageService.set('contexts', this._contexts);
-    this.localStorageService.set('users', this._users);
-*/
+    /*
+     this.localStorageService.set('spaces', this._spaces);
+     this.localStorageService.set('contexts', this._contexts);
+     this.localStorageService.set('users', this._users);
+     */
   }
 
   lookupUser(username: string, fullName: string): User {
@@ -952,17 +949,17 @@ export class DummyService implements OnInit {
     }
   }
 
-/*
-  private makePseudoRandmonString(len: number): string {
-    let text: string = '';
-    let possible: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  /*
+   private makePseudoRandmonString(len: number): string {
+   let text: string = '';
+   let possible: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-    for (let i: number = 0; i < len; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-  }
-*/
+   for (let i: number = 0; i < len; i++) {
+   text += possible.charAt(Math.floor(Math.random() * possible.length));
+   }
+   return text;
+   }
+   */
 
   private valuesAsArray<T>(m: Map<any, T>): T[] {
     let res: T[] = new Array<T>();
@@ -985,15 +982,15 @@ export class DummyService implements OnInit {
   }
 
   /*
-  private initDummy<T>(key: string, def: Map<any, T>): T[] {
-    let res: T[];
-    if (this.localStorageService.get(key)) {
-      res = this.localStorageService.get<T[]>(key);
-    } else {
-      res = this.copyValuesToArray(def);
-    }
-    return res;
-  }
-*/
+   private initDummy<T>(key: string, def: Map<any, T>): T[] {
+   let res: T[];
+   if (this.localStorageService.get(key)) {
+   res = this.localStorageService.get<T[]>(key);
+   } else {
+   res = this.copyValuesToArray(def);
+   }
+   return res;
+   }
+   */
 
 }
