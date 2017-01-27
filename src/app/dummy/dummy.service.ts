@@ -611,7 +611,11 @@ export class DummyService implements OnInit {
     var spaceName = space.name;
     let params = this._appContext.params || {};
     var app = params["app"];
-    var ns = params["namespace"] || spaceName;
+    var firstEnvNamespace = "";
+    if (space.environments.length) {
+      firstEnvNamespace = space.environments[0].namespaceName;
+    }
+    var ns = params["namespace"] || firstEnvNamespace || spaceName;
     let prefix = this.createUrlPrefix(ns, spaceName, app);
 
     let runPath = prefix + '/deployments';
