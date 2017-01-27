@@ -17,6 +17,7 @@ import {Router, NavigationEnd, ActivatedRoute, Params} from "@angular/router";
 import {BuildConfigStore} from "../kubernetes/store/buildconfig.store";
 import {BuildConfigs, BuildConfig} from "../kubernetes/model/buildconfig.model";
 import {MenuItem} from "../models/menu-item";
+import {resourceMenus} from "../kubernetes/components/resource-header/resource.header";
 
 // A service responsible for providing dummy data for the UI prototypes.
 
@@ -526,6 +527,33 @@ export class DummyService implements OnInit {
     }
   }
 
+  /**
+   * Lets try to reuse the current runtime resource path so that we can switch between
+   * apps or environments and keep looking at the same kind of resource
+   */
+  private currentRunResourcePath() {
+    let map = {};
+    resourceMenus.forEach(menu => {
+      var path = menu.path;
+      if (path) {
+        map[path] = menu;
+      }
+    });
+    let url = this.router.url || "";
+    if (url) {
+      let paths = url.split("/");
+      if (paths && paths.length) {
+        for (var i = paths.length - 1; i >= 0; i--) {
+          let path = paths[i];
+          if (path && map[path]) {
+            return "/" + path;
+          }
+        }
+      }
+    }
+    return "/deployments";
+  }
+
   private updateActive() {
     let current = this.currentContext;
     if (current) {
@@ -617,7 +645,7 @@ export class DummyService implements OnInit {
     var ns = params["namespace"] || firstEnvNamespace || spaceName;
     let prefix = this.createUrlPrefix(ns, spaceName, app);
 
-    let runPath = prefix + '/deployments';
+    let runPath = prefix + this.currentRunResourcePath();
     let buildPath = prefix + '/builds';
     let buildConfigPath = prefix + '/buildconfigs';
     let context = {
@@ -728,7 +756,7 @@ export class DummyService implements OnInit {
     var environments = space.environments;
     let params = this._appContext.params || {};
     var app = params["app"];
-    let resourcePath = "/deployments";
+    let resourcePath = this.currentRunResourcePath();
     var runMenus = [];
 
     if (environments && environments.length) {
@@ -766,7 +794,7 @@ export class DummyService implements OnInit {
     var app = bc.name;
 
     var prefix = "/run/app/" + app + "/space/" + spaceName + "/namespaces/" + ns;
-    let runPath = prefix + '/deployments';
+    let runPath = prefix + this.currentRunResourcePath();
     let buildPath = prefix + '/builds';
     let context = {
       entity: bc,
