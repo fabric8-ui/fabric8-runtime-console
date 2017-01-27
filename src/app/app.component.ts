@@ -1,12 +1,12 @@
 import {Component, ChangeDetectionStrategy, AfterViewInit, OnInit} from '@angular/core';
 import { OAuthService } from 'angular2-oauth2/oauth-service';
+import {OAuthConfigStore} from "./kubernetes/store/oauth-config-store";
 
 @Component({
   selector: 'fabric8-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: require("./app.component.html")
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
@@ -24,15 +24,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   url = 'https://www.twitter.com/fabric8io';
   loggedIn = true;
 
-  constructor(private oauthService: OAuthService) {
-
-    this.oauthService.loginUrl = "https://int.rdu2c.fabric8.io:8443/oauth/authorize"; //Id-Provider?
-    //this.oauthService.redirectUri = window.location.origin + "/index.html";
-    this.oauthService.redirectUri = window.location.origin;
-    this.oauthService.clientId = "fabric8";
-
-    // The name of the auth-server that has to be mentioned within the token
-    this.oauthService.issuer = "https://int.rdu2c.fabric8.io:8443";
+  constructor(private oauthService: OAuthService, private oauthConfigStore: OAuthConfigStore) {
 
     // set the scope for the permissions the client should request
     this.oauthService.scope = "user:full";
@@ -47,28 +39,30 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.oauthService.setStorage(localStorage);
 //    this.oauthService.setStorage(sessionStorage);
 
-    // To also enable single-sign-out set the url for your auth-server's logout-endpoint here
-    this.oauthService.logoutUrl = "https://int.rdu2c.fabric8.io:8443/connect/endsession?id_token={{id_token}}";
+    this.oauthService.redirectUri = window.location.origin;
+    this.oauthService.clientId = "fabric8";
   }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
-    let token = this.oauthService.getAccessToken();// || localStorage["access_token"];
-    console.log("**** initial token: "+ token);
 
-    if (!token) {
-      if (!this.oauthService.tryLogin({
-        onTokenReceived: context => {
-          if (context) {
-            token = context.accessToken;
-          }
-          console.log("**** token: "+ token);
+  protected configureOAuth() {
+  }
+
+
+  ngAfterViewInit() {
+    if (this.oauthConfigStore.config.authorizeUri) {
+      this.checkLoggedIn();
+    } else {
+      console.log("Not loaded the OAuthConfig yet so lets check again when its loaded");
+      this.oauthConfigStore.resource.subscribe(config => {
+        var authorizeUri = config.authorizeUri;
+        console.log("OAuthConfig loaded with URI: " + authorizeUri);
+        if (authorizeUri) {
+          this.checkLoggedIn();
         }
-      })) {
-        this.oauthService.initImplicitFlow();
-      }
+      });
     }
 
 
@@ -82,5 +76,31 @@ export class AppComponent implements OnInit, AfterViewInit {
       // Initialize the vertical navigation
       $().setupVerticalNavigation(true);
     });
+  }
+
+  protected checkLoggedIn() {
+    let config = this.oauthConfigStore.config;
+
+    this.oauthService.loginUrl = config.authorizeUri;
+    this.oauthService.issuer = config.issuer;
+    this.oauthService.logoutUrl = config.logoutUri;
+    this.oauthService.clientId = config.clientId || "fabric8";
+
+    let token = this.oauthService.getAccessToken();// || localStorage["access_token"];
+    console.log("**** initial token: "+ token + " auth URI: " + config.authorizeUri);
+
+    if (!token && config.authorizeUri) {
+      if (!this.oauthService.tryLogin({
+          onTokenReceived: context => {
+            if (context) {
+              token = context.accessToken;
+            }
+            console.log("**** token: " + token);
+          }
+        })) {
+        this.oauthService.initImplicitFlow();
+      }
+    }
+    return token;
   }
 }
