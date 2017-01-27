@@ -3,6 +3,33 @@ import {Router, NavigationEnd} from "@angular/router";
 import {MenuItem} from "../../../models/menu-item";
 import {ParentLinkFactory} from "../../../common/parent-link-factory";
 
+export const resourceMenus = [
+  {
+    name: "ConfigMap",
+    path: "configmaps",
+  },
+  {
+    name: "Deployments",
+    path: "deployments",
+  },
+  {
+    name: "Events",
+    path: "events",
+  },
+  {
+    name: "Pods",
+    path: "pods",
+  },
+  {
+    name: "ReplicaSets",
+    path: "replicasets",
+  },
+  {
+    name: "Services",
+    path: "services",
+  },
+];
+
 @Component({
   selector: 'kube-resource-header',
   templateUrl: './resource.header.html',
@@ -14,32 +41,7 @@ export class ResourceHeaderComponent implements OnInit {
 
 
   constructor(public router: Router, parentLinkFactory: ParentLinkFactory) {
-    this.menus = [
-      {
-        name: "ConfigMap",
-        path: "configmaps",
-      },
-      {
-        name: "Deployments",
-        path: "deployments",
-      },
-      {
-        name: "Events",
-        path: "events",
-      },
-      {
-        name: "Pods",
-        path: "pods",
-      },
-      {
-        name: "ReplicaSets",
-        path: "replicasets",
-      },
-      {
-        name: "Services",
-        path: "services",
-      },
-    ];
+    this.menus = resourceMenus;
 
     var urlPrefix = parentLinkFactory.parentLink;
     this.menus.forEach(menu => {
