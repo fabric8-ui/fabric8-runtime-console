@@ -13,7 +13,7 @@ kubeProxyTemplate {
         container('nodejs') {
           // example of connecting to the api server
           sh 'curl http://127.0.0.1:8001/api/v1/'
-          sh 'curl http://127.0.0.1:8001/swaggerapi'
+          sh 'curl http://127.0.0.1:8001/oapi'
           sh 'yarn'
           sh 'sh ./karma-xvfb.sh'
         }

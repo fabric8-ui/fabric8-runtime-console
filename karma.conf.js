@@ -41,7 +41,7 @@ module.exports = function (config) {
       : ['progress'],
     port: 9876,
     proxies: {
-      '/swaggerapi': 'http://127.0.0.1:8001/swaggerapi',
+      '/oapi': 'http://127.0.0.1:8001/oapi',
 /*
       '/proxyfied': {
         'changeOrigin': true

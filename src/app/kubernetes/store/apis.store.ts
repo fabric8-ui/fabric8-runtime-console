@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject, Observable} from "rxjs";
-import {APIs} from "../model/apis.model";
 import {Http} from "@angular/http";
 
 /**
@@ -12,6 +11,12 @@ var _startedLoadingAPIs = false;
 
 let _currentAPIs: BehaviorSubject<APIs> = new BehaviorSubject(_latestAPIs);
 let _loadingAPIs: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
+
+export class APIs {
+  constructor(public isOpenShift: boolean) {
+  }
+}
 
 
 @Injectable()
@@ -42,7 +47,7 @@ export class APIsStore {
       console.log("WARNING: invoked the isOpenShift() method before the APIsStore has loaded!");
       return true;
     }
-    return apis.isOpenShift();
+    return apis.isOpenShift;
   }
 
   load() {
@@ -52,24 +57,18 @@ export class APIsStore {
     }
     _startedLoadingAPIs = true;
     if (!_latestAPIs) {
-      console.log("Loading Swagger as latest is: " + _latestAPIs);
-      this.http.get("/swaggerapi")
-        .map(res => {
-          var body = res.json() || {};
-          var apiObjects = body.apis || [];
-          var apiPaths = apiObjects.map(o => o.path);
-          return new APIs(apiPaths);
-        })
+      this.http.get("/oapi")
         .subscribe(
-          (apis) => {
-            _latestAPIs = apis;
-            _currentAPIs.next(apis);
+          () => {
+            _latestAPIs = new APIs(true);
+            _currentAPIs.next(_latestAPIs);
             _loadingAPIs.next(false);
           },
           (error) => {
-            console.log('Error retrieving APIs: ' + error);
-            _currentAPIs.error(error);
-            _loadingAPIs.error(error);
+            console.log('Could not find /oapi so not OpenShift and must be Kubernetes: ' + error);
+            _latestAPIs = new APIs(false);
+            _currentAPIs.next(_latestAPIs);
+            _loadingAPIs.next(false);
           });
     }
   }
