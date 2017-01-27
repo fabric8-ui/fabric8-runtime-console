@@ -13,6 +13,7 @@ kubeProxyTemplate {
         container('nodejs') {
           // example of connecting to the api server
           sh 'curl http://127.0.0.1:8001/api/v1/'
+          sh 'curl http://127.0.0.1:8001/swaggerapi'
           sh 'yarn'
           sh 'sh ./karma-xvfb.sh'
         }
@@ -20,7 +21,6 @@ kubeProxyTemplate {
         echo 'Running CD pipeline'
         sh "git remote set-url origin git@github.com:${org}/${name}.git"
       }
-
     }
   }
 }
