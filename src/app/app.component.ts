@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
+import {Component, ChangeDetectionStrategy, AfterViewInit, OnInit} from '@angular/core';
 import { OAuthService } from 'angular2-oauth2/oauth-service';
 
 @Component({
@@ -9,7 +9,7 @@ import { OAuthService } from 'angular2-oauth2/oauth-service';
   template: require("./app.component.html")
 })
 
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
   name = 'Fabric8 Console';
 
   // White BG
@@ -26,12 +26,13 @@ export class AppComponent implements AfterViewInit {
 
   constructor(private oauthService: OAuthService) {
 
-    this.oauthService.loginUrl = "https://192.168.64.151:8443/oauth/authorize"; //Id-Provider?
-    this.oauthService.redirectUri = window.location.origin + "/index.html";
+    this.oauthService.loginUrl = "https://int.rdu2c.fabric8.io:8443/oauth/authorize"; //Id-Provider?
+    //this.oauthService.redirectUri = window.location.origin + "/index.html";
+    this.oauthService.redirectUri = window.location.origin;
     this.oauthService.clientId = "fabric8";
 
     // The name of the auth-server that has to be mentioned within the token
-    this.oauthService.issuer = "https://192.168.64.151:8443";
+    this.oauthService.issuer = "https://int.rdu2c.fabric8.io:8443";
 
     // set the scope for the permissions the client should request
     this.oauthService.scope = "user:full";
@@ -43,20 +44,34 @@ export class AppComponent implements AfterViewInit {
 
     // Use setStorage to use sessionStorage or another implementation of the TS-type Storage
     // instead of localStorage
-    this.oauthService.setStorage(sessionStorage);
+    this.oauthService.setStorage(localStorage);
+//    this.oauthService.setStorage(sessionStorage);
 
     // To also enable single-sign-out set the url for your auth-server's logout-endpoint here
-    this.oauthService.logoutUrl = "https://192.168.64.151:8443/connect/endsession?id_token={{id_token}}";
-
-    // This method just tries to parse the token within the url when
-    // the auth-server redirects the user back to the web-app
-    // It dosn't initiate the login
-    this.oauthService.tryLogin({});
-    this.oauthService.initImplicitFlow();
-    console.log("**** token: "+ this.oauthService.getAccessToken())
-
+    this.oauthService.logoutUrl = "https://int.rdu2c.fabric8.io:8443/connect/endsession?id_token={{id_token}}";
   }
+
+  ngOnInit(): void {
+  }
+
   ngAfterViewInit() {
+    let token = this.oauthService.getAccessToken();// || localStorage["access_token"];
+    console.log("**** initial token: "+ token);
+
+    if (!token) {
+      if (!this.oauthService.tryLogin({
+        onTokenReceived: context => {
+          if (context) {
+            token = context.accessToken;
+          }
+          console.log("**** token: "+ token);
+        }
+      })) {
+        this.oauthService.initImplicitFlow();
+      };
+    }
+
+
     $(document).ready(function () {
       // matchHeight the contents of each .card-pf and then the .card-pf itself
       $(".row-cards-pf > [class*='col'] > .card-pf .card-pf-title").matchHeight();
