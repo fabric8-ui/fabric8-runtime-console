@@ -7,6 +7,7 @@ errors {
 gzip
 prometheus
 
+templates /config .json
 proxy /api https://{$KUBERNETES_SERVICE_HOST}:{$KUBERNETES_SERVICE_PORT} {
   insecure_skip_verify
 }

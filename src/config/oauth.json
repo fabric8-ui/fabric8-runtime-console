@@ -1,0 +1,7 @@
+{
+  oauth: {
+    oauth_authorize_uri: "{{ .Env.OAUTH_AUTHORIZE_URI }}",
+    oauth_client_id: "{{ .Env.OAUTH_CLIENT_ID }}",
+    logout_uri: "{{ .Env.OAUTH_LOGOUT_URI }}",
+  }
+}
