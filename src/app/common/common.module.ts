@@ -9,6 +9,7 @@ import {EntriesPipe} from './entries.pipe';
 import {ResourceHeaderComponent} from "../kubernetes/components/resource-header/resource.header";
 import {DropdownModule} from "ngx-dropdown";
 import {ParentLinkFactory} from "./parent-link-factory";
+import {OAuthService} from "angular2-oauth2/oauth-service";
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import {ParentLinkFactory} from "./parent-link-factory";
   ],
   providers: [
     ParentLinkFactory,
+    OAuthService,
   ],
 })
 export class Fabric8CommonModule { }
