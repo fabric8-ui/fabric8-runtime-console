@@ -15,7 +15,11 @@ export class NamespaceScope {
         return route;
       })
       .filter(route => route.outlet === 'primary')
-      .mergeMap(route => route.params).map(params => params['namespace'] || this.defaultNamespace()).distinctUntilChanged();
+      .mergeMap(route => route.params).map(params => this.getNamespace(params)).distinctUntilChanged();
+  }
+
+  protected getNamespace(params) {
+    return params['namespace'] || this.defaultNamespace();
   }
 
   defaultNamespace(): string {
