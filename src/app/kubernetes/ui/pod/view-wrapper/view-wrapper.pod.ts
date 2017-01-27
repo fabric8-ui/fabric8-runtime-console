@@ -4,7 +4,7 @@ import {Pod} from "../../../model/pod.model";
 import {PodStore} from "../../../store/pod.store";
 
 @Component({
-  selector: 'ipaas-pod-view-wrapper',
+  selector: 'fabric8-pod-view-wrapper',
   templateUrl: './view-wrapper.pod.html',
   styleUrls: ['./view-wrapper.pod.scss'],
 })

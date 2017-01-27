@@ -2,7 +2,7 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {DeploymentsListToolbarComponent} from "./list-toolbar.deployment";
-import {IPaaSCommonModule} from "../../../../common/common.module";
+import {Fabric8CommonModule} from "../../../../common/common.module";
 
 describe('DeploymentsListToolbarComponent', () => {
   let component: DeploymentsListToolbarComponent;
@@ -12,7 +12,7 @@ describe('DeploymentsListToolbarComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        IPaaSCommonModule,
+        Fabric8CommonModule,
       ],
       declarations: [DeploymentsListToolbarComponent],
     })

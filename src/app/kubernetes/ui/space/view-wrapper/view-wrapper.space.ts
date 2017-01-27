@@ -4,7 +4,7 @@ import {Space} from "../../../model/space.model";
 import {SpaceStore} from "../../../store/space.store";
 
 @Component({
-  selector: 'ipaas-space-view-wrapper',
+  selector: 'fabric8-space-view-wrapper',
   templateUrl: './view-wrapper.space.html',
   styleUrls: ['./view-wrapper.space.scss'],
 })

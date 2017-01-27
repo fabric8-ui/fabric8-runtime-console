@@ -1,6 +1,6 @@
 <div class='list-group list-view-pf list-view-pf-view'>
 
-  <ipaas-loading [loading]="loading">
+  <fabric8-loading [loading]="loading">
     <div class='list-group-item namespace' *ngFor='let namespace of namespaces'>
       <div class='list-view-pf-checkbox'>
         <input type='checkbox'>
@@ -56,7 +56,7 @@
         </div>
       </div>
     </div>
-  </ipaas-loading>
+  </fabric8-loading>
 </div>
 
 <modal #deleteNamespaceModal title="Delete Namespace">

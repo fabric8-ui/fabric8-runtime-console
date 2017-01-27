@@ -12,7 +12,7 @@ import {NamespaceEditWrapperComponent} from "./edit-wrapper/edit-wrapper.namespa
 import {NamespaceEditToolbarComponent} from "./edit-toolbar/edit-toolbar.namespace";
 import {NamespaceEditComponent} from "./edit/edit.namespace";
 import {NamespaceDeleteDialog} from "./delete-dialog/delete-dialog.namespace";
-import {IPaaSCommonModule} from "../../../common/common.module";
+import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
 import {NamespaceViewPage} from "./view-page/view-page.namespace";
 import {NamespaceEditPage} from "./edit-page/edit-page.namespace";
@@ -32,7 +32,7 @@ const routes: Routes = [
     MomentModule,
     RouterModule.forChild(routes),
     RouterModule,
-    IPaaSCommonModule,
+    Fabric8CommonModule,
   ],
   declarations: [
     NamespacesListPage,

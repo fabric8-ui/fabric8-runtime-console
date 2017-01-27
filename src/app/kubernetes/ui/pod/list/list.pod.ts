@@ -3,7 +3,7 @@ import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod";
 import {Pods} from "../../../model/pod.model";
 
 @Component({
-  selector: 'ipaas-pods-list',
+  selector: 'fabric8-pods-list',
   templateUrl: './list.pod.html',
   styleUrls: ['./list.pod.scss'],
 })

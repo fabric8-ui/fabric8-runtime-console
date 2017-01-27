@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 
 @Component({
-  selector: 'ipaas-services-list-toolbar',
+  selector: 'fabric8-services-list-toolbar',
   templateUrl: './list-toolbar.service.html',
   styleUrls: ['./list-toolbar.service.scss'],
 })

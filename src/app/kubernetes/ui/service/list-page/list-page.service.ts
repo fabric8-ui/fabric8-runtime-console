@@ -5,7 +5,7 @@ import {ServiceStore} from "../../../store/service.store";
 
 
 @Component({
-  selector: 'ipaas-services-list-page',
+  selector: 'fabric8-services-list-page',
   templateUrl: './list-page.service.html',
   styleUrls: ['./list-page.service.scss'],
 })

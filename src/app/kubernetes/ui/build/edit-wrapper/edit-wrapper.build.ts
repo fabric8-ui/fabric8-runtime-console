@@ -5,7 +5,7 @@ import {BuildStore} from "../../../store/build.store";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-build-edit-wrapper',
+  selector: 'fabric8-build-edit-wrapper',
   templateUrl: './edit-wrapper.build.html',
   styleUrls: ['./edit-wrapper.build.scss'],
 })

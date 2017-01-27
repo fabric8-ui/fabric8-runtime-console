@@ -15,7 +15,7 @@ import {ReplicaSetEditWrapperComponent} from "./edit-wrapper/edit-wrapper.replic
 import {ReplicaSetEditToolbarComponent} from "./edit-toolbar/edit-toolbar.replicaset";
 import {ReplicaSetEditComponent} from "./edit/edit.replicaset";
 import {ReplicaSetDeleteDialog} from "./delete-dialog/delete-dialog.replicaset";
-import {IPaaSCommonModule} from "../../../common/common.module";
+import {Fabric8CommonModule} from "../../../common/common.module";
 import {ReplicaSetScaleDialog} from "./scale-dialog/scale-dialog.replicaset";
 import {MomentModule} from "angular2-moment";
 
@@ -32,7 +32,7 @@ const routes: Routes = [
     ModalModule,
     MomentModule,
     RouterModule.forChild(routes),
-    IPaaSCommonModule,
+    Fabric8CommonModule,
   ],
   declarations: [
     ReplicaSetsListPage,

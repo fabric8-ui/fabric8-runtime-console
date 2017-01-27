@@ -4,7 +4,7 @@ import {Deployment} from "../../../model/deployment.model";
 import {CompositeDeploymentStore} from "../../../store/compositedeployment.store";
 
 @Component({
-  selector: 'ipaas-deployment-view-wrapper',
+  selector: 'fabric8-deployment-view-wrapper',
   templateUrl: './view-wrapper.deployment.html',
   styleUrls: ['./view-wrapper.deployment.scss'],
 })

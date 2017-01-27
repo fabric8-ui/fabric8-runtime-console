@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {DeploymentStore} from "../../../store/deployment.store";
 
 @Component({
-  selector: 'ipaas-deployment-edit-page',
+  selector: 'fabric8-deployment-edit-page',
   templateUrl: './edit-page.deployment.html',
   styleUrls: ['./edit-page.deployment.scss'],
 })

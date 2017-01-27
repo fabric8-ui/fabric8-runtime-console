@@ -8,7 +8,7 @@ import 'rxjs/add/operator/toPromise';
 
 const defaults = Object.freeze({
   apiEndpoint: 'http://localhost:8080/v1',
-  title: 'Red Hat iPaaS',
+  title: 'Red Hat fabric8',
 });
 
 const defaultConfigJson = '/config.json';

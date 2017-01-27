@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {ConfigMapStore} from "../../../store/configmap.store";
 
 @Component({
-  selector: 'ipaas-configmap-edit-page',
+  selector: 'fabric8-configmap-edit-page',
   templateUrl: './edit-page.configmap.html',
   styleUrls: ['./edit-page.configmap.scss'],
 })

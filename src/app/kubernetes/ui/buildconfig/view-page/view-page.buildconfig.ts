@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {BuildConfigStore} from "../../../store/buildconfig.store";
 
 @Component({
-  selector: 'ipaas-buildconfig-view-page',
+  selector: 'fabric8-buildconfig-view-page',
   templateUrl: './view-page.buildconfig.html',
   styleUrls: ['./view-page.buildconfig.scss'],
 })

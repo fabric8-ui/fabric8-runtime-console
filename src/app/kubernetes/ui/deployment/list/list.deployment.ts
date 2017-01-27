@@ -4,7 +4,7 @@ import {DeploymentViews} from "../../../view/deployment.view";
 import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 
 @Component({
-  selector: 'ipaas-deployments-list',
+  selector: 'fabric8-deployments-list',
   templateUrl: './list.deployment.html',
   styleUrls: ['./list.deployment.scss'],
 })

@@ -5,7 +5,7 @@ import {YamlEditor} from "../../../view/yaml.editor";
 import {Namespace} from "../../../model/namespace.model";
 
 @Component({
-  selector: 'ipaas-namespace-edit-toolbar',
+  selector: 'fabric8-namespace-edit-toolbar',
   templateUrl: './edit-toolbar.namespace.html',
   styleUrls: ['./edit-toolbar.namespace.scss'],
 })

@@ -5,7 +5,7 @@ import {ConfigMapStore} from "../../../store/configmap.store";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-configmap-edit-wrapper',
+  selector: 'fabric8-configmap-edit-wrapper',
   templateUrl: './edit-wrapper.configmap.html',
   styleUrls: ['./edit-wrapper.configmap.scss'],
 })

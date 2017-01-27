@@ -3,7 +3,7 @@ import {ReplicaSet} from "../../../model/replicaset.model";
 import {ReplicaSetScaleDialog} from "../scale-dialog/scale-dialog.replicaset";
 
 @Component({
-  selector: 'ipaas-replicaset-view',
+  selector: 'fabric8-replicaset-view',
   templateUrl: './view.replicaset.html',
   styleUrls: ['./view.replicaset.scss'],
 })

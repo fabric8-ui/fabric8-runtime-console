@@ -7,7 +7,7 @@ import {RestangularModule} from "ng2-restangular";
 import {DeploymentsListPage} from "./list-page.deployment";
 import {DeploymentsListComponent} from "../list/list.deployment";
 import {DeploymentsListToolbarComponent} from "../list-toolbar/list-toolbar.deployment";
-import {IPaaSCommonModule} from "../../../../common/common.module";
+import {Fabric8CommonModule} from "../../../../common/common.module";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
@@ -22,7 +22,7 @@ describe('DeploymentsListPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        IPaaSCommonModule,
+        Fabric8CommonModule,
         RouterTestingModule.withRoutes([]),
         RestangularModule.forRoot(),
         FormsModule,

@@ -3,7 +3,7 @@ import {BuildConfigDeleteDialog} from "../delete-dialog/delete-dialog.buildconfi
 import {BuildConfigs} from "../../../model/buildconfig.model";
 
 @Component({
-  selector: 'ipaas-buildconfigs-list',
+  selector: 'fabric8-buildconfigs-list',
   templateUrl: './list.buildconfig.html',
   styleUrls: ['./list.buildconfig.scss'],
 })

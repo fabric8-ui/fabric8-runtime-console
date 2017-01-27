@@ -15,7 +15,7 @@ import {ServiceEditWrapperComponent} from "./edit-wrapper/edit-wrapper.service";
 import {ServiceEditToolbarComponent} from "./edit-toolbar/edit-toolbar.service";
 import {ServiceEditComponent} from "./edit/edit.service";
 import {ServiceDeleteDialog} from "./delete-dialog/delete-dialog.service";
-import {IPaaSCommonModule} from "../../../common/common.module";
+import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
 
 const routes: Routes = [
@@ -31,7 +31,7 @@ const routes: Routes = [
     ModalModule,
     MomentModule,
     RouterModule.forChild(routes),
-    IPaaSCommonModule,
+    Fabric8CommonModule,
   ],
   declarations: [
     ServicesListPage,

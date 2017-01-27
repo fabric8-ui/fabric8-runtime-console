@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {NamespaceStore} from "../../../store/namespace.store";
 
 @Component({
-  selector: 'ipaas-namespace-view-page',
+  selector: 'fabric8-namespace-view-page',
   templateUrl: './view-page.namespace.html',
   styleUrls: ['./view-page.namespace.scss'],
 })

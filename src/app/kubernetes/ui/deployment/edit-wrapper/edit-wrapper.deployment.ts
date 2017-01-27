@@ -5,7 +5,7 @@ import {DeploymentStore} from "../../../store/deployment.store";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-deployment-edit-wrapper',
+  selector: 'fabric8-deployment-edit-wrapper',
   templateUrl: './edit-wrapper.deployment.html',
   styleUrls: ['./edit-wrapper.deployment.scss'],
 })

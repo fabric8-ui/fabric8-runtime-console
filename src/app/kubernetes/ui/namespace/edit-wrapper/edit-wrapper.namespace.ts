@@ -5,7 +5,7 @@ import {NamespaceStore} from "../../../store/namespace.store";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-namespace-edit-wrapper',
+  selector: 'fabric8-namespace-edit-wrapper',
   templateUrl: './edit-wrapper.namespace.html',
   styleUrls: ['./edit-wrapper.namespace.scss'],
 })

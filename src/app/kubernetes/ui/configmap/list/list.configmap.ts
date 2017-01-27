@@ -3,7 +3,7 @@ import {ConfigMapDeleteDialog} from "../delete-dialog/delete-dialog.configmap";
 import {ConfigMaps} from "../../../model/configmap.model";
 
 @Component({
-  selector: 'ipaas-configmaps-list',
+  selector: 'fabric8-configmaps-list',
   templateUrl: './list.configmap.html',
   styleUrls: ['./list.configmap.scss'],
 })

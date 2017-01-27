@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {PodStore} from "../../../store/pod.store";
 
 @Component({
-  selector: 'ipaas-pod-edit-page',
+  selector: 'fabric8-pod-edit-page',
   templateUrl: './edit-page.pod.html',
   styleUrls: ['./edit-page.pod.scss'],
 })

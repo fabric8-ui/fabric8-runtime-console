@@ -34,4 +34,4 @@ import {ParentLinkFactory} from "./parent-link-factory";
     ParentLinkFactory,
   ],
 })
-export class IPaaSCommonModule { }
+export class Fabric8CommonModule { }

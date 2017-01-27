@@ -4,7 +4,7 @@ import {Namespaces} from "../../../model/namespace.model";
 import {NamespaceStore} from "../../../store/namespace.store";
 
 @Component({
-  selector: 'ipaas-namespaces-list-page',
+  selector: 'fabric8-namespaces-list-page',
   templateUrl: './list-page.namespace.html',
   styleUrls: ['./list-page.namespace.scss'],
 })

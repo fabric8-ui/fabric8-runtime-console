@@ -3,7 +3,7 @@ import {ServiceDeleteDialog} from "../delete-dialog/delete-dialog.service";
 import {Services} from "../../../model/service.model";
 
 @Component({
-  selector: 'ipaas-services-list',
+  selector: 'fabric8-services-list',
   templateUrl: './list.service.html',
   styleUrls: ['./list.service.scss'],
 })

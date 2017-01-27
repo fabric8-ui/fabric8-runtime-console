@@ -15,7 +15,7 @@ import {ConfigMapEditWrapperComponent} from "./edit-wrapper/edit-wrapper.configm
 import {ConfigMapEditToolbarComponent} from "./edit-toolbar/edit-toolbar.configmap";
 import {ConfigMapEditComponent} from "./edit/edit.configmap";
 import {ConfigMapDeleteDialog} from "./delete-dialog/delete-dialog.configmap";
-import {IPaaSCommonModule} from "../../../common/common.module";
+import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
 
 const routes: Routes = [
@@ -31,7 +31,7 @@ const routes: Routes = [
     ModalModule,
     MomentModule,
     RouterModule.forChild(routes),
-    IPaaSCommonModule,
+    Fabric8CommonModule,
   ],
   declarations: [
     ConfigMapsListPage,

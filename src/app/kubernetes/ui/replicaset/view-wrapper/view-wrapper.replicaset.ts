@@ -4,7 +4,7 @@ import {ReplicaSet} from "../../../model/replicaset.model";
 import {ReplicaSetStore} from "../../../store/replicaset.store";
 
 @Component({
-  selector: 'ipaas-replicaset-view-wrapper',
+  selector: 'fabric8-replicaset-view-wrapper',
   templateUrl: './view-wrapper.replicaset.html',
   styleUrls: ['./view-wrapper.replicaset.scss'],
 })

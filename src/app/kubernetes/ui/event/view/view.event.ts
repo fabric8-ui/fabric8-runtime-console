@@ -4,7 +4,7 @@ import {resourceKindToCollectionName, isNamespacedKind} from "../../../model/hel
 
 
 @Component({
-  selector: 'ipaas-event-view',
+  selector: 'fabric8-event-view',
   templateUrl: './view.event.html',
   styleUrls: ['./view.event.scss'],
 })

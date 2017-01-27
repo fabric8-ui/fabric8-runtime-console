@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 import {Deployment} from "../../../model/deployment.model";
 
 @Component({
-  selector: 'ipaas-deployment-view-toolbar',
+  selector: 'fabric8-deployment-view-toolbar',
   templateUrl: './view-toolbar.deployment.html',
   styleUrls: ['./view-toolbar.deployment.scss'],
 })

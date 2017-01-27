@@ -11,7 +11,7 @@ import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {MockBackend} from "@angular/http/testing";
 import {RestangularModule} from "ng2-restangular";
 import {RouterTestingModule} from "@angular/router/testing";
-import {IPaaSCommonModule} from "../../../../common/common.module";
+import {Fabric8CommonModule} from "../../../../common/common.module";
 
 describe('BuildConfigViewComponent', () => {
   let buildconfig: BuildConfigViewComponent;
@@ -21,7 +21,7 @@ describe('BuildConfigViewComponent', () => {
     TestBed.configureTestingModule({
         imports: [
           RouterTestingModule.withRoutes([]),
-          IPaaSCommonModule,
+          Fabric8CommonModule,
           FormsModule,
           MomentModule,
           ModalModule,

@@ -4,7 +4,7 @@ import {Build} from "../../../model/build.model";
 import {BuildStore} from "../../../store/build.store";
 
 @Component({
-  selector: 'ipaas-build-view-wrapper',
+  selector: 'fabric8-build-view-wrapper',
   templateUrl: './view-wrapper.build.html',
   styleUrls: ['./view-wrapper.build.scss'],
 })

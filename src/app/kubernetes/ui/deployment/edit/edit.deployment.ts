@@ -3,7 +3,7 @@ import {Deployment} from "../../../model/deployment.model";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-deployment-edit',
+  selector: 'fabric8-deployment-edit',
   templateUrl: './edit.deployment.html',
   styleUrls: ['./edit.deployment.scss'],
 })

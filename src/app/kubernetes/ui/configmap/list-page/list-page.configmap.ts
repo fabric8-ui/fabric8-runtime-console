@@ -5,7 +5,7 @@ import {ConfigMapStore} from "../../../store/configmap.store";
 
 
 @Component({
-  selector: 'ipaas-configmaps-list-page',
+  selector: 'fabric8-configmaps-list-page',
   templateUrl: './list-page.configmap.html',
   styleUrls: ['./list-page.configmap.scss'],
 })

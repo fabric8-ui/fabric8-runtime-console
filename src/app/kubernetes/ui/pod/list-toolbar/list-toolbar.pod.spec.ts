@@ -2,7 +2,7 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {PodsListToolbarComponent} from "./list-toolbar.pod";
-import {IPaaSCommonModule} from "../../../../common/common.module";
+import {Fabric8CommonModule} from "../../../../common/common.module";
 
 describe('PodsListToolbarComponent', () => {
   let component: PodsListToolbarComponent;
@@ -12,7 +12,7 @@ describe('PodsListToolbarComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        IPaaSCommonModule,
+        Fabric8CommonModule,
       ],
       declarations: [PodsListToolbarComponent],
     })

@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {SpaceStore} from "../../../store/space.store";
 
 @Component({
-  selector: 'ipaas-space-edit-page',
+  selector: 'fabric8-space-edit-page',
   templateUrl: './edit-page.space.html',
   styleUrls: ['./edit-page.space.scss'],
 })
