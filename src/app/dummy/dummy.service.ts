@@ -412,7 +412,6 @@ export class DummyService implements OnInit {
   private _defaultContext: Context;
   private _currentUser: User;
   private _parentContexts: Context[];
-  private _urlPrefix: string;
   private _appContext: AppContext;
 
   private readonly buildConfigs: Observable<BuildConfigs>;
@@ -477,28 +476,20 @@ export class DummyService implements OnInit {
 
     this._appContext = appContext;
     var ns = params["namespace"];
-    var spaceName = params["space"];
+    var spaceName = params["space"] || ns;
     var app = params["app"];
-    console.log("route params space: " + spaceName + " app: " + app + " namespace: " + ns);
     this._currentContext = null;
     this._parentContexts = [];
-    this._urlPrefix = "/run/space";
-    if (ns) {
-      this._urlPrefix = "/run/space/" + ns;
-      if (spaceName) {
-        this._urlPrefix = "/run/space/" + spaceName + "/namespaces/" + ns;
-      }
-
+    if (spaceName) {
       var buildConfig: BuildConfig = null;
-      var space = spaces.find(o => o.name === ns);
+      var space = spaces.find(o => o.name === spaceName);
 
       if (app) {
-        this._urlPrefix = "/run/app/" + app + "/space/" + spaceName + "/namespaces/" + ns;
         buildConfig = buildConfigs.find(o => o.name === app);
-        if (space) {
-          let spaceContext = this.createSpaceContext(space);
-          this._parentContexts.push(spaceContext);
-        }
+      }
+      if (space) {
+        let spaceContext = this.createSpaceContext(space);
+        this._parentContexts.push(spaceContext);
       }
       if (buildConfig) {
         this._currentContext = this.createBuildConfigContext(buildConfig);
@@ -518,6 +509,22 @@ export class DummyService implements OnInit {
     }
     this.updateActive();
     this.broadcaster.broadcast('refreshContext');
+  }
+
+
+  private createUrlPrefix(ns: string, spaceName: string, app: string) {
+    if (!ns) {
+      return "/run/spaces";
+    }
+    if (spaceName) {
+      if (app) {
+        return "/run/app/" + app + "/space/" + spaceName + "/namespaces/" + ns;
+      } else {
+        return "/run/space/" + spaceName + "/namespaces/" + ns;
+      }
+    } else {
+      return "/run/space/" + ns;
+    }
   }
 
   private updateActive() {
@@ -601,38 +608,48 @@ export class DummyService implements OnInit {
   }
 
   private createSpaceContext(space: Space) {
-    var ns = space.name;
-    //var urlPrefix = this._urlPrefix + "/" + ns + "/namespaces/" + ns;
-    var urlPrefix = this._urlPrefix;
-    let runPath = urlPrefix + '/deployments';
-    let buildPath = urlPrefix + '/builds';
-    let buildConfigPath = urlPrefix + '/buildconfigs';
+    var spaceName = space.name;
+    let params = this._appContext.params || {};
+    var app = params["app"];
+    var ns = params["namespace"] || spaceName;
+    let prefix = this.createUrlPrefix(ns, spaceName, app);
+
+    let runPath = prefix + '/deployments';
+    let buildPath = prefix + '/builds';
+    let buildConfigPath = prefix + '/buildconfigs';
     let context = {
       entity: space,
       type: this.createSpaceContextType(space, buildConfigPath, buildPath, runPath),
       path: buildConfigPath,
-      name: ns,
+      name: spaceName,
     };
     return context;
   }
 
 
-  private createSpaceContextType(ns: Space, buildConfigPath: string, buildPath: string, runPath: string) {
-    var environments = ns.environments;
+  private createSpaceContextType(space: Space, buildConfigPath: string, buildPath: string, runPath: string) {
+    var environments = space.environments;
+    let params = this._appContext.params || {};
+    var app = params["app"];
+    let resourcePath = "/deployments";
     var runMenus = [];
-    if (environments) {
+
+    if (environments && environments.length) {
+      runMenus.push({
+        name: "Dev",
+        path: this.createUrlPrefix(space.name, space.name, app) + resourcePath,
+      });
+
       environments.forEach(env => {
-        var envName = env.name
-        // TODO
-        var path = "/run/spaces/" + envName + "/";
+        var envName = env.name;
+        let prefix = this.createUrlPrefix(env.namespaceName, space.name, app);
+        var path = prefix + resourcePath;
         runMenus.push({
           name: envName,
           path: path,
         })
       });
     }
-    // the UI looks a bit wacky for now - lets disable ;)
-    environments = [];
 
     return {
       name: 'DevSpace',
@@ -680,13 +697,6 @@ export class DummyService implements OnInit {
         {
           name: 'App',
           path: buildConfigPath,
-/*            menus: [
-            {
-              name: 'Pipelines',
-              path: '',
-            },
-          ],
-          */
           menus: [],
         },
         {
@@ -704,7 +714,7 @@ export class DummyService implements OnInit {
         {
           name: 'Run',
           path: runPath,
-          menus: environments,
+          menus: runMenus,
           defaultActive: true,
         },
         {

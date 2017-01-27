@@ -27,6 +27,7 @@ import {CompositeDeploymentStore} from "./store/compositedeployment.store";
 import {BuildService} from "./service/build.service";
 import {BuildStore} from "./store/build.store";
 import {SpaceStore} from "./store/space.store";
+import {DevNamespaceScope} from "./service/devnamespace.scope";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -50,6 +51,7 @@ import {BrowserModule} from "@angular/platform-browser";
     CompositeDeploymentStore,
     ConfigMapService,
     ConfigMapStore,
+    DevNamespaceScope,
     NamespaceScope,
     DeploymentConfigService,
     DeploymentConfigStore,

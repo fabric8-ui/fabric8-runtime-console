@@ -1,15 +1,15 @@
-import {Inject, Injectable} from '@angular/core';
-import {Restangular} from 'ng2-restangular';
-import {KUBERNETES_RESTANGULAR} from './kubernetes.restangular';
-import {Builds, Build} from '../model/build.model';
-import {NamespacedResourceService} from './namespaced.resource.service';
-import {NamespaceScope} from './namespace.scope';
+import {Inject, Injectable} from "@angular/core";
+import {Restangular} from "ng2-restangular";
+import {KUBERNETES_RESTANGULAR} from "./kubernetes.restangular";
+import {Builds, Build} from "../model/build.model";
+import {NamespacedResourceService} from "./namespaced.resource.service";
 import {APIsStore} from "../store/apis.store";
+import {DevNamespaceScope} from "./devnamespace.scope";
 
 @Injectable()
 export class BuildService extends NamespacedResourceService<Build, Builds> {
 
-  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: NamespaceScope, private apiStore: APIsStore) {
+  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: DevNamespaceScope, private apiStore: APIsStore) {
     super(kubernetesRestangular, namespaceScope, '/builds', '/oapi/v1/namespaces/');
 
     apiStore.loading.subscribe(loading => {
