@@ -5,7 +5,7 @@ import {SpaceStore} from "../../../store/space.store";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-space-edit-wrapper',
+  selector: 'fabric8-space-edit-wrapper',
   templateUrl: './edit-wrapper.space.html',
   styleUrls: ['./edit-wrapper.space.scss'],
 })

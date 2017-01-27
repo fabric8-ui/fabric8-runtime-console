@@ -15,7 +15,7 @@ import {DeploymentEditWrapperComponent} from "./edit-wrapper/edit-wrapper.deploy
 import {DeploymentEditToolbarComponent} from "./edit-toolbar/edit-toolbar.deployment";
 import {DeploymentEditComponent} from "./edit/edit.deployment";
 import {DeploymentDeleteDialog} from "./delete-dialog/delete-dialog.deployment";
-import {IPaaSCommonModule} from "../../../common/common.module";
+import {Fabric8CommonModule} from "../../../common/common.module";
 import {DeploymentScaleDialog} from "./scale-dialog/scale-dialog.deployment";
 import {MomentModule} from "angular2-moment";
 
@@ -32,7 +32,7 @@ const routes: Routes = [
     ModalModule,
     MomentModule,
     RouterModule.forChild(routes),
-    IPaaSCommonModule,
+    Fabric8CommonModule,
   ],
   declarations: [
     DeploymentsListPage,

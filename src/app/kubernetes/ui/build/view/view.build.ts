@@ -2,7 +2,7 @@ import {Input, Component} from "@angular/core";
 import {Build} from "../../../model/build.model";
 
 @Component({
-  selector: 'ipaas-build-view',
+  selector: 'fabric8-build-view',
   templateUrl: './view.build.html',
   styleUrls: ['./view.build.scss'],
 })

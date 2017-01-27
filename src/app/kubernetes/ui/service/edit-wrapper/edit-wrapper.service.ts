@@ -5,7 +5,7 @@ import {ServiceStore} from "../../../store/service.store";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-service-edit-wrapper',
+  selector: 'fabric8-service-edit-wrapper',
   templateUrl: './edit-wrapper.service.html',
   styleUrls: ['./edit-wrapper.service.scss'],
 })

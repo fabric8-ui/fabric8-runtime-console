@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {ConfigMapsListComponent} from "./list.configmap";
-import {IPaaSCommonModule} from "../../../../common/common.module";
+import {Fabric8CommonModule} from "../../../../common/common.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MomentModule} from "angular2-moment";
 import {ConfigMapDeleteDialog} from "../delete-dialog/delete-dialog.configmap";
@@ -20,7 +20,7 @@ describe('ConfigMapsListComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        IPaaSCommonModule,
+        Fabric8CommonModule,
         FormsModule,
         MomentModule,
         ModalModule,

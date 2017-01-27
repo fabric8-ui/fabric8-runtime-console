@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit } from '@angular/core';
 
 @Component({
-  selector: 'ipaas-root',
+  selector: 'fabric8-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,11 +10,11 @@ export class AppComponent implements AfterViewInit {
   name = 'Fabric8 Console';
 
   // White BG
-  logoWhiteBg = 'assets/images/rh_ipaas_small.svg';
+  logoWhiteBg = 'assets/images/rh_fabric8_small.svg';
   iconWhiteBg = 'assets/images/glasses_logo.svg';
 
   // Dark BG
-  logoDarkBg = 'assets/images/rh_ipaas_small.svg';
+  logoDarkBg = 'assets/images/rh_fabric8_small.svg';
   iconDarkBg = 'assets/images/glasses_logo.svg';
 
   title = 'Fabric8 Console';

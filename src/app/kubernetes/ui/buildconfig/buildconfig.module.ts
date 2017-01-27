@@ -15,7 +15,7 @@ import {BuildConfigEditWrapperComponent} from "./edit-wrapper/edit-wrapper.build
 import {BuildConfigEditToolbarComponent} from "./edit-toolbar/edit-toolbar.buildconfig";
 import {BuildConfigEditComponent} from "./edit/edit.buildconfig";
 import {BuildConfigDeleteDialog} from "./delete-dialog/delete-dialog.buildconfig";
-import {IPaaSCommonModule} from "../../../common/common.module";
+import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
 
 const routes: Routes = [
@@ -32,7 +32,7 @@ const routes: Routes = [
     ModalModule,
     MomentModule,
     RouterModule.forChild(routes),
-    IPaaSCommonModule,
+    Fabric8CommonModule,
   ],
   declarations: [
     BuildConfigsListPage,

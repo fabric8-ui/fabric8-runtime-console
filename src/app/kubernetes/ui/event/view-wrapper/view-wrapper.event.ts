@@ -4,7 +4,7 @@ import {Event} from "../../../model/event.model";
 import {EventStore} from "../../../store/event.store";
 
 @Component({
-  selector: 'ipaas-event-view-wrapper',
+  selector: 'fabric8-event-view-wrapper',
   templateUrl: './view-wrapper.event.html',
   styleUrls: ['./view-wrapper.event.scss'],
 })

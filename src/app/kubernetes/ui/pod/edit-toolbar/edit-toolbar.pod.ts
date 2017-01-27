@@ -5,7 +5,7 @@ import {YamlEditor} from "../../../view/yaml.editor";
 import {Pod} from "../../../model/pod.model";
 
 @Component({
-  selector: 'ipaas-pod-edit-toolbar',
+  selector: 'fabric8-pod-edit-toolbar',
   templateUrl: './edit-toolbar.pod.html',
   styleUrls: ['./edit-toolbar.pod.scss'],
 })

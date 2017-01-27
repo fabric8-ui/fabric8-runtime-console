@@ -6,7 +6,7 @@ import {APIsStore} from "../../../store/apis.store";
 
 
 @Component({
-  selector: 'ipaas-builds-list-page',
+  selector: 'fabric8-builds-list-page',
   templateUrl: './list-page.build.html',
   styleUrls: ['./list-page.build.scss'],
 })

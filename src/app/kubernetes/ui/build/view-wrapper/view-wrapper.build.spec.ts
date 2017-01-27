@@ -13,7 +13,7 @@ import {BuildScaleDialog} from "../scale-dialog/scale-dialog.build";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
-import {IPaaSCommonModule} from "../../../../common/common.module";
+import {Fabric8CommonModule} from "../../../../common/common.module";
 
 describe('BuildViewWrapperComponent', () => {
   let build: BuildViewWrapperComponent;
@@ -23,7 +23,7 @@ describe('BuildViewWrapperComponent', () => {
     TestBed
       .configureTestingModule({
         imports: [
-          IPaaSCommonModule,
+          Fabric8CommonModule,
           FormsModule,
           MomentModule,
           ModalModule,

@@ -3,7 +3,7 @@ import {Space} from "../../../model/space.model";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-space-edit',
+  selector: 'fabric8-space-edit',
   templateUrl: './edit.space.html',
   styleUrls: ['./edit.space.scss'],
 })

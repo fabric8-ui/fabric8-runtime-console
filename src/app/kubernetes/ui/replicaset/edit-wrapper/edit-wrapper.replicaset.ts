@@ -5,7 +5,7 @@ import {ReplicaSetStore} from "../../../store/replicaset.store";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-replicaset-edit-wrapper',
+  selector: 'fabric8-replicaset-edit-wrapper',
   templateUrl: './edit-wrapper.replicaset.html',
   styleUrls: ['./edit-wrapper.replicaset.scss'],
 })

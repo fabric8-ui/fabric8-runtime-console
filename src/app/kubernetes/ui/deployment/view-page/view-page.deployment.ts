@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {CompositeDeploymentStore} from "../../../store/compositedeployment.store";
 
 @Component({
-  selector: 'ipaas-deployment-view-page',
+  selector: 'fabric8-deployment-view-page',
   templateUrl: './view-page.deployment.html',
   styleUrls: ['./view-page.deployment.scss'],
 })

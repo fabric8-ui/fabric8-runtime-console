@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {DeploymentsListComponent} from "./list.deployment";
-import {IPaaSCommonModule} from "../../../../common/common.module";
+import {Fabric8CommonModule} from "../../../../common/common.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MomentModule} from "angular2-moment";
 import {DeploymentDeleteDialog} from "../delete-dialog/delete-dialog.deployment";
@@ -21,7 +21,7 @@ describe('DeploymentsListComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        IPaaSCommonModule,
+        Fabric8CommonModule,
         FormsModule,
         MomentModule,
         ModalModule,

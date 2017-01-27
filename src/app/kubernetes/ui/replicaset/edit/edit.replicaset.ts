@@ -3,7 +3,7 @@ import {ReplicaSet} from "../../../model/replicaset.model";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-replicaset-edit',
+  selector: 'fabric8-replicaset-edit',
   templateUrl: './edit.replicaset.html',
   styleUrls: ['./edit.replicaset.scss'],
 })

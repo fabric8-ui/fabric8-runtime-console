@@ -8,7 +8,7 @@ import {DeploymentViews, createDeploymentViews} from "../../../view/deployment.v
 
 
 @Component({
-  selector: 'ipaas-deployments-list-page',
+  selector: 'fabric8-deployments-list-page',
   templateUrl: './list-page.deployment.html',
   styleUrls: ['./list-page.deployment.scss'],
 })

@@ -12,7 +12,7 @@ import {SpaceEditWrapperComponent} from "./edit-wrapper/edit-wrapper.space";
 import {SpaceEditToolbarComponent} from "./edit-toolbar/edit-toolbar.space";
 import {SpaceEditComponent} from "./edit/edit.space";
 import {SpaceDeleteDialog} from "./delete-dialog/delete-dialog.space";
-import {IPaaSCommonModule} from "../../../common/common.module";
+import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
 import {SpaceViewPage} from "./view-page/view-page.space";
 import {SpaceEditPage} from "./edit-page/edit-page.space";
@@ -32,7 +32,7 @@ const routes: Routes = [
     MomentModule,
     RouterModule.forChild(routes),
     RouterModule,
-    IPaaSCommonModule,
+    Fabric8CommonModule,
   ],
   declarations: [
     SpacesListPage,

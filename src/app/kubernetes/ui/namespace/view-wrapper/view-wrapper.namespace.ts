@@ -4,7 +4,7 @@ import {Namespace} from "../../../model/namespace.model";
 import {NamespaceStore} from "../../../store/namespace.store";
 
 @Component({
-  selector: 'ipaas-namespace-view-wrapper',
+  selector: 'fabric8-namespace-view-wrapper',
   templateUrl: './view-wrapper.namespace.html',
   styleUrls: ['./view-wrapper.namespace.scss'],
 })

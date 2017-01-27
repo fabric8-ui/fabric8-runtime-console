@@ -5,7 +5,7 @@ import {BuildConfigStore} from "../../../store/buildconfig.store";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-buildconfig-edit-wrapper',
+  selector: 'fabric8-buildconfig-edit-wrapper',
   templateUrl: './edit-wrapper.buildconfig.html',
   styleUrls: ['./edit-wrapper.buildconfig.scss'],
 })

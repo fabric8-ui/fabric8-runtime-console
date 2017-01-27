@@ -3,7 +3,7 @@ import {Build} from "../../../model/build.model";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-build-edit',
+  selector: 'fabric8-build-edit',
   templateUrl: './edit.build.html',
   styleUrls: ['./edit.build.scss'],
 })

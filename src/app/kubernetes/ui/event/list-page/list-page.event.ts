@@ -6,7 +6,7 @@ import {ServiceStore} from "../../../store/service.store";
 
 
 @Component({
-  selector: 'ipaas-events-list-page',
+  selector: 'fabric8-events-list-page',
   templateUrl: './list-page.event.html',
   styleUrls: ['./list-page.event.scss'],
 })

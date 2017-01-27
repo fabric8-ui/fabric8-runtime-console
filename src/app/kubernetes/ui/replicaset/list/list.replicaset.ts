@@ -4,7 +4,7 @@ import {ReplicaSetViews} from "../../../view/replicaset.view";
 import {ReplicaSetScaleDialog} from "../scale-dialog/scale-dialog.replicaset";
 
 @Component({
-  selector: 'ipaas-replicasets-list',
+  selector: 'fabric8-replicasets-list',
   templateUrl: './list.replicaset.html',
   styleUrls: ['./list.replicaset.scss'],
 })

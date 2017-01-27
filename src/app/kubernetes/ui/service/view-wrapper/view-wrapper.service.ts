@@ -4,7 +4,7 @@ import {Service} from "../../../model/service.model";
 import {ServiceStore} from "../../../store/service.store";
 
 @Component({
-  selector: 'ipaas-service-view-wrapper',
+  selector: 'fabric8-service-view-wrapper',
   templateUrl: './view-wrapper.service.html',
   styleUrls: ['./view-wrapper.service.scss'],
 })

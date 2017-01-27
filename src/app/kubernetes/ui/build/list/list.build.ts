@@ -3,7 +3,7 @@ import {BuildDeleteDialog} from "../delete-dialog/delete-dialog.build";
 import {Builds} from "../../../model/build.model";
 
 @Component({
-  selector: 'ipaas-builds-list',
+  selector: 'fabric8-builds-list',
   templateUrl: './list.build.html',
   styleUrls: ['./list.build.scss'],
 })

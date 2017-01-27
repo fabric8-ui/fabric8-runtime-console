@@ -3,7 +3,7 @@ import {Pod} from "../../../model/pod.model";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-pod-edit',
+  selector: 'fabric8-pod-edit',
   templateUrl: './edit.pod.html',
   styleUrls: ['./edit.pod.scss'],
 })

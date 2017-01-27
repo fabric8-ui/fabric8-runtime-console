@@ -5,7 +5,7 @@ import {PodStore} from "../../../store/pod.store";
 
 
 @Component({
-  selector: 'ipaas-pods-list-page',
+  selector: 'fabric8-pods-list-page',
   templateUrl: './list-page.pod.html',
   styleUrls: ['./list-page.pod.scss'],
 })

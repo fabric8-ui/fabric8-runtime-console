@@ -5,7 +5,7 @@ import {Space} from "../../../model/space.model";
 import {SpaceStore} from "../../../store/space.store";
 
 @Component({
-  selector: 'ipaas-space-edit-toolbar',
+  selector: 'fabric8-space-edit-toolbar',
   templateUrl: './edit-toolbar.space.html',
   styleUrls: ['./edit-toolbar.space.scss'],
 })

@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {EventStore} from "../../../store/event.store";
 
 @Component({
-  selector: 'ipaas-event-view-page',
+  selector: 'fabric8-event-view-page',
   templateUrl: './view-page.event.html',
   styleUrls: ['./view-page.event.scss'],
 })

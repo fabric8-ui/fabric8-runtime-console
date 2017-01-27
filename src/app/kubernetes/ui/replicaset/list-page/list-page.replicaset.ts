@@ -8,7 +8,7 @@ import {ServiceStore} from "../../../store/service.store";
 
 
 @Component({
-  selector: 'ipaas-replicasets-list-page',
+  selector: 'fabric8-replicasets-list-page',
   templateUrl: './list-page.replicaset.html',
   styleUrls: ['./list-page.replicaset.scss'],
 })

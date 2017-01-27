@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {SpacesListComponent} from "./list.space";
-import {IPaaSCommonModule} from "../../../../common/common.module";
+import {Fabric8CommonModule} from "../../../../common/common.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MomentModule} from "angular2-moment";
 import {SpaceDeleteDialog} from "../delete-dialog/delete-dialog.space";
@@ -19,7 +19,7 @@ describe('SpacesListComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        IPaaSCommonModule,
+        Fabric8CommonModule,
         FormsModule,
         MomentModule,
         ModalModule,

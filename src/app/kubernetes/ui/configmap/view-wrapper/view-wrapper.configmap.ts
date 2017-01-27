@@ -4,7 +4,7 @@ import {ConfigMap} from "../../../model/configmap.model";
 import {ConfigMapStore} from "../../../store/configmap.store";
 
 @Component({
-  selector: 'ipaas-configmap-view-wrapper',
+  selector: 'fabric8-configmap-view-wrapper',
   templateUrl: './view-wrapper.configmap.html',
   styleUrls: ['./view-wrapper.configmap.scss'],
 })

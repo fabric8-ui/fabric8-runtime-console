@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {ReplicaSetStore} from "../../../store/replicaset.store";
 
 @Component({
-  selector: 'ipaas-replicaset-view-page',
+  selector: 'fabric8-replicaset-view-page',
   templateUrl: './view-page.replicaset.html',
   styleUrls: ['./view-page.replicaset.scss'],
 })

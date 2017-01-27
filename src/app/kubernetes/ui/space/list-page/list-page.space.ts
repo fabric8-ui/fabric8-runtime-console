@@ -4,7 +4,7 @@ import {Spaces} from "../../../model/space.model";
 import {SpaceStore} from "../../../store/space.store";
 
 @Component({
-  selector: 'ipaas-spaces-list-page',
+  selector: 'fabric8-spaces-list-page',
   templateUrl: './list-page.space.html',
   styleUrls: ['./list-page.space.scss'],
 })

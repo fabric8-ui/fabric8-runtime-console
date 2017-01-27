@@ -2,7 +2,7 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {RouterTestingModule} from "@angular/router/testing";
 import {ReplicaSetsListToolbarComponent} from "./list-toolbar.replicaset";
-import {IPaaSCommonModule} from "../../../../common/common.module";
+import {Fabric8CommonModule} from "../../../../common/common.module";
 
 describe('ReplicaSetsListToolbarComponent', () => {
   let component: ReplicaSetsListToolbarComponent;
@@ -12,7 +12,7 @@ describe('ReplicaSetsListToolbarComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        IPaaSCommonModule,
+        Fabric8CommonModule,
       ],
       declarations: [ReplicaSetsListToolbarComponent],
     })

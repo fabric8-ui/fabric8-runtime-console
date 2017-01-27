@@ -5,7 +5,7 @@ import {YamlEditor} from "../../../view/yaml.editor";
 import {BuildConfig} from "../../../model/buildconfig.model";
 
 @Component({
-  selector: 'ipaas-buildconfig-edit-toolbar',
+  selector: 'fabric8-buildconfig-edit-toolbar',
   templateUrl: './edit-toolbar.buildconfig.html',
   styleUrls: ['./edit-toolbar.buildconfig.scss'],
 })

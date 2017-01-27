@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 import {ServiceStore} from "../../../store/service.store";
 
 @Component({
-  selector: 'ipaas-service-edit-page',
+  selector: 'fabric8-service-edit-page',
   templateUrl: './edit-page.service.html',
   styleUrls: ['./edit-page.service.scss'],
 })

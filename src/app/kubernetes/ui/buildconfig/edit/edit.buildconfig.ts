@@ -3,7 +3,7 @@ import {BuildConfig} from "../../../model/buildconfig.model";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-buildconfig-edit',
+  selector: 'fabric8-buildconfig-edit',
   templateUrl: './edit.buildconfig.html',
   styleUrls: ['./edit.buildconfig.scss'],
 })

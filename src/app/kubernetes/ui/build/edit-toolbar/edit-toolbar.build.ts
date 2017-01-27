@@ -5,7 +5,7 @@ import {YamlEditor} from "../../../view/yaml.editor";
 import {Build} from "../../../model/build.model";
 
 @Component({
-  selector: 'ipaas-build-edit-toolbar',
+  selector: 'fabric8-build-edit-toolbar',
   templateUrl: './edit-toolbar.build.html',
   styleUrls: ['./edit-toolbar.build.scss'],
 })

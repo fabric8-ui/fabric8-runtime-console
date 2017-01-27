@@ -5,7 +5,7 @@ import {YamlEditor} from "../../../view/yaml.editor";
 import {ReplicaSet} from "../../../model/replicaset.model";
 
 @Component({
-  selector: 'ipaas-replicaset-edit-toolbar',
+  selector: 'fabric8-replicaset-edit-toolbar',
   templateUrl: './edit-toolbar.replicaset.html',
   styleUrls: ['./edit-toolbar.replicaset.scss'],
 })

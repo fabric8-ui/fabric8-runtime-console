@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 
 @Component({
-  selector: 'ipaas-buildconfigs-list-toolbar',
+  selector: 'fabric8-buildconfigs-list-toolbar',
   templateUrl: './list-toolbar.buildconfig.html',
   styleUrls: ['./list-toolbar.buildconfig.scss'],
 })

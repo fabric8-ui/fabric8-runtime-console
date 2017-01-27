@@ -2,7 +2,7 @@ import {Input, Component} from "@angular/core";
 import {Space} from "../../../model/space.model";
 
 @Component({
-  selector: 'ipaas-space-view',
+  selector: 'fabric8-space-view',
   templateUrl: './view.space.html',
   styleUrls: ['./view.space.scss'],
 })

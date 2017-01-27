@@ -4,7 +4,7 @@ import {BuildConfig} from "../../../model/buildconfig.model";
 import {BuildConfigStore} from "../../../store/buildconfig.store";
 
 @Component({
-  selector: 'ipaas-buildconfig-view-wrapper',
+  selector: 'fabric8-buildconfig-view-wrapper',
   templateUrl: './view-wrapper.buildconfig.html',
   styleUrls: ['./view-wrapper.buildconfig.scss'],
 })

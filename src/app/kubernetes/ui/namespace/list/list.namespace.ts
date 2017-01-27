@@ -4,7 +4,7 @@ import {NamespaceDeleteDialog} from "../delete-dialog/delete-dialog.namespace";
 import {ParentLinkFactory} from "../../../../common/parent-link-factory";
 
 @Component({
-  selector: 'ipaas-namespaces-list',
+  selector: 'fabric8-namespaces-list',
   templateUrl: './list.namespace.html',
   styleUrls: ['./list.namespace.scss'],
 })

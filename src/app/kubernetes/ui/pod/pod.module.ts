@@ -15,7 +15,7 @@ import {PodEditWrapperComponent} from "./edit-wrapper/edit-wrapper.pod";
 import {PodEditToolbarComponent} from "./edit-toolbar/edit-toolbar.pod";
 import {PodEditComponent} from "./edit/edit.pod";
 import {PodDeleteDialog} from "./delete-dialog/delete-dialog.pod";
-import {IPaaSCommonModule} from "../../../common/common.module";
+import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
 
 const routes: Routes = [
@@ -31,7 +31,7 @@ const routes: Routes = [
     ModalModule,
     MomentModule,
     RouterModule.forChild(routes),
-    IPaaSCommonModule,
+    Fabric8CommonModule,
   ],
   declarations: [
     PodsListPage,

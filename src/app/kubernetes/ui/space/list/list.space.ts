@@ -4,7 +4,7 @@ import {SpaceDeleteDialog} from "../delete-dialog/delete-dialog.space";
 import {ParentLinkFactory} from "../../../../common/parent-link-factory";
 
 @Component({
-  selector: 'ipaas-spaces-list',
+  selector: 'fabric8-spaces-list',
   templateUrl: './list.space.html',
   styleUrls: ['./list.space.scss'],
 })

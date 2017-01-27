@@ -3,7 +3,7 @@ import {Namespace} from "../../../model/namespace.model";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-namespace-edit',
+  selector: 'fabric8-namespace-edit',
   templateUrl: './edit.namespace.html',
   styleUrls: ['./edit.namespace.scss'],
 })

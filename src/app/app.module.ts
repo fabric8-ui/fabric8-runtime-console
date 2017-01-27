@@ -6,7 +6,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {RestangularModule} from "ng2-restangular";
 import {AppRoutingModule} from "./approuting/approuting.module";
 
-import {IPaaSCommonModule} from "./common/common.module";
+import {Fabric8CommonModule} from "./common/common.module";
 import {AppComponent} from "./app.component";
 import {ConfigService, configServiceInitializer} from "./config.service";
 import {KubernetesUIModule} from "./kubernetes/ui/ui.module";
@@ -35,7 +35,7 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     AppRoutingModule,
     DropdownModule,
 
-    IPaaSCommonModule,
+    Fabric8CommonModule,
     KubernetesStoreModule,
     KubernetesUIModule,
 /*

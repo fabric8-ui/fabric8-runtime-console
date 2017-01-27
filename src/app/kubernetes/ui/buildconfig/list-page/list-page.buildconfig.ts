@@ -7,7 +7,7 @@ import {BuildStore} from "../../../store/build.store";
 
 
 @Component({
-  selector: 'ipaas-buildconfigs-list-page',
+  selector: 'fabric8-buildconfigs-list-page',
   templateUrl: './list-page.buildconfig.html',
   styleUrls: ['./list-page.buildconfig.scss'],
 })

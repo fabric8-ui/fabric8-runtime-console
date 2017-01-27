@@ -5,7 +5,7 @@ import {YamlEditor} from "../../../view/yaml.editor";
 import {ConfigMap} from "../../../model/configmap.model";
 
 @Component({
-  selector: 'ipaas-configmap-edit-toolbar',
+  selector: 'fabric8-configmap-edit-toolbar',
   templateUrl: './edit-toolbar.configmap.html',
   styleUrls: ['./edit-toolbar.configmap.scss'],
 })

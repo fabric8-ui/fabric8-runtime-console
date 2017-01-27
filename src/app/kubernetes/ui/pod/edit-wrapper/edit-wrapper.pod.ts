@@ -5,7 +5,7 @@ import {PodStore} from "../../../store/pod.store";
 import {YamlEditor} from "../../../view/yaml.editor";
 
 @Component({
-  selector: 'ipaas-pod-edit-wrapper',
+  selector: 'fabric8-pod-edit-wrapper',
   templateUrl: './edit-wrapper.pod.html',
   styleUrls: ['./edit-wrapper.pod.scss'],
 })

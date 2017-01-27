@@ -7,7 +7,7 @@ import {RestangularModule} from "ng2-restangular";
 import {SpacesListPage} from "./list-page.space";
 import {SpacesListComponent} from "../list/list.space";
 import {SpacesListToolbarComponent} from "../list-toolbar/list-toolbar.space";
-import {IPaaSCommonModule} from "../../../../common/common.module";
+import {Fabric8CommonModule} from "../../../../common/common.module";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
@@ -21,7 +21,7 @@ describe('SpacesListPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        IPaaSCommonModule,
+        Fabric8CommonModule,
         RouterTestingModule.withRoutes([]),
         RestangularModule.forRoot(),
         FormsModule,
