@@ -1,7 +1,7 @@
 @Library('github.com/fabric8io/fabric8-pipeline-library@master')
 def dummy
 kubeProxyTemplate {
-  nodejsNode {
+  nodejsNode(nodejsImage: 'fabric8/nodejs-builder:0.0.2') {
     def name = 'fabric8-runtime-console'
     def org = 'fabric8-ui'
     ws(name){
