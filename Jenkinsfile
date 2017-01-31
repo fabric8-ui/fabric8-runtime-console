@@ -1,7 +1,7 @@
 @Library('github.com/fabric8io/fabric8-pipeline-library@master')
 def dummy
 kubeProxyTemplate {
-  nodejsNode(nodejsImage: 'fabric8/nodejs-builder:0.0.2') {
+  nodejsNode(nodejsImage: 'fabric8/nodejs-builder:0.0.2', clientsImage:'fabric8/builder-clients:0.1') {
     def name = 'fabric8-runtime-console'
     def org = 'fabric8-ui'
     ws(name){
@@ -24,10 +24,10 @@ kubeProxyTemplate {
         }
 
         def newVersion = performCanaryRelease {}
-        def dockerImage = 'fabric8/fabric8-runtime-console:${newVersion}'
+        
         container('docker') {
-          sh "docker build -t ${dockerImage} ."
-          sh "docker push ${dockerImage}"
+          sh "docker build -t fabric8/fabric8-runtime-console:${newVersion} ."
+          sh "docker push fabric8/fabric8-runtime-console:${newVersion}"
         }
       }
     }
