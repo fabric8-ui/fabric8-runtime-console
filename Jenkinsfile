@@ -11,15 +11,24 @@ kubeProxyTemplate {
         echo 'Running CI pipeline'
 
         container('nodejs') {
-          // example of connecting to the api server
-          sh 'curl http://127.0.0.1:8001/api/v1/'
-          sh 'curl http://127.0.0.1:8001/oapi'
           sh 'yarn'
           sh 'sh ./karma-xvfb.sh'
         }
-      } else {
+      } else if (env.BRANCH_NAME.equals('master')){
         echo 'Running CD pipeline'
         sh "git remote set-url origin git@github.com:${org}/${name}.git"
+
+        container('nodejs') {
+          sh 'yarn'
+          sh 'ng build --prod'
+        }
+
+        def newVersion = performCanaryRelease {}
+        def dockerImage = 'fabric8/fabric8-runtime-console:${newVersion}'
+        container('docker') {
+          sh "docker build -t ${dockerImage} ."
+          sh "docker push ${dockerImage}"
+        }
       }
     }
   }
