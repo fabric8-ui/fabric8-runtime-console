@@ -1,9 +1,13 @@
-import {Component, ChangeDetectionStrategy, AfterViewInit, OnInit} from '@angular/core';
+import {Component, ChangeDetectionStrategy, AfterViewInit, OnInit, ViewEncapsulation} from '@angular/core';
 import { OAuthService } from 'angular2-oauth2/oauth-service';
 import {OAuthConfigStore} from "./kubernetes/store/oauth-config-store";
 
 @Component({
-  selector: 'fabric8-root',
+  host:{
+    'class':'app app-component flex-container in-column-direction flex-grow-1'
+  },
+  selector: 'f8-app',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -11,14 +15,6 @@ import {OAuthConfigStore} from "./kubernetes/store/oauth-config-store";
 
 export class AppComponent implements OnInit, AfterViewInit {
   name = 'Fabric8 Console';
-
-  // White BG
-  logoWhiteBg = 'assets/images/rh_fabric8_small.svg';
-  iconWhiteBg = 'assets/images/glasses_logo.svg';
-
-  // Dark BG
-  logoDarkBg = 'assets/images/rh_fabric8_small.svg';
-  iconDarkBg = 'assets/images/glasses_logo.svg';
 
   title = 'Fabric8 Console';
   url = 'https://www.twitter.com/fabric8io';
