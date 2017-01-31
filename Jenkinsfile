@@ -25,7 +25,7 @@ kubeProxyTemplate {
 
         def newVersion = getNewVersion {}
         
-        container('docker') {
+        container('clients') {
           sh "docker build -t fabric8/fabric8-runtime-console:${newVersion} ."
           sh "docker push fabric8/fabric8-runtime-console:${newVersion}"
         }
