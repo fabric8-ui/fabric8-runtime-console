@@ -23,7 +23,7 @@ kubeProxyTemplate {
           sh 'ng build --prod'
         }
 
-        def newVersion = performCanaryRelease {}
+        def newVersion = getNewVersion {}
         
         container('docker') {
           sh "docker build -t fabric8/fabric8-runtime-console:${newVersion} ."
