@@ -507,6 +507,8 @@ export class DummyService implements OnInit {
     if (!this._currentContext && this._contexts.length) {
       this._currentContext = this._contexts[0];
     }
+    // TODO hack - replace with OAuth stuff?
+    this._currentUser = this.USERS.get("pmuir");
     this.updateActive();
     this.broadcaster.broadcast('refreshContext');
   }

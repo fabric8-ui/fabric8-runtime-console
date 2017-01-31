@@ -32,17 +32,45 @@ yarn
 npm start
 ```
 
-Then to be able to use the kubernetes / openshift back end for builds and runtime resources you will need to run the following in another shell:
+Then to be able to use the kubernetes / openshift back end for builds and runtime resources you will need to run a proxy in another shell:
+
+### Using kubectl 
+
+Run this command in another shell to start the proxy:
 
 ```bash
 kubectl proxy
+```
+
+This will use the current kubernetes cluster you are using. You can check which cluster and namespace you are connected to via:
+
+```bash
+kubectl get pod
+kubectl get node
 ```
 
 If you want to use an existing OpenShift cluster then make sure you run the necessary `oc login` command first. 
 
 To find out how to `oc login` for an openshift server URL you can append the `/oauth/token/request` path in your browser and it should show you what to copy and paste into your command line.
 
+
+### Using Caddy
+
+When using the console inside a docker image we use [Caddy](https://caddyserver.com/) to serve up the static contents and to proxy from the browser to the back end REST API.
+
+If you [download it](https://caddyserver.com/download) and add it to your `$PATH` then you can run it as follows:
+
+```bash
+./caddy.sh
+```
+
+This script will also use the current kuberntes cluster by using `kubectl` (see the above kubectl section for more background).
+
+
+### Open the console in your browser
+
 Now go to [http://0.0.0.0:4200](http://0.0.0.0:4200) or [http://localhost:4200](http://localhost:4200) in your browser.
+
 
 ### If you don't have a kubernetes or openshift cluster
 

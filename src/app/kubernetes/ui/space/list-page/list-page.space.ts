@@ -4,6 +4,9 @@ import {Spaces} from "../../../model/space.model";
 import {SpaceStore} from "../../../store/space.store";
 
 @Component({
+  host:{
+      'class':"app-component flex-container in-column-direction flex-grow-1"
+  },
   selector: 'fabric8-spaces-list-page',
   templateUrl: './list-page.space.html',
   styleUrls: ['./list-page.space.scss'],

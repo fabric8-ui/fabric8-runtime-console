@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-us" class="layout-pf layout-pf-fixed">
+<html lang="en-us"">
  <head>
   <meta charset="utf-8">
   <title>Fabric8 Runtime Console</title>
@@ -18,11 +18,15 @@
   <meta name="theme-color" content="#ffffff">
 </head>
 
-<body class="cards-pf">
-  <fabric8-root>
-    <div class="spinner spinner-lg"></div>
+<body>
+ <f8-app>
+   Loading...
+  <div class="spinner spinner-lg"></div>
+ </f8-app>
+
+ <!--<fabric8-root>
   </fabric8-root>
-  <!--<script>
+ --> <!--<script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
         console.log('Service Worker registered');

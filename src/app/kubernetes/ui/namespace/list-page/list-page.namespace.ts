@@ -4,6 +4,9 @@ import {Namespaces} from "../../../model/namespace.model";
 import {NamespaceStore} from "../../../store/namespace.store";
 
 @Component({
+  host:{
+      'class':"app-component flex-container in-column-direction flex-grow-1"
+  },
   selector: 'fabric8-namespaces-list-page',
   templateUrl: './list-page.namespace.html',
   styleUrls: ['./list-page.namespace.scss'],

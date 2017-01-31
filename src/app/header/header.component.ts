@@ -12,6 +12,7 @@ import { Toggle } from '../toggle/toggle';
 import { ContextService } from '../shared/context.service';
 */
 import { Broadcaster } from '../shared/broadcaster.service';
+import {User} from "../models/user";
 
 @Component({
   selector: 'alm-app-header',
@@ -47,10 +48,11 @@ export class HeaderComponent implements OnInit {
     //return this.auth.isLoggedIn();
   }
 
-/*
   get loggedInUser(): User {
     return this.dummy.currentUser;
   }
+
+/*
 
 
   getTogglePath(): void {
