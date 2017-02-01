@@ -763,7 +763,7 @@ export class DummyService implements OnInit {
 
     if (environments && environments.length) {
       runMenus.push({
-        name: "Dev",
+        name: "Tools",
         path: this.createUrlPrefix(space.name, space.name, app) + resourcePath,
       });
 
