@@ -19,6 +19,17 @@ export class OAuthConfig {
     this.clientId = oauth.oauth_client_id || "fabric8";
     this.issuer = oauth.issuer || "";
     this.logoutUri = oauth.logout_uri || "";
+
+    if (!this.issuer && this.authorizeUri) {
+      // lets default the issuer from the authorize Uri
+      var url = this.authorizeUri;
+      var idx = url.indexOf('/', 9);
+      if (idx > 0) {
+        url = url.substring(0, idx);
+      }
+      this.issuer = url;
+      console.log("Defaulted the issuer URL to: " + this.issuer);
+    }
   }
 }
 
