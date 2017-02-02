@@ -13,6 +13,7 @@ import { ContextService } from '../shared/context.service';
 */
 import { Broadcaster } from '../shared/broadcaster.service';
 import {User} from "../models/user";
+import {OAuthService} from "angular2-oauth2/oauth-service";
 
 @Component({
   selector: 'alm-app-header',
@@ -39,6 +40,7 @@ export class HeaderComponent implements OnInit {
 */
     private broadcaster: Broadcaster,
     public dummy: DummyService,
+    private oauthService: OAuthService,
   ) {
     router.events.subscribe(this.onNavigate);
   }
@@ -76,6 +78,12 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['login']);
   }
 */
+
+  logout() {
+    this.oauthService.logOut();
+    this.router.navigate(['/run/spaces']);
+  }
+
 
   ngOnInit(): void {
     this.listenToEvents();
