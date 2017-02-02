@@ -662,6 +662,16 @@ export class DummyService implements OnInit {
 
   private createSpaceContextType(space: Space, buildConfigPath: string, buildPath: string, runPath: string) {
     var runMenus = this.createRunMenus(space);
+    var appMenus = [
+      {
+        name: "Codebases",
+        path: buildConfigPath,
+      },
+      {
+        name: "Builds",
+        path: buildPath,
+      },
+    ]
     return {
       name: 'DevSpace',
       icon: 'pficon-project',
@@ -706,22 +716,23 @@ export class DummyService implements OnInit {
          },
          */
         {
-          name: 'App',
-          path: buildConfigPath,
-          menus: [],
+          name: 'Create',
+          menus:appMenus,
         },
+/*
         {
           name: 'Build',
           path: buildPath,
-          /*            menus: [
+          /!*            menus: [
            {
            name: 'Pipelines',
            path: '',
            },
            ],
-           */
+           *!/
           menus: [],
         },
+*/
         {
           name: 'Run',
           path: runPath,
@@ -854,7 +865,7 @@ export class DummyService implements OnInit {
          },
          */
         {
-          name: 'Build',
+          name: 'Create',
           path: buildPath,
           /*            menus: [
            {
