@@ -34,6 +34,13 @@ def org = 'fabric8-ui'
             sh "docker build -t fabric8/fabric8-runtime-console:${newVersion} ."
             sh "docker push fabric8/fabric8-runtime-console:${newVersion}"
           }
+          pushPomPropertyChangePR {
+            propertyName = 'fabric8-ui.version'
+            projects = [
+                    'fabric8io/fabric8-online'
+            ]
+            version = newVersion
+          }
         }
       }
     }
