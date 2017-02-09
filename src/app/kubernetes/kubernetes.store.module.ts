@@ -30,6 +30,7 @@ import {SpaceStore} from "./store/space.store";
 import {DevNamespaceScope} from "./service/devnamespace.scope";
 import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OAuthConfigStore} from "./store/oauth-config-store";
+import {OnLogin} from "../shared/onlogin.service";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -74,6 +75,7 @@ import {BrowserModule} from "@angular/platform-browser";
     ServiceService,
     ServiceStore,
     SpaceStore,
+    OnLogin,
   ],
 })
 export class KubernetesStoreModule {

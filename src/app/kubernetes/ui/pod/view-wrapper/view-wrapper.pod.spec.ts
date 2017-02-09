@@ -14,6 +14,7 @@ import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {Fabric8CommonModule} from "../../../../common/common.module";
+import {PodPhaseIconComponent} from "../../../components/pod-phase-icon/pod-phase-icon";
 
 describe('PodViewWrapperComponent', () => {
   let pod: PodViewWrapperComponent;
@@ -32,6 +33,7 @@ describe('PodViewWrapperComponent', () => {
           KubernetesStoreModule,
         ],
         declarations: [
+          PodPhaseIconComponent,
           PodViewWrapperComponent,
           PodViewToolbarComponent,
           PodViewComponent,

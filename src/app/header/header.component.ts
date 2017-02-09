@@ -83,7 +83,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.oauthService.logOut();
-    this.onLogin.onLogin(false);
+    this.onLogin.onLogin("");
     //this.router.navigate(['/run/spaces']);
     window.location.replace('/');
   }
