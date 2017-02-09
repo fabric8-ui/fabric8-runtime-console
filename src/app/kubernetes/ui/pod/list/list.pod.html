@@ -32,12 +32,15 @@
               <a [routerLink]="[pod.id]" class="card-title" title="view pod">{{ pod.name }}</a>
             </div>
             <div class='list-group-item-text'>
-              <span class="" *ngFor='let image of pod.images' title="docker image">
-                   {{image}}
+              <span class="" *ngFor='let image of pod.images' title="docker image: {{image}}">
+                   {{image | truncate:40}}
                </span>
             </div>
           </div>
           <div class='list-view-pf-additional-info'>
+            <div class='list-view-pf-additional-info-item' title="status: {{pod.phase}}">
+              <pod-phase-icon [phase]="pod.phase"></pod-phase-icon>
+            </div>
             <div class='list-view-pf-additional-info-item' title="created time">
               {{pod.creationTimestamp | amTimeAgo}}
             </div>

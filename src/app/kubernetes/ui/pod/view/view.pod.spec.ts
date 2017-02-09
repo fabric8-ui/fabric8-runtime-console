@@ -12,6 +12,7 @@ import {MockBackend} from "@angular/http/testing";
 import {RestangularModule} from "ng2-restangular";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Fabric8CommonModule} from "../../../../common/common.module";
+import {PodPhaseIconComponent} from "../../../components/pod-phase-icon/pod-phase-icon";
 
 describe('PodViewComponent', () => {
   let pod: PodViewComponent;
@@ -29,6 +30,7 @@ describe('PodViewComponent', () => {
           KubernetesStoreModule,
         ],
         declarations: [
+          PodPhaseIconComponent,
           PodViewComponent,
           PodDeleteDialog,
         ],
