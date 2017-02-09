@@ -14,6 +14,7 @@ import {MomentModule} from "angular2-moment";
 import {ConfigMapDeleteDialog} from "../delete-dialog/delete-dialog.configmap";
 import {ConfigMapScaleDialog} from "../scale-dialog/scale-dialog.configmap";
 import {FormsModule} from "@angular/forms";
+import {KubernetesComponentsModule} from "../../../components/components.module";
 
 describe('ConfigMapsListPage', () => {
   let component: ConfigMapsListPage;
@@ -29,6 +30,7 @@ describe('ConfigMapsListPage', () => {
         MomentModule,
         ModalModule,
         KubernetesStoreModule,
+        KubernetesComponentsModule,
       ],
       declarations: [
         ConfigMapsListPage,

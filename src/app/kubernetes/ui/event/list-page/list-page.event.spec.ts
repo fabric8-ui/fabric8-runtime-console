@@ -12,6 +12,7 @@ import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
 import {FormsModule} from "@angular/forms";
+import {KubernetesComponentsModule} from "../../../components/components.module";
 
 describe('EventsListPage', () => {
   let component: EventsListPage;
@@ -27,6 +28,7 @@ describe('EventsListPage', () => {
         MomentModule,
         ModalModule,
         KubernetesStoreModule,
+        KubernetesComponentsModule,
       ],
       declarations: [
         EventsListPage,

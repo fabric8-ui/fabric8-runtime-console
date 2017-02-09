@@ -14,6 +14,7 @@ import {MomentModule} from "angular2-moment";
 import {ServiceDeleteDialog} from "../delete-dialog/delete-dialog.service";
 import {ServiceScaleDialog} from "../scale-dialog/scale-dialog.service";
 import {FormsModule} from "@angular/forms";
+import {KubernetesComponentsModule} from "../../../components/components.module";
 
 describe('ServicesListPage', () => {
   let component: ServicesListPage;
@@ -29,6 +30,7 @@ describe('ServicesListPage', () => {
         MomentModule,
         ModalModule,
         KubernetesStoreModule,
+        KubernetesComponentsModule,
       ],
       declarations: [
         ServicesListPage,
