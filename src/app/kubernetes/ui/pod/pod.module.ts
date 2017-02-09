@@ -17,6 +17,7 @@ import {PodEditComponent} from "./edit/edit.pod";
 import {PodDeleteDialog} from "./delete-dialog/delete-dialog.pod";
 import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
+import {PodPhaseIconComponent} from "../../components/pod-phase-icon/pod-phase-icon";
 
 const routes: Routes = [
   { path: '', component: PodsListPage },
@@ -37,6 +38,7 @@ const routes: Routes = [
     PodsListPage,
     PodsListToolbarComponent,
     PodsListComponent,
+    PodPhaseIconComponent,
     PodViewPage,
     PodViewWrapperComponent,
     PodViewToolbarComponent,

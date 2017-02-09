@@ -11,6 +11,7 @@ import {FormsModule} from "@angular/forms";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
 import {MockBackend} from "@angular/http/testing";
+import {PodPhaseIconComponent} from "../../../components/pod-phase-icon/pod-phase-icon";
 
 describe('PodsListComponent', () => {
   let component: PodsListComponent;
@@ -28,6 +29,7 @@ describe('PodsListComponent', () => {
         KubernetesStoreModule,
       ],
       declarations: [
+        PodPhaseIconComponent,
         PodsListComponent,
         PodDeleteDialog,
       ],

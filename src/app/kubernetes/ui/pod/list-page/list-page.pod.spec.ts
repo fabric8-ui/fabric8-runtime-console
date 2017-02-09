@@ -14,6 +14,7 @@ import {MomentModule} from "angular2-moment";
 import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod";
 import {PodScaleDialog} from "../scale-dialog/scale-dialog.pod";
 import {FormsModule} from "@angular/forms";
+import {PodPhaseIconComponent} from "../../../components/pod-phase-icon/pod-phase-icon";
 
 describe('PodsListPage', () => {
   let component: PodsListPage;
@@ -31,6 +32,7 @@ describe('PodsListPage', () => {
         KubernetesStoreModule,
       ],
       declarations: [
+        PodPhaseIconComponent,
         PodsListPage,
         PodsListComponent,
         PodsListToolbarComponent,

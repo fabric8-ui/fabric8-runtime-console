@@ -2,9 +2,12 @@
 
   <div class="col-xs-12">
     <span class="name">
-      <span class="pull-right">created {{pod.creationTimestamp | amTimeAgo}}</span>
+      <span class="pull-right">Created {{pod.creationTimestamp | amTimeAgo}}</span>
       <h2 class="card-pf-title">
         <img src="{{pod.icon}}" width="30" height="30"/>&nbsp; {{pod.name}}
+        <span class="pod-status">
+          <pod-phase-icon [phase]="pod.phase"></pod-phase-icon>
+        </span>
       </h2>
     </span>
   </div>
@@ -21,7 +24,9 @@
   </div>
 
   <div *ngIf="pod?.spec?.containers">
+    <div class="col-xs-12">
     <h3>Containers</h3>
+    </div>
 
     <div class="pod-template-container" *ngFor="let container of pod.spec.containers">
       <div class="col-xs-6">

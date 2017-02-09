@@ -1,0 +1,8 @@
+<span [ngSwitch]="phase" title="pod status: {{phase}}">
+  <template ngSwitchCase="Running"><span class="pficon-running"></span></template>
+  <template ngSwitchCase="Completed"><span class="pficon-ok"></span></template>
+  <template ngSwitchCase="Succeeded"><span class="pficon-ok"></span></template>
+  <template ngSwitchCase="Failed"><span class="pficon-error-circle-o"></span></template>
+  <template ngSwitchCase="Pending"><span class="pficon-restart"></span></template>
+  <template ngSwitchDefault><span class="pficon-warning-triangle-o"></span></template>
+</span>
