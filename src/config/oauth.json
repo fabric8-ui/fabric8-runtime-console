@@ -1,4 +1,5 @@
 {
+  "api_server": "{{ .Env.KUBERNETES_SERVICE_HOST }}:{{ .Env.KUBERNETES_SERVICE_PORT }}",
   "oauth": {
     "oauth_authorize_uri": "{{ .Env.OAUTH_AUTHORIZE_URI }}",
     "oauth_client_id": "{{ .Env.OAUTH_CLIENT_ID }}",
