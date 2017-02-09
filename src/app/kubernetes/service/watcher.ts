@@ -107,7 +107,7 @@ export class Watcher {
             this._dataStream.error(err);
           },
           () => {
-            console.log("WebSocket complete on " + serviceUrl);
+            //console.log("WebSocket complete on " + serviceUrl);
             this.recreate();
           }
         );
