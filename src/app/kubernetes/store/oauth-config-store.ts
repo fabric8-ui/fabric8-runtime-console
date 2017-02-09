@@ -28,7 +28,7 @@ export class OAuthConfig {
         url = url.substring(0, idx);
       }
       this.issuer = url;
-      console.log("Defaulted the issuer URL to: " + this.issuer);
+      //console.log("Defaulted the issuer URL to: " + this.issuer);
     }
   }
 }

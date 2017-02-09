@@ -6,6 +6,7 @@ import {ConfigMapService} from "../service/configmap.service";
 import {Space, Spaces, asSpaces} from "../model/space.model";
 import {ConfigMap} from "../model/configmap.model";
 import "rxjs/add/observable/forkJoin";
+import {OnLogin} from "../../shared/onlogin.service";
 
 
 @Injectable()
@@ -15,7 +16,7 @@ export class SpaceStore {
   private loadId: string;
   protected _loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private namespaceStore: NamespaceStore, private configMapService: ConfigMapService) {
+  constructor(private namespaceStore: NamespaceStore, private configMapService: ConfigMapService, private onLogin: OnLogin) {
     this.list = this.namespaceStore.list.flatMap(namespaces => {
       if (!namespaces) {
         namespaces = [];
@@ -54,7 +55,9 @@ export class SpaceStore {
 
   protected doLoad(): void {
     this._loading.next(true);
-    this.namespaceStore.loadAll();
+    this.onLogin.whenLoggedIn(() => {
+      this.namespaceStore.loadAll();
+    });
   }
 
   update(obj: Space): Observable<Namespace> {
