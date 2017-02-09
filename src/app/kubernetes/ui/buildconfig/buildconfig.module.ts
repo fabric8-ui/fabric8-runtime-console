@@ -17,6 +17,7 @@ import {BuildConfigEditComponent} from "./edit/edit.buildconfig";
 import {BuildConfigDeleteDialog} from "./delete-dialog/delete-dialog.buildconfig";
 import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
+import {KubernetesComponentsModule} from "../../components/components.module";
 
 const routes: Routes = [
   { path: '', component: BuildConfigsListPage },
@@ -33,6 +34,7 @@ const routes: Routes = [
     MomentModule,
     RouterModule.forChild(routes),
     Fabric8CommonModule,
+    KubernetesComponentsModule,
   ],
   declarations: [
     BuildConfigsListPage,

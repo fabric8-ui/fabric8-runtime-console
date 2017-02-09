@@ -17,6 +17,7 @@ import {ServiceEditComponent} from "./edit/edit.service";
 import {ServiceDeleteDialog} from "./delete-dialog/delete-dialog.service";
 import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
+import {KubernetesComponentsModule} from "../../components/components.module";
 
 const routes: Routes = [
   { path: '', component: ServicesListPage },
@@ -32,6 +33,7 @@ const routes: Routes = [
     MomentModule,
     RouterModule.forChild(routes),
     Fabric8CommonModule,
+    KubernetesComponentsModule,
   ],
   declarations: [
     ServicesListPage,

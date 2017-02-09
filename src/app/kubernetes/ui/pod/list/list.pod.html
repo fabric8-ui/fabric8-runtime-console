@@ -44,8 +44,8 @@
             <div class='list-view-pf-additional-info-item' title="created time">
               {{pod.creationTimestamp | amTimeAgo}}
             </div>
-            <div class='list-view-pf-additional-info-item' title="labels" *ngFor='let entry of pod.labels | entries'>
-              {{entry.key}}: {{entry.value}}
+            <div class='list-view-pf-additional-info-item'>
+              <k8s-labels [labels]="pod.labels"></k8s-labels>
             </div>
           </div>
         </div>

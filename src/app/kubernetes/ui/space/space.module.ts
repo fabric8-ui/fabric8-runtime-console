@@ -17,6 +17,7 @@ import {MomentModule} from "angular2-moment";
 import {SpaceViewPage} from "./view-page/view-page.space";
 import {SpaceEditPage} from "./edit-page/edit-page.space";
 import {SpacesListToolbarComponent} from "./list-toolbar/list-toolbar.space";
+import {KubernetesComponentsModule} from "../../components/components.module";
 
 const routes: Routes = [
   { path: '', component: SpacesListPage},
@@ -33,6 +34,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     RouterModule,
     Fabric8CommonModule,
+    KubernetesComponentsModule,
   ],
   declarations: [
     SpacesListPage,

@@ -17,6 +17,7 @@ import {MomentModule} from "angular2-moment";
 import {NamespaceViewPage} from "./view-page/view-page.namespace";
 import {NamespaceEditPage} from "./edit-page/edit-page.namespace";
 import {NamespacesListToolbarComponent} from "./list-toolbar/list-toolbar.namespace";
+import {KubernetesComponentsModule} from "../../components/components.module";
 
 const routes: Routes = [
   { path: '', component: NamespacesListPage},
@@ -33,6 +34,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     RouterModule,
     Fabric8CommonModule,
+    KubernetesComponentsModule,
   ],
   declarations: [
     NamespacesListPage,
