@@ -19,9 +19,28 @@ export class Pod extends KubernetesSpecResource {
         });
       }
     }
-    let status = this.status;
-    if (status) {
-      this.phase = status.phase;
+    let metadata = resource.metadata || {};
+    if (metadata.deletionTimestamp) {
+      this.phase = "Terminating";
+      console.log("========== Terminating pod! " + this.name);
+    } else {
+      let status = this.status;
+      if (status) {
+        this.phase = status.phase;
+        let containerStatuses = status.containerStatuses;
+        if (containerStatuses && containerStatuses.length) {
+          let ready = true;
+          for (let cs of containerStatuses) {
+            if (!cs.ready) {
+              ready = false;
+              break;
+            }
+          }
+          if (ready) {
+            this.phase = "Ready";
+          }
+        }
+      }
     }
     return answer;
   }

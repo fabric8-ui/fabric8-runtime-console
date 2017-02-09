@@ -13,6 +13,7 @@ import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
 import {SpaceDeleteDialog} from "../delete-dialog/delete-dialog.space";
 import {FormsModule} from "@angular/forms";
+import {KubernetesComponentsModule} from "../../../components/components.module";
 
 describe('SpacesListPage', () => {
   let component: SpacesListPage;
@@ -28,6 +29,7 @@ describe('SpacesListPage', () => {
         MomentModule,
         ModalModule,
         KubernetesStoreModule,
+        KubernetesComponentsModule,
       ],
       declarations: [
         SpacesListPage,

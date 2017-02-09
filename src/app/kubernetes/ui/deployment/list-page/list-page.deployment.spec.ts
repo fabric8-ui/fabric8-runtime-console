@@ -14,6 +14,7 @@ import {MomentModule} from "angular2-moment";
 import {DeploymentDeleteDialog} from "../delete-dialog/delete-dialog.deployment";
 import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 import {FormsModule} from "@angular/forms";
+import {KubernetesComponentsModule} from "../../../components/components.module";
 
 describe('DeploymentsListPage', () => {
   let component: DeploymentsListPage;
@@ -29,6 +30,7 @@ describe('DeploymentsListPage', () => {
         MomentModule,
         ModalModule,
         KubernetesStoreModule,
+        KubernetesComponentsModule,
       ],
       declarations: [
         DeploymentsListPage,

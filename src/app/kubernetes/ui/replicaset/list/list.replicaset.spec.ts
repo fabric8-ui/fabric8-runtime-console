@@ -12,6 +12,7 @@ import {FormsModule} from "@angular/forms";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
 import {MockBackend} from "@angular/http/testing";
+import {KubernetesComponentsModule} from "../../../components/components.module";
 
 describe('ReplicaSetsListComponent', () => {
   let component: ReplicaSetsListComponent;
@@ -27,6 +28,7 @@ describe('ReplicaSetsListComponent', () => {
         ModalModule,
         RestangularModule.forRoot(),
         KubernetesStoreModule,
+        KubernetesComponentsModule,
       ],
       declarations: [
         ReplicaSetsListComponent,

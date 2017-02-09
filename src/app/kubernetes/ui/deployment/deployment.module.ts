@@ -18,6 +18,7 @@ import {DeploymentDeleteDialog} from "./delete-dialog/delete-dialog.deployment";
 import {Fabric8CommonModule} from "../../../common/common.module";
 import {DeploymentScaleDialog} from "./scale-dialog/scale-dialog.deployment";
 import {MomentModule} from "angular2-moment";
+import {KubernetesComponentsModule} from "../../components/components.module";
 
 const routes: Routes = [
   { path: '', component: DeploymentsListPage },
@@ -33,6 +34,7 @@ const routes: Routes = [
     MomentModule,
     RouterModule.forChild(routes),
     Fabric8CommonModule,
+    KubernetesComponentsModule,
   ],
   declarations: [
     DeploymentsListPage,

@@ -17,6 +17,7 @@ import {ConfigMapEditComponent} from "./edit/edit.configmap";
 import {ConfigMapDeleteDialog} from "./delete-dialog/delete-dialog.configmap";
 import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
+import {KubernetesComponentsModule} from "../../components/components.module";
 
 const routes: Routes = [
   { path: '', component: ConfigMapsListPage },
@@ -32,6 +33,7 @@ const routes: Routes = [
     MomentModule,
     RouterModule.forChild(routes),
     Fabric8CommonModule,
+    KubernetesComponentsModule,
   ],
   declarations: [
     ConfigMapsListPage,

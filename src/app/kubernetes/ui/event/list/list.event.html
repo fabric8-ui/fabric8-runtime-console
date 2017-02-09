@@ -42,17 +42,17 @@
             </div>
           </div>
           <div class='list-view-pf-additional-info'>
-            <div class='list-view-pf-additional-info-item' title="reason">
-              {{event?.resource?.reason}}&nbsp;<span title="resource for this event">{{event?.resource?.involvedObject?.kind}} {{event?.resource?.involvedObject?.name}}</span>
-            </div>
             <div class='list-view-pf-additional-info-item' title="count">
               {{event?.resource?.count}}
             </div>
             <div class='list-view-pf-additional-info-item' title="created time">
               {{event.creationTimestamp | amTimeAgo}}
             </div>
-            <div class='list-view-pf-additional-info-item' title="labels" *ngFor='let entry of event.labels | entries'>
-              {{entry.key}}: {{entry.value}}
+            <div class='list-view-pf-additional-info-item' title="reason">
+              {{event?.resource?.reason}}&nbsp;<span title="resource for this event">{{event?.resource?.involvedObject?.kind}} {{event?.resource?.involvedObject?.name}}</span>
+            </div>
+            <div class='list-view-pf-additional-info-item'>
+              <k8s-labels [labels]="event.labels"></k8s-labels>
             </div>
           </div>
         </div>

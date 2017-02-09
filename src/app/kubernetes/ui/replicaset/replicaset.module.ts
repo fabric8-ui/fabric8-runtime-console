@@ -18,6 +18,7 @@ import {ReplicaSetDeleteDialog} from "./delete-dialog/delete-dialog.replicaset";
 import {Fabric8CommonModule} from "../../../common/common.module";
 import {ReplicaSetScaleDialog} from "./scale-dialog/scale-dialog.replicaset";
 import {MomentModule} from "angular2-moment";
+import {KubernetesComponentsModule} from "../../components/components.module";
 
 const routes: Routes = [
   { path: '', component: ReplicaSetsListPage },
@@ -33,6 +34,7 @@ const routes: Routes = [
     MomentModule,
     RouterModule.forChild(routes),
     Fabric8CommonModule,
+    KubernetesComponentsModule,
   ],
   declarations: [
     ReplicaSetsListPage,

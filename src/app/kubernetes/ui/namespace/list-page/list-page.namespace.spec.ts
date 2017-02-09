@@ -13,6 +13,7 @@ import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
 import {NamespaceDeleteDialog} from "../delete-dialog/delete-dialog.namespace";
 import {FormsModule} from "@angular/forms";
+import {KubernetesComponentsModule} from "../../../components/components.module";
 
 describe('NamespacesListPage', () => {
   let component: NamespacesListPage;
@@ -28,6 +29,7 @@ describe('NamespacesListPage', () => {
         MomentModule,
         ModalModule,
         KubernetesStoreModule,
+        KubernetesComponentsModule,
       ],
       declarations: [
         NamespacesListPage,

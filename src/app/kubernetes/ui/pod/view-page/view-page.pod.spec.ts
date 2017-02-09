@@ -9,12 +9,11 @@ import {PodViewWrapperComponent} from "../view-wrapper/view-wrapper.pod";
 import {PodViewToolbarComponent} from "../view-toolbar/view-toolbar.pod";
 import {PodViewComponent} from "../view/view.pod";
 import {MomentModule} from "angular2-moment";
-import {PodScaleDialog} from "../scale-dialog/scale-dialog.pod";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {Fabric8CommonModule} from "../../../../common/common.module";
-import {PodPhaseIconComponent} from "../../../components/pod-phase-icon/pod-phase-icon";
+import {KubernetesComponentsModule} from "../../../components/components.module";
 
 describe('PodViewPage', () => {
   let pod: PodViewPage;
@@ -31,9 +30,9 @@ describe('PodViewPage', () => {
           RouterTestingModule.withRoutes([]),
           RestangularModule.forRoot(),
           KubernetesStoreModule,
+          KubernetesComponentsModule,
         ],
         declarations: [
-          PodPhaseIconComponent,
           PodViewPage,
           PodViewWrapperComponent,
           PodViewToolbarComponent,

@@ -14,6 +14,7 @@ import {MomentModule} from "angular2-moment";
 import {ReplicaSetDeleteDialog} from "../delete-dialog/delete-dialog.replicaset";
 import {ReplicaSetScaleDialog} from "../scale-dialog/scale-dialog.replicaset";
 import {FormsModule} from "@angular/forms";
+import {KubernetesComponentsModule} from "../../../components/components.module";
 
 describe('ReplicaSetsListPage', () => {
   let component: ReplicaSetsListPage;
@@ -29,6 +30,7 @@ describe('ReplicaSetsListPage', () => {
         MomentModule,
         ModalModule,
         KubernetesStoreModule,
+        KubernetesComponentsModule,
       ],
       declarations: [
         ReplicaSetsListPage,
