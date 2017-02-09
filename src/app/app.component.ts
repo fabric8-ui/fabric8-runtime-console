@@ -2,6 +2,7 @@ import {Component, ChangeDetectionStrategy, AfterViewInit, OnInit, ViewEncapsula
 import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OAuthConfigStore} from "./kubernetes/store/oauth-config-store";
 import {Observable} from "rxjs";
+import {OnLogin} from "./shared/onlogin.service";
 
 @Component({
   host:{
@@ -19,9 +20,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   title = 'Fabric8 Console';
   url = 'https://www.twitter.com/fabric8io';
-  loggedIn = true;
 
-  constructor(private oauthService: OAuthService, private oauthConfigStore: OAuthConfigStore) {
+  constructor(private oauthService: OAuthService, private oauthConfigStore: OAuthConfigStore, private onLogin: OnLogin) {
 
     // set the scope for the permissions the client should request
     this.oauthService.scope = "user:full";
@@ -49,14 +49,15 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
+    var token = "";
     if (this.oauthConfigStore.config.authorizeUri) {
-      this.checkLoggedIn();
-    } else {
-      console.log("Not loaded the OAuthConfig yet so lets check again when its loaded");
+      token = this.checkLoggedIn();
+    }
+    if (!token) {
       this.oauthConfigStore.resource.subscribe(config => {
         var authorizeUri = config.authorizeUri;
-        console.log("OAuthConfig loaded with URI: " + authorizeUri);
         if (authorizeUri) {
+          //console.log("OAuthConfig loaded with URI: " + authorizeUri);
           this.checkLoggedIn();
         }
       });
@@ -80,15 +81,17 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.oauthService.loginUrl = config.authorizeUri;
     this.oauthService.issuer = config.issuer;
-    this.oauthService.logoutUrl = config.logoutUri;
+    //this.oauthService.logoutUrl = config.logoutUri;
     this.oauthService.clientId = config.clientId || "fabric8";
 
     let token = this.oauthService.getAccessToken();
     if (this.oauthService.hasValidAccessToken()) {
       console.log("has valid OAuth token from auth URI: " + config.authorizeUri);
+      this.onLogin.onLogin(token);
     } else {
-      console.log("no valid OAuth token at auth URI: " + config.authorizeUri);
+      //console.log("not yet got a valid OAuth token at auth URI: " + config.authorizeUri);
       token = null;
+      this.onLogin.onLogin("");
     }
 
     if (token) {
@@ -108,6 +111,11 @@ export class AppComponent implements OnInit, AfterViewInit {
               onTokenReceived: context => {
                 if (context) {
                   token = context.accessToken;
+
+                  if (this.oauthService.hasValidAccessToken()) {
+                    console.log("has valid OAuth token!");
+                    this.onLogin.onLogin(token);
+                  }
                 }
               }
             })) {
@@ -116,15 +124,23 @@ export class AppComponent implements OnInit, AfterViewInit {
         });
       }
     }
-    if (!token && config.authorizeUri) {
-      if (!this.oauthService.tryLogin({
-          onTokenReceived: context => {
-            if (context) {
-              token = context.accessToken;
+    if (!token) {
+      if (config.authorizeUri) {
+        if (!this.oauthService.tryLogin({
+            onTokenReceived: context => {
+              if (context) {
+                token = context.accessToken;
+                if (this.oauthService.hasValidAccessToken()) {
+                  console.log("has valid OAuth token!");
+                  this.onLogin.onLogin(token);
+                }
+              }
             }
-          }
-        })) {
-        this.oauthService.initImplicitFlow();
+          })) {
+          this.oauthService.initImplicitFlow();
+        }
+      } else {
+        console.log("No OAuth URI!");
       }
     }
     return token;
