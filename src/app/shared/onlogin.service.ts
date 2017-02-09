@@ -4,6 +4,10 @@ import {BehaviorSubject} from "rxjs";
 var _token: string = "";
 var _loggedInSubject: BehaviorSubject<String> = new BehaviorSubject("");
 
+export function currentUserToken() {
+  return _token;
+}
+
 export function whenUserLoggedIn(callback: () => void) {
   if (callback) {
     if (_token) {

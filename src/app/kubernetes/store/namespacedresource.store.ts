@@ -9,8 +9,8 @@ import {KubernetesResourceStore} from "./kuberentesresource.store";
 export abstract class NamespacedResourceStore<T extends KubernetesResource, L extends Array<T>, R extends NamespacedResourceService<T, L>> extends KubernetesResourceStore<T, L, R> {
   private namespaceSubscription: Subscription;
 
-  constructor(service: R, initialList: L, initialCurrent: T, private namespaceScope: NamespaceScope) {
-    super(service, initialList, initialCurrent);
+  constructor(service: R, initialList: L, initialCurrent: T, private namespaceScope: NamespaceScope, type: { new(): T;}) {
+    super(service, initialList, initialCurrent, type);
 
     if (this.namespaceScope) {
       this.namespaceSubscription = this.namespaceScope.namespace.subscribe(

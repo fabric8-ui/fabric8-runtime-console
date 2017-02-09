@@ -7,7 +7,7 @@ import {DeploymentConfigService} from "../service/deploymentconfig.service";
 @Injectable()
 export class DeploymentConfigStore extends NamespacedResourceStore<DeploymentConfig, DeploymentConfigs, DeploymentConfigService> {
   constructor(deploymentService: DeploymentConfigService, namespaceScope: NamespaceScope) {
-    super(deploymentService, [], <DeploymentConfig>{}, namespaceScope);
+    super(deploymentService, [], <DeploymentConfig>{}, namespaceScope, DeploymentConfig);
   }
 
   protected get kind() {

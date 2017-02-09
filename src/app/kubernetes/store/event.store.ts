@@ -7,7 +7,7 @@ import {NamespaceScope} from '../service/namespace.scope';
 @Injectable()
 export class EventStore extends NamespacedResourceStore<Event, Events, EventService> {
   constructor(eventEvent: EventService, namespaceScope: NamespaceScope) {
-    super(eventEvent, [], <Event>{}, namespaceScope);
+    super(eventEvent, [], <Event>{}, namespaceScope, Event);
   }
 
   protected get kind() {

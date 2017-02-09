@@ -8,13 +8,13 @@ import {Observable} from 'rxjs';
 export abstract class AbstractStore<T extends BaseEntity, L extends Array<T>,
   R extends RESTService<T, L>> {
 
-  private _list: BehaviorSubject<L>;
+  protected _list: BehaviorSubject<L>;
 
-  private _current: BehaviorSubject<T>;
+  protected _current: BehaviorSubject<T>;
 
-  private _loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  protected _loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  private _loadId: string = null;
+  protected _loadId: string = null;
 
   constructor(protected service: R, initialList: L, initialCurrent: T) {
     this._list = new BehaviorSubject(initialList);
@@ -37,10 +37,11 @@ export abstract class AbstractStore<T extends BaseEntity, L extends Array<T>,
    return this.service.update(obj);
   }
 
-  loadAll() {
+  loadAll(): Observable<L> {
     this._loadId = null;
     this._loading.next(true);
-    this.service.list().subscribe(
+    let listObserver = this.service.list(this.listQueryParams());
+    listObserver.subscribe(
       (list) => {
         this._list.next(list);
         this._loading.next(false);
@@ -49,6 +50,7 @@ export abstract class AbstractStore<T extends BaseEntity, L extends Array<T>,
         console.log('Error retrieving ' + plural(this.kind) + ': ' + error);
         this._loading.next(false);
       });
+    return listObserver;
   }
 
   load(id: string) {
@@ -72,5 +74,9 @@ export abstract class AbstractStore<T extends BaseEntity, L extends Array<T>,
     } else {
       this.loadAll();
     }
+  }
+
+  listQueryParams() {
+    return null;
   }
 }

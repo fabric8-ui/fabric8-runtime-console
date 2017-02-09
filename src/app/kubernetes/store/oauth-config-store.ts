@@ -8,6 +8,7 @@ export class OAuthConfig {
   public clientId: string;
   public logoutUri: string;
   public issuer: string;
+  public apiServer: string;
   public loaded: boolean;
 
   constructor(data: any) {
@@ -15,6 +16,7 @@ export class OAuthConfig {
     var oauth = config.oauth || {};
 
     this.loaded = data ? true : false;
+    this.apiServer = config.api_server || "";
     this.authorizeUri = oauth.oauth_authorize_uri || "";
     this.clientId = oauth.oauth_client_id || "fabric8";
     this.issuer = oauth.issuer || "";
@@ -43,6 +45,10 @@ var _startedLoadingOAuthConfig = false;
 let _currentOAuthConfig: BehaviorSubject<OAuthConfig> = new BehaviorSubject(_latestOAuthConfig);
 let _loadingOAuthConfig: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
+
+export function currentOAuthConfig() {
+  return _latestOAuthConfig;
+}
 
 @Injectable()
 export class OAuthConfigStore {

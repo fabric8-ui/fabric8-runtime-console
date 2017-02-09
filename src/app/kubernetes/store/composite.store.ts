@@ -28,9 +28,10 @@ export abstract class CompositeStore<T extends BaseEntity, L extends Array<T>> {
     return this._loading.asObservable();
   }
 
-  loadAll(): void {
+  loadAll(): Observable<L> {
     this._loadId = null;
     this._loading.next(true);
+    return this.list();
   }
 
   load(id: string): void {

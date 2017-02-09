@@ -4,9 +4,17 @@ import {KUBERNETES_RESTANGULAR} from './kubernetes.restangular';
 import {KubernetesService} from './kubernetes.service';
 import {Namespace, Namespaces} from '../model/namespace.model';
 
+var namespacesUrl = '/api/v1/namespaces';
+
 @Injectable()
 export class NamespaceService extends KubernetesService<Namespace, Namespaces> {
+
   constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular) {
-    super(kubernetesRestangular.service('/api/v1/namespaces'));
+    super(kubernetesRestangular.service(namespacesUrl));
+  }
+
+  get serviceUrl(): string {
+    return namespacesUrl;
   }
 }
+
