@@ -4,11 +4,20 @@ import {Observable} from 'rxjs';
 import {RESTService} from '../../store/entity/rest.service';
 import {KUBERNETES_RESTANGULAR} from './kubernetes.restangular';
 import {KubernetesResource} from '../model/kubernetesresource.model';
+import {Watcher} from "./watcher";
 
 
 export abstract class KubernetesService<T extends KubernetesResource, L extends Array<T>> extends RESTService<T, L> {
   constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular) {
     super(kubernetesRestangular);
+  }
+
+  /**
+   * Creates a watcher that can watch for events
+   * @param queryParams
+   */
+  watch(queryParams: any = null) {
+    return new Watcher(() => this.serviceUrl, queryParams);
   }
 
   get(id: string): Observable<T> {
@@ -48,4 +57,6 @@ export abstract class KubernetesService<T extends KubernetesResource, L extends 
   defaultKind() {
     return 'Service';
   }
+
+  abstract get serviceUrl(): string
 }

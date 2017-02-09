@@ -21,7 +21,7 @@ export class CompositeDeploymentStore {
     this.loading = this.deploymentsStore.loading.combineLatest(this.deploymentConfigsStore.loading, (f, s) => f && s);
   }
 
-  loadAll(): void {
+  loadAll(): Observable<Deployments> {
     this.deploymentsStore.loadAll();
     this.apiStore.load();
     // lets wait until we've loaded the APIS before trying to load the DeploymentConfigs
@@ -33,6 +33,7 @@ export class CompositeDeploymentStore {
         }
       }
     });
+    return this.list;
   }
 
   load(id: string): void {

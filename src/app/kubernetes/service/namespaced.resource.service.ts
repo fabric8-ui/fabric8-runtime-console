@@ -30,8 +30,11 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
   }
 
   set namespace(namespace: string) {
-    this._namespace = namespace;
-    this._serviceUrl = null;
+    if (namespace != this._namespace) {
+      this._namespace = namespace;
+      this._serviceUrl = null;
+      this.onNamespaceChanged();
+    }
   }
 
   get(id: string, namespace: string = null): Observable<T> {
@@ -77,5 +80,8 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
   // TODO
   ngOnDestroy() {
     this.namespaceSubscription.unsubscribe();
+  }
+
+  protected onNamespaceChanged() {
   }
 }
