@@ -32,12 +32,25 @@
               <a [routerLink]="[pod.id]" class="card-title" title="view pod">{{ pod.name }}</a>
             </div>
             <div class='list-group-item-text'>
-              <span class="" *ngFor='let image of pod.images' title="docker image">
-                   {{image}}
+              <span class="" *ngFor='let image of pod.images' title="docker image: {{image}}">
+                   {{image | truncate:40}}
                </span>
             </div>
           </div>
           <div class='list-view-pf-additional-info'>
+            <div class='list-view-pf-additional-info-item' title="status: {{pod.phase}}">
+              <div [ngSwitch]="pod.phase">
+                <template ngSwitchCase="Running"><span class="pficon-running"></span></template>
+                <template ngSwitchCase="Completed"><span class="pficon-ok"></span></template>
+                <template ngSwitchCase="Succeeded"><span class="pficon-ok"></span></template>
+                <template ngSwitchCase="Failed"><span class="pficon-error-circle-o"></span></template>
+                <template ngSwitchCase="Pending"><span class="pficon-restart"></span></template>
+                <template ngSwitchDefault><span class="pficon-warning-triangle-o"></span></template>
+              </div>
+<!--
+              &nbsp;{{pod.phase}}
+-->
+            </div>
             <div class='list-view-pf-additional-info-item' title="created time">
               {{pod.creationTimestamp | amTimeAgo}}
             </div>

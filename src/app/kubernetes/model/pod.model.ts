@@ -2,6 +2,7 @@ import {KubernetesSpecResource} from "./kuberentesspecresource.model";
 
 export class Pod extends KubernetesSpecResource {
   public images: Array<String>;
+  public phase: String;
 
   public setResource(resource) {
     var answer = super.setResource(resource);
@@ -17,6 +18,10 @@ export class Pod extends KubernetesSpecResource {
           }
         });
       }
+    }
+    let status = this.status;
+    if (status) {
+      this.phase = status.phase;
     }
     return answer;
   }
