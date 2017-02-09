@@ -39,17 +39,7 @@
           </div>
           <div class='list-view-pf-additional-info'>
             <div class='list-view-pf-additional-info-item' title="status: {{pod.phase}}">
-              <div [ngSwitch]="pod.phase">
-                <template ngSwitchCase="Running"><span class="pficon-running"></span></template>
-                <template ngSwitchCase="Completed"><span class="pficon-ok"></span></template>
-                <template ngSwitchCase="Succeeded"><span class="pficon-ok"></span></template>
-                <template ngSwitchCase="Failed"><span class="pficon-error-circle-o"></span></template>
-                <template ngSwitchCase="Pending"><span class="pficon-restart"></span></template>
-                <template ngSwitchDefault><span class="pficon-warning-triangle-o"></span></template>
-              </div>
-<!--
-              &nbsp;{{pod.phase}}
--->
+              <pod-phase-icon [phase]="pod.phase"></pod-phase-icon>
             </div>
             <div class='list-view-pf-additional-info-item' title="created time">
               {{pod.creationTimestamp | amTimeAgo}}
