@@ -46,6 +46,7 @@
             <div class='list-group-item-text'>
               <span class='open-service-icon'>
                 <a target="deployment"
+                   class="external-service"
                    *ngIf="deployment.exposeUrl"
                    [href]="deployment.exposeUrl"
                    title="Open this deployment's service in a separate browser tab">
