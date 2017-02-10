@@ -3,6 +3,7 @@ import {KubernetesService} from "./kubernetes.service";
 import {Subscription, Observable} from "rxjs";
 import {KubernetesResource} from "../model/kubernetesresource.model";
 import {NamespaceScope} from "./namespace.scope";
+import {Watcher} from "./watcher";
 
 
 export abstract class NamespacedResourceService<T extends KubernetesResource, L extends Array<T>> extends KubernetesService<T, L> {
@@ -24,6 +25,20 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
       );
     }
   }
+
+
+  /**
+   * Creates a watcher that can watch for events
+   * @param queryParams
+   */
+  watchNamepace(namespace: string, queryParams: any = null) {
+    if (namespace) {
+      return new Watcher(() => this.serviceUrlForNamespace(namespace), queryParams);
+    }
+    return this.watch(queryParams);
+  }
+
+
 
   get namespace(): string {
     return this._namespace;

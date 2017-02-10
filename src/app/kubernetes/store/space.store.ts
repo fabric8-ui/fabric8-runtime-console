@@ -9,6 +9,7 @@ import "rxjs/add/observable/forkJoin";
 import {OnLogin} from "../../shared/onlogin.service";
 import {messageEventToResourceOperation, Operation} from "../service/resource-operation";
 import {Watcher} from "../service/watcher";
+import {ConfigMapStore} from "./configmap.store";
 
 
 class EnvironmentWatcher {
@@ -17,8 +18,10 @@ class EnvironmentWatcher {
   protected subscription: Subscription;
   public notified: boolean;
 
-  constructor(public watcher: Watcher, protected onChangeFn: (ConfigMap) => void) {
-    this.subscription = watcher.dataStream.subscribe(msg => this.onMessageEvent(msg));
+  constructor(protected configMapStore: ConfigMapStore, public watcher: Watcher, protected onChangeFn: (ConfigMap) => void) {
+    this.subscription = watcher.dataStream.subscribe(msg => {
+      this.onMessageEvent(msg);
+    });
   }
 
   protected onMessageEvent(msg) {
@@ -29,8 +32,9 @@ class EnvironmentWatcher {
         this.notify(this.configMap);
       } else {
         let resource = resourceOperation.resource;
-        if (resource instanceof ConfigMap) {
-          this.configMap = resource as ConfigMap;
+        let configMap = this.configMapStore.instantiate(resource);
+        if (configMap) {
+          this.configMap = configMap;
           this.notify(this.configMap);
         }
       }
@@ -57,7 +61,7 @@ export class SpaceStore {
   private configMaps: Map<String,ConfigMap>;
   protected configMapsSubject: BehaviorSubject<Map<String,ConfigMap>>;
 
-  constructor(private namespaceStore: NamespaceStore, configMapService: ConfigMapService, private onLogin: OnLogin) {
+  constructor(private namespaceStore: NamespaceStore, configMapService: ConfigMapService, configMapStore: ConfigMapStore, private onLogin: OnLogin) {
     let namespacesList = this.namespaceStore.list;
 
     this.environments = new Map<String,EnvironmentWatcher>();
@@ -76,11 +80,11 @@ export class SpaceStore {
           if (name) {
             var environmentWatcher = this.environments[name];
             if (!environmentWatcher) {
-              console.log("watching configmaps in namespace " + name);
-              let watcher = configMapService.watch({
+              //console.log("watching configmaps in namespace " + name);
+              let watcher = configMapService.watchNamepace(name, {
                 labelSelector: "kind=environments"
               });
-              environmentWatcher = new EnvironmentWatcher(watcher, (configMap) => this.environmentUpdated(configMap));
+              environmentWatcher = new EnvironmentWatcher(configMapStore, watcher, (configMap) => this.environmentUpdated(configMap));
 
               // lets load the initial value
               configMapService.list(name, {

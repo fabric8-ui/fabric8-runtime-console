@@ -19,6 +19,22 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
     super(service, initialList, initialCurrent);
   }
 
+  /**
+   * Creates a new instance of the resource type from the given data - typically received from a web socket event
+   */
+  instantiate(resource: any): T {
+    if (resource) {
+      let item = new this.type();
+      item.setResource(resource);
+      // lets add the Restangular crack
+      return this.service.restangularize(item);
+    } else {
+      return null;
+    }
+  }
+
+
+
   update(obj: T): Observable<T> {
     return this.service.update(obj);
   }
