@@ -490,12 +490,11 @@ export class DummyService implements OnInit {
       if (space) {
         let spaceContext = this.createSpaceContext(space);
         this._parentContexts.push(spaceContext);
-      }
-      if (buildConfig) {
-        this._currentContext = this.createBuildConfigContext(space, buildConfig);
-      } else {
-        if (space) {
-          this._currentContext = this.createSpaceContext(space);
+
+        if (buildConfig) {
+          this._currentContext = this.createBuildConfigContext(space, buildConfig);
+        } else {
+            this._currentContext = this.createSpaceContext(space);
         }
       }
       this._contexts = this.createContextsFromBuildConfigs(space, buildConfigs);

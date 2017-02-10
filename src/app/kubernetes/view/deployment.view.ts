@@ -13,6 +13,8 @@ export class DeploymentView {
   public readonly exposeUrl: string;
   public readonly replicas: number;
   public readonly availableReplicas: number;
+  public readonly unavailableReplicas: number;
+  public readonly updatedReplicas: number;
   public readonly labels: Map<string,string>;
   public readonly images: Array<String>;
   public readonly annotations: Map<string,string>;
@@ -50,13 +52,10 @@ export class DeploymentView {
         }
       }
     }
-    this.replicas = 0;
-    this.availableReplicas = 0;
-    let status = deployment.status;
-    if (status) {
-      this.replicas = status.replicas || 0;
-      this.availableReplicas = status.availableReplicas || 0;
-    }
+    this.replicas = deployment.replicas;
+    this.availableReplicas = deployment.availableReplicas;
+    this.unavailableReplicas = deployment.unavailableReplicas;
+    this.updatedReplicas = deployment.updatedReplicas;
   }
 }
 
