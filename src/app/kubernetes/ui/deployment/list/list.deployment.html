@@ -53,15 +53,17 @@
               </span>
             </div>
             <div class='list-group-item-text'>
-              <span class="" *ngFor='let image of deployment.images' title="docker image">
-                   {{image | truncate:20}}
+              <span class="" *ngFor='let image of deployment.images' title="docker image: {{image}}">
+                {{image | truncate:40}}
                </span>
             </div>
           </div>
           <div class='list-view-pf-additional-info'>
 
             <div class='list-view-pf-additional-info-item' title="number of available pods and the replicas">
-              {{deployment.availableReplicas}} / {{deployment.replicas}}
+              <span title="Number of available pods" class="pod-counter">{{deployment.availableReplicas}}</span> /
+              <span title="Number of required replicas" class="pod-counter">{{deployment.replicas}}</span>
+              <span *ngIf="deployment.unavailableReplicas > 0">/<span class="badge" title="Number of pods started but not yet ready">{{deployment.unavailableReplicas}}</span></span>
             </div>
             <div class='list-view-pf-additional-info-item' title="created time">
               {{deployment.creationTimestamp | amTimeAgo}}
