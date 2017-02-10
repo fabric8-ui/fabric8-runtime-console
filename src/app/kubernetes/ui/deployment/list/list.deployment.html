@@ -42,7 +42,8 @@
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
               <a [routerLink]="[deployment.id]" class="card-title" title="view deployment">{{ deployment.name }}</a>
-
+            </div>
+            <div class='list-group-item-text'>
               <span class='open-service-icon'>
                 <a target="deployment"
                    *ngIf="deployment.exposeUrl"
@@ -51,8 +52,6 @@
                   <i class="fa fa-external-link" aria-hidden="true"></i>
                 </a>
               </span>
-            </div>
-            <div class='list-group-item-text'>
               <span class="" *ngFor='let image of deployment.images' title="docker image: {{image}}">
                 {{image | truncate:40}}
                </span>
@@ -63,7 +62,8 @@
             <div class='list-view-pf-additional-info-item' title="number of available pods and the replicas">
               <span title="Number of available pods" class="pod-counter">{{deployment.availableReplicas}}</span> /
               <span title="Number of required replicas" class="pod-counter">{{deployment.replicas}}</span>
-              <span *ngIf="deployment.unavailableReplicas > 0">/<span class="badge" title="Number of pods started but not yet ready">{{deployment.unavailableReplicas}}</span></span>
+              <span *ngIf="deployment.unavailableReplicas > 0">/<span class="badge"
+                                                                      title="Number of pods started but not yet ready">{{deployment.unavailableReplicas}}</span></span>
             </div>
             <div class='list-view-pf-additional-info-item' title="created time">
               {{deployment.creationTimestamp | amTimeAgo}}

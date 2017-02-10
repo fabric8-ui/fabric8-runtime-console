@@ -30,7 +30,8 @@
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
               <a [routerLink]="[service.id]" class="card-title" title="view service">{{ service.name }}</a>
-
+            </div>
+            <div class='list-group-item-text'>
               <span class='open-service-icon'>
                 <a target="service"
                    *ngIf="service.exposeUrl"
@@ -39,8 +40,7 @@
                   <i class="fa fa-external-link" aria-hidden="true"></i>
                 </a>
               </span>
-            </div>
-            <div class='list-group-item-text'>
+
               {{service?.spec?.clusterIP || ''}}
             </div>
           </div>
