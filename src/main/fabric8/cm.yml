@@ -1,0 +1,10 @@
+metadata:
+  annotations:
+    expose.config.fabric8.io/oauth-authorize-url-key: oauth-authorize-uri
+    expose.config.fabric8.io/apiserver-key: api-server
+data:
+  oauth-issuer: ""
+  oauth-logout-uri: ""
+  oauth-client-id: "fabric8"
+  oauth-authorize-uri: ""
+  api-server: ""
