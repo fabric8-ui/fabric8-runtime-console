@@ -7,6 +7,7 @@ def stage(){
   return stageProject{
     project = repo()
     useGitTagForNextVersion = true
+    containerName = 'chunky'
   }
 }
 
@@ -21,6 +22,7 @@ def release(project){
     artifactExtensionToWatchInCentral = 'pom'
     promoteToDockerRegistry = 'docker.io'
     dockerOrganisation = 'fabric8'
+    containerName = 'chunky'
   }
 }
 
