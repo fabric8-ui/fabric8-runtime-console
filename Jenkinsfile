@@ -1,48 +1,65 @@
 @Library('github.com/fabric8io/fabric8-pipeline-library@master')
 def name = 'fabric8-runtime-console'
 def org = 'fabric8-ui'
-  
 
-  if (env.BRANCH_NAME.startsWith('PR-')){
+if (env.BRANCH_NAME.startsWith('PR-')) {
     echo 'Running CI pipeline'
     kubeProxyTemplate {
-      nodejsNode(nodejsImage: 'fabric8/nodejs-builder:0.0.2', clientsImage:'fabric8/builder-clients:0.1') {
-        ws(name){
-          git "https://github.com/${org}/${name}.git"
-          container('nodejs') {
-            sh 'yarn'
-            sh 'sh ./karma-xvfb.sh'
-          }
+        nodejsNode() {
+            ws(name) {
+                git "https://github.com/${org}/${name}.git"
+                readTrusted 'release.groovy'
+                container('nodejs') {
+                    sh 'yarn'
+                    sh 'sh ./karma-xvfb.sh'
+                }
+            }
         }
-      }
     }
-  } else if (env.BRANCH_NAME.equals('master')){
+} else if (env.BRANCH_NAME.equals('master')) {
     echo 'Running CD pipeline'
     dockerTemplate {
-      nodejsNode(nodejsImage: 'fabric8/nodejs-builder:0.0.2', clientsImage:'fabric8/builder-clients:0.1') {
-        ws(name){
-          git "https://github.com/${org}/${name}.git"
-          sh "git remote set-url origin git@github.com:${org}/${name}.git"
-          container('nodejs') {
-            sh 'yarn'
-            sh 'ng build --prod'
-          }
+        nodejsTemplate {
+            mavenNode(label: 'node-mvn-docker') {
+                ws(name) {
+                    git "https://github.com/${org}/${name}.git"
+                    readTrusted 'release.groovy'
+                    sh "git remote set-url origin git@github.com:${org}/${name}.git"
 
-          def newVersion = getNewVersion {}
-              
-          container('docker') {
-            sh "docker build -t fabric8/fabric8-runtime-console:${newVersion} ."
-            sh "docker push fabric8/fabric8-runtime-console:${newVersion}"
-          }
-          pushPomPropertyChangePR {
-            propertyName = 'fabric8-ui.version'
-            projects = [
-                    'fabric8io/fabric8-online'
-            ]
-            version = newVersion
-          }
+                    stage 'Generate and stage YAML'
+                    def pipeline = load 'release.groovy'
+                    def stagedProject = pipeline.stage()
+
+                    def newVersion = stagedProject[1]
+
+                    container('nodejs') {
+                        stage 'Build'
+                        sh 'yarn'
+                        sh 'ng build --prod'
+                    }
+
+                    container('docker') {
+                        stage 'Build image'
+                        sh "docker build -t fabric8/fabric8-runtime-console:${newVersion} ."
+
+                        stage 'Push image'
+                        sh "docker push fabric8/fabric8-runtime-console:${newVersion}"
+                    }
+
+                    stage 'Promote release to maven central'
+                    pipeline.release(stagedProject)
+
+                    stage 'Update downstream dependencies'
+                    pushPomPropertyChangePR {
+                        propertyName = 'fabric8-ui.version'
+                        projects = [
+                                'fabric8io/fabric8-online'
+                        ]
+                        version = newVersion
+                    }
+                }
+            }
         }
-      }
     }
-  }
+}
 
