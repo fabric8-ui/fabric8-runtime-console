@@ -51,7 +51,7 @@ if (env.BRANCH_NAME.startsWith('PR-')) {
 
                 stage 'Update downstream dependencies'
                 pushPomPropertyChangePR {
-                    propertyName = 'fabric8-ui.version'
+                    propertyName = 'fabric8-runtime-console.version'
                     projects = [
                             'fabric8io/fabric8-online'
                     ]

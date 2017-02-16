@@ -28,7 +28,6 @@
   <groupId>io.fabric8.platform.console2</groupId>
   <artifactId>fabric8-runtime-console</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
 
   <name>Fabric8 Runtime Console</name>
 
