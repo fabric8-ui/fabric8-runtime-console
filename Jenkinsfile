@@ -56,6 +56,7 @@ if (env.BRANCH_NAME.startsWith('PR-')) {
                             'fabric8io/fabric8-online'
                     ]
                     version = newVersion
+                    containerName = 'chunky'
                 }
             }
         }
