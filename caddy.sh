@@ -5,7 +5,7 @@ echo "To download caddy see: https://caddyserver.com/download"
 echo ""
 
 # lets detect if there's no KUBERNETES_SERVICE_HOST and if so try figure it out from gofabric8?
-PARTS=$(kubectl cluster-info | grep master |sed -e 's/.*http:\/\///g' -e 's/.*https:\/\///g')
+PARTS=$(kubectl cluster-info | perl -pe 's/\x1b\[[0-9;]*m//g' | grep master |sed -e 's/.*http:\/\///g' -e 's/.*https:\/\///g')
 
 
 [ -z "$KUBERNETES_SERVICE_HOST" ] && IFS=':' read KUBERNETES_SERVICE_HOST KUBERNETES_SERVICE_PORT <<< "$PARTS"
@@ -17,6 +17,9 @@ export OAUTH_AUTHORIZE_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERV
 export OAUTH_CLIENT_ID="fabric8"
 export OAUTH_LOGOUT_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/connect/endsession?id_token={{id_token}}"
 export K8S_API_SERVER="${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
+
+
+export OAUTH_ISSUER=""
 
 #export OAUTH_ISSUER="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
 
