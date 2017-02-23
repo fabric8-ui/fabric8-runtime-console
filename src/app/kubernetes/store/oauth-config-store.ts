@@ -19,7 +19,7 @@ export class OAuthConfig {
     this.apiServer = config.api_server || "";
     this.authorizeUri = oauth.oauth_authorize_uri || "";
     this.clientId = oauth.oauth_client_id || "fabric8";
-    this.issuer = oauth.issuer || "";
+    this.issuer = oauth.oauth_issuer || "";
     this.logoutUri = oauth.logout_uri || "";
 
     if (!this.issuer && this.authorizeUri) {
@@ -30,7 +30,7 @@ export class OAuthConfig {
         url = url.substring(0, idx);
       }
       this.issuer = url;
-      //console.log("Defaulted the issuer URL to: " + this.issuer);
+      console.log("Defaulted the issuer URL to: " + this.issuer);
     }
   }
 }
