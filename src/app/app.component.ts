@@ -80,13 +80,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     let config = this.oauthConfigStore.config;
     let issuer = config.issuer;
     let clientId = config.clientId || "fabric8";
+    let scope = config.scope || "user:full";
 
+    this.oauthService.scope = scope;
     this.oauthService.loginUrl = config.authorizeUri;
     this.oauthService.issuer = issuer;
-    //this.oauthService.logoutUrl = config.logoutUri;
     this.oauthService.clientId = clientId;
+    //this.oauthService.logoutUrl = config.logoutUri;
 
-    console.log("Logging in with client " + clientId + " and issuer " + issuer);
+    console.log("Logging in with client " + clientId + " scope " + scope + " and issuer " + issuer);
 
     let token = this.oauthService.getAccessToken();
     if (this.oauthService.hasValidAccessToken()) {

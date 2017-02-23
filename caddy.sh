@@ -22,12 +22,16 @@ if [ -z "${OAUTH_ISSUER}" ]; then
   #export OAUTH_ISSUER=""
   export OAUTH_ISSUER="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
 fi
+if [ -z "${OAUTH_SCOPE}" ]; then
+  export OAUTH_SCOPE="user:info"
+fi
 
 
 echo "Connecting to kubernetes cluster at https://${K8S_API_SERVER}/"
 
-echo "OAUTH_ISSUER: ${OAUTH_ISSUER}"
+echo "OAUTH_ISSUER:    ${OAUTH_ISSUER}"
 echo "OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}"
+echo "OAUTH_SCOPE:     ${OAUTH_SCOPE}"
 echo ""
 
 caddy --root ./src
