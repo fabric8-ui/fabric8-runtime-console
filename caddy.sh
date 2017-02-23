@@ -14,15 +14,20 @@ PARTS=$(kubectl cluster-info | perl -pe 's/\x1b\[[0-9;]*m//g' | grep master |sed
 
 
 export OAUTH_AUTHORIZE_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/oauth/authorize"
-export OAUTH_CLIENT_ID="fabric8"
 export OAUTH_LOGOUT_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/connect/endsession?id_token={{id_token}}"
 export K8S_API_SERVER="${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
 
 
-export OAUTH_ISSUER=""
+if [ -z "${OAUTH_ISSUER}" ]; then
+  #export OAUTH_ISSUER=""
+  export OAUTH_ISSUER="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
+fi
 
-#export OAUTH_ISSUER="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
 
 echo "Connecting to kubernetes cluster at https://${K8S_API_SERVER}/"
+
+echo "OAUTH_ISSUER: ${OAUTH_ISSUER}"
+echo "OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}"
+echo ""
 
 caddy --root ./src

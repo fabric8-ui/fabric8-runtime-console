@@ -78,11 +78,15 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   protected checkLoggedIn() {
     let config = this.oauthConfigStore.config;
+    let issuer = config.issuer;
+    let clientId = config.clientId || "fabric8";
 
     this.oauthService.loginUrl = config.authorizeUri;
-    this.oauthService.issuer = config.issuer;
+    this.oauthService.issuer = issuer;
     //this.oauthService.logoutUrl = config.logoutUri;
-    this.oauthService.clientId = config.clientId || "fabric8";
+    this.oauthService.clientId = clientId;
+
+    console.log("Logging in with client " + clientId + " and issuer " + issuer);
 
     let token = this.oauthService.getAccessToken();
     if (this.oauthService.hasValidAccessToken()) {
