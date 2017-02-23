@@ -9,6 +9,7 @@ export class OAuthConfig {
   public logoutUri: string;
   public issuer: string;
   public apiServer: string;
+  public scope: string;
   public loaded: boolean;
 
   constructor(data: any) {
@@ -20,6 +21,7 @@ export class OAuthConfig {
     this.authorizeUri = oauth.oauth_authorize_uri || "";
     this.clientId = oauth.oauth_client_id || "fabric8";
     this.issuer = oauth.oauth_issuer || "";
+    this.scope = oauth.oauth_scope || "user:full";
     this.logoutUri = oauth.logout_uri || "";
 
     if (!this.issuer && this.authorizeUri) {
