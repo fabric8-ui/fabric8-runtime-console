@@ -23,7 +23,7 @@ if [ -z "${OAUTH_ISSUER}" ]; then
   export OAUTH_ISSUER="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
 fi
 if [ -z "${OAUTH_SCOPE}" ]; then
-  export OAUTH_SCOPE="user:info"
+  export OAUTH_SCOPE="user:full"
 fi
 if [ -z "${OAUTH_CLIENT_ID}" ]; then
   export OAUTH_CLIENT_ID="fabric8"
