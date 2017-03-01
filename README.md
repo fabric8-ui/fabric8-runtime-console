@@ -34,6 +34,17 @@ npm start
 
 Then to be able to use the kubernetes / openshift back end for builds and runtime resources you will need to run a proxy in another shell:
 
+### Check you can connect to some OpenShift cluster
+
+To run this console you need an OpenShift cluster to play with. If you have used `oc login` to connect to something and can run something like:
+
+```
+oc get node
+oc get pod
+```
+
+Then you're good to go. If not consider installing and starting [minishift](https://github.com/minishift/minishift#installation) and then running the `oc login` command it tells you on startup so that you can run the above commands.
+
 ### Start Caddy
 
 When using the console inside a docker image we use [Caddy](https://caddyserver.com/) to serve up the static contents and to proxy from the browser to the back end REST API.
