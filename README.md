@@ -49,7 +49,7 @@ Then you're good to go. If not consider installing and starting [minishift](http
 
 When using the console inside a docker image we use [Caddy](https://caddyserver.com/) to serve up the static contents and to proxy from the browser to the back end REST API.
 
-If you [download it](https://caddyserver.com/download) and add it to your `$PATH` then you can run it as follows:
+If you [download it](https://caddyserver.com/download) **make sure to select the prometheus plugin** and add it to your `$PATH` then you can run it as follows:
 
 ```bash
 ./caddy.sh
