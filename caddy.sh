@@ -25,6 +25,9 @@ fi
 if [ -z "${OAUTH_SCOPE}" ]; then
   export OAUTH_SCOPE="user:info"
 fi
+if [ -z "${OAUTH_CLIENT_ID}" ]; then
+  export OAUTH_CLIENT_ID="fabric8"
+fi
 
 
 echo "Connecting to kubernetes cluster at https://${K8S_API_SERVER}/"

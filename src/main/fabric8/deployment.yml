@@ -23,6 +23,11 @@ spec:
             configMapKeyRef:
               key: "oauth-client-id"
               name: "fabric8-runtime-console"
+        - name: "OAUTH_SCOPE"
+          valueFrom:
+            configMapKeyRef:
+              key: "oauth-scope"
+              name: "fabric8-runtime-console"
         - name: "OAUTH_AUTHORIZE_URI"
           valueFrom:
             configMapKeyRef:
