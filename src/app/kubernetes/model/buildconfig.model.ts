@@ -5,9 +5,12 @@ export const defaultBuildIconStyle = "pficon-build";
 
 export class BuildConfig extends KubernetesSpecResource {
   gitUrl: string;
-  jenkinsJobUrl: string;
   type: string;
   lastVersion: number;
+
+  jenkinsJobUrl: string;
+  openInDEAUrl: string;
+  openInCheUrl: string;
 
   lastBuildPath: string;
   lastBuildName: string;
@@ -52,6 +55,11 @@ export class BuildConfig extends KubernetesSpecResource {
     }
     this.gitUrl = gitUrl;
     this.jenkinsJobUrl = this.annotations["fabric8.link.jenkins.job/url"] || "";
+    if (gitUrl) {
+      this.openInDEAUrl = "jetbrains://idea/checkout/git?idea.required.plugins.id=Git4Idea&checkout.repo=" + gitUrl;
+    }
+
+    // TODO create openInCheUrl URL
   }
 
   defaultKind() {

@@ -16,14 +16,21 @@
                 View last build
               </a>
             </li>
-            <li *ngIf="buildconfig.jenkinsJobUrl">
-              <a href="{{buildconfig.jenkinsJobUrl}}"  title="view Jenksin Job" target="jenkins">
-                View Jenkins Job
-              </a>
-            </li>
             <li>
               <a [routerLink]="[buildconfig.id, 'edit']">Edit</a>
             </li>
+            <li class="divider" *ngIf="buildconfig.gitUrl"></li>
+            <li *ngIf="buildconfig.openInDEAUrl">
+              <a [href]="buildconfig.openInDEAUrl | safeUrl"  title="open this project in IDEA IntelliJ">
+                Open in IDEA
+              </a>
+            </li>
+            <li *ngIf="buildconfig.jenkinsJobUrl">
+              <a href="{{buildconfig.jenkinsJobUrl}}"  title="open the Jenksin Job for this build" target="jenkins">
+                Open Jenkins Job
+              </a>
+            </li>
+            <li class="divider"></li>
             <li>
               <a (click)="openDeleteDialog(deleteBuildConfigModal, buildconfig)" title="Delete this BuildConfig">Delete</a>
             </li>
