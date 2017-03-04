@@ -10,6 +10,7 @@ import {DropdownModule} from "ngx-dropdown";
 import {ParentLinkFactory} from "./parent-link-factory";
 import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OnLogin} from "../shared/onlogin.service";
+import {SafeUrlPipe} from "./safeurl.pipe";
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import {OnLogin} from "../shared/onlogin.service";
     TruncateWordsPipe,
     LoadingComponent,
     ResourceHeaderComponent,
+    SafeUrlPipe,
   ],
   exports: [
     EntriesPipe,
@@ -30,6 +32,7 @@ import {OnLogin} from "../shared/onlogin.service";
     TruncateWordsPipe,
     LoadingComponent,
     ResourceHeaderComponent,
+    SafeUrlPipe,
   ],
   providers: [
     ParentLinkFactory,
