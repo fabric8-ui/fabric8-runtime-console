@@ -1,72 +1,83 @@
-/**
- * @author: @AngularClass
- */
+var webpack = require('webpack');
+var webpackMerge = require('webpack-merge');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var commonConfig = require('./webpack.common.js');
+var helpers = require('./helpers');
+var DashboardPlugin = require('webpack-dashboard/plugin');
 
-const helpers = require('./helpers');
-const webpackMerge = require('webpack-merge'); // used to merge webpack configs
-const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
-
-/**
- * Webpack Plugins
- */
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
-const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
-
-/**
- * Webpack Constants
- */
-const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
-const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 3000;
-const HMR = helpers.hasProcessFlag('hot');
+const ENV = process.env.ENV || process.env.NODE_ENV || 'development';
 // if env is 'inmemory', the inmemory debug resource is used
-const API_URL = process.env.API_URL || (ENV==='inmemory'?'app/':'http://localhost:8080/api/');
-const STACK_API_URL = process.env.STACK_API_URL || 'http://api-bayesian.dev.rdu2c.fabric8.io/api/v1/';
+const API_URL = process.env.API_URL || (ENV === 'inmemory' ? 'app/' : 'http://localhost:8080/api/');
 const FORGE_URL = process.env.FORGE_URL || 'http://localhost:8080/forge';
+const FABRIC8_WIT_API_URL = process.env.FABRIC8_WIT_API_URL || 'http://localhost:8080/api/';
+const FABRIC8_RECOMMENDER_API_URL = process.env.FABRIC8_RECOMMENDER_API_URL;
+const FABRIC8_FORGE_URL = process.env.FABRIC8_FORGE_URL;
 const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
+const extractCSS = new ExtractTextPlugin('stylesheets/[name].css');
+const extractSASS = new ExtractTextPlugin('stylesheets/[name].scss');
 
 
-const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
-  host: HOST,
-  port: PORT,
-  ENV: ENV,
-  HMR: HMR,
+const METADATA = webpackMerge(commonConfig.metadata, {
   API_URL: API_URL,
-  STACK_API_URL: STACK_API_URL,
+  ENV: ENV,
   FORGE_URL: FORGE_URL,
+  FABRIC8_WIT_API_URL: FABRIC8_WIT_API_URL,
+  FABRIC8_RECOMMENDER_API_URL: FABRIC8_RECOMMENDER_API_URL,
+  FABRIC8_FORGE_URL: FABRIC8_FORGE_URL,
   PUBLIC_PATH: PUBLIC_PATH
-
 });
 
-/**
- * Webpack configuration
- *
- * See: http://webpack.github.io/docs/configuration.html#cli
- */
 module.exports = function (options) {
-  return webpackMerge(commonConfig({env: ENV}), {
+  return webpackMerge(commonConfig, {
+    devtool: 'source-map',
 
-    /**
-     * Developer tool to enhance debugging
-     *
-     * See: http://webpack.github.io/docs/configuration.html#devtool
-     * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
-     */
-    devtool: 'cheap-module-source-map',
+    entry: {
+      'polyfills': './src/polyfills.ts',
+      'vendor': './src/vendor.ts',
+      'app': './src/main.ts'
+    },
 
-    /**
-     * Options affecting the output of the compilation.
-     *
-     * See: http://webpack.github.io/docs/configuration.html#output
-     */
     output: {
       path: helpers.root('dist'),
-      publicPath: '/',
-      filename: 'bundles/ngx-widgets.js',
-      library: 'ngx-widgets',
-      libraryTarget: 'umd',
-      umdNamedDefine: true
+      publicPath: METADATA.PUBLIC_PATH,
+      filename: '[name].js',
+      chunkFilename: '[id].chunk.js',
+      sourceMapFilename: '[name].map'
+    },
+
+    plugins: [
+      new DashboardPlugin(),
+      extractCSS,
+      extractSASS,
+
+      new webpack.optimize.CommonsChunkPlugin({
+        name: ['app', 'vendor', 'polyfills']
+      }),
+
+      /**
+       * Plugin: DefinePlugin
+       * Description: Define free variables.
+       * Useful for having development builds with debug logging or adding global constants.
+       *
+       * Environment helpers
+       *
+       * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+       */
+      // NOTE: when adding more properties, make sure you include them in custom-typings.d.ts
+      new webpack.DefinePlugin({
+        'process.env': {
+          'ENV': JSON.stringify(METADATA.ENV),
+          'API_URL': JSON.stringify(METADATA.API_URL),
+          'FORGE_URL': JSON.stringify(METADATA.FORGE_URL),
+          'PUBLIC_PATH': JSON.stringify(METADATA.PUBLIC_PATH)
+        }
+      })
+    ],
+
+    devServer: {
+      historyApiFallback: true,
+      stats: 'minimal',
+      inline: true
     }
   });
 };

@@ -1,6 +1,6 @@
 {
   "name": "fabric8-runtime-console",
-  "version": "0.0.0",
+  "version": "1.0.0-beta.24",
   "license": "MIT",
   "description": "A collection of Angular components and other useful things to be shared.",
   "main": "bundles/fabric8-runtime-console.umd.js",
