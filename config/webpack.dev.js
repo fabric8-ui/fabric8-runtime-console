@@ -204,6 +204,33 @@ module.exports = function (options) {
       historyApiFallback: true,
       watchOptions: {
         aggregateTimeout: 2000
+      },
+      proxy: {
+        "/api/*": {
+          "target": "http://127.0.0.1:8001/",
+          "secure": false,
+          "logLevel": "debug"
+        },
+        "/apis/*": {
+          "target": "http://127.0.0.1:8001/",
+          "secure": false,
+          "logLevel": "debug"
+        },
+        "/oapi/*": {
+          "target": "http://127.0.0.1:8001/",
+          "secure": false,
+          "logLevel": "debug"
+        },
+        "/swaggerapi/*": {
+          "target": "http://127.0.0.1:8001/",
+          "secure": false,
+          "logLevel": "debug"
+        },
+        "/config/*": {
+          "target": "http://127.0.0.1:8001/",
+          "secure": false,
+          "logLevel": "debug"
+        }
       }
       // outputPath: helpers.root('dist/')
     },
