@@ -1,0 +1,1 @@
+export { KubernetesStoreModule } from './src/app/kubernetes/kubernetes.store.module';
