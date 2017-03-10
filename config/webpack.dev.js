@@ -118,6 +118,7 @@ module.exports = function (options) {
             helpers.nodeModulePath("angular2-flash-messages"),
             helpers.nodeModulePath("ngx-dropdown"),
             helpers.nodeModulePath("ngx-modal"),
+            helpers.nodeModulePath("ng2-modal"),
             helpers.nodeModulePath("ng2-dnd")
           ],
           use: ["source-map-loader"],
@@ -127,10 +128,6 @@ module.exports = function (options) {
     },
 
     plugins: [
-      new webpack.optimize.CommonsChunkPlugin({
-        name: ['app', 'vendor', 'polyfills']
-      }),
-
       /**
        * Plugin: DefinePlugin
        * Description: Define free variables.
