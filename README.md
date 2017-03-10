@@ -62,6 +62,13 @@ This script will also use the current kuberntes cluster by using `kubectl` (see 
 
 Now go to [http://0.0.0.0:4200](http://0.0.0.0:4200) or [http://localhost:4200](http://localhost:4200) in your browser.
 
+**NOTE** often openshift clusters don't have valid certs so when you go to the web console in the cluster your browser shows you a warning about the cert not being valid and asks you if you are sure.
+
+If you don't get a login page your browser may be hiding the login page for this reason.
+
+If so try open the console for the cluster you are trying to access. e.g. https://int.rdu2c.fabric8.io:8443/console/ then going through the browser windows to get to the login page so that you accept the cert. 
+
+Then try reload your tab on [http://0.0.0.0:4200](http://0.0.0.0:4200) and you hopefully will get the login page!
 
 ### If you don't have a kubernetes or openshift cluster
 
