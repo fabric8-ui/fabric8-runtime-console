@@ -1,5 +1,5 @@
 import {Component, Input, ViewChild} from "@angular/core";
-import {ServiceDeleteDialog} from "../delete-dialog/delete-dialog.service";
+import {ServiceDeleteDialog} from "../delete-dialog/delete-dialog.service.component";
 import {Services} from "../../../model/service.model";
 
 @Component({

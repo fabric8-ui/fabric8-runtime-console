@@ -5,7 +5,7 @@ import {TruncateCharactersPipe} from "./truncate-characters.pipe";
 import {TruncateWordsPipe} from "./truncate-words.pipe";
 import {LoadingComponent} from "./loading/loading.component";
 import {EntriesPipe} from "./entries.pipe";
-import {ResourceHeaderComponent} from "../kubernetes/components/resource-header/resource.header";
+import {ResourceHeaderComponent} from "../kubernetes/components/resource-header/resource.header.component";
 import {DropdownModule} from "ngx-dropdown";
 import {ParentLinkFactory} from "./parent-link-factory";
 import {OAuthService} from "angular2-oauth2/oauth-service";

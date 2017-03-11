@@ -13,12 +13,12 @@ import {bootloader} from '@angularclass/hmr';
  * App Module
  * our top level module that holds all of our components
  */
-import {AppModule} from './app';
 
 /*
  * Import application wide styles
  */
 import './assets/stylesheets/shared/main.scss';
+import {AppModule} from './app/app.module';
 
 /*
  * Bootstrap our Angular app with a top level NgModule

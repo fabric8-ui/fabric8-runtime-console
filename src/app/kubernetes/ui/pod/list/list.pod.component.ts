@@ -1,5 +1,5 @@
 import {Component, Input, ViewChild} from "@angular/core";
-import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod";
+import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod.component";
 import {Pods} from "../../../model/pod.model";
 
 @Component({
