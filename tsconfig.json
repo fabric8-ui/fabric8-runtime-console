@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "inlineSources": true,
-    "noEmitHelpers": false, // Planner and demo won't run when true
+    "noEmitHelpers": false,
     "strictNullChecks": false,
     "removeComments": false,
     "noImplicitAny": false,
@@ -31,6 +31,10 @@
   },
   "files": [
     "index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "forkChecker": true,
