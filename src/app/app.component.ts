@@ -3,6 +3,7 @@ import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OAuthConfigStore} from "./kubernetes/store/oauth-config-store";
 import {Observable} from "rxjs";
 import {OnLogin} from "./shared/onlogin.service";
+import { jquery as $ } from 'jquery';
 
 @Component({
   host:{
