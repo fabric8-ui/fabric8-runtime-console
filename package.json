@@ -17,6 +17,7 @@
     "e2e": "protractor",
     "lint": "tslint --fix \"src/**/*.ts\"",
     "minify": "uglifyjs dist/bundles/ngx-widgets.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ngx-widgets.min.js",
+    "ngc": "./node_modules/.bin/ngc",
     "pree2e": "webdriver-manager update",
     "reinstall": "npm run clean && npm install",
     "remove-dist": "rimraf dist dist-watch",
