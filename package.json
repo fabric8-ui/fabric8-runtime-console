@@ -141,7 +141,6 @@
     "istanbul-instrumenter-loader": "2.0.0",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "3.2.0",
-    "jquery": "3.1.1",
     "js-yaml": "3.8.2",
     "json-loader": "0.5.4",
     "json-stringify": "1.0.0",

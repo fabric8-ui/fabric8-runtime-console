@@ -44,7 +44,6 @@ const METADATA = webpackMerge(commonConfig({ env: ENV }).metadata, {
   BUILD_VERSION: BUILD_VERSION,
 });
 
-console.log(helpers.nodeModulePath('fabric8-planner'));
 
 /**
  * Webpack configuration
