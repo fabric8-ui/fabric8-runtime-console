@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {ReplicaSetEditWrapperComponent} from "./edit-wrapper.replicaset";
+import {ReplicaSetEditWrapperComponent} from "./edit-wrapper.replicaset.component";
 import {ReplicaSetEditToolbarComponent} from "../edit-toolbar/edit-toolbar.replicaset";
 import {ReplicaSetEditComponent} from "../edit/edit.replicaset";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";

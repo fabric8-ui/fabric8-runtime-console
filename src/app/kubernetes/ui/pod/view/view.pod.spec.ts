@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
-import {PodViewComponent} from "./view.pod";
+import {PodViewComponent} from "./view.pod.component";
 import {MomentModule} from "angular2-moment";
 import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod";
 import {ModalModule} from "ng2-modal";

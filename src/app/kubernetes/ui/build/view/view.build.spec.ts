@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
-import {BuildViewComponent} from "./view.build";
+import {BuildViewComponent} from "./view.build.component";
 import {MomentModule} from "angular2-moment";
 import {BuildScaleDialog} from "../scale-dialog/scale-dialog.build";
 import {BuildDeleteDialog} from "../delete-dialog/delete-dialog.build";

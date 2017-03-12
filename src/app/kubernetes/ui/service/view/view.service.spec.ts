@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
-import {ServiceViewComponent} from "./view.service";
+import {ServiceViewComponent} from "./view.service.component";
 import {MomentModule} from "angular2-moment";
 import {ServiceScaleDialog} from "../scale-dialog/scale-dialog.service";
 import {ServiceDeleteDialog} from "../delete-dialog/delete-dialog.service";

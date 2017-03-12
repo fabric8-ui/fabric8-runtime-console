@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {NamespacesListPage} from "./list-page.namespace";
+import {NamespacesListPage} from "./list-page.namespace.component";
 import {NamespacesListComponent} from "../list/list.namespace";
 import {NamespacesListToolbarComponent} from "../list-toolbar/list-toolbar.namespace";
 import {Fabric8CommonModule} from "../../../../common/common.module";

@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {ReplicaSetViewPage} from "./view-page.replicaset";
+import {ReplicaSetViewPage} from "./view-page.replicaset.component";
 import {ReplicaSetViewWrapperComponent} from "../view-wrapper/view-wrapper.replicaset";
 import {ReplicaSetViewToolbarComponent} from "../view-toolbar/view-toolbar.replicaset";
 import {ReplicaSetViewComponent} from "../view/view.replicaset";

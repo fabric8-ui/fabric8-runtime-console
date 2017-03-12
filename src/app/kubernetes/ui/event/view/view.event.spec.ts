@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
-import {EventViewComponent} from "./view.event";
+import {EventViewComponent} from "./view.event.component";
 import {MomentModule} from "angular2-moment";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";

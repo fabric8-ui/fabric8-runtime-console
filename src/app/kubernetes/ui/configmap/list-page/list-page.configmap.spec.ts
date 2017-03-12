@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {ConfigMapsListPage} from "./list-page.configmap";
+import {ConfigMapsListPage} from "./list-page.configmap.component";
 import {ConfigMapsListComponent} from "../list/list.configmap";
 import {ConfigMapsListToolbarComponent} from "../list-toolbar/list-toolbar.configmap";
 import {Fabric8CommonModule} from "../../../../common/common.module";

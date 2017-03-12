@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {PodEditWrapperComponent} from "./edit-wrapper.pod";
+import {PodEditWrapperComponent} from "./edit-wrapper.pod.component";
 import {PodEditToolbarComponent} from "../edit-toolbar/edit-toolbar.pod";
 import {PodEditComponent} from "../edit/edit.pod";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";

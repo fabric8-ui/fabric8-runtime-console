@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {SpacesListPage} from "./list-page.space";
+import {SpacesListPage} from "./list-page.space.component";
 import {SpacesListComponent} from "../list/list.space";
 import {SpacesListToolbarComponent} from "../list-toolbar/list-toolbar.space";
 import {Fabric8CommonModule} from "../../../../common/common.module";

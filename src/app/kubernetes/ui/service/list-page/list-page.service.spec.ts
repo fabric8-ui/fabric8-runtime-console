@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {ServicesListPage} from "./list-page.service";
+import {ServicesListPage} from "./list-page.service.component";
 import {ServicesListComponent} from "../list/list.service";
 import {ServicesListToolbarComponent} from "../list-toolbar/list-toolbar.service";
 import {Fabric8CommonModule} from "../../../../common/common.module";

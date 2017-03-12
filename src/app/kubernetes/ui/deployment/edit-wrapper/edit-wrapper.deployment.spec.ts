@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {DeploymentEditWrapperComponent} from "./edit-wrapper.deployment";
+import {DeploymentEditWrapperComponent} from "./edit-wrapper.deployment.component";
 import {DeploymentEditToolbarComponent} from "../edit-toolbar/edit-toolbar.deployment";
 import {DeploymentEditComponent} from "../edit/edit.deployment";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";

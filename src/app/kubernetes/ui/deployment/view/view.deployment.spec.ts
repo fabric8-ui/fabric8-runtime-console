@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
-import {DeploymentViewComponent} from "./view.deployment";
+import {DeploymentViewComponent} from "./view.deployment.component";
 import {MomentModule} from "angular2-moment";
 import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment";
 import {DeploymentDeleteDialog} from "../delete-dialog/delete-dialog.deployment";

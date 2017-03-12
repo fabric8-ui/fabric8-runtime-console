@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {ReplicaSetsListPage} from "./list-page.replicaset";
+import {ReplicaSetsListPage} from "./list-page.replicaset.component";
 import {ReplicaSetsListComponent} from "../list/list.replicaset";
 import {ReplicaSetsListToolbarComponent} from "../list-toolbar/list-toolbar.replicaset";
 import {Fabric8CommonModule} from "../../../../common/common.module";

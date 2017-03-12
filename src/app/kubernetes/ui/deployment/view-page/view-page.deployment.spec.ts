@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {DeploymentViewPage} from "./view-page.deployment";
+import {DeploymentViewPage} from "./view-page.deployment.component";
 import {DeploymentViewWrapperComponent} from "../view-wrapper/view-wrapper.deployment";
 import {DeploymentViewToolbarComponent} from "../view-toolbar/view-toolbar.deployment";
 import {DeploymentViewComponent} from "../view/view.deployment";

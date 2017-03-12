@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
-import {ConfigMapViewComponent} from "./view.configmap";
+import {ConfigMapViewComponent} from "./view.configmap.component";
 import {MomentModule} from "angular2-moment";
 import {ConfigMapScaleDialog} from "../scale-dialog/scale-dialog.configmap";
 import {ConfigMapDeleteDialog} from "../delete-dialog/delete-dialog.configmap";

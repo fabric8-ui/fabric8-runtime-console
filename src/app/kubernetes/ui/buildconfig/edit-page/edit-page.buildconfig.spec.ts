@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {BuildConfigEditPage} from "./edit-page.buildconfig";
+import {BuildConfigEditPage} from "./edit-page.buildconfig.component";
 import {BuildConfigEditWrapperComponent} from "../edit-wrapper/edit-wrapper.buildconfig";
 import {BuildConfigEditToolbarComponent} from "../edit-toolbar/edit-toolbar.buildconfig";
 import {BuildConfigEditComponent} from "../edit/edit.buildconfig";

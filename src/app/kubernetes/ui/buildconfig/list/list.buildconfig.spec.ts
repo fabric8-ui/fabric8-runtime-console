@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {BuildConfigsListComponent} from "./list.buildconfig";
+import {BuildConfigsListComponent} from "./list.buildconfig.component";
 import {Fabric8CommonModule} from "../../../../common/common.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MomentModule} from "angular2-moment";

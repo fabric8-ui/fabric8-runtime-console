@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {NamespaceViewPage} from "./view-page.namespace";
+import {NamespaceViewPage} from "./view-page.namespace.component";
 import {NamespaceViewWrapperComponent} from "../view-wrapper/view-wrapper.namespace";
 import {NamespaceViewToolbarComponent} from "../view-toolbar/view-toolbar.namespace";
 import {NamespaceViewComponent} from "../view/view.namespace";

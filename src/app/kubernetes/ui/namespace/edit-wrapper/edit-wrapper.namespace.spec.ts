@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {NamespaceEditWrapperComponent} from "./edit-wrapper.namespace";
+import {NamespaceEditWrapperComponent} from "./edit-wrapper.namespace.component";
 import {NamespaceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.namespace";
 import {NamespaceEditComponent} from "../edit/edit.namespace";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";

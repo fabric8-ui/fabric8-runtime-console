@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {BuildConfigsListPage} from "./list-page.buildconfig";
+import {BuildConfigsListPage} from "./list-page.buildconfig.component";
 import {BuildConfigsListComponent} from "../list/list.buildconfig";
 import {BuildConfigsListToolbarComponent} from "../list-toolbar/list-toolbar.buildconfig";
 import {Fabric8CommonModule} from "../../../../common/common.module";

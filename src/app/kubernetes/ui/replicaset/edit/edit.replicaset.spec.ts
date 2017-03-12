@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {ReplicaSetEditComponent} from "./edit.replicaset";
+import {ReplicaSetEditComponent} from "./edit.replicaset.component";
 import {FormsModule} from "@angular/forms";
 
 describe('ReplicaSetEditComponent', () => {

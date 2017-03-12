@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
-import {ReplicaSetViewComponent} from "./view.replicaset";
+import {ReplicaSetViewComponent} from "./view.replicaset.component";
 import {MomentModule} from "angular2-moment";
 import {ReplicaSetScaleDialog} from "../scale-dialog/scale-dialog.replicaset";
 import {ReplicaSetDeleteDialog} from "../delete-dialog/delete-dialog.replicaset";

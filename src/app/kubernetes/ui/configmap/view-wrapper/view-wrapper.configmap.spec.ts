@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {ConfigMapViewWrapperComponent} from "./view-wrapper.configmap";
+import {ConfigMapViewWrapperComponent} from "./view-wrapper.configmap.component";
 import {ConfigMapViewToolbarComponent} from "../view-toolbar/view-toolbar.configmap";
 import {ConfigMapViewComponent} from "../view/view.configmap";
 import {MomentModule} from "angular2-moment";

@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {EventViewWrapperComponent} from "./view-wrapper.event";
+import {EventViewWrapperComponent} from "./view-wrapper.event.component";
 import {EventViewToolbarComponent} from "../view-toolbar/view-toolbar.event";
 import {EventViewComponent} from "../view/view.event";
 import {MomentModule} from "angular2-moment";

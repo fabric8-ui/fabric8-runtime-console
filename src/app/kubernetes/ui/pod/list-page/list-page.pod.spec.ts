@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {PodsListPage} from "./list-page.pod";
+import {PodsListPage} from "./list-page.pod.component";
 import {PodsListComponent} from "../list/list.pod";
 import {PodsListToolbarComponent} from "../list-toolbar/list-toolbar.pod";
 import {Fabric8CommonModule} from "../../../../common/common.module";

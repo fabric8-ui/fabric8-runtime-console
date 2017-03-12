@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {ServiceEditPage} from "./edit-page.service";
+import {ServiceEditPage} from "./edit-page.service.component";
 import {ServiceEditWrapperComponent} from "../edit-wrapper/edit-wrapper.service";
 import {ServiceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.service";
 import {ServiceEditComponent} from "../edit/edit.service";

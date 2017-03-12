@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
-import {SpaceViewComponent} from "./view.space";
+import {SpaceViewComponent} from "./view.space.component";
 import {MomentModule} from "angular2-moment";
 import {SpaceDeleteDialog} from "../delete-dialog/delete-dialog.space";
 import {ModalModule} from "ng2-modal";

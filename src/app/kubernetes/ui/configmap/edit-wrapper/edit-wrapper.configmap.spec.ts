@@ -4,7 +4,7 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {ConfigMapEditWrapperComponent} from "./edit-wrapper.configmap";
+import {ConfigMapEditWrapperComponent} from "./edit-wrapper.configmap.component";
 import {ConfigMapEditToolbarComponent} from "../edit-toolbar/edit-toolbar.configmap";
 import {ConfigMapEditComponent} from "../edit/edit.configmap";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
