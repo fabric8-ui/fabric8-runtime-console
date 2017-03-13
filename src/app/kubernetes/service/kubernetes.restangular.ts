@@ -66,7 +66,7 @@ function convertToKubernetesResource(resource) {
 }
 
 export function KubernetesRestangularFactory(restangular: Restangular, oauthService: OAuthService, onLogin: OnLogin) {
-  return restangular.withConfig((RestangularConfigurer) => {
+  const config = restangular.withConfig((RestangularConfigurer) => {
     // TODO setting the baseUrl to empty string doesn't seem to work so lets use the absolute URL of the app
     let baseUrl = '';
     let location = window.location;
@@ -131,6 +131,7 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
        }
      });
   });
+  return config;
 }
 
 @NgModule({
