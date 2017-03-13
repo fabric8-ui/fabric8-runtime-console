@@ -2,7 +2,7 @@
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
 import {SpaceViewComponent} from "./view.space.component";
 import {MomentModule} from "angular2-moment";
-import {SpaceDeleteDialog} from "../delete-dialog/delete-dialog.space";
+import {SpaceDeleteDialog} from "../delete-dialog/delete-dialog.space.component";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";

@@ -2,7 +2,7 @@
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
 import {PodViewComponent} from "./view.pod.component";
 import {MomentModule} from "angular2-moment";
-import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod";
+import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod.component";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
