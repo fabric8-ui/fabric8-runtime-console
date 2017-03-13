@@ -5,13 +5,13 @@ import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
 import {PodsListPage} from "./list-page.pod.component";
-import {PodsListComponent} from "../list/list.pod";
-import {PodsListToolbarComponent} from "../list-toolbar/list-toolbar.pod";
+import {PodsListComponent} from "../list/list.pod.component";
+import {PodsListToolbarComponent} from "../list-toolbar/list-toolbar.pod.component";
 import {Fabric8CommonModule} from "../../../../common/common.module";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {MomentModule} from "angular2-moment";
-import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod";
+import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod.component";
 import {FormsModule} from "@angular/forms";
 import {KubernetesComponentsModule} from "../../../components/components.module";
 

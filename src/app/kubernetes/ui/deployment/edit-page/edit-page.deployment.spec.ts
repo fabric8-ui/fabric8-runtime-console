@@ -5,9 +5,9 @@ import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
 import {DeploymentEditPage} from "./edit-page.deployment.component";
-import {DeploymentEditWrapperComponent} from "../edit-wrapper/edit-wrapper.deployment";
-import {DeploymentEditToolbarComponent} from "../edit-toolbar/edit-toolbar.deployment";
-import {DeploymentEditComponent} from "../edit/edit.deployment";
+import {DeploymentEditWrapperComponent} from "../edit-wrapper/edit-wrapper.deployment.component";
+import {DeploymentEditToolbarComponent} from "../edit-toolbar/edit-toolbar.deployment.component";
+import {DeploymentEditComponent} from "../edit/edit.deployment.component";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 

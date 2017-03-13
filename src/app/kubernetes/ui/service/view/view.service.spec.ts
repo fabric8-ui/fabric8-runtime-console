@@ -2,8 +2,7 @@
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
 import {ServiceViewComponent} from "./view.service.component";
 import {MomentModule} from "angular2-moment";
-import {ServiceScaleDialog} from "../scale-dialog/scale-dialog.service";
-import {ServiceDeleteDialog} from "../delete-dialog/delete-dialog.service";
+import {ServiceDeleteDialog} from "../delete-dialog/delete-dialog.service.component";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";

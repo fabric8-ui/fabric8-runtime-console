@@ -5,9 +5,9 @@ import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
 import {SpaceEditPage} from "./edit-page.space.component";
-import {SpaceEditWrapperComponent} from "../edit-wrapper/edit-wrapper.space";
-import {SpaceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.space";
-import {SpaceEditComponent} from "../edit/edit.space";
+import {SpaceEditWrapperComponent} from "../edit-wrapper/edit-wrapper.space.component";
+import {SpaceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.space.component";
+import {SpaceEditComponent} from "../edit/edit.space.component";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 

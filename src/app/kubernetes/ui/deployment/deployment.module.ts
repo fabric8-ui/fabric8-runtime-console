@@ -16,7 +16,6 @@ import {DeploymentEditToolbarComponent} from "./edit-toolbar/edit-toolbar.deploy
 import {DeploymentEditComponent} from "./edit/edit.deployment.component";
 import {DeploymentDeleteDialog} from "./delete-dialog/delete-dialog.deployment.component";
 import {Fabric8CommonModule} from "../../../common/common.module";
-import {DeploymentScaleDialog} from "./scale-dialog/scale-dialog.deployment.component";
 import {MomentModule} from "angular2-moment";
 import {KubernetesComponentsModule} from "../../components/components.module";
 
