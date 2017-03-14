@@ -4,10 +4,10 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {ConfigMapEditPage} from "./edit-page.configmap";
-import {ConfigMapEditWrapperComponent} from "../edit-wrapper/edit-wrapper.configmap";
-import {ConfigMapEditToolbarComponent} from "../edit-toolbar/edit-toolbar.configmap";
-import {ConfigMapEditComponent} from "../edit/edit.configmap";
+import {ConfigMapEditPage} from "./edit-page.configmap.component";
+import {ConfigMapEditWrapperComponent} from "../edit-wrapper/edit-wrapper.configmap.component";
+import {ConfigMapEditToolbarComponent} from "../edit-toolbar/edit-toolbar.configmap.component";
+import {ConfigMapEditComponent} from "../edit/edit.configmap.component";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 

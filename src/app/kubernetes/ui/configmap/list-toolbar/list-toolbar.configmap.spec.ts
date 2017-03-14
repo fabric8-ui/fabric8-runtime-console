@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {RouterTestingModule} from "@angular/router/testing";
-import {ConfigMapsListToolbarComponent} from "./list-toolbar.configmap";
+import {ConfigMapsListToolbarComponent} from "./list-toolbar.configmap.component";
 import {Fabric8CommonModule} from "../../../../common/common.module";
 
 describe('ConfigMapsListToolbarComponent', () => {

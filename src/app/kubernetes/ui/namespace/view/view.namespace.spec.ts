@@ -1,8 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
-import {NamespaceViewComponent} from "./view.namespace";
+import {NamespaceViewComponent} from "./view.namespace.component";
 import {MomentModule} from "angular2-moment";
-import {NamespaceDeleteDialog} from "../delete-dialog/delete-dialog.namespace";
+import {NamespaceDeleteDialog} from "../delete-dialog/delete-dialog.namespace.component";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";

@@ -4,10 +4,10 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {NamespaceEditPage} from "./edit-page.namespace";
-import {NamespaceEditWrapperComponent} from "../edit-wrapper/edit-wrapper.namespace";
-import {NamespaceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.namespace";
-import {NamespaceEditComponent} from "../edit/edit.namespace";
+import {NamespaceEditPage} from "./edit-page.namespace.component";
+import {NamespaceEditWrapperComponent} from "../edit-wrapper/edit-wrapper.namespace.component";
+import {NamespaceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.namespace.component";
+import {NamespaceEditComponent} from "../edit/edit.namespace.component";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 

@@ -1,9 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
-import {BuildConfigViewComponent} from "./view.buildconfig";
+import {BuildConfigViewComponent} from "./view.buildconfig.component";
 import {MomentModule} from "angular2-moment";
-import {BuildConfigScaleDialog} from "../scale-dialog/scale-dialog.buildconfig";
-import {BuildConfigDeleteDialog} from "../delete-dialog/delete-dialog.buildconfig";
+import {BuildConfigDeleteDialog} from "../delete-dialog/delete-dialog.buildconfig.component";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";

@@ -1,10 +1,10 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {ConfigMapsListComponent} from "./list.configmap";
+import {ConfigMapsListComponent} from "./list.configmap.component";
 import {Fabric8CommonModule} from "../../../../common/common.module";
 import {RouterTestingModule} from "@angular/router/testing";
 import {MomentModule} from "angular2-moment";
-import {ConfigMapDeleteDialog} from "../delete-dialog/delete-dialog.configmap";
+import {ConfigMapDeleteDialog} from "../delete-dialog/delete-dialog.configmap.component";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
 import {FormsModule} from "@angular/forms";

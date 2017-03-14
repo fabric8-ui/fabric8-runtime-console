@@ -23,6 +23,9 @@ import {DropdownModule} from "ngx-dropdown";
 import { OAuthService } from 'angular2-oauth2/oauth-service';
 import {OnLogin} from "./shared/onlogin.service";
 
+import { ENV_PROVIDERS } from './environment';
+
+
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
   restangularProvider.setBaseUrl(config.getSettings().apiEndpoint);
 }
@@ -62,6 +65,7 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     Broadcaster,
     ContextService,
     DummyService,
+    ENV_PROVIDERS,
     Logger,
     OnLogin,
     OAuthService,

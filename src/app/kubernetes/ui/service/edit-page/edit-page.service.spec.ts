@@ -4,10 +4,10 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {ServiceEditPage} from "./edit-page.service";
-import {ServiceEditWrapperComponent} from "../edit-wrapper/edit-wrapper.service";
-import {ServiceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.service";
-import {ServiceEditComponent} from "../edit/edit.service";
+import {ServiceEditPage} from "./edit-page.service.component";
+import {ServiceEditWrapperComponent} from "../edit-wrapper/edit-wrapper.service.component";
+import {ServiceEditToolbarComponent} from "../edit-toolbar/edit-toolbar.service.component";
+import {ServiceEditComponent} from "../edit/edit.service.component";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {FormsModule} from "@angular/forms";
 

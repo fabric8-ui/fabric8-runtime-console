@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {RouterTestingModule} from "@angular/router/testing";
-import {ServiceEditToolbarComponent} from "./edit-toolbar.service";
+import {ServiceEditToolbarComponent} from "./edit-toolbar.service.component";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
