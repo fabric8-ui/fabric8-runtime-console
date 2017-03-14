@@ -22,6 +22,8 @@ import {SpaceStore} from '../../store/space.store';
 import {ConfigMapStore} from '../../store/configmap.store';
 import {NamespaceStore} from '../../store/namespace.store';
 import {ConfigMapService} from '../../service/configmap.service';
+import {NamespaceScope} from '../../service/namespace.scope';
+import {NamespaceService} from '../../service/namespace.service';
 
 const routes: Routes = [
   { path: '', component: SpacesListPage},
@@ -58,7 +60,9 @@ const routes: Routes = [
     SpaceStore,
     NamespaceStore,
     ConfigMapService,
-    ConfigMapStore
+    ConfigMapStore,
+    NamespaceScope,
+    NamespaceService
   ],
   entryComponents: [
     SpaceDeleteDialog,
