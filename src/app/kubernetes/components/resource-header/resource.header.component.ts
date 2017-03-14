@@ -31,6 +31,9 @@ export const resourceMenus = [
 ];
 
 @Component({
+  host:{
+    'class':"kube-resource-header"
+  },
   selector: 'kube-resource-header',
   templateUrl: './resource.header.component.html',
   styleUrls: ['./resource.header.component.scss'],
