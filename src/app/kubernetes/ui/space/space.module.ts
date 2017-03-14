@@ -18,6 +18,10 @@ import {SpaceViewPage} from "./view-page/view-page.space.component";
 import {SpaceEditPage} from "./edit-page/edit-page.space.component";
 import {SpacesListToolbarComponent} from "./list-toolbar/list-toolbar.space.component";
 import {KubernetesComponentsModule} from "../../components/components.module";
+import {SpaceStore} from '../../store/space.store';
+import {ConfigMapStore} from '../../store/configmap.store';
+import {NamespaceStore} from '../../store/namespace.store';
+import {ConfigMapService} from '../../service/configmap.service';
 
 const routes: Routes = [
   { path: '', component: SpacesListPage},
@@ -50,12 +54,18 @@ const routes: Routes = [
     SpaceEditComponent,
     SpaceDeleteDialog,
   ],
+  providers: [
+    SpaceStore,
+    NamespaceStore,
+    ConfigMapService,
+    ConfigMapStore
+  ],
   entryComponents: [
     SpaceDeleteDialog,
     SpaceEditPage,
   ],
   exports: [
-    ModalModule,
+    SpacesListPage,
   ],
 })
 export class SpaceModule {
