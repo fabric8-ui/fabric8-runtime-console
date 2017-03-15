@@ -1,6 +1,6 @@
 {
   "name": "fabric8-runtime-console",
-  "version": "1.0.0-beta.24",
+  "version": "0.0.1",
   "license": "MIT",
   "description": "A collection of Angular components and other useful things to be shared.",
   "main": "bundles/fabric8-runtime-console.umd.js",
@@ -36,11 +36,15 @@
   "contributors": [
     {
       "name": "James Strachan",
-      "email": ""
+      "email": "jstracha@redhat.com"
     },
     {
       "name": "Joshua Wilson",
       "email": "josh@redhat.com"
+    },
+    {
+      "name": "Dana Gutride",
+      "email": "dgutride@redhat.com"
     }
   ],
   "keywords": [
