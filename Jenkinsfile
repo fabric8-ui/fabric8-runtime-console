@@ -1,6 +1,6 @@
 @Library('github.com/fabric8io/fabric8-pipeline-library@master')
 def utils = new io.fabric8.Utils()
-def name = 'fabric8-runtime-console'
+def repo = 'fabric8-runtime-console'
 def org = 'fabric8-ui'
 
 fabric8UITemplate{
