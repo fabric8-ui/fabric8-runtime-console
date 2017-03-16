@@ -2,6 +2,7 @@
 def name = 'fabric8-runtime-console'
 def org = 'fabric8-ui'
 
+
 if (env.BRANCH_NAME.startsWith('PR-')) {
     echo 'Running CI pipeline'
     kubeProxyTemplate {
