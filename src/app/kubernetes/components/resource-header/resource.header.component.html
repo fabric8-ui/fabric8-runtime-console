@@ -1,27 +1,20 @@
-<nav class="navbar navbar-default" role="navigation">
-  <div class="navbar-header"></div>
-  <div class="collapse navbar-collapse navbar-collapse-1 low-height">
-    <ul class="nav navbar-nav navbar-primary persistent-secondary">
-      <li class="context dropdown" dropdown>
-        <a dropdown-open>
+<li class="context dropdown" dropdown>
+  <button class="btn btn-default dropdown-toggle" dropdown-open>
           <span>
             <span class="{{current?.icon}}"></span> {{current?.name}}
           </span>
           <b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <li *ngFor="let m of menus">
-            <a [routerLink]="[m.fullPath || m.path]" *ngIf="m.path !== null && m != current?.path">
-              <span class="{{m.icon}}"></span> {{m.name}}
-            </a>
-            <span *ngIf="m.path === null"><span class="{{m.icon}}"></span> {{m.name}}</span>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a [routerLink]="['/run/spaces']">Browse all namespaces</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</nav>
+        </button>
+  <ul class="dropdown-menu">
+    <li *ngFor="let m of menus">
+      <a [routerLink]="[m.fullPath || m.path]" *ngIf="m.path !== null && m != current?.path">
+        <span class="{{m.icon}}"></span> {{m.name}}
+      </a>
+      <span *ngIf="m.path === null"><span class="{{m.icon}}"></span> {{m.name}}</span>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a [routerLink]="['/run/spaces']">Browse all namespaces</a>
+    </li>
+  </ul>
+</li>
