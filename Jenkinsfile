@@ -21,6 +21,10 @@ fabric8UITemplate{
                 sh "git remote set-url origin git@github.com:${org}/${repo}.git"
                 def pipeline = load 'release.groovy'
 
+                container('ui'){
+                    pipeline.ci()
+                }
+
                 def branch
                 container('clients'){
                     branch = utils.getBranch()
