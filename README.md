@@ -26,7 +26,7 @@ git clone https://github.com/fabric8-ui/fabric8-runtime-console.git
 cd fabric8-runtime-console
 
 # install the dependencies
-yarn
+npm install
 
 # start the server
 npm start
@@ -57,6 +57,20 @@ If you [download it](https://caddyserver.com/download) **make sure to select the
 
 This script will also use the current kuberntes cluster by using `kubectl` (see the above kubectl section for more background).
 
+#### Sample environments
+
+We provide various sample environments out of the box which make it easier to get started.
+The environments are provided as bash scripts in `environments`. To use them run:
+
+```bash
+source environments/<environment-name>.sh && ./caddy.sh
+```
+
+For example, to connect to devshift:
+
+```bash
+source environments/devshift-cluster.sh && ./caddy.sh
+```
 
 ### Open the console in your browser
 
