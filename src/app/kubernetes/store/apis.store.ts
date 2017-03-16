@@ -13,11 +13,20 @@ let _currentAPIs: BehaviorSubject<APIs> = new BehaviorSubject(_latestAPIs);
 let _loadingAPIs: BehaviorSubject<boolean> = new BehaviorSubject(true);
 
 
+// TODO lets default to OpenShift as a hack ;)
+let _defaultIsOpenShift = true;
+
 export class APIs {
   constructor(public isOpenShift: boolean) {
   }
 }
 
+export function isOpenShift(): boolean {
+  if (_latestAPIs != null) {
+    return _latestAPIs.isOpenShift;
+  }
+  return _defaultIsOpenShift;
+}
 
 @Injectable()
 export class APIsStore {
@@ -65,8 +74,10 @@ export class APIsStore {
             _loadingAPIs.next(false);
           },
           (error) => {
-            console.log('Could not find /oapi so not OpenShift and must be Kubernetes: ' + error);
-            _latestAPIs = new APIs(false);
+            console.log('Could not find /oapi but for now going to assume its openshift!');
+            //console.log('Could not find /oapi so not OpenShift and must be Kubernetes: ' + error);
+            _latestAPIs = new APIs(_defaultIsOpenShift);
+
             _currentAPIs.next(_latestAPIs);
             _loadingAPIs.next(false);
           });

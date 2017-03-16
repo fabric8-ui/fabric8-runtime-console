@@ -24,6 +24,9 @@ export class OAuthConfig {
     this.scope = oauth.oauth_scope || "user:full";
     this.logoutUri = oauth.logout_uri || "";
 
+    if (this.apiServer) {
+      localStorage["apiServer"] = this.apiServer;
+    }
     if (!this.issuer && this.authorizeUri) {
       // lets default the issuer from the authorize Uri
       var url = this.authorizeUri;
@@ -32,7 +35,7 @@ export class OAuthConfig {
         url = url.substring(0, idx);
       }
       this.issuer = url;
-      console.log("Defaulted the issuer URL to: " + this.issuer);
+      //console.log("Defaulted the issuer URL to: " + this.issuer);
     }
   }
 }
