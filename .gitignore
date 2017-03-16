@@ -16,6 +16,7 @@
 .c9/
 *.launch
 .settings/
+.vscode
 
 # misc
 /.sass-cache
@@ -26,6 +27,7 @@
 npm-debug.log
 testem.log
 /typings
+npm-debug.log.*
 
 # e2e
 /e2e/*.js
