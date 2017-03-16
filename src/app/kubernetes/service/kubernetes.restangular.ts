@@ -13,6 +13,7 @@ import {DeploymentConfig} from "../model/deploymentconfig.model";
 import {Build} from "../model/build.model";
 import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OnLogin} from "../../shared/onlogin.service";
+import {currentOAuthConfig} from "../store/oauth-config-store";
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
 
@@ -115,6 +116,34 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
 
 
     RestangularConfigurer.addFullRequestInterceptor((element, operation, path, url, headers, params)=> {
+      let baseUrl = '';
+      let oauthConfig = currentOAuthConfig();
+      if (oauthConfig) {
+        baseUrl = oauthConfig.apiServer || localStorage["apiServer"] || '';
+        if (baseUrl) {
+          baseUrl = "https://" + baseUrl;
+        }
+      } else {
+        console.log("No oauth config!");
+      }
+      // TODO setting the baseUrl to empty string doesn't seem to work so lets use the absolute URL of the app
+      if (!baseUrl) {
+        let location = window.location;
+        if (location) {
+          let hostname = location.hostname;
+          let port = location.port;
+          if (hostname) {
+            baseUrl = 'https://' + hostname;
+            if (port) {
+              baseUrl += ':' + port;
+            }
+          }
+        }
+      }
+      //console.log("==========  using Restangular base URL " + baseUrl);
+      RestangularConfigurer.setBaseUrl(baseUrl);
+
+
       var token = oauthService.getAccessToken();
       if (!token && onLogin) {
         token = onLogin.token;
