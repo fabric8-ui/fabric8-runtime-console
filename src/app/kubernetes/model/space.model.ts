@@ -1,4 +1,3 @@
-/// <reference path="../../../../node_modules/retyped-js-yaml-tsd-ambient/js-yaml.d.ts"/>
 import * as jsyaml from 'js-yaml';
 
 import {Namespace, Namespaces, isSecretsNamespace, isSystemNamespace} from "./namespace.model";
