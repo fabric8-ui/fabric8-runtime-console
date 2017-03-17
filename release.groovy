@@ -1,8 +1,11 @@
 #!/usr/bin/groovy
 
 def ci (){
-    stage('test'){
+    stage('install'){
         sh 'npm install'
+    }
+
+    stage('test'){
         sh 'npm test'
     }
 }
@@ -12,7 +15,7 @@ def cd (b){
         sh './fix-git-repo.sh'
     }
 
-    stage('build'){
+    stage('npm run build'){
         sh 'npm run build'
     }
 
