@@ -31,6 +31,13 @@ import {DevNamespaceScope} from "./service/devnamespace.scope";
 import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OAuthConfigStore} from "./store/oauth-config-store";
 import {OnLogin} from "../shared/onlogin.service";
+import { LoginService } from '../shared/login.service';
+import { LocalStorageModule } from 'angular-2-local-storage';
+import { ssoApiUrlProvider } from '../shared/sso-api.provider';
+import { authApiUrlProvider } from '../shared/auth-api.provider';
+import { witApiUrlProvider } from '../shared/wit-api.provider';
+import { ApiLocatorService } from '../shared/api-locator.service';
+import { Broadcaster, AuthenticationService } from 'ngx-login-client';
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -44,9 +51,16 @@ import {BrowserModule} from "@angular/platform-browser";
 */
     RestangularModule,
     KubernetesRestangularModule,
+    LocalStorageModule.withConfig({
+      prefix: 'fabric8',
+      storageType: 'localStorage'
+    }),
   ],
   providers: [
     APIsStore,
+    ApiLocatorService,
+    AuthenticationService,
+    Broadcaster,
     BuildService,
     BuildStore,
     BuildConfigService,
@@ -76,6 +90,10 @@ import {BrowserModule} from "@angular/platform-browser";
     ServiceStore,
     SpaceStore,
     OnLogin,
+    LoginService,
+    authApiUrlProvider,
+    ssoApiUrlProvider,
+    witApiUrlProvider,
   ],
 })
 export class KubernetesStoreModule {
