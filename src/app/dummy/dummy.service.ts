@@ -8,7 +8,6 @@ import {Team} from "./../models/team";
 import {Entity} from "./../models/entity";
 import {Injectable, OnInit} from "@angular/core";
 //import {LocalStorageService} from "angular-2-local-storage";
-import {Broadcaster} from "../shared/broadcaster.service";
 import "rxjs/add/operator/toPromise";
 import {Observable} from "rxjs";
 import {Spaces, Space} from "../kubernetes/model/space.model";
@@ -18,6 +17,7 @@ import {BuildConfigStore} from "../kubernetes/store/buildconfig.store";
 import {BuildConfigs, BuildConfig} from "../kubernetes/model/buildconfig.model";
 import {MenuItem} from "../models/menu-item";
 import {resourceMenus} from "../kubernetes/components/resource-header/resource.header.component";
+import {Broadcaster} from 'ngx-login-client';
 
 // A service responsible for providing dummy data for the UI prototypes.
 

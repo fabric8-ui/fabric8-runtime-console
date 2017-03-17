@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Router, ActivatedRoute, NavigationEnd} from "@angular/router";
 import {Context} from "./../models/context";
 import {DummyService} from "./../dummy/dummy.service";
-import {Broadcaster} from "../shared/broadcaster.service";
+import {Broadcaster} from 'ngx-login-client';
 
 
 /*
