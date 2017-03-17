@@ -1,43 +1,39 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {RouterTestingModule} from "@angular/router/testing";
-import {MockBackend} from "@angular/http/testing";
-import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
-import {RestangularModule} from "ng2-restangular";
-import {PipelinesListPage} from "./list-page.pipeline.component";
-import {PipelinesListComponent} from "../list/list.pipeline.component";
-import {PipelinesListToolbarComponent} from "../list-toolbar/list-toolbar.pipeline.component";
+import {PipelinesHistoryComponent} from "./history.pipeline.component";
 import {Fabric8CommonModule} from "../../../../common/common.module";
+import {RouterTestingModule} from "@angular/router/testing";
+import {MomentModule} from "angular2-moment";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
-import {MomentModule} from "angular2-moment";
 import {FormsModule} from "@angular/forms";
+import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
+import {RestangularModule} from "ng2-restangular";
+import {MockBackend} from "@angular/http/testing";
 import {BuildConfigDialogsModule} from "../../buildconfig/delete-dialog/buildconfig.dialogs.module";
 import {KubernetesComponentsModule} from "../../../components/components.module";
 import {BuildStageViewComponent} from "../build-stage-view/build-stage-view.component";
 
-describe('PipelinesListPage', () => {
-  let component: PipelinesListPage;
-  let fixture: ComponentFixture<PipelinesListPage>;
+describe('PipelinesHistoryComponent', () => {
+  let component: PipelinesHistoryComponent;
+  let fixture: ComponentFixture<PipelinesHistoryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        Fabric8CommonModule,
         RouterTestingModule.withRoutes([]),
-        RestangularModule.forRoot(),
+        Fabric8CommonModule,
         FormsModule,
         MomentModule,
         ModalModule,
+        RestangularModule.forRoot(),
         KubernetesStoreModule,
-        KubernetesComponentsModule,
         BuildConfigDialogsModule,
+        KubernetesComponentsModule,
       ],
       declarations: [
         BuildStageViewComponent,
-        PipelinesListPage,
-        PipelinesListComponent,
-        PipelinesListToolbarComponent,
+        PipelinesHistoryComponent,
       ],
       providers: [
         MockBackend,
@@ -53,7 +49,7 @@ describe('PipelinesListPage', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PipelinesListPage);
+    fixture = TestBed.createComponent(PipelinesHistoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -12,6 +12,7 @@ import {RestangularModule} from "ng2-restangular";
 import {MockBackend} from "@angular/http/testing";
 import {BuildConfigDialogsModule} from "../../buildconfig/delete-dialog/buildconfig.dialogs.module";
 import {KubernetesComponentsModule} from "../../../components/components.module";
+import {BuildStageViewComponent} from "../build-stage-view/build-stage-view.component";
 
 describe('PipelinesListComponent', () => {
   let component: PipelinesListComponent;
@@ -31,6 +32,7 @@ describe('PipelinesListComponent', () => {
         KubernetesComponentsModule,
       ],
       declarations: [
+        BuildStageViewComponent,
         PipelinesListComponent,
       ],
       providers: [

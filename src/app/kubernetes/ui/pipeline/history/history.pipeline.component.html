@@ -1,8 +1,8 @@
 <div class='list-group list-view-pf list-view-pf-view'>
 
   <fabric8-loading [loading]="loading">
-    <div class="pipelines-page">
-      <div class='pipeline-list animate-repeat' *ngFor='let pipeline of pipelines'>
+    <div class="pipelines-page" *ngIf="pipeline">
+      <div class='pipeline-list animate-repeat'>
         <div class="row">
           <div class="col-12">
             <h3>
@@ -10,6 +10,10 @@
               <a [routerLink]="[pipeline.id]" class="card-title" title="view pipeline">{{ pipeline.name }}</a>
 
               <small>created {{pipeline.creationTimestamp | amTimeAgo}}</small>
+
+              <small *ngIf="pipeline.buildsBuildsAverageDuration" class="average-duration pull-right text-muted">
+                Average Duration: {{pipeline.buildsBuildsAverageDuration | amDuration: 'seconds'}}
+              </small>
             </h3>
 
             <div class='dropdown pull-right dropdown-kebab-pf'>
@@ -44,29 +48,16 @@
               </ul>
             </div>
           </div>
-          <div *ngIf="pipeline.gitUrl">Source Repository:
-            <a href="{{pipeline.gitUrl}}">{{pipeline.gitUrl}}</a>
-          </div>
 
-          <div *ngIf="!pipeline.interestingBuilds.length">
+          <div *ngIf="!pipeline.builds.length">
             <em>
               No pipeline builds have run for {{ pipeline.name }}.
             </em>
           </div>
 
-          <div *ngIf="pipeline.interestingBuilds.length">
-            <h4>
-              Recent Runs
-              <small *ngIf="pipeline.interestingBuildsAverageDuration" class="average-duration pull-right text-muted">
-                Average Duration: {{pipeline.interestingBuildsAverageDuration | amDuration: 'seconds'}}
-              </small>
-            </h4>
-
-            <div *ngFor='let build of pipeline.interestingBuilds' class="animate-repeat">
+          <div *ngIf="pipeline.builds.length">
+            <div *ngFor='let build of pipeline.builds' class="animate-repeat">
               <build-stage-view [build]="build"></build-stage-view>
-            </div>
-            <div class="mar-top-sm ">
-              <a [routerLink]="[pipeline.id, 'history']" class="card-title" title="view pipeline">View History</a>
             </div>
           </div>
         </div>

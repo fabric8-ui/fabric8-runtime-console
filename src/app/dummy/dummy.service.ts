@@ -650,9 +650,10 @@ export class DummyService implements OnInit {
     let buildPath = prefix + '/builds';
     let buildConfigPath = prefix + '/buildconfigs';
     let pipelinePath = prefix + '/pipelines';
+    let pipelineHistoryPath = prefix + '/pipelinehistory';
     let context = {
       entity: space,
-      type: this.createSpaceContextType(space, buildConfigPath, buildPath, pipelinePath, runPath),
+      type: this.createSpaceContextType(space, buildConfigPath, buildPath, pipelinePath, pipelineHistoryPath, runPath),
       path: buildConfigPath,
       name: spaceName,
     };
@@ -660,7 +661,7 @@ export class DummyService implements OnInit {
   }
 
 
-  private createSpaceContextType(space: Space, buildConfigPath: string, buildPath: string, pipelinePath: string, runPath: string) {
+  private createSpaceContextType(space: Space, buildConfigPath: string, buildPath: string, pipelinePath: string, pipelineHistoryPath: string, runPath: string) {
     var runMenus = this.createRunMenus(space);
     var appMenus = [
       {
@@ -670,6 +671,10 @@ export class DummyService implements OnInit {
       {
         name: "Pipelines",
         path: pipelinePath,
+      },
+      {
+        name: "History",
+        path: pipelineHistoryPath,
       },
       {
         name: "Builds",

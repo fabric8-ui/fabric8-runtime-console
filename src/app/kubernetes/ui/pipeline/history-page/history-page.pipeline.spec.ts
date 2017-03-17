@@ -4,9 +4,9 @@ import {RouterTestingModule} from "@angular/router/testing";
 import {MockBackend} from "@angular/http/testing";
 import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
-import {PipelinesListPage} from "./list-page.pipeline.component";
-import {PipelinesListComponent} from "../list/list.pipeline.component";
-import {PipelinesListToolbarComponent} from "../list-toolbar/list-toolbar.pipeline.component";
+import {PipelinesHistoryPage} from "./history-page.pipeline.component";
+import {PipelinesHistoryComponent} from "../history/history.pipeline.component";
+import {PipelinesHistoryToolbarComponent} from "../history-toolbar/history-toolbar.pipeline.component";
 import {Fabric8CommonModule} from "../../../../common/common.module";
 import {KubernetesStoreModule} from "../../../kubernetes.store.module";
 import {ModalModule} from "ng2-modal";
@@ -16,9 +16,9 @@ import {BuildConfigDialogsModule} from "../../buildconfig/delete-dialog/buildcon
 import {KubernetesComponentsModule} from "../../../components/components.module";
 import {BuildStageViewComponent} from "../build-stage-view/build-stage-view.component";
 
-describe('PipelinesListPage', () => {
-  let component: PipelinesListPage;
-  let fixture: ComponentFixture<PipelinesListPage>;
+describe('PipelinesHistoryPage', () => {
+  let component: PipelinesHistoryPage;
+  let fixture: ComponentFixture<PipelinesHistoryPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,9 +35,9 @@ describe('PipelinesListPage', () => {
       ],
       declarations: [
         BuildStageViewComponent,
-        PipelinesListPage,
-        PipelinesListComponent,
-        PipelinesListToolbarComponent,
+        PipelinesHistoryPage,
+        PipelinesHistoryComponent,
+        PipelinesHistoryToolbarComponent,
       ],
       providers: [
         MockBackend,
@@ -53,7 +53,7 @@ describe('PipelinesListPage', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PipelinesListPage);
+    fixture = TestBed.createComponent(PipelinesHistoryPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

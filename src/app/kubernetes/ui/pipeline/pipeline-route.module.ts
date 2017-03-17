@@ -21,10 +21,11 @@ import {BuildStageViewComponent} from "./build-stage-view/build-stage-view.compo
 import {PipelinesFullHistoryToolbarComponent} from "./full-history-toolbar/full-history-toolbar.pipeline.component";
 import {PipelinesFullHistoryComponent} from "./full-history/full-history.pipeline.component";
 import {PipelinesFullHistoryPage} from "./full-history-page/full-history-page.pipeline.component";
+import {PipelineModule} from "./pipeline.module";
 
 const routes: Routes = [
-  { path: ':id/history', component: PipelinesHistoryPage },
-  { path: ':buildConfig/builds', loadChildren: '../build/build.module#BuildModule' },
+  { path: '', component: PipelinesListPage },
+  { path: ':id', component: PipelineViewPage },
 ];
 
 @NgModule({
@@ -36,28 +37,14 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     Fabric8CommonModule,
     KubernetesComponentsModule,
-    BuildConfigDialogsModule,
+    PipelineModule,
   ],
   declarations: [
-    BuildStageViewComponent,
-    PipelinesListPage,
-    PipelinesListToolbarComponent,
-    PipelinesListComponent,
-    PipelineViewPage,
-    PipelineViewWrapperComponent,
-    PipelineViewToolbarComponent,
-    PipelineViewComponent,
-    PipelinesHistoryPage,
-    PipelinesHistoryToolbarComponent,
-    PipelinesHistoryComponent,
-    PipelinesFullHistoryPage,
-    PipelinesFullHistoryToolbarComponent,
-    PipelinesFullHistoryComponent,
   ],
   entryComponents: [
   ],
   exports: [
   ],
 })
-export class PipelineModule {
+export class PipelineRouteModule {
 }

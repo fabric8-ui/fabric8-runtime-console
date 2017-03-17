@@ -8,6 +8,7 @@ export class Build extends KubernetesSpecResource {
   duration: number;
   iconStyle: string;
   buildNumber: string;
+  buildConfigName: string;
 
   private _pipelineStages: Array<PipelineStage>;
 
@@ -48,6 +49,8 @@ export class Build extends KubernetesSpecResource {
     if (this.duration) {
       this.duration = this.duration / 1000000000;
     }
+    let statusConfig = status.config || {};
+    this.buildConfigName = statusConfig.name || "";
     this.buildNumber = this.annotations["openshift.io/build.number"] || "";
 
     switch (this.statusPhase) {
