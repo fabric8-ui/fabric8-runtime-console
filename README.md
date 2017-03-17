@@ -58,13 +58,13 @@ We provide various sample environments out of the box which make it easier to ge
 The environments are provided as bash scripts in `environments`. To use them run:
 
 ```bash
-source environments/<environment-name>.sh && ./caddy.sh
+source environments/<environment-name>.sh
 ```
 
 For example, to connect to devshift:
 
 ```bash
-source environments/devshift-cluster.sh && ./caddy.sh
+source environments/devshift-cluster.sh
 ```
 
 ### Open the console in your browser
