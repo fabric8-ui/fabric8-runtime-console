@@ -1,4 +1,6 @@
-import {Injectable} from "@angular/core";
+import { Restangular } from 'ng2-restangular';
+import { KUBERNETES_RESTANGULAR } from './../service/kubernetes.restangular';
+import {Injectable, Inject} from "@angular/core";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Http} from "@angular/http";
 
@@ -31,7 +33,7 @@ export function isOpenShift(): boolean {
 @Injectable()
 export class APIsStore {
 
-  constructor(private http: Http) {
+  constructor(@Inject(KUBERNETES_RESTANGULAR) private kubernetesRestangular: Restangular, private http: Http) {
     this.load();
   }
 
@@ -66,7 +68,7 @@ export class APIsStore {
     }
     _startedLoadingAPIs = true;
     if (!_latestAPIs) {
-      this.http.get("/oapi")
+      this.kubernetesRestangular.one('oapi').get()
         .subscribe(
           () => {
             _latestAPIs = new APIs(true);

@@ -35,14 +35,14 @@ const BUILD_VERSION = process.env.BUILD_VERSION;
 const OSO_CORS_PROXY = {
   target: `https://${process.env.KUBERNETES_SERVICE_HOST}:${process.env.KUBERNETES_SERVICE_PORT}`,
   // Remove our prefix from the forwarded path
-  // TODO pathRewrite: { '^_p/oso': '' },
+  pathRewrite: { '^/_p/oso': '' },
   // Disable cert checks for dev only
   secure: false,
   //changeOrigin: true,
   logLevel: "debug",
     onProxyRes: function (proxyRes, req, res) {
     proxyRes.headers['Access-Control-Allow-Origin'] = '*';
-  }
+  },
 };
 
 
@@ -146,7 +146,7 @@ module.exports = function (options) {
       new CopyWebpackPlugin([
         {
           from: 'src/config',
-          to: 'config',
+          to: '_config',
           transform: function env(content, path) {
             return content.toString('utf-8').replace(/{{ .Env.([a-zA-Z0-9_-]*) }}/g, function (match, p1, offset, string) {
               return process.env[p1];
@@ -232,10 +232,10 @@ module.exports = function (options) {
         aggregateTimeout: 2000
       },
       proxy: {
-        "/api/*": cloneDeep(OSO_CORS_PROXY),
-        "/apis/*": cloneDeep(OSO_CORS_PROXY),
-        "/oapi/*": cloneDeep(OSO_CORS_PROXY),
-        "/swaggerapi/*": cloneDeep(OSO_CORS_PROXY)
+        "/_p/oso/api/*": cloneDeep(OSO_CORS_PROXY),
+        "/_p/oso/apis/*": cloneDeep(OSO_CORS_PROXY),
+        "/_p/oso/oapi/*": cloneDeep(OSO_CORS_PROXY),
+        "/_p/oso/swaggerapi/*": cloneDeep(OSO_CORS_PROXY)
       }
       // outputPath: helpers.root('dist/')
     },

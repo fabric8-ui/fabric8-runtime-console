@@ -119,9 +119,9 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
       let baseUrl = '';
       let oauthConfig = currentOAuthConfig();
       if (oauthConfig) {
-        baseUrl = oauthConfig.apiServer || localStorage["apiServer"] || '';
+        baseUrl = oauthConfig.apiServer ||  '';
         if (baseUrl) {
-          let protocol = oauthConfig.apiServerProtocol || localStorage["apiServerProtocol"] || 'https';
+          let protocol = oauthConfig.apiServerProtocol || 'https';
           baseUrl = protocol + "://" + baseUrl;
         }
       } else {
@@ -134,13 +134,16 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
           let hostname = location.hostname;
           let port = location.port;
           if (hostname) {
-            let protocol = oauthConfig.apiServerProtocol || localStorage["apiServerProtocol"] || 'https';
+            let protocol = oauthConfig.apiServerProtocol || 'https';
             baseUrl = protocol + '://' + hostname;
             if (port) {
               baseUrl += ':' + port;
             }
           }
         }
+      }
+      if (oauthConfig.apiServerBasePath) {
+        baseUrl += oauthConfig.apiServerBasePath;
       }
       //console.log("==========  using Restangular base URL " + baseUrl);
       RestangularConfigurer.setBaseUrl(baseUrl);
