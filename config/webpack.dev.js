@@ -21,7 +21,7 @@ const cloneDeep = require('lodash/cloneDeep');
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4200;
 const HMR = helpers.hasProcessFlag('hot');
 // if env is 'inmemory', the inmemory debug resource is used
 const FABRIC8_WIT_API_URL = process.env.FABRIC8_WIT_API_URL || 'http://api.prod-preview.openshift.io/api/';
