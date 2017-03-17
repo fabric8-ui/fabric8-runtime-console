@@ -1,5 +1,6 @@
 import {KubernetesSpecResource} from "./kuberentesspecresource.model";
 import {Build, Builds} from "./build.model";
+import {Params} from "@angular/router";
 
 export const defaultBuildIconStyle = "pficon-build";
 
@@ -21,6 +22,7 @@ export class BuildConfig extends KubernetesSpecResource {
   iconStyle: string;
 
   interestingBuilds: Array<Build>;
+  builds: Array<Build>;
 
   private _lastBuild: Build;
 
@@ -34,6 +36,9 @@ export class BuildConfig extends KubernetesSpecResource {
   
   set lastBuild(build: Build) {
     this._lastBuild = build;
+    if (!build.buildConfigName) {
+      build.buildConfigName = this.name;
+    }
     this.statusPhase = build ? build.statusPhase : "";
     this.duration = build ? build.duration : 0;
     this.iconStyle = build ? build.iconStyle : defaultBuildIconStyle;
@@ -63,6 +68,7 @@ export class BuildConfig extends KubernetesSpecResource {
   updateValuesFromResource() {
     super.updateValuesFromResource();
 
+    this.builds = new Array<Build>();
     this.interestingBuilds = new Array<Build>();
     let spec = this.spec || {};
     let status = this.status || {};
@@ -103,33 +109,67 @@ export class BuildConfigs extends Array<BuildConfig> {
 }
 
 
-export function combineBuildConfigAndBuilds(buildConfigs: BuildConfigs, builds: Builds): BuildConfigs {
-  let map = {};
-  if (builds) {
-    builds.forEach(s => map[s.name] = s);
-  }
-  if (buildConfigs) {
-    buildConfigs.forEach(bc => {
-      let lastVersionName = bc.lastBuildName;
-      if (lastVersionName) {
-        let build = map[lastVersionName];
-        if (build) {
-          bc.lastBuild = build;
+export function findBuildConfigByID(buildConfigs: BuildConfigs, params: Params): BuildConfig {
+  let id = params['id'];
+  if (id) {
+    if (buildConfigs) {
+      for (let buildConfig of buildConfigs) {
+        if (id === buildConfig.name) {
+          return buildConfig;
         }
       }
-    });
+    }
   }
-  return buildConfigs;
-
-
+  return id;
 }
 
-export function filterPipelines(buildConfigs: BuildConfigs): BuildConfigs {
-  var answer = new BuildConfigs();
-  buildConfigs.forEach(bc => {
-    if (bc.isPipeline) {
-      answer.push(bc);
+export function combineBuildConfigAndBuilds(buildConfigs: BuildConfigs, builds: Builds): BuildConfigs {
+    let map = {};
+    let bcBuilds = {};
+    if (builds) {
+      builds.forEach(s => {
+        map[s.name] = s;
+        let bcName = s.buildConfigName;
+        if (bcName) {
+          let list = bcBuilds[bcName];
+          if (!list) {
+            list = new Array<Build>();
+            bcBuilds[bcName] = list;
+          }
+          list.push(s);
+        }
+      });
     }
-  });
-  return answer;
+    if (buildConfigs) {
+      buildConfigs.forEach(bc => {
+        let lastVersionName = bc.lastBuildName;
+        if (lastVersionName) {
+          let build = map[lastVersionName];
+          if (build) {
+            bc.lastBuild = build;
+          }
+        }
+        let name = bc.name;
+        if (name) {
+          let list = bcBuilds[name];
+          if (list) {
+            bc.builds = list;
+          }
+        }
+      });
+    }
+    return buildConfigs;
+
+
+  }
+
+  export function filterPipelines(buildConfigs: BuildConfigs): BuildConfigs {
+    var answer = new BuildConfigs();
+    buildConfigs.forEach(bc => {
+      if (bc.isPipeline) {
+        answer.push(bc);
+      }
+    });
+    return answer;
+  }
 }

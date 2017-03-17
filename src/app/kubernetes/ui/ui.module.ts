@@ -5,7 +5,8 @@ import {RouterModule, Routes} from "@angular/router";
 const routes: Routes = [
   { path: 'namespaces/:namespace/builds', loadChildren: './build/build.module#BuildModule' },
   { path: 'namespaces/:namespace/buildconfigs', loadChildren: './buildconfig/buildconfig.module#BuildConfigModule' },
-  { path: 'namespaces/:namespace/pipelines', loadChildren: './pipeline/pipeline.module#PipelineModule' },
+  { path: 'namespaces/:namespace/pipelines', loadChildren: './pipeline/pipeline-route.module#PipelineRouteModule' },
+  { path: 'namespaces/:namespace/pipelinehistory', loadChildren: './pipeline/pipeline-full-history.module#PipelineFullHistoryModule' },
   { path: 'namespaces/:namespace/configmaps', loadChildren: './configmap/configmap.module#ConfigMapModule' },
   { path: 'namespaces/:namespace/deployments', loadChildren: './deployment/deployment.module#DeploymentModule' },
   { path: 'namespaces/:namespace/events', loadChildren: './event/event.module#EventModule' },

@@ -14,6 +14,7 @@ import {MomentModule} from "angular2-moment";
 import {FormsModule} from "@angular/forms";
 import {BuildConfigDialogsModule} from "../../buildconfig/delete-dialog/buildconfig.dialogs.module";
 import {KubernetesComponentsModule} from "../../../components/components.module";
+import {BuildStageViewComponent} from "../build-stage-view/build-stage-view.component";
 
 describe('PipelinesListPage', () => {
   let component: PipelinesListPage;
@@ -33,6 +34,7 @@ describe('PipelinesListPage', () => {
         BuildConfigDialogsModule,
       ],
       declarations: [
+        BuildStageViewComponent,
         PipelinesListPage,
         PipelinesListComponent,
         PipelinesListToolbarComponent,
