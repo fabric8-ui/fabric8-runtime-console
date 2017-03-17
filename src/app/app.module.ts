@@ -3,7 +3,7 @@ import './rxjs-extensions';
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule, APP_INITIALIZER} from "@angular/core";
 import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
+import {HttpModule, Http} from "@angular/http";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {RestangularModule} from "ng2-restangular";
 import {AppRoutingModule} from "./approuting/approuting.module";
@@ -17,7 +17,7 @@ import {HeaderComponent} from "./header/header.component";
 import {DummyService} from "./dummy/dummy.service";
 import {ContextService} from "./shared/context.service";
 import {Logger} from "./shared/logger.service";
-//import {LocalStorageModule} from 'angular-2-local-storage';
+import {LocalStorageModule} from 'angular-2-local-storage';
 //import {DropdownModule} from 'ng2-dropdown';
 //import {DropdownModule} from "./shared-component/dropdown/dropdown.module";
 import {DropdownModule} from "ngx-dropdown";
@@ -25,7 +25,12 @@ import { OAuthService } from 'angular2-oauth2/oauth-service';
 import {OnLogin} from "./shared/onlogin.service";
 
 import { ENV_PROVIDERS } from './environment';
-import { Broadcaster } from 'ngx-login-client';
+import { Broadcaster, AuthenticationService } from 'ngx-login-client';
+import { LoginService } from './shared/login.service';
+import { witApiUrlProvider } from './shared/wit-api.provider';
+import { authApiUrlProvider } from './shared/auth-api.provider';
+import { ApiLocatorService } from './shared/api-locator.service';
+import { ssoApiUrlProvider } from './shared/sso-api.provider';
 
 
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
@@ -42,15 +47,14 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     AppRoutingModule,
     DropdownModule,
 
+
     Fabric8CommonModule,
     KubernetesStoreModule,
     KubernetesUIModule,
-/*
     LocalStorageModule.withConfig({
       prefix: 'fabric8',
       storageType: 'localStorage'
     }),
-*/
   ],
   declarations: [
     AppComponent,
@@ -64,13 +68,19 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
       deps: [ConfigService],
       multi: true,
     },
+    authApiUrlProvider,
+    ssoApiUrlProvider,
+    witApiUrlProvider,
+    ApiLocatorService,
+    AuthenticationService,
     Broadcaster,
     ContextService,
+    LoginService,
     DummyService,
     ENV_PROVIDERS,
     Logger,
-    OnLogin,
     OAuthService,
+    OnLogin
   ],
   bootstrap: [AppComponent],
 })

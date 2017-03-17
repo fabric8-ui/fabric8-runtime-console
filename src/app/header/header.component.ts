@@ -14,7 +14,8 @@ import { ContextService } from '../shared/context.service';
 import {User} from "../models/user";
 import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OnLogin} from "../shared/onlogin.service";
-import {Broadcaster} from 'ngx-login-client';
+import { Broadcaster, AuthenticationService } from 'ngx-login-client';
+import { LoginService } from '../shared/login.service';
 
 @Component({
   selector: 'alm-app-header',
@@ -43,6 +44,8 @@ export class HeaderComponent implements OnInit {
     public dummy: DummyService,
     private oauthService: OAuthService,
     private onLogin: OnLogin,
+    private loginService: LoginService,
+    private authService: AuthenticationService
   ) {
     router.events.subscribe(this.onNavigate);
   }
@@ -82,8 +85,11 @@ export class HeaderComponent implements OnInit {
 */
 
   logout() {
-
-    this.oauthService.logOut();
+    if(this.loginService.useCustomAuth) {
+      this.authService.logout();
+    } else {
+      this.oauthService.logOut();
+    }
     this.onLogin.onLogin("");
     //this.router.navigate(['/run/spaces']);
     window.location.replace('/');
@@ -91,6 +97,16 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if(!this.loginService.useCustomAuth) {
+      if(!this.authService.isLoggedIn()) {
+        this.loginService.gitHubSignIn();
+        return;
+      } else {
+        this.authService.getOpenShiftToken().subscribe((token) => {
+          this.onLogin.onLogin(token);
+        });
+      }
+    }
     this.listenToEvents();
     this.onNavigate();
     this.dummy.ngOnInit();
