@@ -13,6 +13,9 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const cloneDeep = require('lodash/cloneDeep');
+
 /**
  * Webpack Constants
  */
@@ -28,6 +31,19 @@ const PUBLIC_PATH = process.env.PUBLIC_PATH || '/';
 const BUILD_NUMBER = process.env.BUILD_NUMBER;
 const BUILD_TIMESTAMP = process.env.BUILD_TIMESTAMP;
 const BUILD_VERSION = process.env.BUILD_VERSION;
+
+const OSO_CORS_PROXY = {
+  target: `https://${process.env.KUBERNETES_SERVICE_HOST}:${process.env.KUBERNETES_SERVICE_PORT}`,
+  // Remove our prefix from the forwarded path
+  // TODO pathRewrite: { '^_p/oso': '' },
+  // Disable cert checks for dev only
+  secure: false,
+  //changeOrigin: true,
+  logLevel: "debug",
+    onProxyRes: function (proxyRes, req, res) {
+    proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+  }
+};
 
 
 const METADATA = webpackMerge(commonConfig({ env: ENV }).metadata, {
@@ -127,6 +143,17 @@ module.exports = function (options) {
     },
 
     plugins: [
+      new CopyWebpackPlugin([
+        {
+          from: 'src/config',
+          to: 'config',
+          transform: function env(content, path) {
+            return content.toString('utf-8').replace(/{{ .Env.([a-zA-Z0-9_-]*) }}/g, function (match, p1, offset, string) {
+              return process.env[p1];
+            });
+          }
+        }
+      ]),
       /**
        * Plugin: DefinePlugin
        * Description: Define free variables.
@@ -205,31 +232,10 @@ module.exports = function (options) {
         aggregateTimeout: 2000
       },
       proxy: {
-        "/api/*": {
-          "target": "http://127.0.0.1:8001/",
-          "secure": false,
-          "logLevel": "debug"
-        },
-        "/apis/*": {
-          "target": "http://127.0.0.1:8001/",
-          "secure": false,
-          "logLevel": "debug"
-        },
-        "/oapi/*": {
-          "target": "http://127.0.0.1:8001/",
-          "secure": false,
-          "logLevel": "debug"
-        },
-        "/swaggerapi/*": {
-          "target": "http://127.0.0.1:8001/",
-          "secure": false,
-          "logLevel": "debug"
-        },
-        "/config/*": {
-          "target": "http://127.0.0.1:8001/",
-          "secure": false,
-          "logLevel": "debug"
-        }
+        "/api/*": cloneDeep(OSO_CORS_PROXY),
+        "/apis/*": cloneDeep(OSO_CORS_PROXY),
+        "/oapi/*": cloneDeep(OSO_CORS_PROXY),
+        "/swaggerapi/*": cloneDeep(OSO_CORS_PROXY)
       }
       // outputPath: helpers.root('dist/')
     },

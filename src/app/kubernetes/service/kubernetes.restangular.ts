@@ -120,7 +120,7 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
       let oauthConfig = currentOAuthConfig();
       if (oauthConfig) {
         baseUrl = oauthConfig.apiServer || localStorage["apiServer"] || '';
-        if (baseUrl) {
+        if (baseUrl && !baseUrl.startsWith('http')) {
           baseUrl = "https://" + baseUrl;
         }
       } else {
