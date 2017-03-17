@@ -16,8 +16,6 @@ export class BuildConfig extends KubernetesSpecResource {
   lastBuildPath: string;
   lastBuildName: string;
 
-  jenkinsJobUrl: string;
-
   // last build related data
   statusPhase: string;
   duration: number;
@@ -165,13 +163,12 @@ export function combineBuildConfigAndBuilds(buildConfigs: BuildConfigs, builds: 
 
   }
 
-  export function filterPipelines(buildConfigs: BuildConfigs): BuildConfigs {
-    var answer = new BuildConfigs();
-    buildConfigs.forEach(bc => {
-      if (bc.isPipeline) {
-        answer.push(bc);
-      }
-    });
-    return answer;
-  }
+export function filterPipelines(buildConfigs: BuildConfigs): BuildConfigs {
+  var answer = new BuildConfigs();
+  buildConfigs.forEach(bc => {
+    if (bc.isPipeline) {
+      answer.push(bc);
+    }
+  });
+  return answer;
 }
