@@ -3,6 +3,8 @@ import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OAuthConfigStore} from "./kubernetes/store/oauth-config-store";
 import {Observable} from "rxjs";
 import {OnLogin} from "./shared/onlogin.service";
+import {ActivatedRoute} from '@angular/router';
+import {LoginService} from './shared/login.service';
 // import { jquery as $ } from 'jquery';
 
 @Component({
@@ -22,7 +24,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   title = 'Fabric8 Console';
   url = 'https://www.twitter.com/fabric8io';
 
-  constructor(private oauthService: OAuthService, private oauthConfigStore: OAuthConfigStore, private onLogin: OnLogin) {
+  constructor(private oauthService: OAuthService,
+              private oauthConfigStore: OAuthConfigStore,
+              private onLogin: OnLogin,
+              private activatedRoute: ActivatedRoute,
+              private loginService: LoginService) {
+
+    // change this to false to use platform authentication directly instead of the custom openshift oauth
+    this.loginService.useCustomAuth = true;
 
     // set the scope for the permissions the client should request
     this.oauthService.scope = "user:full";
@@ -50,31 +59,25 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit() {
-    var token = "";
-    if (this.oauthConfigStore.config.authorizeUri) {
-      token = this.checkLoggedIn();
-    }
-    if (!token) {
-      this.oauthConfigStore.resource.subscribe(config => {
-        var authorizeUri = config.authorizeUri;
-        if (authorizeUri) {
-          //console.log("OAuthConfig loaded with URI: " + authorizeUri);
-          this.checkLoggedIn();
-        }
+    if(!this.loginService.useCustomAuth) {
+      this.activatedRoute.params.subscribe(() => {
+        this.loginService.login();
       });
+    } else {
+      var token = "";
+      if (this.oauthConfigStore.config.authorizeUri) {
+        token = this.checkLoggedIn();
+      }
+      if (!token) {
+        this.oauthConfigStore.resource.subscribe(config => {
+          var authorizeUri = config.authorizeUri;
+          if (authorizeUri) {
+            //console.log("OAuthConfig loaded with URI: " + authorizeUri);
+            this.checkLoggedIn();
+          }
+        });
+      }
     }
-
-
-    // $(document).ready(function () {
-    //   // matchHeight the contents of each .card-pf and then the .card-pf itself
-    //   $(".row-cards-pf > [class*='col'] > .card-pf .card-pf-title").matchHeight();
-    //   $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-body").matchHeight();
-    //   $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-footer").matchHeight();
-    //   $(".row-cards-pf > [class*='col'] > .card-pf").matchHeight();
-    //
-    //   // Initialize the vertical navigation
-    //   $().setupVerticalNavigation(true);
-    // });
   }
 
   protected checkLoggedIn() {

@@ -14,6 +14,8 @@ import {Build} from "../model/build.model";
 import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OnLogin} from "../../shared/onlogin.service";
 import {currentOAuthConfig} from "../store/oauth-config-store";
+import { AuthenticationService } from 'ngx-login-client';
+import { LoginService } from '../../shared/login.service';
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
 
@@ -66,7 +68,7 @@ function convertToKubernetesResource(resource) {
   }
 }
 
-export function KubernetesRestangularFactory(restangular: Restangular, oauthService: OAuthService, onLogin: OnLogin) {
+export function KubernetesRestangularFactory(restangular: Restangular, oauthService: OAuthService, onLogin: OnLogin, loginService: LoginService) {
   const config = restangular.withConfig((RestangularConfigurer) => {
     // TODO setting the baseUrl to empty string doesn't seem to work so lets use the absolute URL of the app
     let baseUrl = '';
@@ -148,10 +150,14 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
       //console.log("==========  using Restangular base URL " + baseUrl);
       RestangularConfigurer.setBaseUrl(baseUrl);
 
-
-      var token = oauthService.getAccessToken();
-      if (!token && onLogin) {
+      var token = '';
+      if (!loginService.useCustomAuth) {
         token = onLogin.token;
+      } else {
+        token = oauthService.getAccessToken();
+        if (!token && onLogin) {
+          token = onLogin.token;
+        }
       }
       if (!operation && !path && !url) {
         console.log("avoid compile error ;)");
@@ -170,7 +176,7 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
 
 @NgModule({
   providers: [
-    {provide: KUBERNETES_RESTANGULAR, useFactory: KubernetesRestangularFactory, deps: [Restangular, OAuthService]},
+    {provide: KUBERNETES_RESTANGULAR, useFactory: KubernetesRestangularFactory, deps: [Restangular, OAuthService, OnLogin, LoginService]},
   ],
 })
 export class KubernetesRestangularModule {
