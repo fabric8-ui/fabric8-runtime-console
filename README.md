@@ -45,17 +45,12 @@ oc get pod
 
 Then you're good to go. If not consider installing and starting [minishift](https://github.com/minishift/minishift#installation) and then running the `oc login` command it tells you on startup so that you can run the above commands.
 
-### Start Caddy
+### Proxying
 
-When using the console inside a docker image we use [Caddy](https://caddyserver.com/) to serve up the static contents and to proxy from the browser to the back end REST API.
-
-If you [download it](https://caddyserver.com/download) **make sure to select the prometheus plugin** and add it to your `$PATH` then you can run it as follows:
-
-```bash
-./caddy.sh
-```
-
-This script will also use the current kuberntes cluster by using `kubectl` (see the above kubectl section for more background).
+We also have built in support for proxying your requests to the OpenShift cluster - this is particularly
+useful if your OpenShift cluster doesn't support CORS. By default the console will access the proxy on the
+same protocl, host and port as the app is running. You can adjust this using environment variables, and the
+sample environments provide good examples of doing this.
 
 #### Sample environments
 

@@ -25,16 +25,17 @@ fi
 if [ -z "${OAUTH_CLIENT_ID}" ]; then
   export OAUTH_CLIENT_ID="fabric8"
 fi
-
-if [ -z "${K8S_API_SERVER_PROXY}" ]; then
-  export K8S_API_SERVER_PROXY="http://localhost:4200/"
+if [ -z "${K8S_API_SERVER_PROXY_PROTOCOL}" ]; then
+  export K8S_API_SERVER_PROXY_PROTOCOL="http"
 fi
 
 
 echo "Configured to connect to kubernetes cluster at https://${K8S_API_SERVER}/"
 
-echo "K8S_API_SERVER_PROXY:     ${K8S_API_SERVER_PROXY}"
-echo "OAUTH_ISSUER:             ${OAUTH_ISSUER}"
-echo "OAUTH_CLIENT_ID:          ${OAUTH_CLIENT_ID}"
-echo "OAUTH_SCOPE:              ${OAUTH_SCOPE}"
+echo ""
+echo "K8S_API_SERVER_PROXY:          ${K8S_API_SERVER_PROXY}"
+echo "K8S_API_SERVER_PROXY_PROTOCOL: ${K8S_API_SERVER_PROXY_PROTOCOL}"
+echo "OAUTH_ISSUER:                  ${OAUTH_ISSUER}"
+echo "OAUTH_CLIENT_ID:               ${OAUTH_CLIENT_ID}"
+echo "OAUTH_SCOPE:                   ${OAUTH_SCOPE}"
 echo ""
