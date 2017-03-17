@@ -71,10 +71,10 @@ export class Watcher {
 
   protected lazyCreateWebSocket() {
     if (!this.ws) {
-      let apiServer = currentOAuthConfig().apiServer;
+      let wsApiServer = currentOAuthConfig().wsApiServer;
       let baseUrl = "";
-      if (apiServer) {
-        baseUrl = "wss://" + apiServer;
+      if (wsApiServer) {
+        baseUrl = "wss://" + wsApiServer;
       } else {
         let location = window.location;
         if (location) {

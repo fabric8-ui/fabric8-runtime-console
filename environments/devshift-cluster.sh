@@ -12,11 +12,12 @@ echo "Using Kubernetes Master: ${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_P
 
 export OAUTH_AUTHORIZE_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/oauth/authorize"
 export OAUTH_LOGOUT_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/connect/endsession?id_token={{id_token}}"
-export K8S_API_SERVER="${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
-
+# This is devshift
+export PROXIED_K8S_API_SERVER="${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
+# This is our proxy that we will connect to
+export K8S_API_SERVER="localhost:4200"
 
 if [ -z "${OAUTH_ISSUER}" ]; then
-  #export OAUTH_ISSUER=""
   export OAUTH_ISSUER="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
 fi
 if [ -z "${OAUTH_SCOPE}" ]; then
@@ -31,11 +32,14 @@ fi
 if [ -z "${K8S_API_SERVER_BASE_PATH}" ]; then
   export K8S_API_SERVER_BASE_PATH="/_p/oso"
 fi
+if [ -z "${WS_K8S_API_SERVER}" ]; then
+  export WS_K8S_API_SERVER=${PROXIED_K8S_API_SERVER}
+fi
 
-echo "Configured to connect to kubernetes cluster at https://${K8S_API_SERVER}/"
+echo "Configured to connect to kubernetes cluster at https://${PROXIED_K8S_API_SERVER}/"
 
 echo ""
-echo "K8S_API_SERVER_PROXY:          ${K8S_API_SERVER_PROXY}"
+echo "WS_K8S_API_SERVER:             ${WS_K8S_API_SERVER}"
 echo "K8S_API_SERVER_PROTOCOL:       ${K8S_API_SERVER_PROTOCOL}"
 echo "K8S_API_SERVER_BASE_PATH:      ${K8S_API_SERVER_BASE_PATH}"
 echo "OAUTH_ISSUER:                  ${OAUTH_ISSUER}"
