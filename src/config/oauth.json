@@ -1,5 +1,5 @@
 {
-  "api_server": "{{ .Env.K8S_API_SERVER }}",
+  "api_server": "{{ .Env.K8S_API_SERVER_PROXY }}",
   "oauth": {
     "oauth_authorize_uri": "{{ .Env.OAUTH_AUTHORIZE_URI }}",
     "oauth_client_id": "{{ .Env.OAUTH_CLIENT_ID }}",
