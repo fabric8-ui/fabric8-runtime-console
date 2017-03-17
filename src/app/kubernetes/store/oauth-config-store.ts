@@ -10,6 +10,7 @@ export class OAuthConfig {
   public issuer: string;
   public apiServer: string;
   public apiServerProtocol: string;
+  public apiServerBasePath: string;
   public scope: string;
   public loaded: boolean;
 
@@ -20,18 +21,13 @@ export class OAuthConfig {
     this.loaded = data ? true : false;
     this.apiServer = config.api_server || "";
     this.apiServerProtocol = config.api_server_protocol;
+    this.apiServerBasePath = config.api_server_base_path;
     this.authorizeUri = oauth.oauth_authorize_uri || "";
     this.clientId = oauth.oauth_client_id || "fabric8";
     this.issuer = oauth.oauth_issuer || "";
     this.scope = oauth.oauth_scope || "user:full";
     this.logoutUri = oauth.logout_uri || "";
 
-    if (this.apiServer) {
-      localStorage["apiServer"] = this.apiServer;
-    }
-    if (this.apiServerProtocol) {
-      localStorage["apiServerProtocol"] = this.apiServerProtocol;
-    }
     if (!this.issuer && this.authorizeUri) {
       // lets default the issuer from the authorize Uri
       var url = this.authorizeUri;
@@ -96,7 +92,7 @@ export class OAuthConfigStore {
       return;
     }
     _startedLoadingOAuthConfig = true;
-    let configUri = "/config/oauth.json";
+    let configUri = "/_config/oauth.json";
     this.http.get(configUri)
       .subscribe(
         (res) => {
