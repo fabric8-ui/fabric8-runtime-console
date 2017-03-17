@@ -9,6 +9,7 @@ export class OAuthConfig {
   public logoutUri: string;
   public issuer: string;
   public apiServer: string;
+  public apiServerProtocol: string;
   public scope: string;
   public loaded: boolean;
 
@@ -18,6 +19,7 @@ export class OAuthConfig {
 
     this.loaded = data ? true : false;
     this.apiServer = config.api_server || "";
+    this.apiServerProtocol = config.api_server_protocol;
     this.authorizeUri = oauth.oauth_authorize_uri || "";
     this.clientId = oauth.oauth_client_id || "fabric8";
     this.issuer = oauth.oauth_issuer || "";
@@ -26,6 +28,9 @@ export class OAuthConfig {
 
     if (this.apiServer) {
       localStorage["apiServer"] = this.apiServer;
+    }
+    if (this.apiServerProtocol) {
+      localStorage["apiServerProtocol"] = this.apiServerProtocol;
     }
     if (!this.issuer && this.authorizeUri) {
       // lets default the issuer from the authorize Uri
