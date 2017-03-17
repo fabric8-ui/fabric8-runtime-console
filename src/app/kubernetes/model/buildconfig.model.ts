@@ -20,22 +20,50 @@ export class BuildConfig extends KubernetesSpecResource {
   duration: number;
   iconStyle: string;
 
+  interestingBuilds: Array<Build>;
+
   private _lastBuild: Build;
 
   get lastBuild(): Build {
     return this._lastBuild;
   }
 
+  get isPipeline(): boolean {
+    return "JenkinsPipeline" === this.type;
+  }
+  
   set lastBuild(build: Build) {
     this._lastBuild = build;
     this.statusPhase = build ? build.statusPhase : "";
     this.duration = build ? build.duration : 0;
     this.iconStyle = build ? build.iconStyle : defaultBuildIconStyle;
+
+    this.interestingBuilds = new Array<Build>();
+    this.interestingBuilds.push(build);
   }
+
+  get interestingBuildsAverageDuration(): number {
+    var answer = 0;
+    var count = 0;
+    var builds = this.interestingBuilds;
+    for (let build of builds) {
+      let duration = build.duration;
+      if (duration) {
+        answer += duration;
+        count++;
+      }
+    }
+    if (count > 0) {
+      return answer / count;
+    }
+    return 0;
+  }
+
 
   updateValuesFromResource() {
     super.updateValuesFromResource();
 
+    this.interestingBuilds = new Array<Build>();
     let spec = this.spec || {};
     let status = this.status || {};
     let source = spec.source || {};
@@ -94,4 +122,14 @@ export function combineBuildConfigAndBuilds(buildConfigs: BuildConfigs, builds: 
   return buildConfigs;
 
 
+}
+
+export function filterPipelines(buildConfigs: BuildConfigs): BuildConfigs {
+  var answer = new BuildConfigs();
+  buildConfigs.forEach(bc => {
+    if (bc.isPipeline) {
+      answer.push(bc);
+    }
+  });
+  return answer;
 }

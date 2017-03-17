@@ -14,10 +14,10 @@ import {BuildConfigEditPage} from "./edit-page/edit-page.buildconfig.component";
 import {BuildConfigEditWrapperComponent} from "./edit-wrapper/edit-wrapper.buildconfig.component";
 import {BuildConfigEditToolbarComponent} from "./edit-toolbar/edit-toolbar.buildconfig.component";
 import {BuildConfigEditComponent} from "./edit/edit.buildconfig.component";
-import {BuildConfigDeleteDialog} from "./delete-dialog/delete-dialog.buildconfig.component";
 import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
 import {KubernetesComponentsModule} from "../../components/components.module";
+import {BuildConfigDialogsModule} from "./delete-dialog/buildconfig.dialogs.module";
 
 const routes: Routes = [
   { path: '', component: BuildConfigsListPage },
@@ -35,6 +35,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     Fabric8CommonModule,
     KubernetesComponentsModule,
+    BuildConfigDialogsModule,
   ],
   declarations: [
     BuildConfigsListPage,
@@ -48,14 +49,9 @@ const routes: Routes = [
     BuildConfigEditWrapperComponent,
     BuildConfigEditToolbarComponent,
     BuildConfigEditComponent,
-    BuildConfigDeleteDialog,
   ],
   entryComponents: [
-    BuildConfigDeleteDialog,
     BuildConfigEditPage,
-  ],
-  exports: [
-    ModalModule,
   ],
 })
 export class BuildConfigModule {

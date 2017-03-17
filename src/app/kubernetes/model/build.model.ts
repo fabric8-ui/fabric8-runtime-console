@@ -1,13 +1,46 @@
 import {KubernetesSpecResource} from "./kuberentesspecresource.model";
 import {defaultBuildIconStyle} from "./buildconfig.model";
+import {PipelineStage} from "./pipelinestage.model";
 
 
 export class Build extends KubernetesSpecResource {
   statusPhase: string;
   duration: number;
   iconStyle: string;
+  buildNumber: string;
+
+  private _pipelineStages: Array<PipelineStage>;
+
+  get pipelineStages(): Array<PipelineStage> {
+    if (!this._pipelineStages) {
+      this._pipelineStages = new Array<PipelineStage>();
+      // lets parse the annotation from Jenkins sync plugin
+      var json = this.annotations["openshift.io/jenkins-status-json"];
+      if (json) {
+        try {
+          var obj = JSON.parse(json);
+          if (obj != null) {
+            var stages = obj.stages;
+            if (stages && stages.length) {
+              stages.forEach(stage => {
+                var pipelineStage = new PipelineStage(stage);
+                if (pipelineStage.name) {
+                  this._pipelineStages.push(pipelineStage);
+                }
+              });
+            }
+          }
+        } catch (e) {
+          // ignore bad JSON
+        }
+      }
+    }
+    return this._pipelineStages;
+  }
+
 
   updateValuesFromResource() {
+    this._pipelineStages = null;
     super.updateValuesFromResource();
     let status = this.status || {};
     this.statusPhase = status.phase || "";
@@ -15,6 +48,7 @@ export class Build extends KubernetesSpecResource {
     if (this.duration) {
       this.duration = this.duration / 1000000000;
     }
+    this.buildNumber = this.annotations["openshift.io/build.number"] || "";
 
     switch (this.statusPhase) {
       case "Complete":
