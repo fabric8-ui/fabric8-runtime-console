@@ -71,6 +71,9 @@
     "npm": ">= 3"
   },
   "dependencies": {
+    "angular-2-local-storage": "1.0.1",
+    "ngx-fabric8-wit": "6.15.1",
+    "ngx-login-client": "0.6.3"
   },
   "devDependencies": {
     "@angular/common": "2.4.9",

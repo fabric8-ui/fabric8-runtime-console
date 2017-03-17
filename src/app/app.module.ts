@@ -13,7 +13,6 @@ import {KubernetesUIModule} from "./kubernetes/ui/ui.module";
 import {KubernetesStoreModule} from "./kubernetes/kubernetes.store.module";
 import {HeaderComponent} from "./header/header.component";
 import {DummyService} from "./dummy/dummy.service";
-import {Broadcaster} from "./shared/broadcaster.service";
 import {ContextService} from "./shared/context.service";
 import {Logger} from "./shared/logger.service";
 //import {LocalStorageModule} from 'angular-2-local-storage';
@@ -24,6 +23,7 @@ import { OAuthService } from 'angular2-oauth2/oauth-service';
 import {OnLogin} from "./shared/onlogin.service";
 
 import { ENV_PROVIDERS } from './environment';
+import { Broadcaster } from 'ngx-login-client';
 
 
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
