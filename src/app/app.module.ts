@@ -1,3 +1,5 @@
+import './rxjs-extensions';
+
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule, APP_INITIALIZER} from "@angular/core";
 import {FormsModule} from "@angular/forms";
