@@ -1,0 +1,122 @@
+<div class='list-group list-view-pf list-view-pf-view'>
+
+  <fabric8-loading [loading]="loading">
+    <div class="pipelines-page">
+      <div class='pipeline-list animate-repeat' *ngFor='let pipeline of pipelines'>
+        <div class="row">
+          <div class="col-12">
+            <h3>
+              <span class="{{pipeline.iconStyle}}" title="{{pipeline.statusPhase}}"></span>
+              <a [routerLink]="[pipeline.id]" class="card-title" title="view pipeline">{{ pipeline.name }}</a>
+
+              <small>created {{pipeline.creationTimestamp | amTimeAgo}}</small>
+            </h3>
+
+            <div class='dropdown pull-right dropdown-kebab-pf'>
+              <button class='btn btn-link dropdown-toggle' type='button' id='dropdownKebabRight9' data-toggle='dropdown'
+                      aria-haspopup='true' aria-expanded='true'>
+                <span class='fa fa-ellipsis-v'></span>
+              </button>
+              <ul class='dropdown-menu dropdown-menu-right' aria-labelledby='dropdownKebabRight9'>
+                <li *ngIf="pipeline.lastBuildPath">
+                  <a routerLink="{{pipeline.lastBuildPath}}" title="view last build">
+                    View last build
+                  </a>
+                </li>
+                <li>
+                  <a [routerLink]="[pipeline.id, 'edit']">Edit</a>
+                </li>
+                <li class="divider" *ngIf="pipeline.gitUrl"></li>
+                <li *ngIf="pipeline.openInDEAUrl">
+                  <a [href]="pipeline.openInDEAUrl | safeUrl" title="open this project in IDEA IntelliJ">
+                    Open in IDEA
+                  </a>
+                </li>
+                <li *ngIf="pipeline.jenkinsJobUrl">
+                  <a href="{{pipeline.jenkinsJobUrl}}" title="open the Jenksin Job for this build" target="jenkins">
+                    Open Jenkins Job
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                  <a (click)="openDeleteDialog(deletePipelineModal, pipeline)" title="Delete this Pipeline">Delete</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div *ngIf="pipeline.gitUrl">Source Repository:
+            <a href="{{pipeline.gitUrl}}">{{pipeline.gitUrl}}</a>
+          </div>
+
+          <div *ngIf="!pipeline.interestingBuilds.length">
+            <em>
+              No pipeline builds have run for {{ pipeline.name }}.
+            </em>
+          </div>
+
+          <div *ngIf="pipeline.interestingBuilds.length">
+            <h4>
+              Recent Runs
+              <small *ngIf="pipeline.interestingBuildsAverageDuration" class="average-duration pull-right text-muted">
+                Average Duration: {{pipeline.interestingBuildsAverageDuration | amDuration: 'seconds'}}
+              </small>
+            </h4>
+
+            <div *ngFor='let build of pipeline.interestingBuilds' class="animate-repeat">
+              <div clas="build">
+                <div flex="" class="build-pipeline ">
+                  <div class="build-summary">
+                    <div class="build-phase">
+                      <build-status-icon [status]="build.statusPhase"></build-status-icon>
+
+                      <a [routerLink]="[pipeline.id, 'builds', build.name]" title="view build">Build #{{build.buildNumber}}</a>
+                    </div>
+                    <span class="build-timestamp">
+                        {{build.creationTimestamp | amTimeAgo}}
+                      </span>
+                    <div *ngIf="build.logURL" class="pipeline-link">
+                      <a [href]="build.logURL" target="_blank">View Log</a>
+                    </div>
+                  </div>
+                  <div class="pipeline-container">
+                    <div class="pipeline" *ngIf="!build.pipelineStages.length">
+                      <div class="pipeline-stage no-stages">
+                        <div class="pipeline-stage-name">No stages have started.</div>
+                      </div>
+                    </div>
+                    <div class="pipeline" *ngIf="build.pipelineStages.length">
+                      <div class="pipeline-stage " *ngFor='let stage of build.pipelineStages'>
+                        <div column="" class="pipeline-stage-column">
+                          <div class="pipeline-stage-name {{build.statusPhase}}"
+                               title="stage status: {{stage.status}}">
+                            {{stage.name}}
+                          </div>
+                          <pipeline-status [stage]="stage"></pipeline-status>
+                          <div class="pipeline-time {{stage.status}}"
+                               *ngIf="stage.durationMillis && !(build.pipelineStagePendingInput)">
+                            {{stage.durationMillis | amDuration: 'ms'}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mar-top-sm ">
+              <a [routerLink]="[pipeline.id, 'history']" class="card-title" title="view pipeline">View History</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fabric8-loading>
+</div>
+
+<modal #deleteBuildConfigModal title="Delete Pipeline">
+  <modal-content>
+    <delete-buildconfig-dialog></delete-buildconfig-dialog>
+  </modal-content>
+</modal>
+
+

@@ -649,9 +649,10 @@ export class DummyService implements OnInit {
     let runPath = prefix + this.currentRunResourcePath();
     let buildPath = prefix + '/builds';
     let buildConfigPath = prefix + '/buildconfigs';
+    let pipelinePath = prefix + '/pipelines';
     let context = {
       entity: space,
-      type: this.createSpaceContextType(space, buildConfigPath, buildPath, runPath),
+      type: this.createSpaceContextType(space, buildConfigPath, buildPath, pipelinePath, runPath),
       path: buildConfigPath,
       name: spaceName,
     };
@@ -659,12 +660,16 @@ export class DummyService implements OnInit {
   }
 
 
-  private createSpaceContextType(space: Space, buildConfigPath: string, buildPath: string, runPath: string) {
+  private createSpaceContextType(space: Space, buildConfigPath: string, buildPath: string, pipelinePath: string, runPath: string) {
     var runMenus = this.createRunMenus(space);
     var appMenus = [
       {
         name: "Codebases",
         path: buildConfigPath,
+      },
+      {
+        name: "Pipelines",
+        path: pipelinePath,
       },
       {
         name: "Builds",
@@ -765,27 +770,29 @@ export class DummyService implements OnInit {
   }
 
   protected createRunMenus(space: Space) {
-    var environments = space.environments;
-    let params = this._appContext.params || {};
-    var app = params["app"];
-    let resourcePath = this.currentRunResourcePath();
     var runMenus = [];
+    if (space) {
+      var environments = space.environments;
+      let params = this._appContext.params || {};
+      var app = params["app"];
+      let resourcePath = this.currentRunResourcePath();
 
-    if (environments && environments.length) {
-      runMenus.push({
-        name: "Tools",
-        path: this.createUrlPrefix(space.name, space.name, app) + resourcePath,
-      });
-
-      environments.forEach(env => {
-        var envName = env.name;
-        let prefix = this.createUrlPrefix(env.namespaceName, space.name, app);
-        var path = prefix + resourcePath;
+      if (environments && environments.length) {
         runMenus.push({
-          name: envName,
-          path: path,
-        })
-      });
+          name: "Tools",
+          path: this.createUrlPrefix(space.name, space.name, app) + resourcePath,
+        });
+
+        environments.forEach(env => {
+          var envName = env.name;
+          let prefix = this.createUrlPrefix(env.namespaceName, space.name, app);
+          var path = prefix + resourcePath;
+          runMenus.push({
+            name: envName,
+            path: path,
+          })
+        });
+      }
     }
     return runMenus;
   }

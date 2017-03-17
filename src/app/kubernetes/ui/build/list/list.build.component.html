@@ -29,7 +29,7 @@
         <div class='list-view-pf-body'>
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
-              <a [routerLink]="[build.id]" class="card-title" title="view build">{{ build.name }}</a>
+              <a [routerLink]="[build.id]" class="card-title" title="view build {{ build.name }}">{{ build.name }}</a>
             </div>
             <div class='list-group-item-text'>
               <span class="" *ngFor='let image of build.images' title="docker image">
