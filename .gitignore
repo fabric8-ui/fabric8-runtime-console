@@ -16,7 +16,7 @@
 .c9/
 *.launch
 .settings/
-.vscode
+.vscode/*
 
 # misc
 /.sass-cache
