@@ -11,7 +11,6 @@
     "build:library": "gulp build-library",
     "bundle-rollup": "rollup -c",
     "bundle": "webpack --config config/webpack.prod.js --progress --profile --bail",
-    "caddy": "./caddy.sh",
     "clean": "npm cache clean && npm run rimraf -- node_modules doc coverage dist distwatch bundles",
     "cleanup": "rimraf dist/package.json dist/bundles dist/src dist/index.d.ts dist/index.metadata.json dist/index.js dist/index.js.map dist/LICENSE dist/README.md",
     "e2e": "protractor",
