@@ -1,4 +1,4 @@
-# Fabric8 Runtime Console
+# Fabric8 Runtime Console 
 
 This is the new angular 2 based console for building and running applications on kubernetes and openshift
 
