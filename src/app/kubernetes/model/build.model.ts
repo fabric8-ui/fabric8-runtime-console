@@ -1,6 +1,7 @@
 import {KubernetesSpecResource} from "./kuberentesspecresource.model";
 import {defaultBuildIconStyle} from "./buildconfig.model";
 import {PipelineStage} from "./pipelinestage.model";
+import {pathJoin} from "./utils";
 
 
 export class Build extends KubernetesSpecResource {
@@ -9,6 +10,9 @@ export class Build extends KubernetesSpecResource {
   iconStyle: string;
   buildNumber: string;
   buildConfigName: string;
+
+  jenkinsBuildURL: string;
+  logURL: string;
 
   private _pipelineStages: Array<PipelineStage>;
 
@@ -52,6 +56,11 @@ export class Build extends KubernetesSpecResource {
     let statusConfig = status.config || {};
     this.buildConfigName = statusConfig.name || "";
     this.buildNumber = this.annotations["openshift.io/build.number"] || "";
+    this.jenkinsBuildURL = this.annotations["openshift.io/jenkins-build-uri"] || "";
+    this.logURL = "";
+    if (this.jenkinsBuildURL) {
+      this.logURL = pathJoin(this.jenkinsBuildURL, "/console");
+    }
 
     switch (this.statusPhase) {
       case "Complete":

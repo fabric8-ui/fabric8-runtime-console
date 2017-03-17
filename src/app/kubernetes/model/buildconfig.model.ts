@@ -16,6 +16,8 @@ export class BuildConfig extends KubernetesSpecResource {
   lastBuildPath: string;
   lastBuildName: string;
 
+  jenkinsJobUrl: string;
+
   // last build related data
   statusPhase: string;
   duration: number;

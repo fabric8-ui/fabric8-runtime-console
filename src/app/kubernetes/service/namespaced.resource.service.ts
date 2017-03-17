@@ -4,6 +4,7 @@ import {Subscription, Observable} from "rxjs";
 import {KubernetesResource} from "../model/kubernetesresource.model";
 import {NamespaceScope} from "./namespace.scope";
 import {Watcher} from "./watcher";
+import {pathJoin} from "../model/utils";
 
 
 export abstract class NamespacedResourceService<T extends KubernetesResource, L extends Array<T>> extends KubernetesService<T, L> {
@@ -83,8 +84,7 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
 
   protected createServiceUrl(urlPrefix: string, namespace: string, urlSuffix: string): string {
     if (namespace) {
-      // TODO use a nicer path joiner function
-      let url = urlPrefix + namespace + urlSuffix;
+      let url = pathJoin(urlPrefix,  namespace, urlSuffix);
       //console.log("setting url to: " + url);
       return url;
     }

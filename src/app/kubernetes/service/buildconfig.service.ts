@@ -5,6 +5,7 @@ import {BuildConfigs, BuildConfig} from "../model/buildconfig.model";
 import {NamespacedResourceService} from "./namespaced.resource.service";
 import {APIsStore} from "../store/apis.store";
 import {DevNamespaceScope} from "./devnamespace.scope";
+import {pathJoin} from "../model/utils";
 
 @Injectable()
 export class BuildConfigService extends NamespacedResourceService<BuildConfig, BuildConfigs> {
@@ -25,8 +26,7 @@ export class BuildConfigService extends NamespacedResourceService<BuildConfig, B
       if (this.apiStore.isOpenShift()) {
         return super.createServiceUrl(urlPrefix, namespace, urlSuffix);
       }
-      // TODO use a nicer path joiner function
-      return "/api/v1/proxy/namespaces/" + namespace + "/services/jenkinshift:80/oapi/v1/namespaces/" + namespace + "/buildconfigs";
+      return pathJoin("/api/v1/proxy/namespaces", namespace, "/services/jenkinshift:80/oapi/v1/namespaces/", namespace, "/buildconfigs");
     }
     return '';
   }
