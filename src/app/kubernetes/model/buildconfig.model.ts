@@ -22,7 +22,7 @@ export class BuildConfig extends KubernetesSpecResource {
   iconStyle: string;
 
   interestingBuilds: Array<Build>;
-  builds: Array<Build>;
+  builds: Array<Build> = new Array<Build>();
 
   private _lastBuild: Build;
 
