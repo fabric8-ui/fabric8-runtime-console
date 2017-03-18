@@ -804,9 +804,11 @@ export class DummyService implements OnInit {
 
   private createContextsFromBuildConfigs(space: Space, bcs: BuildConfigs): Context[] {
     let answer = new Array<Context>();
-    bcs.forEach(bc => {
-      answer.push(this.createBuildConfigContext(space, bc));
-    });
+    if (bcs) {
+      bcs.forEach(bc => {
+        answer.push(this.createBuildConfigContext(space, bc));
+      });
+    }
     return answer;
   }
 

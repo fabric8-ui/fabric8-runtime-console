@@ -1,7 +1,7 @@
 import {AbstractStore} from "../../store/entity/entity.store";
 import {KubernetesService} from "../service/kubernetes.service";
 import {KubernetesResource} from "../model/kubernetesresource.model";
-import {Observable} from "rxjs";
+import {Observable, BehaviorSubject} from "rxjs";
 import {whenUserLoggedIn} from "../../shared/onlogin.service";
 import {Watcher} from "../service/watcher";
 import {plural} from "pluralize";
@@ -15,7 +15,7 @@ function nameOfResource(resource: any) {
 export abstract class KubernetesResourceStore<T extends KubernetesResource, L extends Array<T>, R extends KubernetesService<T, L>> extends AbstractStore<T, L, R> {
   protected watcher: Watcher;
 
-  constructor(service: R, initialList: L, initialCurrent: T, protected type: { new(): T;}) {
+  constructor(service: R, private initialList: L, initialCurrent: T, protected type: { new(): T;}) {
     super(service, initialList, initialCurrent);
   }
 
@@ -65,16 +65,47 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
       this.watcher = this.service.watch();
     }
     let dataStream = this.watcher.dataStream;
-    listObserver.combineLatest(dataStream, (l, m) => {
-      return this.combineListAndWatchEvent(l, m);
-    }).subscribe(list => {
-        this._list.next(list);
-        this._loading.next(false);
-      },
-      (error) => {
-        console.log('Error retrieving ' + plural(this.kind) + ': ' + error);
-        this._loading.next(false);
-      });
+
+    var latestList = this.initialList;
+    var latestMsg = null;
+
+    var subject = new BehaviorSubject(latestList);
+
+    // lets not use Observable.combineLatest() so that we have more control over error handling
+    // as we wanna just ignore websocket errors really
+    listObserver.subscribe(list => {
+        latestList = list;
+        subject.next(this.combineListAndWatchEvent(latestList, latestMsg));
+    },
+    (error) => {
+      console.log('Error retrieving list ' + plural(this.kind) + ': ' + error);
+      this._loading.next(false);
+    });
+
+    dataStream.subscribe(msg => {
+        latestMsg = msg;
+        subject.next(this.combineListAndWatchEvent(latestList, latestMsg));
+      this._loading.next(false);
+    },
+    (error) => {
+      console.log('Error watching websockets on ' + plural(this.kind) + ': ' + error);
+    });
+
+    subject.subscribe(list => {
+      this._list.next(list);
+      this._loading.next(false);
+    },
+    (error) => {
+      console.log('Error on joined stream ' + plural(this.kind) + ': ' + error);
+    });
+  }
+
+  protected recreateWatcher() {
+    if (this.watcher) {
+      this.watcher.recreate();
+    } else {
+      this.watcher = this.service.watch();
+    }
   }
 
 

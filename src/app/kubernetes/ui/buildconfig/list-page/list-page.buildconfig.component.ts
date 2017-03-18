@@ -21,14 +21,17 @@ export class BuildConfigsListPage implements OnInit {
   }
 
   ngOnInit() {
-    this.apiStore.load();
-    this.apiStore.loading.distinctUntilChanged().subscribe((flag) => {
-      if (!flag) {
-        // lets wait until we've loaded the APIS before trying to load the BuildConfigs
+    let namespaceObserver = this.buildconfigsStore.namespaceScope.namespace;
+    this.apiStore.loading.
+    combineLatest(namespaceObserver, (flag, namespace) => new LoadedAndNamespace(flag, namespace)).
+    subscribe(loadedAndNamespace => {
         this.buildconfigsStore.loadAll();
         this.buildStore.loadAll();
-      }
     });
+    this.apiStore.load();
   }
+}
 
+export class LoadedAndNamespace {
+  constructor(public loaded: boolean, public namespace: string) {}
 }
