@@ -1,3 +1,4 @@
+import { OpaqueToken } from '@angular/core';
 import { ApiLocatorService } from './api-locator.service';
 import { SSO_API_URL } from 'ngx-login-client';
 
