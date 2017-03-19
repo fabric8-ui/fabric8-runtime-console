@@ -57,6 +57,8 @@ const routes: Routes = [
   entryComponents: [
   ],
   exports: [
+    PipelinesListComponent,
+    PipelinesListToolbarComponent,
   ],
 })
 export class PipelineModule {
