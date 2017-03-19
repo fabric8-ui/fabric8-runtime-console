@@ -71,15 +71,16 @@
     "npm": ">= 3"
   },
   "dependencies": {
+    "@angular/core": "2.4.9",
     "angular-2-local-storage": "1.0.1",
     "ngx-fabric8-wit": "6.15.1",
-    "ngx-login-client": "0.6.4"
+    "ngx-login-client": "0.6.4",
+    "rxjs": "5.0.1"
   },
   "devDependencies": {
     "@angular/common": "2.4.9",
     "@angular/compiler-cli": "2.4.9",
     "@angular/compiler": "2.4.9",
-    "@angular/core": "2.4.9",
     "@angular/forms": "2.4.9",
     "@angular/http": "2.4.9",
     "@angular/platform-browser-dynamic": "2.4.9",
@@ -193,7 +194,6 @@
     "rollup-plugin-angular-aot": "0.0.4",
     "rollup": "0.41.4",
     "run-sequence": "1.2.2",
-    "rxjs": "5.0.1",
     "sass-lint": "1.10.2",
     "sass-loader": "6.0.3",
     "script-ext-html-webpack-plugin": "1.7.1",
