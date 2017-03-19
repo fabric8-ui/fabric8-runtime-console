@@ -3,6 +3,7 @@
  */
 const webpack = require('webpack');
 const helpers = require('./helpers');
+const path = require('path');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
 
@@ -15,6 +16,7 @@ const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const cloneDeep = require('lodash/cloneDeep');
+const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 
 /**
  * Webpack Constants
@@ -143,6 +145,14 @@ module.exports = function (options) {
           use: ["source-map-loader"],
           enforce: "pre"
         }
+      ]
+    },
+
+    resolve: {
+      plugins: [
+        new TsConfigPathsPlugin({
+          configFileName: path.resolve(__dirname, "tsconfig-dev.json")
+        })
       ]
     },
 
