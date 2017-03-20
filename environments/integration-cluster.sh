@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
-# This is devshift
-export KUBERNETES_SERVICE_HOST=tsrv.devshift.net
+export KUBERNETES_SERVICE_HOST=int.rdu2c.fabric8.io
 export KUBERNETES_SERVICE_PORT=8443
 
 echo "Using Kubernetes Master: ${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
 
 export OAUTH_AUTHORIZE_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/oauth/authorize"
 export OAUTH_LOGOUT_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/connect/endsession?id_token={{id_token}}"
+# This is devshift
 export PROXIED_K8S_API_SERVER="${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
-
 # This is our proxy that we will connect to
 export K8S_API_SERVER="localhost:4200"
 

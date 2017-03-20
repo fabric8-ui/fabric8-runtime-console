@@ -38,6 +38,9 @@ import { authApiUrlProvider } from '../shared/auth-api.provider';
 import { witApiUrlProvider } from '../shared/wit-api.provider';
 import { ApiLocatorService } from '../shared/api-locator.service';
 import { Broadcaster, AuthenticationService } from 'ngx-login-client';
+import {RouteServiceStore} from "./store/route.service.store";
+import {RouteService} from "./service/route.service";
+import {RouteStore} from "./store/route.store";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -86,6 +89,9 @@ import {BrowserModule} from "@angular/platform-browser";
     ReplicaSetStore,
     ReplicationControllerService,
     ReplicationControllerStore,
+    RouteService,
+    RouteStore,
+    RouteServiceStore,
     ServiceService,
     ServiceStore,
     SpaceStore,

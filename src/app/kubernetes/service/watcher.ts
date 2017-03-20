@@ -91,26 +91,28 @@ export class Watcher {
       if (baseUrl) {
         let serviceUrl = this.pathFn();
         this.serviceUrl = serviceUrl;
-        let url = baseUrl + serviceUrl + this.query;
-        //console.log("Websocket using URL: " + url);
-        this.ws = new $WebSocket(url);
+        if (serviceUrl) {
+          let url = baseUrl + serviceUrl + this.query;
+          //console.log("Websocket using URL: " + url);
+          this.ws = new $WebSocket(url);
 
-        // send a single initial event to make it easier to combine
-        // with the list observable
-        this._dataStream.next({});
-        this.subscription = this.ws.getDataStream().subscribe(
-          (msg) => {
-            this._dataStream.next(msg);
-          },
-          (err) => {
-            console.log("WebSocket error on " + serviceUrl, err);
-            this._dataStream.error(err);
-          },
-          () => {
-            //console.log("WebSocket complete on " + serviceUrl);
-            this.recreate();
-          }
-        );
+          // send a single initial event to make it easier to combine
+          // with the list observable
+          this._dataStream.next({});
+          this.subscription = this.ws.getDataStream().subscribe(
+            (msg) => {
+              this._dataStream.next(msg);
+            },
+            (err) => {
+              console.log("WebSocket error on " + serviceUrl, err);
+              this._dataStream.error(err);
+            },
+            () => {
+              //console.log("WebSocket complete on " + serviceUrl);
+              this.recreate();
+            }
+          );
+        }
       } else {
         console.log("Cannot figure out the base URL so we can't watch this resource!");
       }
