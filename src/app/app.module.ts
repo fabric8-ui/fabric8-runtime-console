@@ -18,9 +18,7 @@ import {DummyService} from "./dummy/dummy.service";
 import {ContextService} from "./shared/context.service";
 import {Logger} from "./shared/logger.service";
 import {LocalStorageModule} from 'angular-2-local-storage';
-//import {DropdownModule} from 'ng2-dropdown';
-//import {DropdownModule} from "./shared-component/dropdown/dropdown.module";
-import {DropdownModule} from "ngx-dropdown";
+import {DropdownConfig, DropdownModule} from "ng2-bootstrap";
 import { OAuthService } from 'angular2-oauth2/oauth-service';
 import {OnLogin} from "./shared/onlogin.service";
 
@@ -62,6 +60,7 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
   ],
   providers: [
     ConfigService,
+    DropdownConfig,
     {
       provide: APP_INITIALIZER,
       useFactory: configServiceInitializer,

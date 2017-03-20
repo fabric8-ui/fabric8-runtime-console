@@ -1,5 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
+import {DropdownConfig, DropdownModule} from "ng2-bootstrap";
 import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
 import {ModalModule} from "ng2-modal";
@@ -29,6 +30,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    DropdownModule,
     FormsModule,
     ModalModule,
     MomentModule,
@@ -58,6 +60,9 @@ const routes: Routes = [
   exports: [
     ModalModule,
   ],
+  providers: [
+    DropdownConfig
+  ]
 })
 export class DeploymentModule {
 }

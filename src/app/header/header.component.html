@@ -4,8 +4,8 @@
       <li *ngIf="!loggedIn">
         <a (click)='login();'>Sign In</a>
       </li>
-      <li *ngIf="loggedIn" dropdown class="pull-right dropdown">
-        <a dropdown-open class="pull-right">
+      <li *ngIf="loggedIn" class="pull-right" dropdown>
+        <a class="pull-right" dropdownToggle>
           <div *ngIf="loggedInUser" id="header_dropdownToggle_header">
             <span class="nav-item-icon">
               <span *ngIf="!imgLoaded" class="nav-icon pficon-user"></span>
@@ -15,7 +15,7 @@
             <span class="nav-icon caret"></span>
           </div>
         </a>
-        <ul class="dropdown-menu view-width-100">
+        <ul class="view-width-100" role="menu" dropdownMenu>
           <li>
             <a [routerLink]="[urlFeatureToggle + '/pmuir']">
               <span class="nav-item-text">Profile</span>
@@ -44,8 +44,8 @@
   <div class="collapse navbar-collapse navbar-collapse-1">
     <ul class="nav navbar-nav navbar-primary persistent-secondary navbar-left">
       <!-- This part of the menu is dynamic based on context -->
-      <li class="context dropdown" dropdown>
-        <a dropdown-open>
+      <li class="context" dropdown>
+        <a dropdownToggle>
           <div *ngIf="loggedInUser" id="header_dropdownToggle">
             <span *ngIf="dummy.currentContext.type" class="nav-item-icon">
               <span class="nav-icon {{dummy.currentContext.type.icon}}"></span>
@@ -56,7 +56,7 @@
             </span>
           </div>
         </a>
-        <ul class="dropdown-menu">
+        <ul role="menu" dropdownMenu>
           <li>
             <a [routerLink]="['/run/spaces']" title="Browse all spaces">browse spaces</a>
           </li>
@@ -108,8 +108,8 @@
       <li>
         <a *ngIf="!loggedIn" (click)='login();'>Sign In</a>
       </li>
-      <li *ngIf="loggedIn" dropdown class="pull-right dropdown">
-        <a dropdown-open>
+      <li *ngIf="loggedIn" class="pull-right" dropdown>
+        <a dropdownToggle>
           <div *ngIf="loggedInUser" id="header_dropdownToggle2">
             <span class="nav-item-icon">
               <span *ngIf="!imgLoaded" class="nav-icon pficon-user"></span>
@@ -121,7 +121,7 @@
             </span>
           </div>
         </a>
-        <ul class="dropdown-menu">
+        <ul role="menu" dropdownMenu>
           <li>
             <a [routerLink]="[urlFeatureToggle + '/pmuir']"><span class="nav-item-text">Profile</span> </a>
           </li>
