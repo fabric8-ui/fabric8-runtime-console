@@ -3,6 +3,7 @@
 def ci (){
     stage('install'){
         sh 'npm install'
+        sh 'npm run build'
     }
 
     stage('test'){
