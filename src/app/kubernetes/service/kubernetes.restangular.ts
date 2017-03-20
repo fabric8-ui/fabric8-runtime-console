@@ -16,6 +16,7 @@ import {OnLogin} from "../../shared/onlogin.service";
 import {currentOAuthConfig} from "../store/oauth-config-store";
 import { AuthenticationService } from 'ngx-login-client';
 import { LoginService } from '../../shared/login.service';
+import {Route} from "../model/route.model";
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
 
@@ -48,8 +49,6 @@ function convertToKubernetesResource(resource) {
        }
        */
       return new ConfigMap().setResource(resource);
-    case 'Service':
-      return new Service().setResource(resource);
     case 'Deployment':
       return new Deployment().setResource(resource);
     case 'DeploymentConfig':
@@ -62,6 +61,10 @@ function convertToKubernetesResource(resource) {
       return new ReplicaSet().setResource(resource);
     case 'ReplicationController':
       return new ReplicationController().setResource(resource);
+    case 'Route':
+      return new Route().setResource(resource);
+    case 'Service':
+      return new Service().setResource(resource);
     default:
       console.log('Unknown resource kind ' + kind);
       return new KubernetesResource().setResource(resource);

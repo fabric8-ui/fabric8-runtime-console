@@ -2,9 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {Deployments} from "../../../model/deployment.model";
 import {Services} from "../../../model/service.model";
-import {ServiceStore} from "../../../store/service.store";
 import {CompositeDeploymentStore} from "../../../store/compositedeployment.store";
 import {DeploymentViews, createDeploymentViews} from "../../../view/deployment.view";
+import {RouteServiceStore} from "../../../store/route.service.store";
 
 
 @Component({
@@ -18,7 +18,7 @@ export class DeploymentsListPage implements OnInit {
   private readonly loading: Observable<boolean>;
   private readonly runtimeDeployments: Observable<DeploymentViews>;
 
-  constructor(private deploymentsStore: CompositeDeploymentStore, private serviceStore: ServiceStore) {
+  constructor(private deploymentsStore: CompositeDeploymentStore, private serviceStore: RouteServiceStore) {
     this.deployments = this.deploymentsStore.list;
     this.services = this.serviceStore.list;
     this.loading = this.deploymentsStore.loading.combineLatest(this.serviceStore.loading, (f, s) => f && s);
