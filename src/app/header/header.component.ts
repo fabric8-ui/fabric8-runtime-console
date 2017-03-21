@@ -102,14 +102,15 @@ export class HeaderComponent implements OnInit {
         this.loginService.gitHubSignIn();
         return;
       } else {
-        this.authService.getOpenShiftToken().subscribe((token) => {
-          this.onLogin.onLogin(token);
-        });
+        this.authService.getOpenShiftToken().subscribe(token => {
+          this.dummy.ngOnInit();
+        })
       }
+    } else {
+      this.dummy.ngOnInit();
     }
     this.listenToEvents();
     this.onNavigate();
-    this.dummy.ngOnInit();
   }
 
   onNavigate(): void {

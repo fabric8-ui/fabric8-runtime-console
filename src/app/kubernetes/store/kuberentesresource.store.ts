@@ -2,7 +2,6 @@ import {AbstractStore} from "../../store/entity/entity.store";
 import {KubernetesService} from "../service/kubernetes.service";
 import {KubernetesResource} from "../model/kubernetesresource.model";
 import {Observable, BehaviorSubject} from "rxjs";
-import {whenUserLoggedIn} from "../../shared/onlogin.service";
 import {Watcher} from "../service/watcher";
 import {plural} from "pluralize";
 
@@ -48,9 +47,7 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
   }
 
   loadAll(): Observable<L> {
-    whenUserLoggedIn(() => {
-      this.doLoadAll();
-    });
+    this.doLoadAll();
     return this.list;
   }
 
@@ -180,9 +177,7 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
   }
 
   load(id: string): void {
-    whenUserLoggedIn(() => {
-      super.load(id);
-    });
+    super.load(id);
   }
 
   listQueryParams() {
