@@ -1,11 +1,9 @@
-<li class="context dropdown" dropdown>
-  <button class="btn btn-default dropdown-toggle" dropdown-open>
-          <span>
-            <span class="{{current?.icon}}"></span> {{current?.name}}
-          </span>
-          <b class="caret"></b>
-        </button>
-  <ul class="dropdown-menu">
+<li class='context' dropdown>
+  <button type='button' class='btn btn-default' aria-haspopup='true' aria-expanded='false' dropdownToggle>
+    {{current?.name}}
+    <span class='caret'></span>
+  </button>
+  <ul role="menu" dropdownMenu>
     <li *ngFor="let m of menus">
       <a [routerLink]="[m.fullPath || m.path]" *ngIf="m.path !== null && m != current?.path">
         <span class="{{m.icon}}"></span> {{m.name}}
