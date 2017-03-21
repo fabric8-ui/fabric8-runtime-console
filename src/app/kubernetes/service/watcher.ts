@@ -1,7 +1,8 @@
 import {$WebSocket} from "angular2-websocket/angular2-websocket";
 import {currentOAuthConfig} from "../store/oauth-config-store";
-import {currentUserToken} from "../../shared/onlogin.service";
+import {OnLogin} from "../../shared/onlogin.service";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
+import { ReflectiveInjector } from '@angular/core';
 
 export class Watcher {
   protected ws: $WebSocket;
@@ -59,7 +60,9 @@ export class Watcher {
       }
     }
     params["watch"] = true;
-    params["access_token"] = currentUserToken();
+    let injector = ReflectiveInjector.resolveAndCreate([OnLogin]);
+    let onLoginService = injector.get(OnLogin);
+    params["access_token"] = onLoginService.token;
 
     let query = "";
     for (let k in params) {

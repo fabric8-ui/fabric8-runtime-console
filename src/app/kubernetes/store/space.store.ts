@@ -174,9 +174,7 @@ export class SpaceStore {
 
   protected doLoad(): void {
     this._loading.next(true);
-    this.onLogin.whenLoggedIn(() => {
-      this.namespaceStore.loadAll();
-    });
+    this.namespaceStore.loadAll();
   }
 
   update(obj: Space): Observable<Namespace> {
