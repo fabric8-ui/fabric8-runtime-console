@@ -1,5 +1,4 @@
 import {NgModule} from "@angular/core";
-import {DropdownConfig, DropdownModule} from "ng2-bootstrap";
 import {PodPhaseIconComponent} from "./pod-phase-icon/pod-phase-icon.component";
 import {KubernetesLabelsComponent} from "./k8s-labels/k8s-labels.component";
 import {Fabric8CommonModule} from "../../common/common.module";
@@ -10,24 +9,20 @@ import {BuildStatusIconComponent} from "./build-status-icon/build-status-icon.co
 @NgModule({
   imports: [
     CommonModule,
-    DropdownModule,
     Fabric8CommonModule,
   ],
   declarations: [
     BuildStatusIconComponent,
     KubernetesLabelsComponent,
     PodPhaseIconComponent,
-    PipelineStatusComponent,
+    PipelineStatusComponent
   ],
   exports: [
     BuildStatusIconComponent,
     KubernetesLabelsComponent,
     PodPhaseIconComponent,
-    PipelineStatusComponent,
+    PipelineStatusComponent
   ],
-  providers: [
-    DropdownConfig
-  ]
 })
 export class KubernetesComponentsModule {
 }
