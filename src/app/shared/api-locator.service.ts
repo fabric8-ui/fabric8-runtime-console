@@ -7,7 +7,8 @@ export class ApiLocatorService {
     [
       ['wit', 'FABRIC8_WIT_API_URL'],
       ['sso', 'FABRIC8_SSO_API_URL'],
-      ['recommender', 'FABRIC8_RECOMMENDER_API_URL']
+      ['recommender', 'FABRIC8_RECOMMENDER_API_URL'],
+      ['openShiftConsole', 'OPENSHIFT_CONSOLE_URL']
     ]
   );
 
@@ -18,7 +19,8 @@ export class ApiLocatorService {
   ]);
 
   readonly DEFAULT_API_PATHS = new Map<string, string>([
-    ['wit', 'api/']
+    ['wit', 'api/'],
+    ['openShiftConsole', 'console/'],
   ]);
 
   private envVars = new Map<string, string>();
@@ -39,6 +41,10 @@ export class ApiLocatorService {
 
   get ssoApiUrl(): string {
     return this.buildApiUrl('sso');
+  }
+
+  get openShiftConsoleUrl(): string {
+    return this.buildApiUrl('openShiftConsole');
   }
 
   private loadEnvVar(key: string): void {
