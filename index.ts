@@ -15,3 +15,5 @@ export { OnLogin } from './src/app/shared/onlogin.service';
 export { OAuthConfigStore } from './src/app/kubernetes/store/oauth-config-store';
 export { APIsStore } from './src/app/kubernetes/store/apis.store';
 export { LoginService } from './src/app/shared/login.service';
+export { NamespaceScope } from './src/app/kubernetes/service/namespace.scope';
+export { DevNamespaceScope } from './src/app/kubernetes/service/devnamespace.scope';
