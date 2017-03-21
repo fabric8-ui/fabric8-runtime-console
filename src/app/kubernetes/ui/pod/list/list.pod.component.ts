@@ -1,6 +1,8 @@
 import {Component, Input, ViewChild} from "@angular/core";
 import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod.component";
-import {Pods} from "../../../model/pod.model";
+import {Pods, Pod} from "../../../model/pod.model";
+import {ApiLocatorService} from "../../../../shared/api-locator.service";
+import {pathJoin} from "../../../model/utils";
 
 @Component({
   selector: 'fabric8-pods-list',
@@ -15,10 +17,32 @@ export class PodsListComponent {
 
   @ViewChild(PodDeleteDialog) deleteDialog: PodDeleteDialog;
 
+  readonly openShiftConsoleUrl: string;
+
+  constructor(apiLocator: ApiLocatorService) {
+    this.openShiftConsoleUrl = apiLocator.openShiftConsoleUrl;
+  }
   openDeleteDialog(deletePodModal, pod) {
     this.deleteDialog.modal = deletePodModal;
     this.deleteDialog.pod = pod;
     deletePodModal.open();
   }
 
+  consoleLogsUrl(pod: Pod): string {
+    let consoleUrl = this.consoleUrl(pod);
+    return consoleUrl ? consoleUrl + "?tab=logs" : "";
+  }
+
+  consoleTerminalUrl(pod: Pod): string {
+    let consoleUrl = this.consoleUrl(pod);
+    return consoleUrl ? consoleUrl + "?tab=terminal" : "";
+  }
+
+  consoleUrl(pod: Pod): string {
+    let openShiftConsoleUrl = this.openShiftConsoleUrl;
+    if (pod && openShiftConsoleUrl) {
+      return pathJoin(openShiftConsoleUrl, "/project/", pod.namespace, "/browse/pods", pod.name);
+    }
+    return "";
+  }
 }
