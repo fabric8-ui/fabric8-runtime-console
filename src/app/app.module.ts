@@ -16,14 +16,14 @@ import {KubernetesStoreModule} from "./kubernetes/kubernetes.store.module";
 import {HeaderComponent} from "./header/header.component";
 import {DummyService} from "./dummy/dummy.service";
 import {ContextService} from "./shared/context.service";
-import {Logger} from "./shared/logger.service";
 import {LocalStorageModule} from 'angular-2-local-storage';
 import {DropdownConfig, DropdownModule} from "ng2-bootstrap";
 import { OAuthService } from 'angular2-oauth2/oauth-service';
 import {OnLogin} from "./shared/onlogin.service";
 
 import { ENV_PROVIDERS } from './environment';
-import { Broadcaster, AuthenticationService } from 'ngx-login-client';
+import { Broadcaster, Logger } from 'ngx-base';
+import { AuthenticationService } from 'ngx-login-client';
 import { LoginService } from './shared/login.service';
 import { witApiUrlProvider } from './shared/wit-api.provider';
 import { authApiUrlProvider } from './shared/auth-api.provider';

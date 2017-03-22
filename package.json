@@ -73,8 +73,9 @@
   "dependencies": {
     "@angular/core": "2.4.9",
     "angular-2-local-storage": "1.0.1",
-    "ngx-fabric8-wit": "6.15.1",
-    "ngx-login-client": "0.6.4",
+    "ngx-base": "1.2.0",
+    "ngx-fabric8-wit": "6.15.2",
+    "ngx-login-client": "0.6.5",
     "rxjs": "5.0.1"
   },
   "devDependencies": {

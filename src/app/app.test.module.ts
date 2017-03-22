@@ -4,7 +4,8 @@ import { ssoApiUrlProvider } from './shared/sso-api.provider';
 import { authApiUrlProvider } from './shared/auth-api.provider';
 import { LoginService } from './shared/login.service';
 import { OnLogin } from './shared/onlogin.service';
-import { AuthenticationService, Broadcaster } from 'ngx-login-client';
+import { Broadcaster } from 'ngx-base';
+import { AuthenticationService } from 'ngx-login-client';
 
 @NgModule({
   providers: [

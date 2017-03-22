@@ -14,7 +14,8 @@ import { ContextService } from '../shared/context.service';
 import {User} from "../models/user";
 import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OnLogin} from "../shared/onlogin.service";
-import { Broadcaster, AuthenticationService } from 'ngx-login-client';
+import { Broadcaster } from 'ngx-base';
+import { AuthenticationService } from 'ngx-login-client';
 import { LoginService } from '../shared/login.service';
 
 @Component({
