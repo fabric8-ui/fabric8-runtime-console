@@ -466,7 +466,9 @@ export class DummyService implements OnInit {
   }
 
   ngOnInit() {
-    this.spaceStore.loadAll();
+    setTimeout(() => {
+      this.spaceStore.loadAll();
+    }, 100);
   }
 
   private updateContext(appContext: AppContext) {
