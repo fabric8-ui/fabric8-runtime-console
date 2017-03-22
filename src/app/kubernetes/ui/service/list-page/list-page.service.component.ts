@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {Services} from "../../../model/service.model";
-import {ServiceStore} from "../../../store/service.store";
+import {RouteServiceStore} from "../../../store/route.service.store";
 
 
 @Component({
@@ -13,7 +13,7 @@ export class ServicesListPage implements OnInit {
   private readonly services: Observable<Services>;
   private readonly loading: Observable<boolean>;
 
-  constructor(private servicesStore: ServiceStore) {
+  constructor(private servicesStore: RouteServiceStore) {
     this.services = this.servicesStore.list;
     this.loading = this.servicesStore.loading;
   }
