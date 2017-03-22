@@ -136,6 +136,7 @@ export function asSpaces(spaces: Space[]): Spaces {
       }
     }
   }
+  answer.sort((a, b) => (a.name || "").localeCompare(b.name));
   return answer;
 }
 
