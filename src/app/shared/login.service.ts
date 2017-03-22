@@ -2,7 +2,8 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from 'angular-2-local-storage';
 import { Injectable, Inject } from '@angular/core';
 
-import { Broadcaster, AuthenticationService } from 'ngx-login-client';
+import { Broadcaster } from 'ngx-base';
+import { AuthenticationService } from 'ngx-login-client';
 import { WIT_API_URL } from 'ngx-fabric8-wit';
 
 @Injectable()

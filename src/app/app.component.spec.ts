@@ -8,12 +8,11 @@ import {ConfigService, configServiceInitializer} from "./config.service";
 import {APP_INITIALIZER} from "@angular/core";
 import {ContextService} from "./shared/context.service";
 import {DummyService} from "./dummy/dummy.service";
-import {Logger} from "./shared/logger.service";
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";
 import {KubernetesStoreModule} from "./kubernetes/kubernetes.store.module";
 import {RestangularModule} from "ng2-restangular";
-import {Broadcaster} from 'ngx-login-client';
+import { Broadcaster, Logger } from 'ngx-base';
 
 describe('AppComponent', () => {
   beforeEach(() => {

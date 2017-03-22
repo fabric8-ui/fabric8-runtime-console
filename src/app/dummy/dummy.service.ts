@@ -17,7 +17,7 @@ import {BuildConfigStore} from "../kubernetes/store/buildconfig.store";
 import {BuildConfigs, BuildConfig} from "../kubernetes/model/buildconfig.model";
 import {MenuItem} from "../models/menu-item";
 import {resourceMenus} from "../kubernetes/components/resource-header/resource.header.component";
-import {Broadcaster} from 'ngx-login-client';
+import {Broadcaster} from 'ngx-base';
 
 // A service responsible for providing dummy data for the UI prototypes.
 
