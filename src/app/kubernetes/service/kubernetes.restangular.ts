@@ -1,22 +1,22 @@
-import {NgModule, OpaqueToken} from "@angular/core";
-import {Restangular} from "ng2-restangular";
-import {KubernetesResource} from "../model/kubernetesresource.model";
-import {Service} from "../model/service.model";
-import {Deployment} from "../model/deployment.model";
-import {ConfigMap} from "../model/configmap.model";
-import {Namespace} from "../model/namespace.model";
-import {Pod} from "../model/pod.model";
-import {ReplicaSet} from "../model/replicaset.model";
-import {ReplicationController} from "../model/replicationcontroller.model";
-import {BuildConfig} from "../model/buildconfig.model";
-import {DeploymentConfig} from "../model/deploymentconfig.model";
-import {Build} from "../model/build.model";
-import {OAuthService} from "angular2-oauth2/oauth-service";
-import {OnLogin} from "../../shared/onlogin.service";
-import {currentOAuthConfig} from "../store/oauth-config-store";
+import { AUTH_TOKEN } from './../../shared/auth-token';
+import { NgModule, OpaqueToken } from "@angular/core";
+import { Restangular } from "ng2-restangular";
+import { KubernetesResource } from "../model/kubernetesresource.model";
+import { Service } from "../model/service.model";
+import { Deployment } from "../model/deployment.model";
+import { ConfigMap } from "../model/configmap.model";
+import { Namespace } from "../model/namespace.model";
+import { Pod } from "../model/pod.model";
+import { ReplicaSet } from "../model/replicaset.model";
+import { ReplicationController } from "../model/replicationcontroller.model";
+import { BuildConfig } from "../model/buildconfig.model";
+import { DeploymentConfig } from "../model/deploymentconfig.model";
+import { Build } from "../model/build.model";
+import { OAuthService } from "angular2-oauth2/oauth-service";
+import { currentOAuthConfig } from "../store/oauth-config-store";
 import { AuthenticationService } from 'ngx-login-client';
 import { LoginService } from '../../shared/login.service';
-import {Route} from "../model/route.model";
+import { Route } from "../model/route.model";
 
 export const KUBERNETES_RESTANGULAR = new OpaqueToken('KubernetesRestangular');
 
@@ -71,7 +71,7 @@ function convertToKubernetesResource(resource) {
   }
 }
 
-export function KubernetesRestangularFactory(restangular: Restangular, oauthService: OAuthService, onLogin: OnLogin, loginService: LoginService) {
+export function KubernetesRestangularFactory(restangular: Restangular, oauthService: OAuthService, token: string) {
   const config = restangular.withConfig((RestangularConfigurer) => {
     // TODO setting the baseUrl to empty string doesn't seem to work so lets use the absolute URL of the app
     let baseUrl = '';
@@ -120,11 +120,11 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
     });
 
 
-    RestangularConfigurer.addFullRequestInterceptor((element, operation, path, url, headers, params)=> {
+    RestangularConfigurer.addFullRequestInterceptor((element, operation, path, url, headers, params) => {
       let baseUrl = '';
       let oauthConfig = currentOAuthConfig();
       if (oauthConfig) {
-        baseUrl = oauthConfig.apiServer ||  '';
+        baseUrl = oauthConfig.apiServer || '';
         if (baseUrl) {
           let protocol = oauthConfig.apiServerProtocol || 'https';
           baseUrl = protocol + "://" + baseUrl;
@@ -152,34 +152,32 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
       }
       //console.log("==========  using Restangular base URL " + baseUrl);
       RestangularConfigurer.setBaseUrl(baseUrl);
-
-      var token = '';
-      if (!loginService.useCustomAuth) {
-        token = onLogin.token;
-      } else {
-        token = oauthService.getAccessToken();
-        if (!token && onLogin) {
-          token = onLogin.token;
-        }
-      }
       if (!operation && !path && !url) {
         console.log("avoid compile error ;)");
       }
       //console.log("===== setting kubernetes token: " + (token ? "token" : "no token") + " for " + url);
       headers["Authorization"] = 'Bearer ' + token;
-       return {
-         params: params,
-         headers: headers,
-         element: element
-       }
-     });
+      return {
+        params: params,
+        headers: headers,
+        element: element
+      }
+    });
   });
   return config;
 }
 
 @NgModule({
   providers: [
-    {provide: KUBERNETES_RESTANGULAR, useFactory: KubernetesRestangularFactory, deps: [Restangular, OAuthService, OnLogin, LoginService]},
+    {
+      provide: KUBERNETES_RESTANGULAR,
+      useFactory: KubernetesRestangularFactory,
+      deps: [
+        Restangular,
+        OAuthService,
+        AUTH_TOKEN
+      ],
+    },
   ],
 })
 export class KubernetesRestangularModule {
