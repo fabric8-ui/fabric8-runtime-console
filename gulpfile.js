@@ -86,6 +86,7 @@ gulp.task('build-library',
     'post-transpile',
     'transpile-sass',
     'copy-html',
+    'copy-images',
     'copy-static-assets'
   ]);
 
@@ -96,6 +97,15 @@ gulp.task('transpile', /*['pre-transpile'],*/ function () {
 gulp.task('copy-html', function () {
   return copyToDist([
     'src/**/*.html'
+  ]);
+});
+
+gulp.task('copy-images', function () {
+  return copyToDist([
+    'src/**/*.svg',
+    'src/**/*.png',
+    'src/**/*.jpg',
+    'src/**/*.jpeg'
   ]);
 });
 
