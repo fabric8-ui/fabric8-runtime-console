@@ -1,3 +1,4 @@
+import { authTokenProvider } from './shared/auth-token.provider';
 import './rxjs-extensions';
 
 import {BrowserModule} from "@angular/platform-browser";
@@ -79,7 +80,8 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     Logger,
     OAuthService,
     OnLogin,
-    TokenResolver
+    TokenResolver,
+    authTokenProvider
   ],
   bootstrap: [AppComponent],
 })
