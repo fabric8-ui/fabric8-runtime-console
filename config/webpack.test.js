@@ -55,17 +55,14 @@ sassModules.forEach(function (val) {
 module.exports = function (options) {
   return {
 
-    entry: {
-      'app': './src/main.browser.ts'
-    },
-
     /**
      * Source map for Karma from the help of karma-sourcemap-loader &  karma-webpack
      *
      * Do not change, leave as is or it wont work.
      * See: https://github.com/webpack/karma-webpack#source-maps
      */
-    devtool: 'inline-source-map',
+    // remove for speed - can enable when debugging or running in a browser
+    //devtool: 'inline-source-map',
 
     /**
      * Options affecting the resolving of modules.
@@ -105,15 +102,16 @@ module.exports = function (options) {
          *
          * See: https://github.com/webpack/source-map-loader
          */
-        {
-          test: /\.js$/,
-          use: ['source-map-loader'],
-          exclude: [
-            // these packages have problems with their sourcemaps
-            path.resolve(__dirname, 'node_modules/rxjs'),
-            path.resolve(__dirname, 'node_modules/@angular')
-          ]
-        },
+        // js sourcemaps disabled for performance, can be enabled for debugging
+        // {
+        //   test: /\.js$/,
+        //   use: ['source-map-loader'],
+        //   exclude: [
+        //     // these packages have problems with their sourcemaps
+        //     path.resolve(__dirname, 'node_modules/rxjs'),
+        //     path.resolve(__dirname, 'node_modules/@angular')
+        //   ]
+        // },
 
         /**
          * Typescript loader support for .ts and Angular 2 async routes via .async.ts
@@ -123,8 +121,15 @@ module.exports = function (options) {
         {
           test: /\.ts$/,
           use: [
-            'awesome-typescript-loader',
-            'angular2-template-loader'
+            {
+              loader: "awesome-typescript-loader",
+              options: {
+                configFileName: 'tsconfig-test.json'
+              }
+            },
+            {
+              loader: "angular2-template-loader"
+            }
           ],
           exclude: [/\.e2e\.ts$/]
         },
