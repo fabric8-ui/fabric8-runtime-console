@@ -1,3 +1,4 @@
+import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
 import {NamespaceViewComponent} from "./view.namespace.component";
@@ -26,6 +27,7 @@ describe('NamespaceViewComponent', () => {
           ModalModule,
           RestangularModule.forRoot(),
           KubernetesStoreModule,
+          TestAppModule
         ],
         declarations: [
           NamespaceViewComponent,

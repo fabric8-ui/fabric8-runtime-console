@@ -1,3 +1,4 @@
+import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {NamespacesListComponent} from "./list.namespace.component";
@@ -28,6 +29,7 @@ describe('NamespacesListComponent', () => {
         RestangularModule.forRoot(),
         KubernetesStoreModule,
         KubernetesComponentsModule,
+        TestAppModule
       ],
       declarations: [
         NamespacesListComponent,

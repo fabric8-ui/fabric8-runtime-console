@@ -1,3 +1,4 @@
+import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
 import {ReplicaSetViewComponent} from "./view.replicaset.component";
@@ -27,6 +28,7 @@ describe('ReplicaSetViewComponent', () => {
           ModalModule,
           RestangularModule.forRoot(),
           KubernetesStoreModule,
+          TestAppModule
         ],
         declarations: [
           ReplicaSetViewComponent,

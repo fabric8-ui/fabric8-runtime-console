@@ -1,3 +1,4 @@
+import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {PipelinesFullHistoryComponent} from "./full-history.pipeline.component";
@@ -30,6 +31,7 @@ describe('PipelinesFullHistoryComponent', () => {
         KubernetesStoreModule,
         BuildConfigDialogsModule,
         KubernetesComponentsModule,
+        TestAppModule
       ],
       declarations: [
         BuildStageViewComponent,

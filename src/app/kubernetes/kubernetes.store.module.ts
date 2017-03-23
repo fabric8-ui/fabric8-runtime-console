@@ -60,8 +60,6 @@ import {BrowserModule} from "@angular/platform-browser";
   ],
   providers: [
     APIsStore,
-    AuthenticationService,
-    Broadcaster,
     BuildService,
     BuildStore,
     BuildConfigService,
@@ -79,7 +77,9 @@ import {BrowserModule} from "@angular/platform-browser";
     EventStore,
     NamespaceService,
     NamespaceStore,
+    // TODO Move to app.module
     OAuthConfigStore,
+    // TODO Move to app.module
     OAuthService,
     PodService,
     PodStore,
@@ -92,12 +92,7 @@ import {BrowserModule} from "@angular/platform-browser";
     RouteServiceStore,
     ServiceService,
     ServiceStore,
-    SpaceStore,
-    OnLogin,
-    LoginService,
-    authApiUrlProvider,
-    ssoApiUrlProvider,
-    witApiUrlProvider,
+    SpaceStore
   ],
 })
 export class KubernetesStoreModule {

@@ -1,3 +1,4 @@
+import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
 import {ConfigMapViewComponent} from "./view.configmap.component";
@@ -26,6 +27,7 @@ describe('ConfigMapViewComponent', () => {
           ModalModule,
           RestangularModule.forRoot(),
           KubernetesStoreModule,
+          TestAppModule
         ],
         declarations: [
           ConfigMapViewComponent,
