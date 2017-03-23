@@ -1,3 +1,4 @@
+import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
 import {PodViewComponent} from "./view.pod.component";
@@ -28,6 +29,7 @@ describe('PodViewComponent', () => {
           RestangularModule.forRoot(),
           KubernetesStoreModule,
           KubernetesComponentsModule,
+          TestAppModule
         ],
         declarations: [
           PodViewComponent,

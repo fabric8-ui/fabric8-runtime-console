@@ -1,3 +1,4 @@
+import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, TestBed, ComponentFixture} from "@angular/core/testing";
 import {PipelineViewComponent} from "./view.pipeline.component";
@@ -27,6 +28,7 @@ describe('PipelineViewComponent', () => {
           RestangularModule.forRoot(),
           KubernetesStoreModule,
           BuildConfigDialogsModule,
+          TestAppModule
         ],
         declarations: [
           PipelineViewComponent,

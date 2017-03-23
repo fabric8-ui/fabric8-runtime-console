@@ -1,3 +1,4 @@
+import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {BuildsListComponent} from "./list.build.component";
@@ -26,6 +27,7 @@ describe('BuildsListComponent', () => {
         ModalModule,
         RestangularModule.forRoot(),
         KubernetesStoreModule,
+        TestAppModule
       ],
       declarations: [
         BuildsListComponent,

@@ -1,3 +1,4 @@
+import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {SpacesListComponent} from "./list.space.component";
@@ -28,6 +29,7 @@ describe('SpacesListComponent', () => {
         RestangularModule.forRoot(),
         KubernetesStoreModule,
         KubernetesComponentsModule,
+        TestAppModule
       ],
       declarations: [
         SpacesListComponent,
