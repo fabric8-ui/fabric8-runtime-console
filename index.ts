@@ -1,3 +1,4 @@
+export { AUTH_TOKEN } from './src/app/shared/auth-token';
 export { PipelineStatusComponent } from './src/app/kubernetes/components/pipeline-status/pipeline-status.component';
 export { PodPhaseIconComponent } from './src/app/kubernetes/components/pod-phase-icon/pod-phase-icon.component';
 export { KubernetesLabelsComponent } from './src/app/kubernetes/components/k8s-labels/k8s-labels.component';
