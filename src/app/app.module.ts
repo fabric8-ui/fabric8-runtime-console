@@ -27,7 +27,6 @@ import { Broadcaster, AuthenticationService } from 'ngx-login-client';
 import { LoginService } from './shared/login.service';
 import { witApiUrlProvider } from './shared/wit-api.provider';
 import { authApiUrlProvider } from './shared/auth-api.provider';
-import { ApiLocatorService } from './shared/api-locator.service';
 import { ssoApiUrlProvider } from './shared/sso-api.provider';
 import { TokenResolver } from './shared/token.resolver';
 
@@ -71,7 +70,6 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     authApiUrlProvider,
     ssoApiUrlProvider,
     witApiUrlProvider,
-    ApiLocatorService,
     AuthenticationService,
     Broadcaster,
     ContextService,
