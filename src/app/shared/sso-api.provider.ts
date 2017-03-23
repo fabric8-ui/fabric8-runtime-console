@@ -1,13 +1,11 @@
 import { OpaqueToken } from '@angular/core';
-import { ApiLocatorService } from './api-locator.service';
 import { SSO_API_URL } from 'ngx-login-client';
 
-let ssoApiUrlFactory = (api: ApiLocatorService) => {
-  return api.ssoApiUrl;
+let ssoApiUrlFactory = () => {
+  return process.env.FABRIC8_SSO_API_URL;
 };
 
 export let ssoApiUrlProvider = {
   provide: SSO_API_URL,
-  useFactory: ssoApiUrlFactory,
-  deps: [ApiLocatorService]
+  useFactory: ssoApiUrlFactory
 };

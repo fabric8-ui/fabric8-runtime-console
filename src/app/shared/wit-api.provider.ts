@@ -1,13 +1,11 @@
 import { OpaqueToken } from '@angular/core';
-import { ApiLocatorService } from './api-locator.service';
 import { WIT_API_URL } from 'ngx-fabric8-wit';
 
-let witApiUrlFactory = (api: ApiLocatorService) => {
-  return api.witApiUrl;
+let witApiUrlFactory = () => {
+  return process.env.FABRIC8_WIT_API_URL;
 };
 
 export let witApiUrlProvider = {
   provide: WIT_API_URL,
-  useFactory: witApiUrlFactory,
-  deps: [ApiLocatorService]
+  useFactory: witApiUrlFactory
 };

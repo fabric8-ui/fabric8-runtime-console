@@ -1,7 +1,6 @@
 import {Component, Input, ViewChild} from "@angular/core";
 import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod.component";
 import {Pods, Pod} from "../../../model/pod.model";
-import {ApiLocatorService} from "../../../../shared/api-locator.service";
 import {pathJoin} from "../../../model/utils";
 
 @Component({
@@ -19,8 +18,8 @@ export class PodsListComponent {
 
   readonly openShiftConsoleUrl: string;
 
-  constructor(apiLocator: ApiLocatorService) {
-    this.openShiftConsoleUrl = apiLocator.openShiftConsoleUrl;
+  constructor() {
+    this.openShiftConsoleUrl = process.env.OPENSHIFT_CONSOLE_URL;
   }
   openDeleteDialog(deletePodModal, pod) {
     this.deleteDialog.modal = deletePodModal;
