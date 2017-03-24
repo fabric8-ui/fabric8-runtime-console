@@ -2,19 +2,38 @@ import * as jsyaml from 'js-yaml';
 
 import {Namespace, Namespaces, isSecretsNamespace, isSystemNamespace} from "./namespace.model";
 import {ConfigMap} from "./configmap.model";
+import {Entity} from "../../models/entity";
 
+
+export class SpaceConfig {
+  constructor(public namespace: string, public environmentsConfigMap: ConfigMap, public spacesConfigMap: ConfigMap) {
+  }
+}
+
+/**
+ * Allows a namespace to be split up into separate logical spaces using labels in kubernetes/openshift
+ */
+export class LabelSpace implements Entity {
+  constructor(public name: string, public label: string, public description: string, public order: number) {
+  }
+
+  get id(): string {
+    return this.name;
+  }
+}
 
 export class Space {
   id: string;
   name: string;
   environments: Environment[] = [];
+  labelSpaces: LabelSpace[] = [];
 
   /**
    * Returns the namespace of the first environment or if there are none then this namespace name
    */
   firstEnvironmentNamespace: string;
 
-  constructor(public namespace: Namespace, namespaces: Namespaces, public configMap: ConfigMap) {
+  constructor(public namespace: Namespace, namespaces: Namespaces, public spaceConfig: SpaceConfig) {
     if (namespace) {
       this.id = namespace.id;
       this.name = namespace.name;
@@ -25,11 +44,18 @@ export class Space {
     if (namespaces) {
       namespaces.forEach(ns => map[ns.name] = ns);
     }
-    if (configMap) {
-      this.environments = this.loadEnvironments(configMap, map);
 
-      if (this.environments.length) {
-        this.firstEnvironmentNamespace = this.environments[0].namespaceName || this.name;
+    if (spaceConfig) {
+      let environmentsConfigMap = spaceConfig.environmentsConfigMap;
+      let spacesConfigMap = spaceConfig.spacesConfigMap;
+      if (environmentsConfigMap) {
+        this.environments = this.loadEnvironments(environmentsConfigMap, map);
+        if (this.environments.length) {
+          this.firstEnvironmentNamespace = this.environments[0].namespaceName || this.name;
+        }
+      }
+      if (spacesConfigMap) {
+        this.labelSpaces = this.loadLabelSpaces(spacesConfigMap);
       }
     }
   }
@@ -69,6 +95,43 @@ export class Space {
         return -1;
       }
       if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+    return answer;
+  }
+
+  private loadLabelSpaces(configMap: ConfigMap) {
+    let answer = [];
+    var data = configMap.data;
+    if (data) {
+      Object.keys(data).forEach((key) => {
+        let yaml = data[key];
+        if (yaml) {
+          let config = jsyaml.safeLoad(yaml);
+          let label = config['name'] || "";
+          let description = config['description'] || "";
+          var order = config.order;
+          if (order === undefined) {
+            order = 1000;
+          }
+          answer.push(new LabelSpace(key, label, description, order));
+        }
+      });
+    } else {
+      console.log("No data for ConfigMap " + configMap.name + " in namespace " + configMap.namespace);
+    }
+    answer.sort((a: LabelSpace, b: LabelSpace) => {
+      if (a.order < b.order) {
+        return -1;
+      } else if (a.order > b.order) {
+        return 1;
+      }
+      if (a.label < b.label) {
+        return -1;
+      }
+      if (a.label > b.label) {
         return 1;
       }
       return 0;
