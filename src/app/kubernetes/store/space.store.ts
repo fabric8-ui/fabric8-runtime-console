@@ -3,7 +3,7 @@ import {Namespaces, Namespace, isSecretsNamespace, isSystemNamespace} from "../m
 import {Observable, BehaviorSubject, Subscription} from "rxjs";
 import {NamespaceStore} from "./namespace.store";
 import {ConfigMapService} from "../service/configmap.service";
-import {Space, Spaces, asSpaces} from "../model/space.model";
+import {Space, Spaces, asSpaces, SpaceConfig} from "../model/space.model";
 import {ConfigMap} from "../model/configmap.model";
 import "rxjs/add/observable/forkJoin";
 import {OnLogin} from "../../shared/onlogin.service";
@@ -12,13 +12,17 @@ import {Watcher} from "../service/watcher";
 import {ConfigMapStore} from "./configmap.store";
 
 
-class EnvironmentWatcher {
-  protected configMapSubject: BehaviorSubject<ConfigMap> = new BehaviorSubject(null);
-  protected configMap: ConfigMap;
+const fabric8EnvironmentsName = "fabric8-environments";
+const fabric8SpacesName = "fabric8-spaces";
+
+
+class SpaceConfigWatcher {
+  protected spaceConfigSubject: BehaviorSubject<SpaceConfig> = new BehaviorSubject(null);
+  protected spaceConfig: SpaceConfig;
   protected subscription: Subscription;
   public notified: boolean;
 
-  constructor(protected configMapStore: ConfigMapStore, public watcher: Watcher, protected onChangeFn: (ConfigMap) => void) {
+  constructor(protected configMapStore: ConfigMapStore, public watcher: Watcher, protected onChangeFn: (SpaceConfig) => void) {
     this.subscription = watcher.dataStream.subscribe(msg => {
       this.onMessageEvent(msg);
     });
@@ -28,23 +32,32 @@ class EnvironmentWatcher {
     let resourceOperation = messageEventToResourceOperation(msg);
     if (resourceOperation) {
       if (resourceOperation.operation == Operation.DELETED) {
-        this.configMap = null;
-        this.notify(this.configMap);
+        this.spaceConfig = null;
+        this.notify(this.spaceConfig);
       } else {
         let resource = resourceOperation.resource;
         let configMap = this.configMapStore.instantiate(resource);
         if (configMap) {
-          this.configMap = configMap;
-          this.notify(this.configMap);
+          let old = this.spaceConfig;
+          var environmentsConfigMap: ConfigMap = old ? old.environmentsConfigMap : null;
+          var spacesConfigMap: ConfigMap = old ? old.spacesConfigMap : null;
+
+          if (configMap.name === fabric8EnvironmentsName) {
+            environmentsConfigMap = configMap;
+          } else if (configMap.name === fabric8SpacesName) {
+            spacesConfigMap = configMap;
+          }
+          this.spaceConfig = new SpaceConfig(configMap.namespace, environmentsConfigMap, spacesConfigMap);
+          this.notify(this.spaceConfig);
         }
       }
     }
   }
 
-  public notify(configMap: ConfigMap) {
-    this.configMapSubject.next(configMap);
+  public notify(spaceConfig: SpaceConfig) {
+    this.spaceConfigSubject.next(spaceConfig);
     if (this.onChangeFn) {
-      this.onChangeFn(configMap);
+      this.onChangeFn(spaceConfig);
     }
     this.notified = true;
   }
@@ -57,16 +70,16 @@ export class SpaceStore {
   private loadId: string;
   protected _loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  private environments: Map<String,EnvironmentWatcher>;
-  private configMaps: Map<String,ConfigMap>;
-  protected configMapsSubject: BehaviorSubject<Map<String,ConfigMap>>;
+  private spaceConfigWatchers: Map<String,SpaceConfigWatcher>;
+  private spaceConfigs: Map<String,SpaceConfig>;
+  protected spaceConfigsSubject: BehaviorSubject<Map<String,SpaceConfig>>;
 
   constructor(private namespaceStore: NamespaceStore, configMapService: ConfigMapService, configMapStore: ConfigMapStore, private onLogin: OnLogin) {
     let namespacesList = this.namespaceStore.list;
 
-    this.environments = new Map<String,EnvironmentWatcher>();
-    this.configMaps = new Map<String,ConfigMap>();
-    this.configMapsSubject = new BehaviorSubject(this.configMaps);
+    this.spaceConfigWatchers = new Map<String,SpaceConfigWatcher>();
+    this.spaceConfigs = new Map<String,SpaceConfig>();
+    this.spaceConfigsSubject = new BehaviorSubject(this.spaceConfigs);
 
     // lets make sure we've always got an up to date map of configmaps
     namespacesList.subscribe(namespaces => {
@@ -78,35 +91,43 @@ export class SpaceStore {
           }
           var name = namespace.name;
           if (name) {
-            var environmentWatcher = this.environments[name];
-            if (!environmentWatcher) {
+            var springConfigWatcher = this.spaceConfigWatchers[name];
+            if (!springConfigWatcher) {
               //console.log("watching configmaps in namespace " + name);
               let watcher = configMapService.watchNamepace(name, {
-                labelSelector: "kind=environments"
+                labelSelector: "provider=fabric8"
               });
-              environmentWatcher = new EnvironmentWatcher(configMapStore, watcher, (configMap) => this.environmentUpdated(configMap));
+              springConfigWatcher = new SpaceConfigWatcher(configMapStore, watcher, (spaceConfig) => this.spaceConfigUpdated(spaceConfig));
 
               // lets load the initial value
               configMapService.list(name, {
-                labelSelector: "kind=environments"
+                labelSelector: "provider=fabric8"
               }).take(1).subscribe(cms => {
                 if (cms && cms.length) {
+                  var environmentsConfigMap: ConfigMap = null;
+                  var spacesConfigMap: ConfigMap = null;
                   for (let c of cms) {
-                    if (c.name === "fabric8-environments") {
-                      environmentWatcher.notify(c);
-                      break;
+                    if (c.name === fabric8EnvironmentsName) {
+                      environmentsConfigMap = c;
+                    } else if (c.name === fabric8SpacesName) {
+                      spacesConfigMap = c;
                     }
+                  }
+                  let namespace = (environmentsConfigMap ? environmentsConfigMap.namespace : null)
+                    || (spacesConfigMap ? spacesConfigMap.namespace : null);
+                  if (namespace) {
+                    springConfigWatcher.notify(new SpaceConfig(namespace, environmentsConfigMap, spacesConfigMap));
                   }
                 }
               });
-              this.environments[name] = environmentWatcher;
+              this.spaceConfigWatchers[name] = springConfigWatcher;
             }
           }
         }
         this.checkIfLoaded();
       }
     });
-    this.list = namespacesList.combineLatest(this.configMapsSubject.asObservable(), this.combineNamespacesAndConfigMaps);
+    this.list = namespacesList.combineLatest(this.spaceConfigsSubject.asObservable(), this.combineNamespacesAndConfigMaps);
 
     this.resource = this.list.map(spaces => {
       for (let space of spaces) {
@@ -118,14 +139,14 @@ export class SpaceStore {
     });
   }
 
-  protected combineNamespacesAndConfigMaps(namespaces: Namespaces, configMaps: Map<String,ConfigMap>): Spaces {
+  protected combineNamespacesAndConfigMaps(namespaces: Namespaces, spaceConfigs: Map<String,SpaceConfig>): Spaces {
     var spaces = [];
     if (namespaces) {
       for (let namespace of namespaces) {
         let name = namespace.name;
         if (name) {
-          let configMap = configMaps.get(name);
-          let space = new Space(namespace, namespaces, configMap);
+          let spaceConfig = spaceConfigs.get(name);
+          let space = new Space(namespace, namespaces, spaceConfig);
           spaces.push(space);
         }
       }
@@ -133,14 +154,14 @@ export class SpaceStore {
     return asSpaces(spaces);
   }
 
-  protected environmentUpdated(configMap: ConfigMap) {
-    let name = configMap.namespace;
-    if (configMap == null) {
-      this.configMaps.delete(name);
+  protected spaceConfigUpdated(spaceConfig: SpaceConfig) {
+    let name = spaceConfig.namespace;
+    if (spaceConfig == null) {
+      this.spaceConfigs.delete(name);
     } else {
-      this.configMaps.set(name, configMap);
+      this.spaceConfigs.set(name, spaceConfig);
     }
-    this.configMapsSubject.next(this.configMaps);
+    this.spaceConfigsSubject.next(this.spaceConfigs);
     this.checkIfLoaded();
   }
 
@@ -148,7 +169,7 @@ export class SpaceStore {
   protected checkIfLoaded() {
     // if we have loaded all environments lets mark the store as loaded
     var loaded = true;
-    this.environments.forEach((environmentWatcher) => {
+    this.spaceConfigWatchers.forEach((environmentWatcher) => {
       if (!environmentWatcher.notified) {
         loaded = false;
       }
@@ -158,6 +179,7 @@ export class SpaceStore {
       this._loading.next(false);
     }
   }
+
   get loading(): Observable<boolean> {
     return this._loading.asObservable();
   }

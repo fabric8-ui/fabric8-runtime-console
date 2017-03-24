@@ -54,6 +54,7 @@ function convertToKubernetesResource(resource) {
     case 'DeploymentConfig':
       return new DeploymentConfig().setResource(resource);
     case 'Namespace':
+    case 'Project':
       return new Namespace().setResource(resource);
     case 'Pod':
       return new Pod().setResource(resource);

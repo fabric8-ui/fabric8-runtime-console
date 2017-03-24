@@ -7,6 +7,9 @@ const routes: Routes = [
   { path: 'home', redirectTo: 'run/spaces', resolve: { token: TokenResolver }, pathMatch: 'full' },
   { path: 'run', resolve: { token: TokenResolver }, loadChildren: '../kubernetes/ui/ui.module#KubernetesUIModule' },
   { path: 'run/space/:space', resolve: { token: TokenResolver }, loadChildren: '../kubernetes/ui/ui.module#KubernetesUIModule' },
+  { path: 'run/space/:space/app/:app', resolve: { token: TokenResolver }, loadChildren: '../kubernetes/ui/ui.module#KubernetesUIModule' },
+  { path: 'run/space/:space/label/:label/app/:app', resolve: { token: TokenResolver }, loadChildren: '../kubernetes/ui/ui.module#KubernetesUIModule' },
+  { path: 'run/space/:space/label/:label', resolve: { token: TokenResolver }, loadChildren: '../kubernetes/ui/ui.module#KubernetesUIModule' },
   { path: 'run/app/:app/space/:space', resolve: { token: TokenResolver }, loadChildren: '../kubernetes/ui/ui.module#KubernetesUIModule' },
 ];
 
