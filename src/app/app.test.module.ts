@@ -1,4 +1,3 @@
-import { authTokenProvider } from './shared/auth-token.provider';
 import { NgModule } from '@angular/core';
 import { witApiUrlProvider } from './shared/wit-api.provider';
 import { ssoApiUrlProvider } from './shared/sso-api.provider';
@@ -17,7 +16,6 @@ import { AuthenticationService } from 'ngx-login-client';
     authApiUrlProvider,
     ssoApiUrlProvider,
     witApiUrlProvider,
-    authTokenProvider,
   ],
 })
 export class TestAppModule { }
