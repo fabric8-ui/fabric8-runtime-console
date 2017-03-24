@@ -16,7 +16,6 @@ import {BuildConfigStore} from "../kubernetes/store/buildconfig.store";
 import {BuildConfigs, BuildConfig} from "../kubernetes/model/buildconfig.model";
 import {MenuItem} from "../models/menu-item";
 import {resourceMenus} from "../kubernetes/components/resource-header/resource.header.component";
-import {Broadcaster} from "ngx-login-client";
 import {pathJoin} from "../kubernetes/model/utils";
 import {Broadcaster} from 'ngx-base';
 
