@@ -167,7 +167,7 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
 
 @NgModule({
   providers: [
-    {provide: KUBERNETES_RESTANGULAR, useFactory: KubernetesRestangularFactory, deps: [Restangular, OAuthService, OnLogin, LoginService]},
+    {provide: KUBERNETES_RESTANGULAR, useFactory: KubernetesRestangularFactory, deps: [Restangular, OAuthService, OnLogin]},
   ],
 })
 export class KubernetesRestangularModule {
