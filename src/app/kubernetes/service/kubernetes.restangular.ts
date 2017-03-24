@@ -153,20 +153,8 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
       //console.log("==========  using Restangular base URL " + baseUrl);
       RestangularConfigurer.setBaseUrl(baseUrl);
 
-      var token = '';
-      if (!loginService.useCustomAuth) {
-        token = onLogin.token;
-      } else {
-        token = oauthService.getAccessToken();
-        if (!token && onLogin) {
-          token = onLogin.token;
-        }
-      }
-      if (!operation && !path && !url) {
-        console.log("avoid compile error ;)");
-      }
       //console.log("===== setting kubernetes token: " + (token ? "token" : "no token") + " for " + url);
-      headers["Authorization"] = 'Bearer ' + token;
+      headers["Authorization"] = 'Bearer ' + onLogin.token;
        return {
          params: params,
          headers: headers,
