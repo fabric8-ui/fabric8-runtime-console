@@ -32,7 +32,7 @@ def updateDownstreamProjects(v){
     pushPackageJSONChangePR{
         propertyName = 'fabric8-runtime-console'
         projects = [
-                'fabric8io/fabric8-ui'
+                'fabric8-ui/fabric8-npm-dependencies'
         ]
         version = v
     }
