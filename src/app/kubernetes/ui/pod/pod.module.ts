@@ -57,6 +57,7 @@ const routes: Routes = [
   ],
   exports: [
     ModalModule,
+    PodsListComponent,
   ],
   providers: [
     DropdownConfig

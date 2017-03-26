@@ -1,7 +1,7 @@
-import {Component, Input, ViewChild} from "@angular/core";
-import {DeploymentDeleteDialog} from "../delete-dialog/delete-dialog.deployment.component";
-import {DeploymentScaleDialog} from "../scale-dialog/scale-dialog.deployment.component";
-import {DeploymentViews} from '../../../view/deployment.view';
+import { Component, Input, ViewChild } from "@angular/core";
+import { DeploymentDeleteDialog } from "../delete-dialog/delete-dialog.deployment.component";
+import { DeploymentScaleDialog } from "../scale-dialog/scale-dialog.deployment.component";
+import { DeploymentViews } from '../../../view/deployment.view';
 
 @Component({
   selector: 'fabric8-deployments-list',
@@ -13,6 +13,8 @@ export class DeploymentsListComponent {
   @Input() runtimeDeployments: DeploymentViews;
 
   @Input() loading: boolean;
+
+  @Input() prefix: string;
 
   @ViewChild(DeploymentDeleteDialog) deleteDialog: DeploymentDeleteDialog;
 
@@ -27,6 +29,10 @@ export class DeploymentsListComponent {
   openScaleDialog(scaleDeploymentModal, deployment) {
     this.scaleDialog.configure(scaleDeploymentModal, deployment);
     scaleDeploymentModal.open();
+  }
+
+  prefixPath(pathComponent: string) {
+    return (this.prefix ? this.prefix + '/' : '') + pathComponent;
   }
 
 }

@@ -18,7 +18,7 @@
               <a [href]="consoleTerminalUrl(pod)" target="openshift">Terminal</a>
             </li>
             <li>
-              <a [routerLink]="[pod.id, 'edit']">Edit</a>
+              <a [routerLink]="[ prefixPath(pod.id), 'edit']">Edit</a>
             </li>
             <li class="divider"></li>
             <li>
@@ -35,7 +35,7 @@
         <div class='list-view-pf-body'>
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
-              <a [routerLink]="[pod.id]" class="card-title" title="view pod">{{ pod.name }}</a>
+              <a [routerLink]="[prefixPath(pod.id)]" class="card-title" title="view pod">{{ pod.name }}</a>
             </div>
             <div class='list-group-item-text'>
               <span class="" *ngFor='let image of pod.images' title="docker image: {{image}}">

@@ -59,6 +59,7 @@ const routes: Routes = [
   ],
   exports: [
     ModalModule,
+    ReplicaSetsListComponent,
   ],
   providers: [
     DropdownConfig

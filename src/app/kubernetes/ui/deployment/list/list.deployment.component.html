@@ -26,7 +26,7 @@
               <a [href]="deployment.deployment.openShiftConsoleUrl" target="openshift" title="View this Deployment in the OpenShift Console">OpenShift Console</a>
             </li>
             <li>
-              <a [routerLink]="[deployment.id, 'edit']">Edit</a>
+              <a [routerLink]="[prefixPath(deployment.id), 'edit']">Edit</a>
             </li>
             <li class="divider"></li>
             <li>
@@ -44,7 +44,7 @@
         <div class='list-view-pf-body'>
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
-              <a [routerLink]="[deployment.id]" class="card-title" title="view deployment">{{ deployment.name }}</a>
+              <a [routerLink]="[prefixPath(deployment.id)]" class="card-title" title="view deployment">{{ deployment.name }}</a>
             </div>
             <div class='list-group-item-text'>
               <span class='open-service-icon'>

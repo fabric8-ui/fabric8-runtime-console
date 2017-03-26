@@ -14,6 +14,8 @@ export class PodsListComponent {
 
   @Input() loading: boolean;
 
+  @Input() prefix: string;
+
   @ViewChild(PodDeleteDialog) deleteDialog: PodDeleteDialog;
 
   openDeleteDialog(deletePodModal, pod) {
@@ -34,5 +36,9 @@ export class PodsListComponent {
 
   consoleUrl(pod: Pod): string {
     return openShiftBrowseResourceUrl(pod);
+  }
+
+  prefixPath(pathComponent: string) {
+    return (this.prefix ? this.prefix + '/' : '') + pathComponent;
   }
 }

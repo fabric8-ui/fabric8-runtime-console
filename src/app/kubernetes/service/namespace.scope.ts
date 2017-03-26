@@ -1,6 +1,7 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRoute, Router, NavigationEnd} from "@angular/router";
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
+import { Observable } from 'rxjs';
+import { merge } from 'lodash';
 
 @Injectable()
 export class NamespaceScope {
@@ -19,11 +20,30 @@ export class NamespaceScope {
   }
 
   protected getNamespace(params) {
-    return params['namespace'] || this.defaultNamespace();
+    return this.getRouteParams()['namespace'] || this.defaultNamespace();
   }
 
   defaultNamespace(): string {
     // TODO use some other mechanism to return the default?
     return 'default';
   }
+
+  private getRouteParams(): any {
+    if (
+      this.router &&
+      this.router.routerState &&
+      this.router.routerState.snapshot &&
+      this.router.routerState.snapshot.root
+    ) {
+      let firstChild = this.router.routerState.snapshot.root.firstChild;
+      let res = {};
+      while (firstChild) {
+        res = merge(res, firstChild.params);
+        firstChild = firstChild.firstChild;
+      }
+      return res;
+    }
+    return null;
+  }
+
 }

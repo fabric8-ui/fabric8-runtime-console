@@ -1,7 +1,7 @@
-import {Component, Input, ViewChild} from "@angular/core";
-import {ReplicaSetDeleteDialog} from "../delete-dialog/delete-dialog.replicaset.component";
-import {ReplicaSetViews} from "../../../view/replicaset.view";
-import {ReplicaSetScaleDialog} from "../scale-dialog/scale-dialog.replicaset.component";
+import { Component, Input, ViewChild } from "@angular/core";
+import { ReplicaSetDeleteDialog } from "../delete-dialog/delete-dialog.replicaset.component";
+import { ReplicaSetViews } from "../../../view/replicaset.view";
+import { ReplicaSetScaleDialog } from "../scale-dialog/scale-dialog.replicaset.component";
 
 @Component({
   selector: 'fabric8-replicasets-list',
@@ -13,6 +13,8 @@ export class ReplicaSetsListComponent {
   @Input() runtimeReplicaSets: ReplicaSetViews;
 
   @Input() loading: boolean;
+
+  @Input() prefix: string;
 
   @ViewChild(ReplicaSetDeleteDialog) deleteDialog: ReplicaSetDeleteDialog;
 
@@ -27,6 +29,10 @@ export class ReplicaSetsListComponent {
   openScaleDialog(scaleReplicaSetModal, replicaset) {
     this.scaleDialog.configure(scaleReplicaSetModal, replicaset);
     scaleReplicaSetModal.open();
+  }
+
+  prefixPath(pathComponent: string) {
+    return (this.prefix ? this.prefix + '/' : '') + pathComponent;
   }
 
 }

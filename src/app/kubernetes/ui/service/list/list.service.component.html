@@ -15,7 +15,7 @@
               <a [href]="service.openShiftConsoleUrl" target="openshift" title="View this Service in the OpenShift Console">OpenShift Console</a>
             </li>
             <li>
-              <a [routerLink]="[service.id, 'edit']">Edit</a>
+              <a [routerLink]="[pathPrefix(service.id), 'edit']">Edit</a>
             </li>
             <li class="divider"></li>
             <li>
@@ -32,7 +32,7 @@
         <div class='list-view-pf-body'>
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
-              <a [routerLink]="[service.id]" class="card-title" title="view service">{{ service.name }}</a>
+              <a [routerLink]="[pathPrefix(service.id)]" class="card-title" title="view service">{{ service.name }}</a>
             </div>
             <div class='list-group-item-text'>
               <span class='open-service-icon'>

@@ -76,6 +76,7 @@
     "ngx-base": "1.2.0",
     "ngx-fabric8-wit": "6.15.2",
     "ngx-login-client": "0.6.5",
+    "ngx-widgets": "0.10.4",
     "rxjs": "5.0.1"
   },
   "devDependencies": {
