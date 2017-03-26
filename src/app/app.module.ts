@@ -42,10 +42,7 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     HttpModule,
     RestangularModule.forRoot([ConfigService], restangularProviderConfigurer),
     NgbModule.forRoot(),
-    AppRoutingModule,
     DropdownModule,
-
-
     Fabric8CommonModule,
     KubernetesStoreModule,
     KubernetesUIModule,
@@ -53,6 +50,8 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
       prefix: 'fabric8',
       storageType: 'localStorage'
     }),
+    // Load app routing last
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,

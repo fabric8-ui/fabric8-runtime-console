@@ -515,19 +515,23 @@ export class DummyService implements OnInit {
   }
 
 
-  private createUrlPrefix(ns: string, spaceName: string, label: string, app: string) {
+  private createUrlPrefix(ns: string, spaceName: string, label: string, app: string, environments: boolean) {
     if (!ns) {
       return "/run/spaces";
     }
     if (spaceName) {
       if (label) {
-        if (app) {
+        if (environments) {
+          return pathJoin("/run/space", spaceName, "label", label, "environments");
+        } else if (app) {
           return pathJoin("/run/space", spaceName, "label", label, "app", app, "namespaces", ns);
         } else {
           return pathJoin("/run/space", spaceName, "label", label, "namespaces", ns);
         }
       } else {
-        if (app) {
+        if (environments) {
+          return pathJoin("/run/space", spaceName, "environments");
+        } else if (app) {
           return pathJoin("/run/space/", spaceName, "app", app, "/namespaces/", ns);
         } else {
           return pathJoin("/run/space/", spaceName, "/namespaces/", ns);
@@ -655,7 +659,7 @@ export class DummyService implements OnInit {
       firstEnvNamespace = space.environments[0].namespaceName;
     }
     var ns = params["namespace"] || firstEnvNamespace || spaceName;
-    let prefix = this.createUrlPrefix(ns, spaceName, label, app);
+    let prefix = this.createUrlPrefix(ns, spaceName, label, app, false);
 
     let runPath = prefix + this.currentRunResourcePath();
     let buildPath = prefix + '/builds';
@@ -679,7 +683,7 @@ export class DummyService implements OnInit {
     var app = params["app"];
     var label = labelSpace.name;
 
-    let prefix = this.createUrlPrefix(ns, spaceName, label, app);
+    let prefix = this.createUrlPrefix(ns, spaceName, label, app, false);
     let runPath = prefix + this.currentRunResourcePath();
 
     let buildPath = prefix + '/builds';
@@ -822,12 +826,17 @@ export class DummyService implements OnInit {
       if (environments && environments.length) {
         runMenus.push({
           name: "Tools",
-          path: this.createUrlPrefix(space.name, space.name, label, app) + resourcePath,
+          path: this.createUrlPrefix(space.name, space.name, label, app, false) + resourcePath,
+        });
+
+        runMenus.push({
+          name: "Environments",
+          path: this.createUrlPrefix(space.name, space.name, label, app, true),
         });
 
         environments.forEach(env => {
           var envName = env.name;
-          let prefix = this.createUrlPrefix(env.namespaceName, space.name, label, app);
+          let prefix = this.createUrlPrefix(env.namespaceName, space.name, label, app, false);
           var path = prefix + resourcePath;
           runMenus.push({
             name: envName,

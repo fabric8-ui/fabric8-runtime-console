@@ -3,7 +3,7 @@ import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OAuthConfigStore} from "./kubernetes/store/oauth-config-store";
 import {Observable} from "rxjs";
 import {OnLogin} from "./shared/onlogin.service";
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LoginService} from './shared/login.service';
 // import { jquery as $ } from 'jquery';
 
@@ -28,7 +28,8 @@ export class AppComponent implements OnInit, AfterViewInit {
               private oauthConfigStore: OAuthConfigStore,
               private onLogin: OnLogin,
               private activatedRoute: ActivatedRoute,
-              private loginService: LoginService) {
+              private loginService: LoginService,
+              private router: Router) {
 
     // change this to false to use platform authentication directly instead of the custom openshift oauth
     this.loginService.useCustomAuth = true;

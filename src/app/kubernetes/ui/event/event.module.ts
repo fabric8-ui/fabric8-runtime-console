@@ -42,6 +42,7 @@ const routes: Routes = [
   ],
   exports: [
     ModalModule,
+    EventsListComponent,
   ],
   providers: [
     DropdownConfig

@@ -11,4 +11,10 @@ export class EventsListComponent {
   @Input() events: Events;
 
   @Input() loading: boolean;
+
+  @Input() prefix: string;
+
+  prefixPath(pathComponent: string) {
+    return (this.prefix ? this.prefix + '/' : '') + pathComponent;
+  }
 }

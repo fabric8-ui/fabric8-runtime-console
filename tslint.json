@@ -105,13 +105,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "ipaas",
+      "fabroic8",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "ipaas",
+      "fabric8",
       "kebab-case"
     ],
     "use-input-property-decorator": true,

@@ -1,4 +1,3 @@
-import { DeploymentRoutingModule } from './deployment-routing.module';
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {DropdownConfig, DropdownModule} from "ng2-bootstrap";
@@ -22,43 +21,19 @@ import {MomentModule} from "angular2-moment";
 import {KubernetesComponentsModule} from "../../components/components.module";
 import {DeploymentScaleDialog} from './scale-dialog/scale-dialog.deployment.component';
 
+const routes: Routes = [
+  { path: '', component: DeploymentsListPage },
+  { path: ':id', component: DeploymentViewPage },
+  { path: ':id/edit', component: DeploymentEditPage },
+];
+
 @NgModule({
   imports: [
-    CommonModule,
-    DropdownModule,
-    FormsModule,
-    ModalModule,
-    MomentModule,
-    Fabric8CommonModule,
-    KubernetesComponentsModule,
-    DeploymentRoutingModule,
-  ],
-  declarations: [
-    DeploymentsListPage,
-    DeploymentsListToolbarComponent,
-    DeploymentsListComponent,
-    DeploymentViewPage,
-    DeploymentViewWrapperComponent,
-    DeploymentViewToolbarComponent,
-    DeploymentViewComponent,
-    DeploymentEditPage,
-    DeploymentEditWrapperComponent,
-    DeploymentEditToolbarComponent,
-    DeploymentEditComponent,
-    DeploymentDeleteDialog,
-    DeploymentScaleDialog,
-  ],
-  entryComponents: [
-    DeploymentDeleteDialog,
-    DeploymentEditPage,
+    RouterModule.forChild(routes),
   ],
   exports: [
-    ModalModule,
-    DeploymentsListComponent,
+    RouterModule,
   ],
-  providers: [
-    DropdownConfig
-  ]
 })
-export class DeploymentModule {
+export class DeploymentRoutingModule {
 }
