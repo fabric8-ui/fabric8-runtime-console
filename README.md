@@ -16,43 +16,9 @@ Included in this stack are the following technologies:
 
 ## Quick Start
 
-**Make sure you have node version >= 6.x.x and Yarn version >= 0.18.1**
+**Make sure you have node version >= 6.x.x**
 
-Clone/download the repo start editing `app.component.ts` inside [`/src/app/`](/src/app/app.component.ts)
-
-```bash
-# clone our repo
-git clone https://github.com/fabric8-ui/fabric8-runtime-console.git
-cd fabric8-runtime-console
-
-# install the dependencies
-npm install
-
-# start the server
-npm start
-```
-
-Then to be able to use the kubernetes / openshift back end for builds and runtime resources you will need to run a proxy in another shell:
-
-### Check you can connect to some OpenShift cluster
-
-To run this console you need an OpenShift cluster to play with. If you have used `oc login` to connect to something and can run something like:
-
-```
-oc get node
-oc get pod
-```
-
-Then you're good to go. If not consider installing and starting [minishift](https://github.com/minishift/minishift#installation) and then running the `oc login` command it tells you on startup so that you can run the above commands.
-
-### Proxying
-
-We also have built in support for proxying your requests to the OpenShift cluster - this is particularly
-useful if your OpenShift cluster doesn't support CORS. By default the console will access the proxy on the
-same protocl, host and port as the app is running. You can adjust this using environment variables, and the
-sample environments provide good examples of doing this.
-
-#### Sample environments
+## environments
 
 We provide various sample environments out of the box which make it easier to get started.
 The environments are provided as bash scripts in `environments`. To use them run:
@@ -66,6 +32,34 @@ For example, to connect to devshift:
 ```bash
 source environments/devshift-cluster.sh
 ```
+
+### git clone
+
+Clone/download the repo start editing `app.component.ts` inside [`/src/app/`](/src/app/app.component.ts)
+
+```bash
+# clone our repo
+git clone https://github.com/fabric8-ui/fabric8-runtime-console.git
+cd fabric8-runtime-console
+```
+
+### build
+
+```bash
+# install the dependencies
+npm install
+
+# start the server
+npm start
+```
+
+
+### Proxying
+
+We also have built in support for proxying your requests to the OpenShift cluster - this is particularly
+useful if your OpenShift cluster doesn't support CORS. By default the console will access the proxy on the
+same protocl, host and port as the app is running. You can adjust this using environment variables, and the
+sample environments provide good examples of doing this.
 
 ### Open the console in your browser
 
