@@ -46,18 +46,18 @@ export let KINDS: Kind[] = [
   },
 ];
 
-class EnvironmentEntry {
+export class EnvironmentEntry {
   environment: Environment;
   kinds: KindNode[];
   loading: boolean;
 }
 
-class Kind {
+export class Kind {
   name: string;
   path: string;
 }
 
-class KindNode {
+export class KindNode {
   title: Subject<string>;
   environment: Environment;
   kind: Kind;
