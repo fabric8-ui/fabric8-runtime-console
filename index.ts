@@ -1,3 +1,5 @@
+export { EnvironmentListPageComponent } from './src/app/kubernetes/ui/environment/list-page/list-page.environment.component';
+export { EnvironmentModule } from './src/app/kubernetes/ui/environment/environment.module';
 export { PipelineStatusComponent } from './src/app/kubernetes/components/pipeline-status/pipeline-status.component';
 export { PodPhaseIconComponent } from './src/app/kubernetes/components/pod-phase-icon/pod-phase-icon.component';
 export { KubernetesLabelsComponent } from './src/app/kubernetes/components/k8s-labels/k8s-labels.component';
