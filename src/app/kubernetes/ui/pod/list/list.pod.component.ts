@@ -1,7 +1,7 @@
 import {Component, Input, ViewChild} from "@angular/core";
 import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod.component";
 import {Pods, Pod} from "../../../model/pod.model";
-import {pathJoin} from "../../../model/utils";
+import {openShiftBrowseResourceUrl} from "../../../model/helpers";
 
 @Component({
   selector: 'fabric8-pods-list',
@@ -16,11 +16,6 @@ export class PodsListComponent {
 
   @ViewChild(PodDeleteDialog) deleteDialog: PodDeleteDialog;
 
-  readonly openShiftConsoleUrl: string;
-
-  constructor() {
-    this.openShiftConsoleUrl = process.env.OPENSHIFT_CONSOLE_URL;
-  }
   openDeleteDialog(deletePodModal, pod) {
     this.deleteDialog.modal = deletePodModal;
     this.deleteDialog.pod = pod;
@@ -38,10 +33,6 @@ export class PodsListComponent {
   }
 
   consoleUrl(pod: Pod): string {
-    let openShiftConsoleUrl = this.openShiftConsoleUrl;
-    if (pod && openShiftConsoleUrl) {
-      return pathJoin(openShiftConsoleUrl, "/project/", pod.namespace, "/browse/pods", pod.name);
-    }
-    return "";
+    return openShiftBrowseResourceUrl(pod);
   }
 }

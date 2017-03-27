@@ -8,6 +8,7 @@ export class DeploymentView {
   public readonly service: Service;
   public readonly id: string;
   public readonly name: string;
+  public readonly namespace: string;
   public readonly icon: string;
   public readonly description: string;
   public readonly exposeUrl: string;
@@ -25,6 +26,7 @@ export class DeploymentView {
     this.service = service;
     this.id = deployment.id;
     this.name = deployment.name;
+    this.namespace = deployment.namespace;
     this.icon = deployment.icon;
     this.description = deployment.description;
     this.labels = deployment.labels;
@@ -56,6 +58,11 @@ export class DeploymentView {
     this.availableReplicas = deployment.availableReplicas;
     this.unavailableReplicas = deployment.unavailableReplicas;
     this.updatedReplicas = deployment.updatedReplicas;
+  }
+
+  defaultKind() {
+    const deployment = this.deployment;
+    return deployment ? deployment.defaultKind() : "";
   }
 }
 

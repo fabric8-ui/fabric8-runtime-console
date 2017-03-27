@@ -1,4 +1,5 @@
 import {BaseEntity} from '../../store/entity/entity.model';
+import {openShiftBrowseResourceUrl} from "./helpers";
 
 export class KubernetesResource implements BaseEntity {
   id: string;
@@ -10,6 +11,7 @@ export class KubernetesResource implements BaseEntity {
   annotations: Map<string,string>;
   resource: any;
   creationTimestamp: any;
+  openShiftConsoleUrl: string;
 
   public setResource(resource) {
     this.resource = resource || {};
@@ -51,6 +53,8 @@ export class KubernetesResource implements BaseEntity {
 
     // TODO any other annotations we should look for?
     this.description = this.annotations['description'] || '';
+
+    this.openShiftConsoleUrl = openShiftBrowseResourceUrl(this);
   }
 
   defaultIconUrl() {

@@ -22,10 +22,13 @@
               <a (click)="openScaleDialog(scaleDeploymentModal, deployment.deployment)"
                  title="Scale the number of pods">Scale</a>
             </li>
+            <li *ngIf="deployment.deployment.openShiftConsoleUrl">
+              <a [href]="deployment.deployment.openShiftConsoleUrl" target="openshift" title="View this Deployment in the OpenShift Console">OpenShift Console</a>
+            </li>
             <li>
               <a [routerLink]="[deployment.id, 'edit']">Edit</a>
             </li>
-
+            <li class="divider"></li>
             <li>
               <a (click)="openDeleteDialog(deleteDeploymentModal, deployment.deployment)"
                  title="Delete this Deployment">Delete</a>
