@@ -1,3 +1,5 @@
+import { SpaceNamespaceService } from './kubernetes/ui/environment/space-namespace.service';
+import { SpaceNamespace } from './kubernetes/ui/environment/space-namespace';
 import './rxjs-extensions';
 
 import {BrowserModule} from "@angular/platform-browser";
@@ -78,7 +80,11 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     Logger,
     OAuthService,
     OnLogin,
-    TokenResolver
+    TokenResolver,
+    {
+      provide: SpaceNamespace,
+      useClass: SpaceNamespaceService,
+    }
   ],
   bootstrap: [AppComponent],
 })
