@@ -16,6 +16,10 @@
                 View last build
               </a>
             </li>
+            <li *ngIf="buildconfig.openShiftConsoleUrl">
+              <a [href]="buildconfig.openShiftConsoleUrl" target="openshift"
+                 title="View this BuildConfig in the OpenShift Console">OpenShift Console</a>
+            </li>
             <li>
               <a [routerLink]="[buildconfig.id, 'edit']">Edit</a>
             </li>

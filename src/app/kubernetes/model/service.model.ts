@@ -24,6 +24,10 @@ export class Service extends KubernetesSpecResource {
       }
     }
   }
+
+  defaultKind() {
+    return 'Service';
+  }
 }
 
 export class Services extends Array<Service>{
