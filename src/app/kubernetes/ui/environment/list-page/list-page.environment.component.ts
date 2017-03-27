@@ -1,3 +1,4 @@
+import { SpaceNamespace } from './../space-namespace';
 import { Service } from './../../../model/service.model';
 import { ReplicaSet } from './../../../model/replicaset.model';
 import { Pod } from './../../../model/pod.model';
@@ -92,11 +93,12 @@ export class EnvironmentListPageComponent implements OnInit {
     private podService: PodService,
     private replicaSetService: ReplicaSetService,
     private serviceService: ServiceService,
+    private spaceNamespace: SpaceNamespace,
   ) {
   }
 
   ngOnInit() {
-    this.space = this.route.params.pluck<Params, string>('space')
+    this.space = this.spaceNamespace.namespaceSpace
       .map((id) => this.spaceStore.load(id))
       .switchMap(() => this.spaceStore.resource.distinctUntilChanged())
       // Wait 200ms before publishing an empty value - it's probably not empty but it might be!
@@ -104,8 +106,7 @@ export class EnvironmentListPageComponent implements OnInit {
       .publish();
     this.space.subscribe(space => console.log('spaces', space));
     let kindPaths = Object.keys(KINDS).map(key => KINDS[key].path);
-    this.environments = this.route.params
-      .pluck<Params, string>('label')
+    this.environments = this.spaceNamespace.labelSpace
       .switchMap(label => this.space
         .map(space => space.environments)
         .map(environments => environments.map(environment => ({
