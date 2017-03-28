@@ -63,7 +63,21 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
     return this.restangularService.all(url).getList(queryParams);
   }
 
-  // TODO implement create using an optional namespace?
+
+  create(obj: T, namespace: string = null): Observable<T> {
+    if (!namespace) {
+      namespace = obj.namespace;
+    }
+    let url = namespace ? this.serviceUrlForNamespace(namespace) : this.serviceUrl;
+    let resource = obj.resource || {};
+    if (!resource.kind) {
+      resource.kind = obj.defaultKind();
+    }
+    obj.updateResource(resource);
+    console.log('Creating resource with value ' + JSON.stringify(resource, null, '  '));
+
+    return this.restangularService.all(url).post(resource);
+  }
 
   /**
    * Returns the service URL to use for the current namespace scope
