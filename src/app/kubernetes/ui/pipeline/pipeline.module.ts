@@ -23,6 +23,8 @@ import {PipelinesFullHistoryToolbarComponent} from "./full-history-toolbar/full-
 import {PipelinesFullHistoryComponent} from "./full-history/full-history.pipeline.component";
 import {PipelinesFullHistoryPage} from "./full-history-page/full-history-page.pipeline.component";
 
+import {StackDetailsModule} from 'fabric8-stack-analysis-ui';
+
 const routes: Routes = [
   { path: ':id/history', component: PipelinesHistoryPage },
   { path: ':buildConfig/builds', loadChildren: '../build/build.module#BuildModule' },
@@ -35,6 +37,7 @@ const routes: Routes = [
     FormsModule,
     ModalModule,
     MomentModule,
+    StackDetailsModule,
     RouterModule.forChild(routes),
     Fabric8CommonModule,
     KubernetesComponentsModule,

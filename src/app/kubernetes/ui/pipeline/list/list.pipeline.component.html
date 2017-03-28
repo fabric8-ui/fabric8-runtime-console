@@ -68,6 +68,12 @@
             <div class="mar-top-sm ">
               <a [routerLink]="[pipeline.id, 'history']" class="card-title" title="view pipeline">View History</a>
             </div>
+
+            <!-- Fabric-stack-analysis-ui -->
+            <div class="col-xs-12">
+              <stack-details [stack]="codebases && codebases[0]"></stack-details>
+            </div>
+            <!-- Fabric-stack-analysis-ui -->
           </div>
         </div>
       </div>
