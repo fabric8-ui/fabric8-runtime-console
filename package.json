@@ -75,7 +75,7 @@
     "angular-2-local-storage": "1.0.1",
     "fabric8-stack-analysis-ui": "0.0.4",
     "ngx-base": "1.2.3",
-    "ngx-fabric8-wit": "6.15.4",
+    "ngx-fabric8-wit": "6.16.5",
     "ngx-login-client": "0.6.11",
     "ngx-widgets": "0.12.5",
     "rxjs": "5.0.1"
