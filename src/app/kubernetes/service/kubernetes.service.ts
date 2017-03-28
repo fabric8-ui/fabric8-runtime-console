@@ -1,14 +1,21 @@
-import {Inject} from '@angular/core';
-import {Restangular} from 'ng2-restangular';
-import {Observable} from 'rxjs';
-import {RESTService} from '../../store/entity/rest.service';
-import {KUBERNETES_RESTANGULAR} from './kubernetes.restangular';
-import {KubernetesResource} from '../model/kubernetesresource.model';
-import {Watcher} from "./watcher";
+import { Inject } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
+import { Restangular } from 'ng2-restangular';
+
+import { RESTService } from '../../store/entity/rest.service';
+import { KUBERNETES_RESTANGULAR } from './kubernetes.restangular';
+import { KubernetesResource } from '../model/kubernetesresource.model';
+import { Watcher } from './watcher';
+import { WatcherFactory } from './watcher-factory.service';
 
 export abstract class KubernetesService<T extends KubernetesResource, L extends Array<T>> extends RESTService<T, L> {
-  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular) {
+
+  constructor(
+    kubernetesRestangular: Restangular,
+    public watcherFactory: WatcherFactory,
+  ) {
     super(kubernetesRestangular);
   }
 
@@ -17,7 +24,7 @@ export abstract class KubernetesService<T extends KubernetesResource, L extends 
    * @param queryParams
    */
   watch(queryParams: any = null) {
-    return new Watcher(() => this.serviceUrl, queryParams);
+    return this.watcherFactory.newInstance(() => this.serviceUrl, queryParams);
   }
 
   get(id: string): Observable<T> {

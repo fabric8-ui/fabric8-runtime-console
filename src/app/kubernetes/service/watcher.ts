@@ -1,8 +1,11 @@
-import {$WebSocket} from "angular2-websocket/angular2-websocket";
-import {currentOAuthConfig} from "../store/oauth-config-store";
-import {OnLogin} from "../../shared/onlogin.service";
-import {BehaviorSubject, Observable, Subscription} from "rxjs";
 import { ReflectiveInjector } from '@angular/core';
+
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+
+import { $WebSocket } from 'angular2-websocket/angular2-websocket';
+import { currentOAuthConfig } from '../store/oauth-config-store';
+import { OnLogin } from '../../shared/onlogin.service';
+
 
 export class Watcher {
   protected ws: $WebSocket;
@@ -10,7 +13,7 @@ export class Watcher {
   protected _dataStream: BehaviorSubject<any> = new BehaviorSubject(null);
   protected subscription: Subscription;
 
-  constructor(protected pathFn: () => String, protected queryParams: any = null) {
+  constructor(protected pathFn: () => String, protected queryParams: any = null, protected onLogin: OnLogin) {
     this.lazyCreateWebSocket();
   }
 
@@ -32,7 +35,7 @@ export class Watcher {
    * Forces recreation of the web socket
    */
   recreate() {
-    //console.log("recreating web socket for " + this.pathFn());
+    //console.log('recreating web socket for ' + this.pathFn());
     this.close();
     this.lazyCreateWebSocket();
   }
@@ -59,25 +62,23 @@ export class Watcher {
         params[k] = queryParams[k];
       }
     }
-    params["watch"] = true;
-    let injector = ReflectiveInjector.resolveAndCreate([OnLogin]);
-    let onLoginService = injector.get(OnLogin);
-    params["access_token"] = onLoginService.token;
+    params['watch'] = true;
+    params['access_token'] = this.onLogin.token;
 
-    let query = "";
+    let query = '';
     for (let k in params) {
-      let sep = query ? "&" : "";
-      query += sep + k + "=" + encodeURIComponent(params[k]);
+      let sep = query ? '&' : '';
+      query += sep + k + '=' + encodeURIComponent(params[k]);
     }
-    return query ? "?" + query : "";
+    return query ? '?' + query : '';
   }
 
   protected lazyCreateWebSocket() {
     if (!this.ws) {
       let wsApiServer = currentOAuthConfig().wsApiServer;
-      let baseUrl = "";
+      let baseUrl = '';
       if (wsApiServer) {
-        baseUrl = "wss://" + wsApiServer;
+        baseUrl = 'wss://' + wsApiServer;
       } else {
         let location = window.location;
         if (location) {
@@ -96,7 +97,7 @@ export class Watcher {
         this.serviceUrl = serviceUrl;
         if (serviceUrl) {
           let url = baseUrl + serviceUrl + this.query;
-          //console.log("Websocket using URL: " + url);
+          //console.log('Websocket using URL: ' + url);
           this.ws = new $WebSocket(url);
 
           // send a single initial event to make it easier to combine
@@ -107,17 +108,17 @@ export class Watcher {
               this._dataStream.next(msg);
             },
             (err) => {
-              console.log("WebSocket error on " + serviceUrl, err);
+              console.log('WebSocket error on ' + serviceUrl, err);
               this._dataStream.error(err);
             },
             () => {
-              //console.log("WebSocket complete on " + serviceUrl);
+              //console.log('WebSocket complete on ' + serviceUrl);
               this.recreate();
             }
           );
         }
       } else {
-        console.log("Cannot figure out the base URL so we can't watch this resource!");
+        console.log('Cannot figure out the base URL so we can\'t watch this resource!');
       }
     }
   }

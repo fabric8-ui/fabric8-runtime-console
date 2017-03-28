@@ -1,10 +1,11 @@
-import {Restangular} from "ng2-restangular";
-import {KubernetesService} from "./kubernetes.service";
-import {Subscription, Observable} from "rxjs";
-import {KubernetesResource} from "../model/kubernetesresource.model";
-import {NamespaceScope} from "./namespace.scope";
-import {Watcher} from "./watcher";
-import {pathJoin} from "../model/utils";
+import { WatcherFactory } from './watcher-factory.service';
+import { Restangular } from "ng2-restangular";
+import { KubernetesService } from "./kubernetes.service";
+import { Subscription, Observable } from "rxjs";
+import { KubernetesResource } from "../model/kubernetesresource.model";
+import { NamespaceScope } from "./namespace.scope";
+import { Watcher } from "./watcher";
+import { pathJoin } from "../model/utils";
 
 
 export abstract class NamespacedResourceService<T extends KubernetesResource, L extends Array<T>> extends KubernetesService<T, L> {
@@ -12,10 +13,14 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
   private _namespace: string;
   protected _serviceUrl: string;
 
-  constructor(kubernetesRestangular: Restangular,
-              private namespaceScope: NamespaceScope,
-              private urlSuffix: string, private urlPrefix: string = '/api/v1/namespaces/') {
-    super(kubernetesRestangular);
+  constructor(
+    kubernetesRestangular: Restangular,
+    private namespaceScope: NamespaceScope,
+    private urlSuffix: string,
+    watcherFactory: WatcherFactory,
+    private urlPrefix: string = '/api/v1/namespaces/',
+  ) {
+    super(kubernetesRestangular, watcherFactory);
     this.namespace = namespaceScope.defaultNamespace();
 
     if (this.namespaceScope) {
@@ -34,7 +39,7 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
    */
   watchNamepace(namespace: string, queryParams: any = null) {
     if (namespace) {
-      return new Watcher(() => this.serviceUrlForNamespace(namespace), queryParams);
+      return this.watcherFactory.newInstance(() => this.serviceUrlForNamespace(namespace), queryParams);
     }
     return this.watch(queryParams);
   }
@@ -98,7 +103,7 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
 
   protected createServiceUrl(urlPrefix: string, namespace: string, urlSuffix: string): string {
     if (namespace) {
-      let url = pathJoin(urlPrefix,  namespace, urlSuffix);
+      let url = pathJoin(urlPrefix, namespace, urlSuffix);
       //console.log("setting url to: " + url);
       return url;
     }

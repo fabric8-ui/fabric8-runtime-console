@@ -1,3 +1,4 @@
+import { WatcherFactory } from './watcher-factory.service';
 import {Inject, Injectable} from '@angular/core';
 import {Restangular} from 'ng2-restangular';
 import {KUBERNETES_RESTANGULAR} from './kubernetes.restangular';
@@ -18,8 +19,8 @@ function namespaceOrProjectsUrl() {
 @Injectable()
 export class NamespaceService extends KubernetesService<Namespace, Namespaces> {
 
-  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular) {
-    super(kubernetesRestangular.service(namespaceOrProjectsUrl()));
+  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, watcherFactory: WatcherFactory) {
+    super(kubernetesRestangular.service(namespaceOrProjectsUrl()), watcherFactory);
   }
 
   get serviceUrl(): string {

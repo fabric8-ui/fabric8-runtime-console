@@ -1,3 +1,4 @@
+import { WatcherFactory } from './watcher-factory.service';
 import {Inject, Injectable} from "@angular/core";
 import {Restangular} from "ng2-restangular";
 import {KUBERNETES_RESTANGULAR} from "./kubernetes.restangular";
@@ -8,7 +9,7 @@ import {OpenShiftNamespacedResourceService} from "./openshift.namespaced.resourc
 
 @Injectable()
 export class RouteService extends OpenShiftNamespacedResourceService<Route, Routes> {
-  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: NamespaceScope) {
-    super(kubernetesRestangular, namespaceScope, '/routes');
+  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: NamespaceScope, watcherFactory: WatcherFactory) {
+    super(kubernetesRestangular, namespaceScope, '/routes', watcherFactory);
   }
 }

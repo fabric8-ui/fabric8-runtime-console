@@ -1,3 +1,4 @@
+import { WatcherFactory } from './watcher-factory.service';
 import {Inject, Injectable} from "@angular/core";
 import {Restangular} from "ng2-restangular";
 import {KUBERNETES_RESTANGULAR} from "./kubernetes.restangular";
@@ -10,8 +11,12 @@ import {pathJoin} from "../model/utils";
 @Injectable()
 export class BuildConfigService extends NamespacedResourceService<BuildConfig, BuildConfigs> {
 
-  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: DevNamespaceScope, private apiStore: APIsStore) {
-    super(kubernetesRestangular, namespaceScope, '/buildconfigs', '/oapi/v1/namespaces/');
+  constructor(
+    @Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular,
+    namespaceScope: DevNamespaceScope,
+    private apiStore: APIsStore,
+    watcherFactory: WatcherFactory) {
+    super(kubernetesRestangular, namespaceScope, '/buildconfigs', watcherFactory, '/oapi/v1/namespaces/');
 
     apiStore.loading.subscribe(loading => {
       if (!loading) {
