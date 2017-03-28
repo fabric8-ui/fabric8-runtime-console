@@ -2,7 +2,7 @@
 def utils = new io.fabric8.Utils()
 def flow = new io.fabric8.Fabric8Commands()
 def repo = 'fabric8-runtime-console'
-def org = 'fabric8io'
+def org = 'fabric8-ui'
 def ciDeploy = false
 def tempVersion
 def imageName
