@@ -15,7 +15,7 @@ import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
 import {KubernetesComponentsModule} from "../../components/components.module";
 
-const routes: Routes = [
+export const eventRoutes: Routes = [
   { path: '', component: EventsListPage },
   { path: ':id', component: EventViewPage },
 ];
@@ -27,7 +27,7 @@ const routes: Routes = [
     FormsModule,
     ModalModule,
     MomentModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(eventRoutes),
     Fabric8CommonModule,
     KubernetesComponentsModule,
   ],

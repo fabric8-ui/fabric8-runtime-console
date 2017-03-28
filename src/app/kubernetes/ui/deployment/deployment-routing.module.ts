@@ -21,7 +21,7 @@ import {MomentModule} from "angular2-moment";
 import {KubernetesComponentsModule} from "../../components/components.module";
 import {DeploymentScaleDialog} from './scale-dialog/scale-dialog.deployment.component';
 
-const routes: Routes = [
+export const deploymentRoutes: Routes = [
   { path: '', component: DeploymentsListPage },
   { path: ':id', component: DeploymentViewPage },
   { path: ':id/edit', component: DeploymentEditPage },
@@ -29,7 +29,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes),
+    RouterModule.forChild(deploymentRoutes),
   ],
   exports: [
     RouterModule,

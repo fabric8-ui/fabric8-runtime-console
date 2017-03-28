@@ -18,32 +18,34 @@ import { DeploymentConfigService } from './../../../service/deploymentconfig.ser
 import { NamespacedResourceService } from '../../../service/namespaced.resource.service';
 import { ActivatedRoute } from '@angular/router';
 import { SpaceStore } from './../../../store/space.store';
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import { isOpenShift } from '../../../store/apis.store';
+import { Notifications, Notification, NotificationType } from 'ngx-base';
 
 export let KINDS: Kind[] = [
   {
-    name: "ConfigMap",
-    path: "configmaps",
+    name: 'ConfigMap',
+    path: 'configmaps',
   },
   {
-    name: "Deployment",
-    path: "deployments",
+    name: 'Deployment',
+    path: 'deployments',
   },
   {
-    name: "Event",
-    path: "events",
+    name: 'Event',
+    path: 'events',
   },
   {
-    name: "Pod",
-    path: "pods",
+    name: 'Pod',
+    path: 'pods',
   },
   {
-    name: "ReplicaSet",
-    path: "replicasets",
+    name: 'ReplicaSet',
+    path: 'replicasets',
   },
   {
-    name: "Service",
-    path: "services",
+    name: 'Service',
+    path: 'services',
   },
 ];
 
@@ -72,7 +74,7 @@ export class KindNode {
 
 @Component({
   host: {
-    'class': "app-component flex-container in-column-direction flex-grow-1"
+    'class': 'app-component flex-container in-column-direction flex-grow-1'
   },
   selector: 'fabric8-environments-list-page',
   templateUrl: './list-page.environment.component.html',
@@ -94,20 +96,36 @@ export class EnvironmentListPageComponent implements OnInit {
     private replicaSetService: ReplicaSetService,
     private serviceService: ServiceService,
     private spaceNamespace: SpaceNamespace,
+    private notifications: Notifications,
   ) {
   }
 
   ngOnInit() {
     this.space = this.spaceNamespace.namespaceSpace
-      .map((id) => this.spaceStore.load(id))
-      .switchMap(() => this.spaceStore.resource.distinctUntilChanged())
-      // Wait 200ms before publishing an empty value - it's probably not empty but it might be!
-      .debounce(space => (space ? Observable.interval(0) : Observable.interval(200)))
+      .switchMap((id) => {
+        this.spaceStore.load(id);
+        let res = this.spaceStore.resource
+          .distinctUntilChanged()
+          .debounce(space => (space ? Observable.interval(0) : Observable.interval(1000)))
+          .do(space => {
+            if (space === null) {
+              this.notifications.message({
+                message: `Something went wrong your environments as the ${(isOpenShift ? 'OpenShift Project' : 'Kubernetes Namespace')} '${id}' is not accessible to you or does not exist.`,
+                type: NotificationType.WARNING
+              } as Notification);
+            }
+          });
+        return res;
+      })
+      // Wait 1s before publishing an empty value - it's probably not empty but it might be!
       .publish();
-    this.space.subscribe(space => console.log('spaces', space));
+    this.space.subscribe(space => {
+      console.log('namespace:', space);
+    });
     let kindPaths = Object.keys(KINDS).map(key => KINDS[key].path);
     this.environments = this.spaceNamespace.labelSpace
       .switchMap(label => this.space
+        .skipWhile(space => !space)
         .map(space => space.environments)
         .map(environments => environments.map(environment => ({
           environment: environment,
@@ -198,14 +216,14 @@ export class EnvironmentListPageComponent implements OnInit {
           let resource = json.object;
           if (type && resource) {
             switch (type) {
-              case "ADDED":
+              case 'ADDED':
                 return this.upsertItem(array, resource, service, type);
-              case "MODIFIED":
+              case 'MODIFIED':
                 return this.upsertItem(array, resource, service, type);
-              case "DELETED":
+              case 'DELETED':
                 return this.deleteItemFromArray(array, resource);
               default:
-                console.log("Unknown WebSocket event type " + type + " for " + resource + " on " + service.serviceUrl + '/' + namespace);
+                console.log('Unknown WebSocket event type ' + type + ' for ' + resource + ' on ' + service.serviceUrl + '/' + namespace);
             }
           }
         }
@@ -222,7 +240,7 @@ export class EnvironmentListPageComponent implements OnInit {
         var name = item.name;
         if (name && name === n) {
           item.setResource(resource);
-          //console.log("Updated item " + n);
+          //console.log('Updated item ' + n);
           return array;
         }
       }
@@ -233,7 +251,7 @@ export class EnvironmentListPageComponent implements OnInit {
       // lets add the Restangular crack
       item = service.restangularize(item);
       array.push(item);
-      //console.log("Added new item " + n);
+      //console.log('Added new item ' + n);
     }
     return array;
   }
@@ -257,7 +275,7 @@ export class EnvironmentListPageComponent implements OnInit {
   nameOfResource(resource: any) {
     let obj = resource || {};
     let metadata = obj.metadata || {};
-    return metadata.name || "";
+    return metadata.name || '';
   }
 
 }
