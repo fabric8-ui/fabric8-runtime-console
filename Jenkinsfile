@@ -1,8 +1,8 @@
-@Library('github.com/rawlingsj/fabric8-pipeline-library@master')
+@Library('github.com/fabric8io/fabric8-pipeline-library@master')
 def utils = new io.fabric8.Utils()
 def flow = new io.fabric8.Fabric8Commands()
 def repo = 'fabric8-runtime-console'
-def org = 'rawlingsj'
+def org = 'fabric8io'
 def ciDeploy = false
 def tempVersion
 def imageName
