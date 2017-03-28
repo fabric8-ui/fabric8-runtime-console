@@ -1,4 +1,3 @@
-<div class="detail-panel">
-  <button (click)="close()" class="btn btn-link"><span class="pficon pficon-close"></span></button>
+<alm-slide-out-panel (panelStateChange)="togglePanelState($event)" [panelState]="panelState" [itemName]="itemName" [itemIcon]="itemIcon">
   <router-outlet></router-outlet>
-</div>
+</alm-slide-out-panel>
