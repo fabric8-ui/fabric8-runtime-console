@@ -32,7 +32,7 @@ export abstract class KubernetesService<T extends KubernetesResource, L extends 
     obj.updateResource(resource);
     console.log('Creating resource with value ' + JSON.stringify(resource, null, '  '));
 
-    return this.restangularService.post(resource);
+    return this.restangularService.all(this.serviceUrl).post(resource);
   }
 
   update(obj: T): Observable<T> {
