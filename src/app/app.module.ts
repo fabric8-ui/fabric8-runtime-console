@@ -32,6 +32,10 @@ import { authApiUrlProvider } from './shared/auth-api.provider';
 import { ssoApiUrlProvider } from './shared/sso-api.provider';
 import { TokenResolver } from './shared/token.resolver';
 
+// Introduced to prevent the error that comes on click of build tab
+// As fabric8-stack-analysis-ui NPM package that is put there uses this provider
+import {Contexts} from 'ngx-fabric8-wit';
+
 
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
   restangularProvider.setBaseUrl(config.getSettings().apiEndpoint);
@@ -61,6 +65,7 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
   ],
   providers: [
     ConfigService,
+    Contexts,
     DropdownConfig,
     {
       provide: APP_INITIALIZER,

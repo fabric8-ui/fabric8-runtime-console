@@ -73,6 +73,7 @@
   "dependencies": {
     "@angular/core": "2.4.9",
     "angular-2-local-storage": "1.0.1",
+    "fabric8-stack-analysis-ui": "0.0.3",
     "ngx-base": "1.2.0",
     "ngx-fabric8-wit": "6.15.2",
     "ngx-login-client": "0.6.5",
