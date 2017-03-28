@@ -20,7 +20,7 @@ import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
 import {KubernetesComponentsModule} from "../../components/components.module";
 
-const routes: Routes = [
+export const podRoutes: Routes = [
   { path: '', component: PodsListPage },
   { path: ':id', component: PodViewPage },
   { path: ':id/edit', component: PodEditPage },
@@ -33,7 +33,7 @@ const routes: Routes = [
     FormsModule,
     ModalModule,
     MomentModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(podRoutes),
     Fabric8CommonModule,
     KubernetesComponentsModule,
   ],

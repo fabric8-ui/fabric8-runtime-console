@@ -20,7 +20,7 @@ import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
 import {KubernetesComponentsModule} from "../../components/components.module";
 
-const routes: Routes = [
+export const serviceRoutes: Routes = [
   { path: '', component: ServicesListPage },
   { path: ':id', component: ServiceViewPage },
   { path: ':id/edit', component: ServiceEditPage },
@@ -33,7 +33,7 @@ const routes: Routes = [
     FormsModule,
     ModalModule,
     MomentModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(serviceRoutes),
     Fabric8CommonModule,
     KubernetesComponentsModule,
   ],

@@ -1,3 +1,4 @@
+import { NoNotifications } from './shared/no-notifications.service';
 import { SpaceNamespaceService } from './kubernetes/ui/environment/space-namespace.service';
 import { SpaceNamespace } from './kubernetes/ui/environment/space-namespace';
 import './rxjs-extensions';
@@ -24,7 +25,7 @@ import { OAuthService } from 'angular2-oauth2/oauth-service';
 import {OnLogin} from "./shared/onlogin.service";
 
 import { ENV_PROVIDERS } from './environment';
-import { Broadcaster, Logger } from 'ngx-base';
+import { Broadcaster, Logger, Notifications } from 'ngx-base';
 import { AuthenticationService } from 'ngx-login-client';
 import { LoginService } from './shared/login.service';
 import { witApiUrlProvider } from './shared/wit-api.provider';
@@ -89,6 +90,10 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     {
       provide: SpaceNamespace,
       useClass: SpaceNamespaceService,
+    },
+    {
+      provide: Notifications,
+      useClass: NoNotifications
     }
   ],
   bootstrap: [AppComponent],

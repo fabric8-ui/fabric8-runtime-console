@@ -21,7 +21,7 @@ import {ReplicaSetScaleDialog} from "./scale-dialog/scale-dialog.replicaset.comp
 import {MomentModule} from "angular2-moment";
 import {KubernetesComponentsModule} from "../../components/components.module";
 
-const routes: Routes = [
+export const replicaSetRoutes: Routes = [
   { path: '', component: ReplicaSetsListPage },
   { path: ':id', component: ReplicaSetViewPage },
   { path: ':id/edit', component: ReplicaSetEditPage },
@@ -34,7 +34,7 @@ const routes: Routes = [
     FormsModule,
     ModalModule,
     MomentModule,
-    RouterModule.forChild(routes),
+    RouterModule.forChild(replicaSetRoutes),
     Fabric8CommonModule,
     KubernetesComponentsModule,
   ],

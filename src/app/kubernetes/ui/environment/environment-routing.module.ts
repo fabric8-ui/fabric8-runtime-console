@@ -1,5 +1,10 @@
+import { serviceRoutes } from './../service/service.module';
+import { replicaSetRoutes } from './../replicaset/replicaset.module';
+import { eventRoutes } from './../event/event.module';
+import { deploymentRoutes } from './../deployment/deployment-routing.module';
+import { configMapRoutes } from './../configmap/configmap.module';
+import { podRoutes } from './../pod/pod.module';
 import { EnvironmentDetailComponent } from './detail/detail.environment.component';
-import { DeploymentModule } from './../deployment/deployment.module';
 import { ConfigMapStore } from './../../store/configmap.store';
 import { NamespaceStore } from './../../store/namespace.store';
 
@@ -25,14 +30,39 @@ const routes: Routes = [
   {
     path: '',
     component: EnvironmentListPageComponent,
+    // Can't use lazy loading here as we need to import in to another module, and that doesn't work yet
     children: [
-      { path: 'namespaces/:namespace/configmaps', component: EnvironmentDetailComponent, loadChildren: './../configmap/configmap.module#ConfigMapModule' },
-      { path: 'namespaces/:namespace/deployments', component: EnvironmentDetailComponent, loadChildren: './../deployment/deployment.module#DeploymentModule' },
-      { path: 'namespaces/:namespace/events', component: EnvironmentDetailComponent, loadChildren: './../event/event.module#EventModule' },
-      { path: 'namespaces/:namespace/replicasets', component: EnvironmentDetailComponent, loadChildren: './../replicaset/replicaset.module#ReplicaSetModule' },
-      { path: 'namespaces/:namespace/pods', component: EnvironmentDetailComponent, loadChildren: './../pod/pod.module#PodModule' },
-      { path: 'namespaces/:namespace/services', component: EnvironmentDetailComponent, loadChildren: './../service/service.module#ServiceModule' }
-    ]
+      {
+        path: 'namespaces/:namespace/configmaps',
+        component: EnvironmentDetailComponent,
+        children: configMapRoutes,
+      },
+      {
+        path: 'namespaces/:namespace/deployments',
+        component: EnvironmentDetailComponent,
+        children: deploymentRoutes,
+      },
+      {
+        path: 'namespaces/:namespace/events',
+        component: EnvironmentDetailComponent,
+        children: eventRoutes,
+      },
+      {
+        path: 'namespaces/:namespace/replicasets',
+        component: EnvironmentDetailComponent,
+        children: replicaSetRoutes,
+      },
+      {
+        path: 'namespaces/:namespace/pods',
+        component: EnvironmentDetailComponent,
+        children: podRoutes,
+      },
+      {
+        path: 'namespaces/:namespace/services',
+        component: EnvironmentDetailComponent,
+        children: serviceRoutes,
+      },
+    ],
   },
 ];
 
