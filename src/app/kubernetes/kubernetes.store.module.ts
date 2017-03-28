@@ -1,3 +1,4 @@
+import { WatcherFactory } from './service/watcher-factory.service';
 import {NgModule, Optional, SkipSelf} from "@angular/core";
 import {ServiceStore} from "./store/service.store";
 import {ServiceService} from "./service/service.service";
@@ -93,7 +94,8 @@ import {BrowserModule} from "@angular/platform-browser";
     RouteServiceStore,
     ServiceService,
     ServiceStore,
-    SpaceStore
+    SpaceStore,
+    WatcherFactory,
   ],
 })
 export class KubernetesStoreModule {

@@ -1,3 +1,4 @@
+import { WatcherFactory } from './watcher-factory.service';
 import {Inject, Injectable} from '@angular/core';
 import {Restangular} from 'ng2-restangular';
 import {KUBERNETES_RESTANGULAR} from './kubernetes.restangular';
@@ -9,7 +10,7 @@ export const apisExtensionsNamespacesUrl = '/apis/extensions/v1beta1/namespaces/
 
 @Injectable()
 export class DeploymentService extends NamespacedResourceService<Deployment, Deployments> {
-  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: NamespaceScope) {
-    super(kubernetesRestangular, namespaceScope, '/deployments', apisExtensionsNamespacesUrl);
+  constructor(@Inject(KUBERNETES_RESTANGULAR) kubernetesRestangular: Restangular, namespaceScope: NamespaceScope, watcherFactory: WatcherFactory) {
+    super(kubernetesRestangular, namespaceScope, '/deployments', watcherFactory, apisExtensionsNamespacesUrl);
   }
 }

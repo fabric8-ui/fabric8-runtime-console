@@ -1,17 +1,18 @@
-import {Restangular} from "ng2-restangular";
-import {KubernetesResource} from "../model/kubernetesresource.model";
-import {NamespaceScope} from "./namespace.scope";
-import {NamespacedResourceService} from "./namespaced.resource.service";
-import {Observable, BehaviorSubject} from "rxjs";
-import {isOpenShift} from "../store/apis.store";
-import {Watcher} from "./watcher";
+import { WatcherFactory } from './watcher-factory.service';
+import { Restangular } from "ng2-restangular";
+import { KubernetesResource } from "../model/kubernetesresource.model";
+import { NamespaceScope } from "./namespace.scope";
+import { NamespacedResourceService } from "./namespaced.resource.service";
+import { Observable, BehaviorSubject } from "rxjs";
+import { isOpenShift } from "../store/apis.store";
+import { Watcher } from "./watcher";
 
 
 export abstract class OpenShiftNamespacedResourceService<T extends KubernetesResource, L extends Array<T>> extends NamespacedResourceService<T, L> {
   constructor(kubernetesRestangular: Restangular,
-              namespaceScope: NamespaceScope,
-              urlSuffix: string, urlPrefix: string = "/oapi/v1/namespaces") {
-    super(kubernetesRestangular, namespaceScope, urlSuffix, urlPrefix);
+    namespaceScope: NamespaceScope,
+    urlSuffix: string, watcherFactory: WatcherFactory, urlPrefix: string = "/oapi/v1/namespaces") {
+    super(kubernetesRestangular, namespaceScope, urlSuffix, watcherFactory, urlPrefix);
   }
 
   get(id: string, namespace: string = null): Observable<T> {
@@ -30,7 +31,7 @@ export abstract class OpenShiftNamespacedResourceService<T extends KubernetesRes
 
   watch(queryParams: any = null): Watcher {
     // lets return a watcher with no URL to avoid websockets
-    return new Watcher(() => null, queryParams);
+    return this.watcherFactory.newInstance(() => null, queryParams);
   }
 
   create(obj: T): Observable<T> {
