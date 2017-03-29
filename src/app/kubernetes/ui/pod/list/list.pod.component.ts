@@ -1,3 +1,4 @@
+import { OAuthConfigStore } from './../../../store/oauth-config-store';
 import {Component, Input, ViewChild} from "@angular/core";
 import {PodDeleteDialog} from "../delete-dialog/delete-dialog.pod.component";
 import {Pods, Pod} from "../../../model/pod.model";
@@ -18,6 +19,10 @@ export class PodsListComponent {
 
   @ViewChild(PodDeleteDialog) deleteDialog: PodDeleteDialog;
 
+  constructor(
+    private oAuthConfigStore: OAuthConfigStore,
+  ) {}
+
   openDeleteDialog(deletePodModal, pod) {
     this.deleteDialog.modal = deletePodModal;
     this.deleteDialog.pod = pod;
@@ -35,7 +40,7 @@ export class PodsListComponent {
   }
 
   consoleUrl(pod: Pod): string {
-    return openShiftBrowseResourceUrl(pod);
+    return openShiftBrowseResourceUrl(pod, this.oAuthConfigStore.config);
   }
 
   prefixPath(pathComponent: string) {

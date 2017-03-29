@@ -14,6 +14,7 @@ export class OAuthConfig {
   public wsApiServer: string;
   public scope: string;
   public loaded: boolean;
+  public openshiftConsoleUrl: string;
 
   constructor(data: any) {
     var config = data || {};
@@ -29,6 +30,7 @@ export class OAuthConfig {
     this.issuer = oauth.oauth_issuer || "";
     this.scope = oauth.oauth_scope || "user:full";
     this.logoutUri = oauth.logout_uri || "";
+    this.openshiftConsoleUrl = config.openshift_console_url;
 
     if (!this.issuer && this.authorizeUri) {
       // lets default the issuer from the authorize Uri
