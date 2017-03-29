@@ -48,7 +48,7 @@
             <div *ngSwitchCase="'services'" class="environment-listing">
               <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
                 <template #treeListItemTemplate>
-                  <fabric8-services-list [services]="node.data.data | async" [loading]="node.data.loading | async" [prefix]="'namespaces/' + e.environment.namespaceName + '/events'"></fabric8-services-list>
+                  <fabric8-services-list [services]="node.data.data | async" [loading]="node.data.loading | async" [prefix]="'namespaces/' + e.environment.namespaceName + '/services'"></fabric8-services-list>
                 </template>
               </alm-tree-list-item>
             </div>
