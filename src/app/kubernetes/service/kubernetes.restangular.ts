@@ -2,6 +2,7 @@ import {NgModule, OpaqueToken} from "@angular/core";
 import {Restangular} from "ng2-restangular";
 import {KubernetesResource} from "../model/kubernetesresource.model";
 import {Service} from "../model/service.model";
+import {Event} from "../model/event.model";
 import {Deployment} from "../model/deployment.model";
 import {ConfigMap} from "../model/configmap.model";
 import {Namespace} from "../model/namespace.model";
@@ -53,6 +54,8 @@ function convertToKubernetesResource(resource) {
       return new Deployment().setResource(resource);
     case 'DeploymentConfig':
       return new DeploymentConfig().setResource(resource);
+    case 'Event':
+      return new Event().setResource(resource);
     case 'Namespace':
     case 'Project':
       return new Namespace().setResource(resource);
