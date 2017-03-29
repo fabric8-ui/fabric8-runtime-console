@@ -1,6 +1,7 @@
 import {ScalableResource} from "./scalableresource.model";
+import {ReplicaSet} from "./replicaset.model";
 
-export class ReplicationController extends ScalableResource {
+export class ReplicationController extends ReplicaSet {
 
   defaultKind() {
     return 'ReplicationController';

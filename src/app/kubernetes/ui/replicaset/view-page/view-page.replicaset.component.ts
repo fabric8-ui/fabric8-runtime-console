@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
-import {ReplicaSetStore} from "../../../store/replicaset.store";
+import {CompositeReplicaSetStore} from "../../../store/compositedreplicaset.store";
 
 @Component({
   selector: 'fabric8-replicaset-view-page',
@@ -11,7 +11,7 @@ import {ReplicaSetStore} from "../../../store/replicaset.store";
 export class ReplicaSetViewPage implements OnDestroy {
   private idSubscription: Subscription;
 
-  constructor(store: ReplicaSetStore, route: ActivatedRoute) {
+  constructor(store: CompositeReplicaSetStore, route: ActivatedRoute) {
     this.idSubscription = route.params.pluck<Params, string>('id')
       .map((id) => store.load(id))
       .subscribe();

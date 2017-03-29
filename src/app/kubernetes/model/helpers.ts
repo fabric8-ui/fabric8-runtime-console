@@ -10,7 +10,7 @@ export var resourceKindToCollectionName = {
   "Event": "events",
   "Namespace": "spaces",
   "Pod": "pods",
-  "ReplicationControllers": "replicationControllers",
+  "ReplicationController": "replicationcontrollers",
   "ReplicaSet": "replicasets",
   "Route": "routes",
   "Service": "services",
