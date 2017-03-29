@@ -163,6 +163,7 @@
     "protractor": "5.1.1",
     "raw-loader": "0.5.1",
     "reflect-metadata": "0.1.10",
+    "retyped-js-yaml-tsd-ambient": "3.0.2-0",
     "rimraf": "2.6.1",
     "run-sequence": "1.2.2",
     "sass-lint": "1.10.2",
