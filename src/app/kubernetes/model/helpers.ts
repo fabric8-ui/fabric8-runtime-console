@@ -1,3 +1,4 @@
+import { OAuthConfig } from './../store/oauth-config-store';
 import {KubernetesResource} from "./kubernetesresource.model";
 import {pathJoin} from "./utils";
 
@@ -35,10 +36,10 @@ export function isNamespacedKind(kind: string) {
 /**
  * Given the resource generate a link to browse the resource on the OpenShift web console
  */
-export function openShiftBrowseResourceUrl(resource: KubernetesResource, openShiftConsoleUrl: string = null, kinds: string = null): string {
+export function openShiftBrowseResourceUrl(resource: KubernetesResource, oauthConfig: OAuthConfig, openShiftConsoleUrl: string = null, kinds: string = null): string {
   if (resource) {
     if (!openShiftConsoleUrl) {
-      openShiftConsoleUrl = process.env.OPENSHIFT_CONSOLE_URL;
+      openShiftConsoleUrl = oauthConfig.openshiftConsoleUrl;
     }
     if (!kinds) {
       let kind = resource.defaultKind();

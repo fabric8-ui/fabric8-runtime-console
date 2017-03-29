@@ -1,5 +1,6 @@
-import {BaseEntity} from '../../store/entity/entity.model';
-import {openShiftBrowseResourceUrl} from "./helpers";
+import { BaseEntity } from '../../store/entity/entity.model';
+import { openShiftBrowseResourceUrl } from "./helpers";
+import { currentOAuthConfig } from '../store/oauth-config-store';
 
 export class KubernetesResource implements BaseEntity {
   id: string;
@@ -7,8 +8,8 @@ export class KubernetesResource implements BaseEntity {
   namespace: string;
   description: string;
   icon: string;
-  labels: Map<string,string>;
-  annotations: Map<string,string>;
+  labels: Map<string, string>;
+  annotations: Map<string, string>;
   resource: any;
   creationTimestamp: any;
   openShiftConsoleUrl: string;
@@ -21,10 +22,10 @@ export class KubernetesResource implements BaseEntity {
 
   updateResource(resource) {
     if (!this.labels) {
-      this.labels = new Map<string,string>();
+      this.labels = new Map<string, string>();
     }
     if (!this.annotations) {
-      this.annotations = new Map<string,string>();
+      this.annotations = new Map<string, string>();
     }
     this.annotations['description'] = this.description;
 
@@ -47,14 +48,14 @@ export class KubernetesResource implements BaseEntity {
     this.namespace = metadata.namespace || '';
     this.id = this.name;
     this.creationTimestamp = metadata.creationTimestamp;
-    this.labels = metadata.labels || new Map<string,string>();
-    this.annotations = metadata.annotations || new Map<string,string>();
+    this.labels = metadata.labels || new Map<string, string>();
+    this.annotations = metadata.annotations || new Map<string, string>();
     this.icon = this.annotations['fabric8.io/iconUrl'] || this.defaultIconUrl();
 
     // TODO any other annotations we should look for?
     this.description = this.annotations['description'] || '';
 
-    this.openShiftConsoleUrl = openShiftBrowseResourceUrl(this);
+    this.openShiftConsoleUrl = openShiftBrowseResourceUrl(this, currentOAuthConfig());
   }
 
   defaultIconUrl() {
