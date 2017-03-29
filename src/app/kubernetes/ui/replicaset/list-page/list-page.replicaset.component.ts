@@ -2,9 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {ReplicaSets} from "../../../model/replicaset.model";
 import {Services} from "../../../model/service.model";
-import {ReplicaSetStore} from "../../../store/replicaset.store";
 import {ReplicaSetViews, createReplicaSetViews} from "../../../view/replicaset.view";
 import {ServiceStore} from "../../../store/service.store";
+import {CompositeReplicaSetStore} from "../../../store/compositedreplicaset.store";
 
 
 @Component({
@@ -18,7 +18,7 @@ export class ReplicaSetsListPage implements OnInit {
   private readonly loading: Observable<boolean>;
   private readonly runtimeReplicaSets: Observable<ReplicaSetViews>;
 
-  constructor(private replicasetsStore: ReplicaSetStore, private serviceStore: ServiceStore) {
+  constructor(private replicasetsStore: CompositeReplicaSetStore, private serviceStore: ServiceStore) {
     this.replicasets = this.replicasetsStore.list;
     this.services = this.serviceStore.list;
     this.loading = this.replicasetsStore.loading.combineLatest(this.serviceStore.loading, (f, s) => f && s);

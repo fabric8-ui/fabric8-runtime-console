@@ -10,8 +10,9 @@ export var resourceKindToCollectionName = {
   "Event": "events",
   "Namespace": "spaces",
   "Pod": "pods",
-  "ReplicationControllers": "replicationControllers",
+  "ReplicationController": "replicationcontrollers",
   "ReplicaSet": "replicasets",
+  "Route": "routes",
   "Service": "services",
 };
 
@@ -41,6 +42,12 @@ export function openShiftBrowseResourceUrl(resource: KubernetesResource, openShi
     }
     if (!kinds) {
       let kind = resource.defaultKind();
+      if (!kind || kind === "Unknown") {
+        let k8sResource = resource.resource;
+        if (k8sResource) {
+          kind = k8sResource.kind;
+        }
+      }
       if (kind) {
         kinds = resourceKindToOpenShiftConsoleCollectionName[kind] || resourceKindToCollectionName[kind];
         if (!kinds) {

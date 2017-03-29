@@ -21,7 +21,7 @@
               <a (click)="openScaleDialog(scaleReplicaSetModal, replicaset.replicaset)" title="Scale the number of pods">Scale</a>
             </li>
             <li>
-              <a [routerLink]="[pathPrefix(replicaset.id), 'edit']">Edit</a>
+              <a [routerLink]="[prefixPath(replicaset.id), 'edit']">Edit</a>
             </li>
 
             <li>
@@ -38,7 +38,7 @@
         <div class='list-view-pf-body'>
           <div class='list-view-pf-description'>
             <div class='list-group-item-heading'>
-              <a [routerLink]="[pathPrefix(replicaset.id)]" class="card-title" title="view replicaset">{{ replicaset.name }}</a>
+              <a [routerLink]="[prefixPath(replicaset.id)]" class="card-title" title="view replicaset">{{ replicaset.name }}</a>
 
               <span class='open-service-icon'>
                 <a target="replicaset"

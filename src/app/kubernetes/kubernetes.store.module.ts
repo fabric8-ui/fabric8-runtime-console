@@ -1,4 +1,4 @@
-import { WatcherFactory } from './service/watcher-factory.service';
+import {WatcherFactory} from "./service/watcher-factory.service";
 import {NgModule, Optional, SkipSelf} from "@angular/core";
 import {ServiceStore} from "./store/service.store";
 import {ServiceService} from "./service/service.service";
@@ -31,17 +31,11 @@ import {SpaceStore} from "./store/space.store";
 import {DevNamespaceScope} from "./service/devnamespace.scope";
 import {OAuthService} from "angular2-oauth2/oauth-service";
 import {OAuthConfigStore} from "./store/oauth-config-store";
-import {OnLogin} from "../shared/onlogin.service";
-import { LoginService } from '../shared/login.service';
-import { LocalStorageModule } from 'angular-2-local-storage';
-import { ssoApiUrlProvider } from '../shared/sso-api.provider';
-import { authApiUrlProvider } from '../shared/auth-api.provider';
-import { witApiUrlProvider } from '../shared/wit-api.provider';
-import { Broadcaster } from 'ngx-base';
-import { AuthenticationService } from 'ngx-login-client';
+import {LocalStorageModule} from "angular-2-local-storage";
 import {RouteServiceStore} from "./store/route.service.store";
 import {RouteService} from "./service/route.service";
 import {RouteStore} from "./store/route.store";
+import {CompositeReplicaSetStore} from "./store/compositedreplicaset.store";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -67,6 +61,7 @@ import {BrowserModule} from "@angular/platform-browser";
     BuildConfigService,
     BuildConfigStore,
     CompositeDeploymentStore,
+    CompositeReplicaSetStore,
     ConfigMapService,
     ConfigMapStore,
     DevNamespaceScope,
