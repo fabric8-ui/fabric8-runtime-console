@@ -1,3 +1,5 @@
+import { Deployment } from './../../../model/deployment.model';
+import { DeploymentService } from './../../../service/deployment.service';
 import { SpaceNamespace } from './../space-namespace';
 import { Service } from './../../../model/service.model';
 import { ReplicaSet } from './../../../model/replicaset.model';
@@ -21,6 +23,10 @@ import { SpaceStore } from './../../../store/space.store';
 import { Component, OnInit } from '@angular/core';
 import { isOpenShift } from '../../../store/apis.store';
 import { Notifications, Notification, NotificationType } from 'ngx-base';
+import { combineDeployments } from '../../../view/deployment.view';
+import { createDeploymentViews } from '../../../view/deployment.view';
+
+
 
 export let KINDS: Kind[] = [
   {
@@ -90,6 +96,7 @@ export class EnvironmentListPageComponent implements OnInit {
     private spaceStore: SpaceStore,
     private route: ActivatedRoute,
     private deploymentConfigService: DeploymentConfigService,
+    private deploymentService: DeploymentService,
     private configMapService: ConfigMapService,
     private eventService: EventService,
     private podService: PodService,
@@ -173,11 +180,21 @@ export class EnvironmentListPageComponent implements OnInit {
     this.space.connect();
   }
 
-  private getList(kind: string, environment: Environment): Observable<KubernetesResource[]> {
+  private getList(kind: string, environment: Environment): Observable<any[]> {
     let namespace = environment.namespace.name;
     switch (kind) {
       case 'deployments':
-        return this.listAndWatch(this.deploymentConfigService, namespace, DeploymentConfig);
+        let deployments = Observable.combineLatest(
+          this.listAndWatch(this.deploymentConfigService, namespace, DeploymentConfig),
+          this.listAndWatch(this.deploymentService, namespace, Deployment),
+          combineDeployments,
+        );
+        let runtimeDeployments = Observable.combineLatest(
+          deployments,
+          this.listAndWatch(this.serviceService, namespace, Service),
+          createDeploymentViews,
+        );
+        return runtimeDeployments;
       case 'configmaps':
         return this.listAndWatch(this.configMapService, namespace, ConfigMap);
       case 'events':
