@@ -221,7 +221,7 @@ export class EnvironmentListPageComponent implements OnInit {
   /**
    * Lets combine the web socket events with the latest list
    */
-  protected combineListAndWatchEvent<T extends KubernetesResource, L extends Array<T>>(array: L, msg: any, service: NamespacedResourceService<T, L>, type: { new (): T; }, namespace: string): L {
+  protected combineListAndWatchEvent<T extends KubernetesResource, L extends Array<T>>(array: L, msg: any, service: NamespacedResourceService<T, L>, objType: { new (): T; }, namespace: string): L {
     // lets process the added /updated / removed
     if (msg instanceof MessageEvent) {
       let me = msg as MessageEvent;
@@ -234,9 +234,9 @@ export class EnvironmentListPageComponent implements OnInit {
           if (type && resource) {
             switch (type) {
               case 'ADDED':
-                return this.upsertItem(array, resource, service, type);
+                return this.upsertItem(array, resource, service, objType);
               case 'MODIFIED':
-                return this.upsertItem(array, resource, service, type);
+                return this.upsertItem(array, resource, service, objType);
               case 'DELETED':
                 return this.deleteItemFromArray(array, resource);
               default:
