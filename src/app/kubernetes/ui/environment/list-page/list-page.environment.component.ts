@@ -73,7 +73,7 @@ export class KindNode {
   children: [
     {
       loading: Observable<boolean>,
-      data: Observable<any[]>,
+      data: ConnectableObservable<any[]>,
     }
   ];
 }
@@ -126,9 +126,6 @@ export class EnvironmentListPageComponent implements OnInit {
       })
       // Wait 1s before publishing an empty value - it's probably not empty but it might be!
       .publish();
-    this.space.subscribe(space => {
-      console.log('namespace:', space);
-    });
     let kindPaths = Object.keys(KINDS).map(key => KINDS[key].path);
     this.environments = this.spaceNamespace.labelSpace
       .switchMap(label => this.space
@@ -140,6 +137,21 @@ export class EnvironmentListPageComponent implements OnInit {
             // Give it a default title
             let title = new BehaviorSubject(`${kind.name}s`);
             let loading = new BehaviorSubject(true);
+            let data = this.getList(kind.path, environment)
+              // Update the title with the number of objects
+              .distinctUntilChanged()
+              .map(arr => {
+                if (label) {
+                  return arr.filter(val => {
+                    return val.labels['space'] === label;
+                  });
+                } else {
+                  return arr;
+                }
+              })
+              .do(arr => title.next(`${arr.length} ${kind.name}${arr.length === 1 ? '' : 's'}`))
+              .do(() => loading.next(false))
+              .publish();
             return {
               environment: environment,
               kind: kind,
@@ -147,20 +159,7 @@ export class EnvironmentListPageComponent implements OnInit {
               children: [
                 {
                   loading: loading,
-                  data: this.getList(kind.path, environment)
-                    // Update the title with the number of objects
-                    .distinctUntilChanged()
-                    .map(arr => {
-                      if (label) {
-                        return arr.filter(val => {
-                          return val.labels['space'] === label;
-                        });
-                      } else {
-                        return arr;
-                      }
-                    })
-                    .do(arr => title.next(`${arr.length} ${kind.name}${arr.length === 1 ? '' : 's'}`))
-                    .do(() => loading.next(false)),
+                  data: data,
                 },
               ],
             } as KindNode;
@@ -172,12 +171,19 @@ export class EnvironmentListPageComponent implements OnInit {
       .debounce(arr => (arr.length > 0 ? Observable.interval(0) : Observable.interval(200)))
       .do(() => this.loading.next(false))
       .publish();
-
-    this.environments.subscribe(node => {
-      console.log('env', node);
-    });
     this.environments.connect();
     this.space.connect();
+    // Now, connect all the data
+    // Note we don't do this inside main stream to allow the page to draw faster
+    this.environments.subscribe(
+      envs => envs.forEach(
+        env => env.kinds.forEach(
+          kind => kind.children.forEach(
+            child => child.data.connect(),
+          ),
+        ),
+      ),
+    );
   }
 
   private getList(kind: string, environment: Environment): Observable<any[]> {
