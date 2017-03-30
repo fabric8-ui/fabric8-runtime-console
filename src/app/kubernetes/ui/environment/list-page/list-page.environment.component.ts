@@ -210,11 +210,16 @@ export class EnvironmentListPageComponent implements OnInit {
     }
   }
 
-  private listAndWatch<T extends KubernetesResource, L extends Array<T>>(service: NamespacedResourceService<T, L>, namespace: string, type: { new (): T; }) {
+  private listAndWatch<T extends KubernetesResource, L extends Array<T>>(
+    service: NamespacedResourceService<T, L>,
+    namespace: string,
+    type: { new (): T; }
+  ) {
     return Observable.combineLatest(
       service.list(namespace),
-      Observable.onErrorResumeNext(service.watchNamepace(namespace).dataStream),
-      (list, msg) => this.combineListAndWatchEvent(list, msg, service, type, namespace)
+      // We just emit an empty item if the watch fails
+      service.watchNamepace(namespace).dataStream.catch(() => Observable.of(null)),
+      (list, msg) => this.combineListAndWatchEvent(list, msg, service, type, namespace),
     );
   }
 
@@ -257,7 +262,6 @@ export class EnvironmentListPageComponent implements OnInit {
         var name = item.name;
         if (name && name === n) {
           item.setResource(resource);
-          //console.log('Updated item ' + n);
           return array;
         }
       }
@@ -268,7 +272,6 @@ export class EnvironmentListPageComponent implements OnInit {
       // lets add the Restangular crack
       item = service.restangularize(item);
       array.push(item);
-      //console.log('Added new item ' + n);
     }
     return array;
   }
