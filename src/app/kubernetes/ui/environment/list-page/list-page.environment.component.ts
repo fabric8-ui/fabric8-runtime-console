@@ -113,7 +113,7 @@ export class EnvironmentListPageComponent implements OnInit {
         this.spaceStore.load(id);
         let res = this.spaceStore.resource
           .distinctUntilChanged()
-          .debounce(space => (space ? Observable.interval(0) : Observable.interval(1000)))
+          .debounce(space => ((space && space.environments) ? Observable.interval(0) : Observable.interval(1000)))
           .do(space => {
             if (space === null) {
               this.notifications.message({
