@@ -151,7 +151,7 @@ export class EnvironmentListPageComponent implements OnInit {
               })
               .do(arr => title.next(`${arr.length} ${kind.name}${arr.length === 1 ? '' : 's'}`))
               .do(() => loading.next(false))
-              .publish();
+              .publishReplay(1);
             return {
               environment: environment,
               kind: kind,
@@ -166,13 +166,10 @@ export class EnvironmentListPageComponent implements OnInit {
           }),
         })),
       ))
-      .do(arr => console.log('arr', arr))
       // Wait 200ms before publishing an empty value - it's probably not empty but it might be!
       .debounce(arr => (arr.length > 0 ? Observable.interval(0) : Observable.interval(200)))
       .do(() => this.loading.next(false))
       .publish();
-    this.environments.connect();
-    this.space.connect();
     // Now, connect all the data
     // Note we don't do this inside main stream to allow the page to draw faster
     this.environments.subscribe(
@@ -184,6 +181,8 @@ export class EnvironmentListPageComponent implements OnInit {
         ),
       ),
     );
+    this.environments.connect();
+    this.space.connect();
   }
 
   private getList(kind: string, environment: Environment): Observable<any[]> {
