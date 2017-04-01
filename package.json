@@ -85,7 +85,7 @@
     "ng2-modal": "0.0.25",
     "ngx-base": "1.2.6",
     "ngx-fabric8-wit": "6.16.8",
-    "ngx-login-client": "0.6.16",
+    "ngx-login-client": "0.6.20",
     "ngx-widgets": "0.12.6",
     "pluralize": "4.0.0",
     "rxjs": "5.0.1"
