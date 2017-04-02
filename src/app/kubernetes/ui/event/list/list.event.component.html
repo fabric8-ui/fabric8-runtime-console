@@ -23,15 +23,15 @@
       <div class='list-view-pf-main-info'>
         <div class='list-view-pf-left'>
           <span [ngSwitch]="event?.resource?.type">
-            <template [ngSwitchCase]="'Normal'">
+            <ng-template [ngSwitchCase]="'Normal'">
               <span class="pficon-info" title="Normal event"></span>
-            </template>
-            <template [ngSwitchCase]="'Warning'">
+            </ng-template>
+            <ng-template [ngSwitchCase]="'Warning'">
               <span class="pficon-warning-triangle-o" title="Warning event"></span>
-            </template>
-            <template ngSwitchDefault>
+            </ng-template>
+            <ng-template ngSwitchDefault>
               <span class=" pficon-error-circle-o" title="Unknown event type: {{event?.resource?.type}}"></span>
-            </template>
+            </ng-template>
           </span>
         </div>
         <div class='list-view-pf-body'>
