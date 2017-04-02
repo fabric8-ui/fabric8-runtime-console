@@ -1,3 +1,4 @@
+import { StackDetailsModule } from 'fabric8-stack-analysis-ui';
 import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
@@ -31,7 +32,8 @@ describe('PipelinesListComponent', () => {
         KubernetesStoreModule,
         BuildConfigDialogsModule,
         KubernetesComponentsModule,
-        TestAppModule
+        TestAppModule,
+        StackDetailsModule,
       ],
       declarations: [
         BuildStageViewComponent,
