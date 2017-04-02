@@ -32,7 +32,17 @@ export class EnvironmentDetailComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // Open the panel
-    this.panelState = 'in';
+    // Why use a setTimeOut -
+    // This is for unit testing.
+    // After every round of change detection,
+    // dev mode immediately performs a second round to verify
+    // that no bindings have changed since the end of the first,
+    // as this would indicate that changes are being caused by change detection itself.
+    // I had to triggers another round of change detection
+    // during that method - emit an event, whatever. Wrapping it in a timeout would do the job
+    setTimeout(() => {
+      this.panelState = 'in';
+    });
   }
 
   close() {

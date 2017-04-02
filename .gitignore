@@ -29,6 +29,7 @@ npm-debug.log
 testem.log
 /typings
 npm-debug.log.*
+.awcache
 
 # e2e
 /e2e/*.js
