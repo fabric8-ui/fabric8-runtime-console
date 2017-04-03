@@ -18,16 +18,16 @@ fabric8UITemplate{
                     pipeline.ci()
                 }
 
-                container('ui'){
-                    tempVersion = pipeline.ciBuildDownstreamProject()
-                }
+                // container('ui'){
+                //     tempVersion = pipeline.ciBuildDownstreamProject()
+                // }
 
-                imageName = "fabric8/fabric8-ui:${tempVersion}"
-                container('docker'){
-                    pipeline.buildImage(imageName)
-                }
+                // imageName = "fabric8/fabric8-ui:${tempVersion}"
+                // container('docker'){
+                //     pipeline.buildImage(imageName)
+                // }
 
-                ciDeploy = true
+                //ciDeploy = true
 
             } else if (utils.isCD()){
 
