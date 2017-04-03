@@ -13,6 +13,7 @@ import {RequestOptions, BaseRequestOptions, Http} from "@angular/http";
 import {RestangularModule} from "ng2-restangular";
 import {MockBackend} from "@angular/http/testing";
 import {KubernetesComponentsModule} from "../../../components/components.module";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('EnvironmentDetailComponent', () => {
   let component: EnvironmentDetailComponent;
@@ -31,6 +32,7 @@ describe('EnvironmentDetailComponent', () => {
         KubernetesComponentsModule,
         TestAppModule,
         SlideOutPanelModule,
+        BrowserAnimationsModule
       ],
       declarations: [
         EnvironmentDetailComponent,
