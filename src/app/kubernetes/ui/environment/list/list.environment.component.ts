@@ -11,7 +11,7 @@ import {
   TreeNode,
   TREE_ACTIONS,
   IActionMapping
-} from 'angular2-tree-component';
+} from 'angular-tree-component';
 
 import { ParentLinkFactory } from "../../../../common/parent-link-factory";
 import { CompositeDeploymentStore } from './../../../store/compositedeployment.store';
