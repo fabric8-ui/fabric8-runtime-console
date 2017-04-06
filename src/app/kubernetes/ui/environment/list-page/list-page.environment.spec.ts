@@ -10,7 +10,7 @@ import { EventModule } from './../../event/event.module';
 import { ConfigMapModule } from './../../configmap/configmap.module';
 import { DeploymentModule } from './../../deployment/deployment.module';
 import { EnvironmentRoutingModule } from './../environment-routing.module';
-import { TreeModule } from 'angular2-tree-component';
+import { TreeModule } from 'angular-tree-component';
 import { TreeListModule, SlideOutPanelModule } from 'ngx-widgets';
 import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
