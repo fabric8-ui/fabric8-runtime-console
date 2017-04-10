@@ -1,8 +1,7 @@
 @Library('github.com/fabric8io/fabric8-pipeline-library@master')
 def utils = new io.fabric8.Utils()
 def flow = new io.fabric8.Fabric8Commands()
-def repo = 'fabric8-runtime-console'
-def org = 'fabric8-ui'
+def project = 'fabric8-ui/fabric8-runtime-console'
 def ciDeploy = false
 def tempVersion
 def imageName
@@ -18,22 +17,24 @@ fabric8UITemplate{
                     pipeline.ci()
                 }
 
-                // container('ui'){
-                //     tempVersion = pipeline.ciBuildDownstreamProject()
-                // }
+            
+                container('ui'){
+                    tempVersion = pipeline.ciBuildDownstreamProject(project)
+                }
 
-                // imageName = "fabric8/fabric8-ui:${tempVersion}"
-                // container('docker'){
-                //     pipeline.buildImage(imageName)
-                // }
+                imageName = "fabric8/fabric8-ui:${tempVersion}"
+                container('docker'){
+                    pipeline.buildImage(imageName)
+                }
 
-                //ciDeploy = true
+                ciDeploy = true
+            
 
             } else if (utils.isCD()){
 
-                git "https://github.com/${org}/${repo}.git"
+                git "https://github.com/${project}.git"
                 readTrusted 'release.groovy'
-                sh "git remote set-url origin git@github.com:${org}/${repo}.git"
+                sh "git remote set-url origin git@github.com:${project}.git"
                 def pipeline = load 'release.groovy'
 
                 container('ui'){
@@ -87,9 +88,9 @@ if (ciDeploy){
            if (!pr){
                error "no pull request number found so cannot comment on PR"
            }
-           def message = "@${changeAuthor} snapshot fabric8-ui is deployed and available for testing at http://${route}"
+           def message = "@${changeAuthor} snapshot fabric8-ui is deployed and available for testing at https://${route}"
            container('clients'){
-               flow.addCommentToPullRequest(message, pr, 'fabric8-ui/fabric8-runtime-console')
+               flow.addCommentToPullRequest(message, pr, project)
            }
        }
    }
