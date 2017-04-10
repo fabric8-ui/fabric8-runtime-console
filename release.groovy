@@ -12,25 +12,12 @@ def ci (){
     }
 }
 
-def ciBuildDownstreamProject(){
-    def runtimeDir = pwd()
-
+def ciBuildDownstreamProject(project){
     stage('build fabric8-ui npm'){
-        sh 'git clone https://github.com/fabric8io/fabric8-ui'
-        sh 'cd fabric8-ui && npm install'
-        sh "cd fabric8-ui && npm install --save  ${runtimeDir}/dist"
-        sh '''
-        export FABRIC8_WIT_API_URL="http://api.prod-preview.openshift.io/api/"
-        export FABRIC8_RECOMMENDER_API_URL="http://api-bayesian.dev.rdu2c.fabric8.io/api/v1/"
-        export FABRIC8_FORGE_API_URL="https://forge.api.prod-preview.openshift.io"
-        export FABRIC8_SSO_API_URL="http://sso.prod-preview.openshift.io/"
-
-        cd fabric8-ui && npm run build:prod
-        '''
+        return buildSnapshotFabric8UI{
+            pullRequestProject = project
+        }   
     }
-    def shortCommitSha = getNewVersion {}
-    def tempVersion= 'SNAPSHOT.' + shortCommitSha + env.BUILD_NUMBER
-    return tempVersion
 }
 
 def buildImage(imageName){
