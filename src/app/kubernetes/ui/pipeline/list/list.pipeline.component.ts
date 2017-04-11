@@ -14,15 +14,7 @@ export class PipelinesListComponent {
   @Input() loading: boolean;
 
   @ViewChild(BuildConfigDeleteDialog) deleteDialog: BuildConfigDeleteDialog;
-
-  // This hardcode will be replaced by the information received from the build to trigger the stack analysis
-  public codebases: Array<any> = [
-        {
-        name: 'Pllm',
-        uuid: 'ff59ea91cf264003bc6dc12621c91205'
-        },
-    ];
-
+  
   openDeleteDialog(deleteBuildConfigModal, pipeline) {
     this.deleteDialog.modal = deleteBuildConfigModal;
     this.deleteDialog.buildconfig = pipeline;
