@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ModalModule } from 'ng2-modal';
 import { ToolbarModule, TreeListModule } from 'ngx-widgets';
-import { TreeModule } from 'angular-tree-component';
+import { TreeModule } from 'angular2-tree-component';
 import { Fabric8CommonModule } from '../../../common/common.module';
 import { MomentModule } from 'angular2-moment';
 import { KubernetesComponentsModule } from '../../components/components.module';
