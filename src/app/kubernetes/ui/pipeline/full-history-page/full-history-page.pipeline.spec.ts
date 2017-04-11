@@ -17,6 +17,8 @@ import {PipelinesFullHistoryToolbarComponent} from "../full-history-toolbar/full
 import {PipelinesFullHistoryComponent} from "../full-history/full-history.pipeline.component";
 import {BuildStageViewComponent} from "../build-stage-view/build-stage-view.component";
 
+import {StackDetailsModule} from 'fabric8-stack-analysis-ui';
+
 describe('PipelinesFullHistoryPage', () => {
   let component: PipelinesFullHistoryPage;
   let fixture: ComponentFixture<PipelinesFullHistoryPage>;
@@ -33,7 +35,8 @@ describe('PipelinesFullHistoryPage', () => {
         KubernetesStoreModule,
         KubernetesComponentsModule,
         BuildConfigDialogsModule,
-        TestAppModule
+        TestAppModule,
+        StackDetailsModule
       ],
       declarations: [
         BuildStageViewComponent,

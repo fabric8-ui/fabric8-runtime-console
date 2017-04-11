@@ -15,6 +15,8 @@ import {BuildConfigDialogsModule} from "../../buildconfig/delete-dialog/buildcon
 import {KubernetesComponentsModule} from "../../../components/components.module";
 import {BuildStageViewComponent} from "../build-stage-view/build-stage-view.component";
 
+import {StackDetailsModule} from 'fabric8-stack-analysis-ui';
+
 describe('PipelinesHistoryComponent', () => {
   let component: PipelinesHistoryComponent;
   let fixture: ComponentFixture<PipelinesHistoryComponent>;
@@ -31,7 +33,8 @@ describe('PipelinesHistoryComponent', () => {
         KubernetesStoreModule,
         BuildConfigDialogsModule,
         KubernetesComponentsModule,
-        TestAppModule
+        TestAppModule,
+        StackDetailsModule
       ],
       declarations: [
         BuildStageViewComponent,
