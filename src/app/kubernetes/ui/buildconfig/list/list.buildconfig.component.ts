@@ -1,6 +1,7 @@
 import {Component, Input, ViewChild} from "@angular/core";
 import {BuildConfigDeleteDialog} from "../delete-dialog/delete-dialog.buildconfig.component";
 import {BuildConfigs} from "../../../model/buildconfig.model";
+import {BuildConfigService} from "../../../service/buildconfig.service";
 
 @Component({
   selector: 'fabric8-buildconfigs-list',
@@ -15,10 +16,16 @@ export class BuildConfigsListComponent {
 
   @ViewChild(BuildConfigDeleteDialog) deleteDialog: BuildConfigDeleteDialog;
 
+  constructor(private buildConfigService: BuildConfigService) {
+  }
+
   openDeleteDialog(deleteBuildConfigModal, buildconfig) {
     this.deleteDialog.modal = deleteBuildConfigModal;
     this.deleteDialog.buildconfig = buildconfig;
     deleteBuildConfigModal.open();
   }
 
+  startBuild(buildconfig) {
+    this.buildConfigService.instantiate(buildconfig);
+  }
 }
