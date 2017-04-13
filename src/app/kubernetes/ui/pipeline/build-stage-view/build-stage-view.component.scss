@@ -182,10 +182,13 @@
   margin-bottom: 0;
 }
 
-.pipeline-stage-name,.pipeline-time {
+.pipeline-stage-name,.pipeline-time, .pipeline-actions {
   font-size: 12px;
   text-align: center;
 }
+
+
+
 
 .pipeline-stage-name {
   overflow: hidden;
@@ -195,7 +198,7 @@
   margin-bottom: 15px;
 }
 
-.pipeline-time {
+.pipeline-time, .pipeline-actions {
   margin-top: 12px;
   color: #9c9c9c;
 }

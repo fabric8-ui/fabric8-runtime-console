@@ -49,13 +49,13 @@
             </div>
           </div>
 
-          <div *ngIf="!pipeline.builds.length">
+          <div *ngIf="!(pipeline.builds && pipeline.builds.length)">
             <em>
               No pipeline builds have run for {{ pipeline.name }}.
             </em>
           </div>
 
-          <div *ngIf="pipeline.builds.length">
+          <div *ngIf="pipeline.builds && pipeline.builds.length">
             <div *ngFor='let build of pipeline.builds' class="animate-repeat">
               <build-stage-view [build]="build"></build-stage-view>
             </div>

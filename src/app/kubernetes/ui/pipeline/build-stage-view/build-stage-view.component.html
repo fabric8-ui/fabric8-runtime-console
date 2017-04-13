@@ -27,8 +27,12 @@
               {{stage.name}}
             </div>
             <pipeline-status [stage]="stage"></pipeline-status>
+
+            <div class="pipeline-actions" *ngIf="stage.jenkinsInputURL">
+              <a [href]="stage.jenkinsInputURL" target="_blank">Input Required</a>
+            </div>
             <div class="pipeline-time {{stage.status}}"
-                 *ngIf="stage.durationMillis && !(build.pipelineStagePendingInput)">
+                 *ngIf="!stage.jenkinsInputURL && stage.durationMillis && !(build.pipelineStagePendingInput)">
               {{stage.durationMillis | amDuration: 'ms'}}
             </div>
           </div>
