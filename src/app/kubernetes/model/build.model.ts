@@ -28,7 +28,7 @@ export class Build extends KubernetesSpecResource {
             var stages = obj.stages;
             if (stages && stages.length) {
               stages.forEach(stage => {
-                var pipelineStage = new PipelineStage(stage);
+                var pipelineStage = new PipelineStage(stage, this);
                 if (pipelineStage.name) {
                   this._pipelineStages.push(pipelineStage);
                 }
