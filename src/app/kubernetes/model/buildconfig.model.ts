@@ -21,13 +21,26 @@ export class BuildConfig extends KubernetesSpecResource {
   duration: number;
   iconStyle: string;
 
-  interestingBuilds: Array<Build>;
   builds: Array<Build> = new Array<Build>();
 
   private _lastBuild: Build;
 
   get lastBuild(): Build {
     return this._lastBuild;
+  }
+
+  get interestingBuilds(): Array<Build> {
+    var answer = new Array<Build>();
+    let builds = this.builds;
+    if (builds && builds.length) {
+      answer.push(builds[builds.length - 1]);
+    } else {
+      let build = this.lastBuild;
+      if (build) {
+        answer.push(build);
+      }
+    }
+    return answer;
   }
 
   get isPipeline(): boolean {
@@ -42,9 +55,6 @@ export class BuildConfig extends KubernetesSpecResource {
     this.statusPhase = build ? build.statusPhase : "";
     this.duration = build ? build.duration : 0;
     this.iconStyle = build ? build.iconStyle : defaultBuildIconStyle;
-
-    this.interestingBuilds = new Array<Build>();
-    this.interestingBuilds.push(build);
   }
 
   get interestingBuildsAverageDuration(): number {
@@ -69,7 +79,6 @@ export class BuildConfig extends KubernetesSpecResource {
     super.updateValuesFromResource();
 
     this.builds = new Array<Build>();
-    this.interestingBuilds = new Array<Build>();
     let spec = this.spec || {};
     let status = this.status || {};
     let source = spec.source || {};
