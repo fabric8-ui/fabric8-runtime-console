@@ -21,40 +21,59 @@ export class BuildConfig extends KubernetesSpecResource {
   duration: number;
   iconStyle: string;
 
-  builds: Array<Build> = new Array<Build>();
+  private _builds: Array<Build> = new Array<Build>();
+  interestingBuilds: Array<Build> = new Array<Build>();
 
   private _lastBuild: Build;
+
+  get builds(): Array<Build> {
+    return this._builds;
+  }
+
+  set builds(builds: Array<Build>) {
+    this._builds = builds;
+    this.onBuildsUpdated();
+  }
 
   get lastBuild(): Build {
     return this._lastBuild;
   }
 
-  get interestingBuilds(): Array<Build> {
-    var answer = new Array<Build>();
+  /**
+   * When the builds are updated lets keep track of the interesting builds
+   * and the last build
+   */
+  private onBuildsUpdated() {
+    let answer = this.interestingBuilds;
+    answer.splice(0, answer.length);
+
     let builds = this.builds;
-    if (builds && builds.length) {
-      answer.push(builds[builds.length - 1]);
-    } else {
-      let build = this.lastBuild;
-      if (build) {
+    let lastVersionName = this.lastBuildName;
+    if (lastVersionName) {
+      for (let build of builds) {
+        if (lastVersionName === build.name) {
+          this._lastBuild = build;
+        }
+      }
+    }
+
+    for (let build of builds) {
+      if ("Running" === build.statusPhase) {
         answer.push(build);
       }
     }
-    return answer;
+    let build = this.lastBuild;
+    if (!answer.length && build) {
+      answer.push(build);
+    }
+
+    this.statusPhase = build ? build.statusPhase : "";
+    this.duration = build ? build.duration : 0;
+    this.iconStyle = build ? build.iconStyle : defaultBuildIconStyle;
   }
 
   get isPipeline(): boolean {
     return "JenkinsPipeline" === this.type;
-  }
-  
-  set lastBuild(build: Build) {
-    this._lastBuild = build;
-    if (!build.buildConfigName) {
-      build.buildConfigName = this.name;
-    }
-    this.statusPhase = build ? build.statusPhase : "";
-    this.duration = build ? build.duration : 0;
-    this.iconStyle = build ? build.iconStyle : defaultBuildIconStyle;
   }
 
   get interestingBuildsAverageDuration(): number {
@@ -78,7 +97,6 @@ export class BuildConfig extends KubernetesSpecResource {
   updateValuesFromResource() {
     super.updateValuesFromResource();
 
-    this.builds = new Array<Build>();
     let spec = this.spec || {};
     let status = this.status || {};
     let source = spec.source || {};
@@ -101,6 +119,7 @@ export class BuildConfig extends KubernetesSpecResource {
     if (gitUrl) {
       this.openInDEAUrl = "jetbrains://idea/checkout/git?idea.required.plugins.id=Git4Idea&checkout.repo=" + gitUrl;
     }
+    this.onBuildsUpdated();
 
     // TODO create openInCheUrl URL
   }
@@ -151,6 +170,7 @@ export function combineBuildConfigAndBuilds(buildConfigs: BuildConfigs, builds: 
     }
     if (buildConfigs) {
       buildConfigs.forEach(bc => {
+/*
         let lastVersionName = bc.lastBuildName;
         if (lastVersionName) {
           let build = map[lastVersionName];
@@ -158,6 +178,7 @@ export function combineBuildConfigAndBuilds(buildConfigs: BuildConfigs, builds: 
             bc.lastBuild = build;
           }
         }
+*/
         let name = bc.name;
         if (name) {
           let list = bcBuilds[name];
