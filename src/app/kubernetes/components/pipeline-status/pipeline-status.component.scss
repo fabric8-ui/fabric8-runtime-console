@@ -1,382 +1,554 @@
-.console-os .top-header,.pipeline-status-bar {
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: -ms-flex
+$build-pipeline-aborted-color: #d1d1d1;
+$build-pipeline-border-color: #d1d1d1;
+$build-pipeline-failed-color: $brand-danger;
+$build-pipeline-in-progress-color: #0088ce;
+$build-pipeline-new-color: #bee1f4;
+$build-pipeline-pending-color: #d1d1d1;
+$build-pipeline-success-color: #3f9c35;
+$build-pipeline-require-attention-color: $color-pf-gold;
+$circle-animation-time: 0.35s;
+$circle-diameter: 18px;
+$circle-border-width: ($line-border-width / 2);
+$circle-radius: ($circle-diameter / 2);
+$icon-animation-time: $inner-circle-animation-time;
+$inner-circle-animation-time: 0.1s;
+$inner-circle-color: #fff;
+$line-animation-time: 0.35s;
+$line-border-width: 8px;
+$line-grow-animation-time: 0.5s;
+$line-height: ($line-border-width / 2);
+$pipeline-padding: 10px;
+$progress-line: 100%;
+$progress-rail-animation-time: 5s;
+$semi-circle-animation-time: ($circle-animation-time / 2);
+
+// Animations
+$keyframes flexGrow {
+  to {
+    @mixin flex-grow($grow: 1);
+    @mixin flex-shrink($shrink: 1);
+    @mixin flex-basis($width: auto);
+  }
 }
 
-.pipeline-status-bar .clip1:before,.pipeline-status-bar .clip2:before,.pipeline-status-bar .pipeline-line:before {
-    background-color: #d1d1d1
+$keyframes flexShrink {
+  to {
+    @mixin flex-basis($width: 1);
+    @mixin flex-grow($grow: 0.000001);
+    @mixin flex-shrink($shrink: 1);
+  }
 }
 
-.pipeline-status-bar .inner-circle-fill {
+$keyframes progress-line {
+  from {
+    width: 0;
+  }
+  to {
+    width: $progress-line;
+  }
+}
+
+$keyframes progress-rail {
+  to {
+    transform: translateX(400%)
+  }
+}
+
+$keyframes progress {
+  from {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}
+
+$keyframes fadeIn {
+  from {
+    opacity: 0;
+
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+$keyframes fadeOut {
+  from {
+    background-color: $build-pipeline-pending-color;
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+// Solid circle backgrounds
+$keyframes fadeInSuccess {
+  to {background-color: $build-pipeline-success-color;}
+}
+
+$keyframes fadeInFailed {
+  to {background-color: $build-pipeline-failed-color;}
+}
+
+$keyframes fadeInProgress {
+  to {background-color: $build-pipeline-in-progress-color;}
+}
+
+$keyframes fadeInAborted {
+  to {background-color: $build-pipeline-aborted-color;}
+}
+
+$keyframes fadeInNotExecuted {
+  to {background-color: $build-pipeline-pending-color;}
+}
+
+.build-pipeline {
+  border: 1px solid $build-pipeline-border-color;
+  border-top-width: 2px;
+  &:first-child {
+    border-top-width: 1px;
+  }
+}
+
+.pipeline-container {
+  @mixin flex($columns: 1 1 auto);
+  overflow: hidden;
+}
+.pipeline {
+  @mixin flex-display($display: flex);
+  @mixin flex-wrap($wrap: wrap);
+  height: 100%;
+  padding: 0 ($pipeline-padding / 2);
+  .overview & {
     background-color: #fff;
-    opacity: 0
+  }
+  .pipeline-stage {
+    // need to use flex-basis: auto and width because of IE11 bug
+    @mixin flex($columns: 0 0 auto);
+    min-height: 96px;
+    padding: ($pipeline-padding + 5) $pipeline-padding  ($pipeline-padding * 3) $pipeline-padding;
+    position: relative;
+    width: 100%;
+    // add arrow after each stage
+    &:before {
+      bottom: 0;
+      color:  darken($build-pipeline-border-color, 5%);
+      content: '\2193';
+      font-size: 22px;
+      left: 0;
+      line-height: 1;
+      position: absolute;
+      right: 0;
+      text-align: center;
+    }
+    // hide arrow on last stage
+    &:last-child:before {
+      display: none;
+    }
+    &.no-stages {
+      align-items: center;
+      display: flex;
+      // so that .pipeline-stage-name doesn't truncate
+      width: auto !important;
+      &:before {
+        display: none;
+      }
+      .pipeline-stage-name {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
-.pipeline-status-bar.SUCCESS .clip1:before,.pipeline-status-bar.SUCCESS .clip2:before,.pipeline-status-bar.SUCCESS .inner-circle-fill,.pipeline-status-bar.SUCCESS .pipeline-line:before {
-    background-color: #3f9c35
+.new-stage {
+  animation: flexGrow $line-grow-animation-time ease forwards;
+  @mixin flex-basis($width: 1);
+  @mixin flex-grow($grow: 0.000001);
+  @mixin flex-shrink($shrink: 1);
 }
 
-.pipeline-status-bar.SUCCESS .pipeline-circle {
-    animation: fadeInSuccess 0s .7s linear forwards
+.remove-stage {
+  animation: flexShrink $line-grow-animation-time ease forwards;
+  @mixin flex($columns: 1 1 0%);
 }
 
-.pipeline-status-bar.SUCCESS .pipeline-circle:after {
-    content: "\f00c"
+.pipeline-stage-name, .pipeline-time, .pipeline-actions {
+  font-size: ($font-size-base - 1);
+  text-align: center;
+}
+.pipeline-stage-name {
+  @include truncate();
+  line-height: initial;
+  margin-bottom: $pipeline-padding + 5px;
+}
+.pipeline-time, .pipeline-actions {
+  margin-top: 12px;
+  @include text-muted();
+  &.IN_PROGRESS {
+    color: $gray;
+  }
+  .overview & {
+    background-color: #fff;
+  }
 }
 
-.pipeline-status-bar.FAILED .clip1:before,.pipeline-status-bar.FAILED .clip2:before,.pipeline-status-bar.FAILED .inner-circle-fill,.pipeline-status-bar.FAILED .pipeline-line:before {
-    background-color: #c00
+[class^="build-pipeline"] {
+  .status-icon {
+    &.Complete {
+      color: $build-pipeline-success-color;
+    }
+    &.Failed{
+      color: $build-pipeline-failed-color;
+    }
+  }
 }
 
-.pipeline-status-bar.FAILED .pipeline-circle {
-    animation: fadeInFailed 0s .7s linear forwards
+.build-links {
+  .pipeline-link {
+    display: inline-block;
+  }
+  .pipeline-link + .pipeline-link:before {
+    border-left: 1px solid $build-pipeline-border-color;
+    content: '';
+    display: inline-block;
+    height: 12px;
+    margin-right: 3px;
+    margin: 0 5px -2px 2px;
+  }
 }
 
-.pipeline-status-bar.FAILED .pipeline-circle:after {
-    content: "\f00d"
+.build-links, .build-name, .build-phase, .build-timestamp {
+  padding: 0 10px;
 }
 
-.pipeline-status-bar.IN_PROGRESS .pipeline-line {
-    overflow: hidden
+.build-links, .build-timestamp {
+  padding-top: 2px;
+  @include small();
 }
 
-.pipeline-status-bar.IN_PROGRESS .pipeline-line:before {
-    animation: progress-rail 5s .5s linear infinite;
-    background-color: #0088ce;
-    transform: translateX(-100%);
-    width: 25%
+.build-summary, .stage {
+  @include text-center();
 }
 
-.pipeline-status-bar.IN_PROGRESS .clip1:before,.pipeline-status-bar.IN_PROGRESS .clip2:before,.pipeline-status-bar.IN_PROGRESS .inner-circle-fill {
-    background-color: #0088ce
+.build-summary {
+  border-bottom: 1px solid $build-pipeline-border-color;
+  @include flex-display(flex);
+  @mixin flex-direction($direction: row);
+  @mixin flex-wrap($wrap: wrap);
+  @mixin justify-content($justify: space-around);
+  padding: 5px;
+  position: relative;
+  .overview & {
+    background-color: #fff;
+  }
 }
 
-.pipeline-status-bar.IN_PROGRESS .pipeline-circle {
-    animation: fadeInProgress 0s .7s linear forwards
+.build-timestamp {
+  @include text-muted();
 }
 
-.pipeline-status-bar.IN_PROGRESS .pipeline-circle:after {
-    content: "\f021"
+@media (min-width: 400px) {
+  .pipeline .pipeline-stage {
+    padding-right: ($pipeline-padding * 5.2);
+    padding-bottom: ($pipeline-padding + 5);
+    width: (100% / 2);
+    &:before {
+      bottom: auto;
+      content: '\2192';
+      left: auto;
+      right: 10px;
+      top: 37%;
+    }
+  }
 }
 
-.pipeline-status-bar.NOT_EXECUTED .clip1:before,.pipeline-status-bar.NOT_EXECUTED .clip2:before,.pipeline-status-bar.NOT_EXECUTED .inner-circle-fill,.pipeline-status-bar.NOT_EXECUTED .pipeline-line:before {
-    background-color: #d1d1d1
+@media (min-width: 600px) {
+  .build-links, .build-timestamp {
+    padding-top: 0;
+  }
+  .build-pipeline {
+    @mixin flex-direction($direction: row);
+    @mixin flex-display($display: flex);
+    .build-name {
+      white-space: nowrap;
+    }
+  }
+  .build-summary {
+    border-bottom-width: 0;
+    border-right: 1px solid $build-pipeline-border-color;
+    @mixin flex($columns: 0 0 125px);
+    @mixin flex-direction($direction: column);
+    @mixin justify-content($justify: center);
+  }
 }
 
-.pipeline-status-bar.NOT_EXECUTED .pipeline-circle {
-    animation: fadeInNotExecuted 0s .7s linear forwards
+@media (min-width: $screen-md-min) {
+  .pipeline .pipeline-stage {
+    width: (100% / 4);
+  }
 }
 
-.pipeline-status-bar.NOT_EXECUTED .pipeline-circle:after {
-    content: ""
+@media (min-width: $screen-lg-min) {
+  .pipeline .pipeline-stage {
+    width: (100% / 5);
+  }
+}
+@media (min-width: ($screen-lg-min + 200)) {
+  .pipeline .pipeline-stage {
+    width: (100% / 6);
+  }
 }
 
-.pipeline-status-bar.PAUSED_PENDING_INPUT .clip1:before,.pipeline-status-bar.PAUSED_PENDING_INPUT .clip2:before,.pipeline-status-bar.PAUSED_PENDING_INPUT .inner-circle-fill,.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-line:before {
-    background-color: #f0ab00
+@media (min-width: $screen-xlg-min) {
+  .pipeline .pipeline-stage {
+    width: (100% / 7);
+  }
 }
 
-.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-circle:after {
-    content: "\f04c";
-    font-size: 10px
+.pipeline-status-bar  {
+  .pipeline-line:before,
+  .clip1:before,
+  .clip2:before {
+    background-color: $build-pipeline-pending-color;
+  }
+  .inner-circle-fill {
+    background-color: $inner-circle-color;
+    opacity: 0;
+  }
+}
+.pipeline-status-bar.SUCCESS  {
+  .pipeline-line:before,
+  .clip1:before,
+  .clip2:before,
+  .inner-circle-fill {
+    background-color: $build-pipeline-success-color;
+  }
+  .pipeline-circle {
+    animation: fadeInSuccess 0s ($line-animation-time + $circle-animation-time) linear forwards;
+    &:after {
+      content: "\f00c";
+    }
+  }
 }
 
-.pipeline-status-bar.ABORTED .clip1:before,.pipeline-status-bar.ABORTED .clip2:before,.pipeline-status-bar.ABORTED .inner-circle-fill,.pipeline-status-bar.ABORTED .pipeline-line:before {
-    background-color: #d1d1d1
+.pipeline-status-bar.FAILED  {
+  .pipeline-line:before,
+  .clip1:before,
+  .clip2:before,
+  .inner-circle-fill {
+    background-color: $build-pipeline-failed-color;
+  }
+  .pipeline-circle {
+    animation: fadeInFailed 0s ($line-animation-time + $circle-animation-time) linear forwards;
+    &:after {
+      content: "\f00d";
+    }
+  }
 }
 
-.pipeline-status-bar.ABORTED .pipeline-circle {
-    animation: fadeInAborted 0s .7s linear forwards
+.pipeline-status-bar.IN_PROGRESS  {
+  .pipeline-line {
+    overflow: hidden;
+    &:before {
+      animation: progress-rail $progress-rail-animation-time $line-grow-animation-time linear infinite;
+      background-color: $build-pipeline-in-progress-color;
+      transform: translateX(-100%);
+      width: 25%;
+    }
+  }
+  .clip1:before,
+  .clip2:before,
+  .inner-circle-fill {
+    background-color: $build-pipeline-in-progress-color;
+  }
+  .pipeline-circle {
+    animation: fadeInProgress 0s ($line-animation-time + $circle-animation-time) linear forwards;
+    &:after {
+      content: "\f021";
+    }
+  }
 }
 
-.pipeline-status-bar.ABORTED .pipeline-circle:after {
-    content: "\f05e"
+.pipeline-status-bar.NOT_EXECUTED  {
+  .pipeline-line:before,
+  .clip1:before,
+  .clip2:before,
+  .inner-circle-fill {
+    background-color: $build-pipeline-pending-color;
+  }
+  .pipeline-circle {
+    animation: fadeInNotExecuted 0s ($line-animation-time + $circle-animation-time) linear forwards;
+    &:after {
+      content: ""; // no icon
+    }
+  }
+}
+
+.pipeline-status-bar.PAUSED_PENDING_INPUT  {
+  .pipeline-line:before,
+  .clip1:before,
+  .clip2:before,
+  .inner-circle-fill {
+    background-color: $build-pipeline-require-attention-color;
+  }
+  .pipeline-circle {
+    &:after {
+      content: "\f04c";
+      font-size: 10px;
+    }
+  }
+}
+
+
+.pipeline-status-bar.ABORTED  {
+  .pipeline-line:before,
+  .clip1:before,
+  .clip2:before,
+  .inner-circle-fill {
+    background-color: $build-pipeline-aborted-color;
+  }
+  .pipeline-circle {
+    animation: fadeInAborted 0s ($line-animation-time + $circle-animation-time) linear forwards;
+    &:after {
+      content: "\f05e";
+    }
+  }
 }
 
 .pipeline-status-bar {
-    display: flex;
-    -webkit-align-items: center;
-    -moz-align-items: center;
-    align-items: center;
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    margin-bottom: -9px
-}
-
-.pipeline-status-bar .pipeline-line {
-    width: 100%;
-    height: 4px;
-    background: #d1d1d1;
-    position: relative
-}
-
-.pipeline-status-bar .pipeline-line:before {
-    content: '';
-    position: absolute;
-    height: 100%;
-    animation: progress-line .35s ease-in forwards
-}
-
-.pipeline-circle {
-    background: #d1d1d1;
-    width: 18px;
-    height: 18px;
-    border-radius: 9px;
-    margin-top: -11px;
+  @mixin flex-display($display: flex);
+  @mixin align-items($align: center);
+  @mixin flex-direction($direction: column);
+  margin-bottom: -($circle-diameter / 2);
+  .pipeline-line {
+    width: $progress-line;
+    height: $line-height;
+    background: $build-pipeline-pending-color;
     position: relative;
-    transform: rotate(-90deg)
+    &:before {
+      content: '';
+      position: absolute;
+      height: 100%;
+      animation: progress-line $line-animation-time ease-in forwards;
+    }
+  }
 }
-
-.pipeline-circle:after {
+.pipeline-circle {
+  background: $build-pipeline-pending-color;
+  width: $circle-diameter;
+  height: $circle-diameter;
+  border-radius: $circle-radius;
+  margin-top: (-($circle-diameter / 2) - ($line-height / 2));
+  position: relative;
+  transform: rotate(-90deg);
+  &:after {
     position: absolute;
-    color: #fff;
-    font-family: FontAwesome;
-    font-size: 12px;
-    transform: translate(-50%,-50%) rotate(90deg);
+    color: $inner-circle-color;
+    font-family: 'FontAwesome';
+    font-size: ($font-size-base - 1);
+    transform: translate(-50%, -50%) rotate(90deg);
     top: 50%;
     left: 50%;
     opacity: 0;
-    animation: fadeIn .1s 875ms linear forwards
-}
-
-.pipeline-circle .clip1:before,.pipeline-circle .clip2:before {
-    width: 18px;
-    height: 18px;
-    transform: rotate(360deg);
-    border-radius: 9px;
+    animation: fadeIn $icon-animation-time ($line-grow-animation-time + $semi-circle-animation-time + ($inner-circle-animation-time * 2)) linear forwards;
+  }
+  .clip1 {
     position: absolute;
-    content: ''
-}
-
-.pipeline-circle .clip1 {
+    clip: rect(0, $circle-diameter, $circle-diameter, $circle-radius);
+    z-index: -9;
+    &:before {
+      content: '';
+      position: absolute;
+      width: $circle-diameter;
+      height: $circle-diameter;
+      clip: rect(0, $circle-radius, $circle-diameter, 0);
+      border-radius: $circle-radius;
+      transform: rotate(360deg);
+      animation: progress $semi-circle-animation-time $line-animation-time linear forwards;
+    }
+  }
+  .clip2 {
     position: absolute;
-    clip: rect(0,18px,18px,9px);
-    z-index: -9
-}
-
-.pipeline-circle .clip1:before {
-    clip: rect(0,9px,18px,0);
-    animation: progress 175ms .35s linear forwards
-}
-
-.pipeline-circle .clip2 {
+    clip: rect(0, $circle-radius, $circle-diameter, 0);
+    z-index: -9;
+    &:before {
+      content: '';
+      position: absolute;
+      width: $circle-diameter;
+      height: $circle-diameter;
+      clip: rect(0, $circle-diameter, $circle-diameter, $circle-radius);
+      border-radius: $circle-radius;
+      transform: rotate(360deg);
+      animation: progress $semi-circle-animation-time ($semi-circle-animation-time + $line-animation-time) linear forwards;
+    }
+  }
+  .inner-circle {
+    height: ($circle-diameter - $circle-border-width * 2);
+    width: ($circle-diameter - $circle-border-width * 2);
+    border-radius: $circle-radius;
+    background-color: $inner-circle-color;
     position: absolute;
-    clip: rect(0,9px,18px,0);
-    z-index: -9
+    top: $circle-border-width;
+    left: $circle-border-width;
+    animation: fadeOut $inner-circle-animation-time ($line-animation-time + $circle-animation-time) linear forwards;
+    .inner-circle-fill {
+      box-sizing: border-box;
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+      opacity: 0;
+    }
+  }
 }
 
-.pipeline-circle .clip2:before {
-    clip: rect(0,18px,18px,9px);
-    animation: progress 175ms 525ms linear forwards
-}
+// Collapsed stages on completion
+// ------------------------------
 
-.pipeline-circle .inner-circle {
-    height: 10px;
-    width: 10px;
-    border-radius: 9px;
+.build-pipeline-collapsed, .triggers .build {
+  border: 1px solid $overview-border-gray;
+  .overview & {
     background-color: #fff;
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    animation: fadeOut .1s .7s linear forwards
-}
-
-.pipeline-circle .inner-circle .inner-circle-fill {
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-    opacity: 0
-}
-
-
-
-.pipeline-status-bar .clip1:before,.pipeline-status-bar .clip2:before,.pipeline-status-bar .pipeline-line:before {
-    background-color: #d1d1d1
-}
-
-.pipeline-status-bar .inner-circle-fill {
-    background-color: #fff;
-    opacity: 0
-}
-
-.pipeline-status-bar.SUCCESS .clip1:before,.pipeline-status-bar.SUCCESS .clip2:before,.pipeline-status-bar.SUCCESS .inner-circle-fill,.pipeline-status-bar.SUCCESS .pipeline-line:before {
-    background-color: #3f9c35
-}
-
-.pipeline-status-bar.SUCCESS .pipeline-circle {
-    animation: fadeInSuccess 0s .7s linear forwards
-}
-
-.pipeline-status-bar.SUCCESS .pipeline-circle:after {
-    content: "\f00c"
-}
-
-.pipeline-status-bar.FAILED .clip1:before,.pipeline-status-bar.FAILED .clip2:before,.pipeline-status-bar.FAILED .inner-circle-fill,.pipeline-status-bar.FAILED .pipeline-line:before {
-    background-color: #c00
-}
-
-.pipeline-status-bar.FAILED .pipeline-circle {
-    animation: fadeInFailed 0s .7s linear forwards
-}
-
-.pipeline-status-bar.FAILED .pipeline-circle:after {
-    content: "\f00d"
-}
-
-.pipeline-status-bar.IN_PROGRESS .pipeline-line {
-    overflow: hidden
-}
-
-.pipeline-status-bar.IN_PROGRESS .pipeline-line:before {
-    animation: progress-rail 5s .5s linear infinite;
-    background-color: #0088ce;
-    transform: translateX(-100%);
-    width: 25%
-}
-
-.pipeline-status-bar.IN_PROGRESS .clip1:before,.pipeline-status-bar.IN_PROGRESS .clip2:before,.pipeline-status-bar.IN_PROGRESS .inner-circle-fill {
-    background-color: #0088ce
-}
-
-.pipeline-status-bar.IN_PROGRESS .pipeline-circle {
-    animation: fadeInProgress 0s .7s linear forwards
-}
-
-.pipeline-status-bar.IN_PROGRESS .pipeline-circle:after {
-    content: "\f021"
-}
-
-.pipeline-status-bar.NOT_EXECUTED .clip1:before,.pipeline-status-bar.NOT_EXECUTED .clip2:before,.pipeline-status-bar.NOT_EXECUTED .inner-circle-fill,.pipeline-status-bar.NOT_EXECUTED .pipeline-line:before {
-    background-color: #d1d1d1
-}
-
-.pipeline-status-bar.NOT_EXECUTED .pipeline-circle {
-    animation: fadeInNotExecuted 0s .7s linear forwards
-}
-
-.pipeline-status-bar.NOT_EXECUTED .pipeline-circle:after {
-    content: ""
-}
-
-.pipeline-status-bar.PAUSED_PENDING_INPUT .clip1:before,.pipeline-status-bar.PAUSED_PENDING_INPUT .clip2:before,.pipeline-status-bar.PAUSED_PENDING_INPUT .inner-circle-fill,.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-line:before {
-    background-color: #f0ab00
-}
-
-.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-circle:after {
-    content: "\f04c";
-    font-size: 10px
-}
-
-.pipeline-status-bar.ABORTED .clip1:before,.pipeline-status-bar.ABORTED .clip2:before,.pipeline-status-bar.ABORTED .inner-circle-fill,.pipeline-status-bar.ABORTED .pipeline-line:before {
-    background-color: #d1d1d1
-}
-
-.pipeline-status-bar.ABORTED .pipeline-circle {
-    animation: fadeInAborted 0s .7s linear forwards
-}
-
-.pipeline-status-bar.ABORTED .pipeline-circle:after {
-    content: "\f05e"
-}
-
-.pipeline-status-bar {
-    display: flex;
-    -webkit-align-items: center;
-    -moz-align-items: center;
-    align-items: center;
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    margin-bottom: -9px
-}
-
-.pipeline-status-bar .pipeline-line {
-    width: 100%;
-    height: 4px;
-    background: #d1d1d1;
-    position: relative
-}
-
-.pipeline-status-bar .pipeline-line:before {
-    content: '';
-    position: absolute;
-    height: 100%;
-    animation: progress-line .35s ease-in forwards
-}
-
-.pipeline-circle {
-    background: #d1d1d1;
-    width: 18px;
-    height: 18px;
-    border-radius: 9px;
-    margin-top: -11px;
+    border-left: 0;
+    border-top: 0;
+  }
+  .build-links, .build-timestamp {
+    padding-top: 2px;
+  }
+  .build-phase {
+    @include small();
+    .status-icon {
+      font-size: 12px;
+      .spinner.spinner-inline {
+        margin-bottom: -1px;
+      }
+    }
+  }
+  .build-summary {
+    border-bottom: 0;
+    border-right: 0;
+    @mixin flex-direction($direction: row);
+    @mixin justify-content($justify: flex-start);
     position: relative;
-    transform: rotate(-90deg)
-}
-
-.pipeline-circle:after {
+    text-align: left;
+    &.dismissible {
+      padding-right: 30px;
+    }
+  }
+  .build-timestamp {
+    @include pull-right();
+  }
+  .close {
+    color: #8b8d8f;
+    font-size: 16px;
+    opacity: .85;
     position: absolute;
-    color: #fff;
-    font-family: FontAwesome;
-    font-size: 12px;
-    transform: translate(-50%,-50%) rotate(90deg);
-    top: 50%;
-    left: 50%;
-    opacity: 0;
-    animation: fadeIn .1s 875ms linear forwards
-}
-
-.pipeline-circle .clip1:before,.pipeline-circle .clip2:before {
-    width: 18px;
-    height: 18px;
-    transform: rotate(360deg);
-    border-radius: 9px;
-    position: absolute;
-    content: ''
-}
-
-.pipeline-circle .clip1 {
-    position: absolute;
-    clip: rect(0,18px,18px,9px);
-    z-index: -9
-}
-
-.pipeline-circle .clip1:before {
-    clip: rect(0,9px,18px,0);
-    animation: progress 175ms .35s linear forwards
-}
-
-.pipeline-circle .clip2 {
-    position: absolute;
-    clip: rect(0,9px,18px,0);
-    z-index: -9
-}
-
-.pipeline-circle .clip2:before {
-    clip: rect(0,18px,18px,9px);
-    animation: progress 175ms 525ms linear forwards
-}
-
-.pipeline-circle .inner-circle {
-    height: 10px;
-    width: 10px;
-    border-radius: 9px;
-    background-color: #fff;
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    animation: fadeOut .1s .7s linear forwards
-}
-
-.pipeline-circle .inner-circle .inner-circle-fill {
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
-    opacity: 0
+    right: 10px;
+    top: 7px;
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
