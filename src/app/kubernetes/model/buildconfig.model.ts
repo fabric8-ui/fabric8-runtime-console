@@ -31,6 +31,9 @@ export class BuildConfig extends KubernetesSpecResource {
   }
 
   set builds(builds: Array<Build>) {
+    if (builds) {
+      builds.sort((a: Build, b: Build) => b.buildNumberInt - a.buildNumberInt);
+    }
     this._builds = builds;
     this.onBuildsUpdated();
   }
