@@ -24,7 +24,15 @@
           <div column="" class="pipeline-stage-column">
             <div class="pipeline-stage-name {{build.statusPhase}}"
                  title="stage status: {{stage.status}}">
-              {{stage.name}}
+              {{stage.name}} &nbsp;
+              <span class='open-service-icon'*ngIf="stage.serviceUrl">
+                <a target="deployment"
+                   class="external-service"
+                   [href]="stage.serviceUrl"
+                   title="Open this service in a separate browser tab">
+                  <i class="fa fa-external-link" aria-hidden="true"></i>
+                </a>
+              </span>
             </div>
             <pipeline-status [stage]="stage"></pipeline-status>
 
