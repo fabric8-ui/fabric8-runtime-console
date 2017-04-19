@@ -9,6 +9,7 @@ export class Build extends KubernetesSpecResource {
   duration: number;
   iconStyle: string;
   buildNumber: string;
+  buildNumberInt: number = 0;
   buildConfigName: string;
 
   jenkinsBuildURL: string;
@@ -56,6 +57,14 @@ export class Build extends KubernetesSpecResource {
     let statusConfig = status.config || {};
     this.buildConfigName = statusConfig.name || "";
     this.buildNumber = this.annotations["openshift.io/build.number"] || "";
+    this.buildNumberInt = 0;
+    if (this.buildNumber) {
+      try {
+        this.buildNumberInt = parseInt(this.buildNumber);
+      } catch (e) {
+        // ignore invalid text values
+      }
+    }
     this.jenkinsBuildURL = this.annotations["openshift.io/jenkins-build-uri"] || "";
     this.logURL = "";
     if (this.jenkinsBuildURL) {
