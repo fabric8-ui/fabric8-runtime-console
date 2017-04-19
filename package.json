@@ -86,7 +86,7 @@
     "ngx-base": "1.2.9",
     "ngx-fabric8-wit": "6.17.9",
     "ngx-login-client": "0.6.24",
-    "ngx-widgets": "0.13.4",
+    "ngx-widgets": "0.14.0",
     "pluralize": "4.0.0",
     "rxjs": "5.2.0"
   },
