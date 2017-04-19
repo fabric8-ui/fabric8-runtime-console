@@ -1,5 +1,5 @@
 import {KubernetesSpecResource} from "./kuberentesspecresource.model";
-import {Build, Builds} from "./build.model";
+import {Build, Builds, ServiceUrl} from "./build.model";
 import {Params} from "@angular/router";
 
 export const defaultBuildIconStyle = "pficon-build";
@@ -25,6 +25,11 @@ export class BuildConfig extends KubernetesSpecResource {
   interestingBuilds: Array<Build> = new Array<Build>();
 
   private _lastBuild: Build;
+
+  get serviceUrls(): Array<ServiceUrl> {
+    let last = this.lastBuild;
+    return last ? last.serviceUrls : new Array<ServiceUrl>();
+  }
 
   get builds(): Array<Build> {
     return this._builds;

@@ -10,7 +10,9 @@ export class PipelineStage {
   durationMillis: number;
   pauseDurationMillis: number;
   stageFlowNodes: any[];
-  
+  serviceUrlMap: Map<String,String>;
+  serviceUrl: string;
+
   constructor(data, public build: Build) {
     var obj = data || {};
     this.id = obj.id || "";
@@ -24,6 +26,29 @@ export class PipelineStage {
     let jenkinsBuildURL = build.jenkinsBuildURL;
     if (jenkinsBuildURL && this.status === "PAUSED_PENDING_INPUT") {
       this.jenkinsInputURL = pathJoin(jenkinsBuildURL, "/input");
+    }
+
+    let serviceEnvironmentMap = build.serviceEnvironmentMap;
+    let name = this.name;
+    if (name) {
+      let idx = name.lastIndexOf(' ');
+      if (idx >= 0) {
+        name = name.substring(idx + 1);
+      }
+      if (name) {
+        for (let key in serviceEnvironmentMap) {
+          let se = serviceEnvironmentMap[key];
+          if (name === se.environmentName) {
+            let urlMap = se.serviceUrls;
+            this.serviceUrlMap = urlMap;
+
+            let buildConfigName = build.buildConfigName;
+            if (buildConfigName) {
+              this.serviceUrl = urlMap[buildConfigName] || "";
+            }
+          }
+        }
+      }
     }
   }
 }
