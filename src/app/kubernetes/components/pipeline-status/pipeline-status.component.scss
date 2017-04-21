@@ -14,38 +14,73 @@
     opacity: 0
 }
 
-.pipeline-status-bar.SUCCESS .clip1:before,.pipeline-status-bar.SUCCESS .clip2:before,.pipeline-status-bar.SUCCESS .inner-circle-fill,.pipeline-status-bar.SUCCESS .pipeline-line,.pipeline-status-bar.SUCCESS .pipeline-line:before {
+.pipeline-status-bar.SUCCESS .clip1:before,.pipeline-status-bar.SUCCESS .clip2:before,.pipeline-status-bar.SUCCESS .inner-circle-fill,
+.pipeline-status-bar.SUCCESS .pipeline-line,.pipeline-status-bar.SUCCESS .pipeline-line:before,
+.pipeline-status-bar.SUCCESS .pipeline-circle, .pipeline-status-bar.SUCCESS .pipeline-circle .inner-circle {
     background-color: #3f9c35
-}
-
-.pipeline-status-bar.SUCCESS .pipeline-circle {
-    /*
-    animation: fadeInSuccess 0s .7s linear forwards
-    */
-    background-color: #3f9c35;
 }
 
 .pipeline-status-bar.SUCCESS .pipeline-circle:after {
     content: "\f00c";
-    background-color: #3f9c35;
     opacity: 1;
 }
 
-.pipeline-status-bar.FAILED .clip1:before,.pipeline-status-bar.FAILED .clip2:before,.pipeline-status-bar.FAILED .inner-circle-fill,.pipeline-status-bar.FAILED .pipeline-line,.pipeline-status-bar.FAILED .pipeline-line:before {
+.pipeline-status-bar.FAILED .clip1:before,.pipeline-status-bar.FAILED .clip2:before,.pipeline-status-bar.FAILED .inner-circle-fill,
+.pipeline-status-bar.FAILED .pipeline-line,.pipeline-status-bar.FAILED .pipeline-line:before,
+.pipeline-status-bar.FAILED .pipeline-circle, .pipeline-status-bar.FAILED .pipeline-circle .inner-circle {
     background-color: #c00
-}
-
-.pipeline-status-bar.FAILED .pipeline-circle {
-    /*
-    animation: fadeInFailed 0s .7s linear forwards
-    */
-    background-color: #c00;
 }
 
 .pipeline-status-bar.FAILED .pipeline-circle:after {
     content: "\f00d";
-    background-color: #c00;
     opacity: 1;
+}
+
+.pipeline-status-bar.NOT_EXECUTED .clip1:before,.pipeline-status-bar.NOT_EXECUTED .clip2:before,.pipeline-status-bar.NOT_EXECUTED .inner-circle-fill,
+.pipeline-status-bar.NOT_EXECUTED .pipeline-line,.pipeline-status-bar.NOT_EXECUTED .pipeline-line:before,
+.pipeline-status-bar.NOT_EXECUTED .pipeline-circle, .pipeline-status-bar.NOT_EXECUTED .pipeline-circle .inner-circle {
+    background-color: #d1d1d1
+}
+
+.pipeline-status-bar.NOT_EXECUTED .pipeline-circle:after {
+    content: "";
+    opacity: 1;
+}
+
+.pipeline-status-bar.PAUSED_PENDING_INPUT .clip1:before,.pipeline-status-bar.PAUSED_PENDING_INPUT .clip2:before,.pipeline-status-bar.PAUSED_PENDING_INPUT .inner-circle-fill,
+.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-line,.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-line:before,
+.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-circle, .pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-circle .inner-circle {
+    background-color: #f0ab00
+}
+
+.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-circle:after {
+    content: "\f04c";
+    font-size: 10px;
+    opacity: 1;
+}
+
+.pipeline-status-bar.ABORTED .clip1:before,.pipeline-status-bar.ABORTED .clip2:before,.pipeline-status-bar.ABORTED .inner-circle-fill,
+.pipeline-status-bar.ABORTED .inner-circle-fill,.pipeline-status-bar.ABORTED .pipeline-line,.pipeline-status-bar.ABORTED .pipeline-line:before,
+.pipeline-status-bar.ABORTED .pipeline-circle, .pipeline-status-bar.ABORTED .pipeline-circle .inner-circle {
+    background-color: #d1d1d1
+}
+
+.pipeline-status-bar.ABORTED .pipeline-circle:after {
+    content: "\f05e";
+}
+
+
+/** we have animations on in progress stages */
+.pipeline-status-bar.IN_PROGRESS .clip1:before,.pipeline-status-bar.IN_PROGRESS .clip2:before,.pipeline-status-bar.IN_PROGRESS .inner-circle-fill {
+    background-color: #0088ce
+}
+
+.pipeline-status-bar.IN_PROGRESS .pipeline-circle {
+    animation: fadeInProgress 0s .7s linear forwards
+}
+
+.pipeline-status-bar.IN_PROGRESS .pipeline-circle:after {
+    content: "\f021";
 }
 
 .pipeline-status-bar.IN_PROGRESS .pipeline-line {
@@ -59,66 +94,6 @@
     width: 25%
 }
 
-.pipeline-status-bar.IN_PROGRESS .clip1:before,.pipeline-status-bar.IN_PROGRESS .clip2:before,.pipeline-status-bar.IN_PROGRESS .inner-circle-fill {
-    background-color: #0088ce
-}
-
-.pipeline-status-bar.IN_PROGRESS .pipeline-circle {
-    animation: fadeInProgress 0s .7s linear forwards
-}
-
-.pipeline-status-bar.IN_PROGRESS .pipeline-circle:after {
-    content: "\f021";
-}
-
-.pipeline-status-bar.NOT_EXECUTED .clip1:before,.pipeline-status-bar.NOT_EXECUTED .clip2:before,.pipeline-status-bar.NOT_EXECUTED .inner-circle-fill,.pipeline-status-bar.NOT_EXECUTED .pipeline-line,.pipeline-status-bar.NOT_EXECUTED .pipeline-line:before {
-    background-color: #d1d1d1
-}
-
-.pipeline-status-bar.NOT_EXECUTED .pipeline-circle {
-    /*
-    animation: fadeInNotExecuted 0s .7s linear forwards
-    */
-    background-color: #d1d1d1;
-}
-
-.pipeline-status-bar.NOT_EXECUTED .pipeline-circle:after {
-    content: "";
-    background-color: #d1d1d1;
-    opacity: 1;
-}
-
-.pipeline-status-bar.PAUSED_PENDING_INPUT .clip1:before,.pipeline-status-bar.PAUSED_PENDING_INPUT .clip2:before,.pipeline-status-bar.PAUSED_PENDING_INPUT .inner-circle-fill,.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-line,.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-line:before {
-    background-color: #f0ab00
-}
-
-.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-circle {
-    background-color: #f0ab00
-}
-
-.pipeline-status-bar.PAUSED_PENDING_INPUT .pipeline-circle:after {
-    content: "\f04c";
-    font-size: 10px;
-    background-color: #f0ab00;
-    opacity: 1;
-}
-
-.pipeline-status-bar.ABORTED .clip1:before,.pipeline-status-bar.ABORTED .clip2:before,.pipeline-status-bar.ABORTED .inner-circle-fill,.pipeline-status-bar.ABORTED .pipeline-line,.pipeline-status-bar.ABORTED .pipeline-line:before {
-    background-color: #d1d1d1
-}
-
-.pipeline-status-bar.ABORTED .pipeline-circle {
-    /*
-    animation: fadeInAborted 0s .7s linear forwards
-    */
-    background-color: #d1d1d1;
-}
-
-.pipeline-status-bar.ABORTED .pipeline-circle:after {
-    content: "\f05e";
-    background-color: #d1d1d1;
-    opacity: 1;
-}
 
 .pipeline-status-bar {
     display: flex;
