@@ -49,7 +49,9 @@ export class Build extends KubernetesSpecResource {
             try {
               let config = jsyaml.safeLoad(yamlText);
               if (config) {
-                let se = new ServiceEnvironments(config.environmentName as string, config.serviceUrls as Map<String,String>);
+                let se = new ServiceEnvironments(config.environmentName as string,
+                  config.serviceUrls as Map<String,String>,
+                  config.deploymentVersions as Map<String,String>);
                 this._serviceEnvironmentsMap[envKey] = se;
               }
             } catch (e) {
@@ -87,6 +89,19 @@ export class Build extends KubernetesSpecResource {
     return this._serviceEnvironmentsMap;
   }
 
+  /**
+   * Returns the latest pipeline stage that is associated with a running service URL
+   */
+  get lastPipelineStageWithService(): PipelineStage {
+    var answer: PipelineStage = null;
+    for (let stage of this.pipelineStages) {
+      if (stage.serviceUrl) {
+        answer = stage;
+      }
+    }
+    return answer;
+  }
+
   get pipelineStages(): Array<PipelineStage> {
     if (!this._pipelineStages) {
       this._pipelineStages = new Array<PipelineStage>();
@@ -112,6 +127,31 @@ export class Build extends KubernetesSpecResource {
       }
     }
     return this._pipelineStages;
+  }
+
+  get firstPendingInputAction(): PendingInputAction {
+    let array = this.pendingInputActions;
+    return array && array.length ? array[0] : null;
+  }
+
+  get pendingInputActions(): PendingInputAction[] {
+    let answer: PendingInputAction[] = [];
+    var json = this.annotations["openshift.io/jenkins-pending-input-actions-json"];
+    if (json) {
+      try {
+        var obj = JSON.parse(json);
+        if (obj != null) {
+          if (obj && obj.length) {
+            obj.forEach(input => {
+              answer.push(input as PendingInputAction);
+            });
+          }
+        }
+      } catch (e) {
+        // ignore bad JSON
+      }
+    }
+    return answer;
   }
 
 
@@ -180,8 +220,26 @@ export class ServiceUrl {
 }
 
 export class ServiceEnvironments {
-  constructor(public environmentName: string, public serviceUrls: Map<String,String>) {}
+  constructor(public environmentName: string, public serviceUrls: Map<String,String>, public deploymentVersions: Map<String,String>) {}
 }
 
 export class Builds extends Array<Build>{
+}
+
+export class PendingInputAction {
+  id: string;
+  proceedText: string;
+  message: string;
+  inputs: any[];
+
+  proceedUrl: string;
+  abortUrl: string;
+  redirectApprovalUrl: string;
+}
+
+export function isValidInputAction(inputAction: PendingInputAction) {
+  if (inputAction) {
+    return inputAction.proceedUrl;
+  }
+  return false;
 }
