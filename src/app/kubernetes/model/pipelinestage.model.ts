@@ -12,6 +12,7 @@ export class PipelineStage {
   stageFlowNodes: any[];
   serviceUrlMap: Map<String,String>;
   serviceUrl: string;
+  environmentName: string;
 
   constructor(data, public build: Build) {
     var obj = data || {};
@@ -39,6 +40,7 @@ export class PipelineStage {
         for (let key in serviceEnvironmentMap) {
           let se = serviceEnvironmentMap[key];
           if (name === se.environmentName) {
+            this.environmentName = name;
             let urlMap = se.serviceUrls;
             this.serviceUrlMap = urlMap;
 

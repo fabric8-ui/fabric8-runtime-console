@@ -8,8 +8,8 @@ export class KubernetesResource implements BaseEntity {
   namespace: string;
   description: string;
   icon: string;
-  labels: Map<string, string>;
-  annotations: Map<string, string>;
+  labels: Map<string, string> = new Map<string, string>();
+  annotations: Map<string, string> = new Map<string, string>();
   resource: any;
   creationTimestamp: any;
   openShiftConsoleUrl: string;

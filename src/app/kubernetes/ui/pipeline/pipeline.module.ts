@@ -24,6 +24,7 @@ import {PipelinesFullHistoryComponent} from "./full-history/full-history.pipelin
 import {PipelinesFullHistoryPage} from "./full-history-page/full-history-page.pipeline.component";
 
 import {StackDetailsModule} from 'fabric8-stack-analysis-ui';
+import {InputActionDialog} from "./input-action-dialog/input-action-dialog.component";
 
 const routes: Routes = [
   { path: ':id/history', component: PipelinesHistoryPage },
@@ -45,6 +46,7 @@ const routes: Routes = [
   ],
   declarations: [
     BuildStageViewComponent,
+    InputActionDialog,
     PipelinesListPage,
     PipelinesListToolbarComponent,
     PipelinesListComponent,

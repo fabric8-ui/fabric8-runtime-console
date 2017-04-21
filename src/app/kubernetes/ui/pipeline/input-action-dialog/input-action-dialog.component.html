@@ -1,0 +1,34 @@
+<modal #inputModal>
+  <modal-header>
+    Input is required on pipeline {{build.name}}
+  </modal-header>
+
+  <modal-content>
+    <div *ngIf="build.lastPipelineStageWithService" class="test-service-panel text-center">
+      <a [href]="build.lastPipelineStageWithService.serviceUrl" class="btn" target="test"
+         title="Open a browser on the running {{build.buildConfigName}} service in the {{build.lastPipelineStageWithService.environmentName}} environment">
+        Open <b>{{build.buildConfigName}}</b> in the <b>{{build.lastPipelineStageWithService.environmentName}}</b> environment &nbsp;
+        <i class="fa fa-external-link" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="input-action-message-panel">
+      <div *ngFor="let message of messageLines" class="input-action-message">
+        <p>{{message}}</p>
+      </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <button class="btn btn-primary" type="submit" value="0" (click)="proceed()">
+        Proceed with pipeline
+      </button>
+      <button class="btn btn-danger" type="submit" value="1" (click)="abort()" *ngIf="inputAction.abortUrl">
+        Abort this pipeline
+      </button>
+      <button class="btn btn-default pull-right" autofocus (click)="close()">
+        Cancel
+      </button>
+    </div>
+  </modal-content>
+</modal>
+
+
+
