@@ -18,6 +18,7 @@ import {PipelinesFullHistoryComponent} from "../full-history/full-history.pipeli
 import {BuildStageViewComponent} from "../build-stage-view/build-stage-view.component";
 
 import {StackDetailsModule} from 'fabric8-stack-analysis-ui';
+import {InputActionDialog} from "../input-action-dialog/input-action-dialog.component";
 
 describe('PipelinesFullHistoryPage', () => {
   let component: PipelinesFullHistoryPage;
@@ -40,6 +41,7 @@ describe('PipelinesFullHistoryPage', () => {
       ],
       declarations: [
         BuildStageViewComponent,
+        InputActionDialog,
         PipelinesFullHistoryPage,
         PipelinesFullHistoryComponent,
         PipelinesFullHistoryToolbarComponent,
