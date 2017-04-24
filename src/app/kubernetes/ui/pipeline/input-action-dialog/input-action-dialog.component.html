@@ -16,15 +16,27 @@
         <p>{{message}}</p>
       </div>
     </div>
+    <div *ngIf="stage && stage.jenkinsInputURL" class="jenkins-input-panel text-center">
+      <a [href]="stage.jenkinsInputURL" target="jenkins"
+         title="View the input actions on the Jenkins console">
+        view in Jenkins console
+      </a>
+    </div>
+    <div class="question-panel">
+      <p>Would you like this pipeline to proceed?</p>
+    </div>
     <div class="col-md-12 col-sm-12 col-xs-12">
-      <button class="btn btn-primary" type="submit" value="0" (click)="proceed()">
-        Proceed with pipeline
+      <button class="btn btn-primary" type="submit" value="0" (click)="proceed()"
+        title="Yes, I want this pipeline to proceed">
+        Yes
       </button>
-      <button class="btn btn-danger" type="submit" value="1" (click)="abort()" *ngIf="inputAction.abortUrl">
-        Abort this pipeline
+      <button class="btn btn-danger" type="submit" value="1" (click)="abort()" *ngIf="inputAction.abortUrl"
+      title="No, I don't want this pipeline to proceed">
+        No
       </button>
-      <button class="btn btn-default pull-right" autofocus (click)="close()">
-        Cancel
+      <button class="btn btn-default pull-right" autofocus (click)="close()"
+              title="Close this dialog">
+        Close
       </button>
     </div>
   </modal-content>

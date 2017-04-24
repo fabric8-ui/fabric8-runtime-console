@@ -13,16 +13,19 @@ export class BuildStageViewComponent {
 
   @ViewChild(InputActionDialog) inputActionDialog: InputActionDialog;
 
-  openInputActionDialog(inputActionModal, stage) {
-    let inputAction = this.build.firstPendingInputAction;
-    if (isValidInputAction(inputAction)) {
-      this.inputActionDialog.build = this.build;
+  openInputActionDialog(stage) {
+    const build = this.build;
+    if (!build) {
+      return;
+    }
+    let inputAction = build.firstPendingInputAction;
+    if (isValidInputAction(inputAction) && build.jenkinsNamespace) {
+      this.inputActionDialog.build = build;
       this.inputActionDialog.inputAction = inputAction;
       this.inputActionDialog.stage = stage;
       this.inputActionDialog.open();
     } else {
-
-      // if no PendingInputAction JSON on the Build then lets just open the URL: stage.jenkinsInputURL
+      // if no PendingInputAction JSON or jenkins namespace on the Build then lets just open the URL: stage.jenkinsInputURL
       let url = stage.jenkinsInputURL;
       if (url) {
         window.location.href = url;

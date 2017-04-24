@@ -4,7 +4,6 @@ import {PipelineStage} from "../../../model/pipelinestage.model";
 import {Http, RequestOptions, Headers} from "@angular/http";
 import {OnLogin} from "../../../../shared/onlogin.service";
 import {pathJoin} from "../../../model/utils";
-import {OAuthConfig} from "../../../store/oauth-config-store";
 
 @Component({
   selector: 'input-action-dialog',
@@ -46,26 +45,35 @@ export class InputActionDialog {
       if (url.startsWith("//")) {
         url = url.substring(1);
       }
-      // TODO find Forge API from env vars and the namespace from the build!!!
-      let jenkinsUrl = "http://localhost:8080/services/jenkins/jastrachan-jenkins/";
-      if (jenkinsUrl) {
+      // lets replace URL which doesn't seem to work right ;)
+      const postfix = "/wfapi/inputSubmit?inputId=Proceed";
+      if (url.endsWith(postfix)) {
+        url = url.substring(0, url.length - postfix.length) + "/input/Proceed/proceedEmpty";
+      }
+
+      let jenkinsNamespace = this.build.jenkinsNamespace;
+      let forgeUrl = process.env.FABRIC8_FORGE_API_URL;
+      if (!forgeUrl) {
+        console.log("Warning no $FABRIC8_FORGE_API_URL environment variable!")
+      } else if (!jenkinsNamespace) {
+        console.log("Warning no jenkinsNamespace on the Build!")
+      } else {
+        url = pathJoin(forgeUrl, "/services/jenkins/", jenkinsNamespace, url);
         let token = this.onLogin.token;
-        url = pathJoin(jenkinsUrl, url);
         console.log("about to invoke " + url);
         let options = new RequestOptions();
         let headers = new Headers();
-        headers.set("Authorization",  "Bearer " + token);
+        headers.set("Authorization", "Bearer " + token);
         options.headers = headers;
         let body = null;
         this.http.post(url, body, options).subscribe(res => {
           console.log("posting to url: " + url + " and returned response " + res.status);
         });
-      } else {
-        console.log("No jenkinsUrl could be determined for the build!");
       }
     }
     this.close();
   }
+
   close() {
     this.modal.close();
   }
