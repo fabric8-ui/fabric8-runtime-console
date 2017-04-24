@@ -162,6 +162,13 @@ export class Build extends KubernetesSpecResource {
     return this.annotations["openshift.io/jenkins-namespace"];
   }
 
+  /**
+   * Returns the Jenkins test report URL if it is available
+   */
+  get jenkinsTestReportUrl(): string {
+    return this.annotations["fabric8.io/jenkins.testReportUrl"];
+  }
+
   updateValuesFromResource() {
     this._pipelineStages = null;
     super.updateValuesFromResource();

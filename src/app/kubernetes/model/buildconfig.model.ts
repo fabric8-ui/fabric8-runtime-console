@@ -101,6 +101,13 @@ export class BuildConfig extends KubernetesSpecResource {
     return 0;
   }
 
+  /**
+   * Returns the Jenkins test report URL of the last build if it is available
+   */
+  get jenkinsTestReportUrl(): string {
+    let build = this.lastBuild
+    return build ? build.jenkinsTestReportUrl : "";
+  }
 
   updateValuesFromResource() {
     super.updateValuesFromResource();
