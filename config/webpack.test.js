@@ -20,6 +20,7 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
  * Webpack Constants
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
+const FABRIC8_FORGE_API_URL = process.env.FABRIC8_FORGE_API_URL;
 const FABRIC8_WIT_API_URL = process.env.FABRIC8_WIT_API_URL;
 const FABRIC8_SSO_API_URL = process.env.FABRIC8_SSO_API_URL || 'http://sso.prod-preview.openshift.io/';
 const FABRIC8_RECOMMENDER_API_URL = process.env.FABRIC8_RECOMMENDER_API_URL || 'http://api-bayesian.dev.rdu2c.fabric8.io/api/v1/';
@@ -245,6 +246,7 @@ module.exports = function (options) {
         'HMR': false,
         'process.env': {
           'ENV': stringify(ENV),
+          'FABRIC8_FORGE_API_URL': stringify(FABRIC8_FORGE_API_URL),
           'FABRIC8_WIT_API_URL': stringify(FABRIC8_WIT_API_URL),
           'FABRIC8_WIT_SSO_URL': stringify(FABRIC8_SSO_API_URL),
           'FABRIC8_RECOMMENDER_API_URL' : stringify(FABRIC8_RECOMMENDER_API_URL),

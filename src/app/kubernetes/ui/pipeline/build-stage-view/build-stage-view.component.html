@@ -37,7 +37,7 @@
             <pipeline-status [stage]="stage"></pipeline-status>
 
             <div class="pipeline-actions" *ngIf="stage.jenkinsInputURL">
-              <a (click)="openInputActionDialog(inputActionModal, stage)" class="btn" title="Input is required before this pipeline can proceed">Input Required</a>
+              <a (click)="openInputActionDialog(stage)" class="btn" title="Input is required before this pipeline can proceed">Input Required</a>
             </div>
             <div class="pipeline-time {{stage.status}}"
                  *ngIf="!stage.jenkinsInputURL && stage.durationMillis && !(build.pipelineStagePendingInput)">
@@ -55,9 +55,4 @@
   </div>
 </div>
 
-<input-action-dialog #inputActionModal></input-action-dialog>
-
-
-<!--
-<modal #inputActionModal title="Pending Input Actions">
--->
+<input-action-dialog></input-action-dialog>

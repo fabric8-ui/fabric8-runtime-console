@@ -154,6 +154,13 @@ export class Build extends KubernetesSpecResource {
     return answer;
   }
 
+  /**
+   * Returns the namespace that jenkins is running in if this Build is annotated correctly
+   * or null if the namespace cannot be determined
+   */
+  get jenkinsNamespace(): string {
+    return this.annotations["openshift.io/jenkins-namespace"];
+  }
 
   updateValuesFromResource() {
     this._pipelineStages = null;
