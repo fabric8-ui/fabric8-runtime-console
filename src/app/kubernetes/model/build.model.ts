@@ -28,6 +28,8 @@ export class Build extends KubernetesSpecResource {
   jenkinsBuildURL: string;
   logURL: string;
 
+  repositoryInformation: any;
+
   private _pipelineStages: Array<PipelineStage>;
   private _serviceUrls: Array<ServiceUrl> = new Array<ServiceUrl>();
   private _serviceEnvironmentsMap: Map<String,ServiceEnvironments> = new Map<String,ServiceEnvironments>();
@@ -173,6 +175,7 @@ export class Build extends KubernetesSpecResource {
     this._pipelineStages = null;
     super.updateValuesFromResource();
     let status = this.status || {};
+    let spec = this.spec || {};
     this.statusPhase = status.phase || "";
     this.duration = status.duration || 0;
     if (this.duration) {
@@ -194,6 +197,8 @@ export class Build extends KubernetesSpecResource {
     if (this.jenkinsBuildURL) {
       this.logURL = pathJoin(this.jenkinsBuildURL, "/console");
     }
+
+    this.repositoryInformation = spec['source'] || {};
 
     switch (this.statusPhase) {
       case "Complete":
