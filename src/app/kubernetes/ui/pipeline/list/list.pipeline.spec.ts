@@ -15,6 +15,7 @@ import {MockBackend} from "@angular/http/testing";
 import {BuildConfigDialogsModule} from "../../buildconfig/delete-dialog/buildconfig.dialogs.module";
 import {KubernetesComponentsModule} from "../../../components/components.module";
 import {BuildStageViewComponent} from "../build-stage-view/build-stage-view.component";
+import {InputActionDialog} from "../input-action-dialog/input-action-dialog.component";
 
 describe('PipelinesListComponent', () => {
   let component: PipelinesListComponent;
@@ -37,6 +38,7 @@ describe('PipelinesListComponent', () => {
       ],
       declarations: [
         BuildStageViewComponent,
+        InputActionDialog,
         PipelinesListComponent,
       ],
       providers: [

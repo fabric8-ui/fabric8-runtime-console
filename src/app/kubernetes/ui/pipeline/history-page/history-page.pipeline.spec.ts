@@ -18,6 +18,7 @@ import {KubernetesComponentsModule} from "../../../components/components.module"
 import {BuildStageViewComponent} from "../build-stage-view/build-stage-view.component";
 
 import {StackDetailsModule} from 'fabric8-stack-analysis-ui';
+import {InputActionDialog} from "../input-action-dialog/input-action-dialog.component";
 
 describe('PipelinesHistoryPage', () => {
   let component: PipelinesHistoryPage;
@@ -40,6 +41,7 @@ describe('PipelinesHistoryPage', () => {
       ],
       declarations: [
         BuildStageViewComponent,
+        InputActionDialog,
         PipelinesHistoryPage,
         PipelinesHistoryComponent,
         PipelinesHistoryToolbarComponent,
