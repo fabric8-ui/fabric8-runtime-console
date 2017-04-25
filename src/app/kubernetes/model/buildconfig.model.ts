@@ -1,5 +1,5 @@
 import {KubernetesSpecResource} from "./kuberentesspecresource.model";
-import {Build, Builds, ServiceUrl} from "./build.model";
+import {Build, Builds, ServiceUrl, ServiceEnvironments, AppInfo} from "./build.model";
 import {Params} from "@angular/router";
 
 export const defaultBuildIconStyle = "pficon-build";
@@ -105,9 +105,52 @@ export class BuildConfig extends KubernetesSpecResource {
    * Returns the Jenkins test report URL of the last build if it is available
    */
   get jenkinsTestReportUrl(): string {
-    let build = this.lastBuild
+    let build = this.lastBuild;
     return build ? build.jenkinsTestReportUrl : "";
   }
+
+  get serviceEnvironmentMap(): Map<string,ServiceEnvironments> {
+    let build = this.lastBuild;
+    if (!build) {
+      return new Map<string,ServiceEnvironments>();
+    }
+    const answer = build.serviceEnvironmentMap;
+    let builds = this.builds;
+    if (builds.length && builds.length > 1) {
+      let previousBuild = builds[1];
+      let map = previousBuild.serviceEnvironmentMap;
+      if (map) {
+        for (let key in map) {
+          let value = map[key];
+          if (!answer[key]) {
+            answer[key] = value;
+          }
+        }
+      }
+    }
+    return answer;
+  }
+
+  /**
+   * Returns a map indexed by the environment key of the app information
+   */
+  get environmentApp(): Map<string,AppInfo> {
+    let map = this.serviceEnvironmentMap;
+    let answer = new Map<string,AppInfo>();
+    let name = this.name;
+    if (map && name) {
+      for (let environmentKey in map) {
+        let value = map[environmentKey];
+        let appInfo = value.toAppInfo(name);
+        if (appInfo) {
+          answer[environmentKey] = appInfo;
+        }
+      }
+    }
+    return answer;
+  }
+
+
 
   updateValuesFromResource() {
     super.updateValuesFromResource();
@@ -216,4 +259,37 @@ export function filterPipelines(buildConfigs: BuildConfigs): BuildConfigs {
     }
   });
   return answer;
+}
+
+/**
+ * returns a map of all the environments with the apps in each environment
+ */
+export function appInfos(buildConfigs: BuildConfigs): Map<string,EnvironmentApps> {
+  let answer = new Map<string,EnvironmentApps>();
+  buildConfigs.forEach(bc => {
+    let appEnv = bc.environmentApp;
+    for (let environmentKey in appEnv) {
+      let app = appEnv[environmentKey];
+      let env = answer[environmentKey];
+      if (!env) {
+        env = new EnvironmentApps();
+        answer[environmentKey] = env;
+      }
+      if (!env.name) {
+        env.name = app.environmentName;
+      }
+      env.apps[app.name] = app;
+    }
+  });
+  return answer;
+}
+
+window['appInfos'] = appInfos;
+
+/**
+ * Keeps track of all the apps in each environment along with its name
+ */
+export class EnvironmentApps {
+  apps: Map<string, AppInfo> = new Map<string, AppInfo>();
+  name: string;
 }

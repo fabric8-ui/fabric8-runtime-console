@@ -32,7 +32,7 @@ export class Build extends KubernetesSpecResource {
 
   private _pipelineStages: Array<PipelineStage>;
   private _serviceUrls: Array<ServiceUrl> = new Array<ServiceUrl>();
-  private _serviceEnvironmentsMap: Map<String,ServiceEnvironments> = new Map<String,ServiceEnvironments>();
+  private _serviceEnvironmentsMap: Map<string,ServiceEnvironments> = new Map<string,ServiceEnvironments>();
 
   get serviceUrls(): Array<ServiceUrl> {
     // lets force the lazy creation
@@ -40,11 +40,11 @@ export class Build extends KubernetesSpecResource {
     return this._serviceUrls;
   }
 
-  get serviceEnvironmentMap(): Map<String,ServiceEnvironments> {
+  get serviceEnvironmentMap(): Map<string,ServiceEnvironments> {
     let annotations = this.annotations;
     if (annotations) {
       for (let key in annotations) {
-        if (key && key.startsWith(serviceEnvironmentsAnnotationPrefix)) {
+        if (key && key.indexOf(serviceEnvironmentsAnnotationPrefix) === 0) {
           let yamlText = annotations[key];
           let envKey = key.substring(serviceEnvironmentsAnnotationPrefix.length);
           if (envKey) {
@@ -52,8 +52,8 @@ export class Build extends KubernetesSpecResource {
               let config = jsyaml.safeLoad(yamlText);
               if (config) {
                 let se = new ServiceEnvironments(config.environmentName as string,
-                  config.serviceUrls as Map<String,String>,
-                  config.deploymentVersions as Map<String,String>);
+                  config.serviceUrls as Map<string,string>,
+                  config.deploymentVersions as Map<string,string>);
                 this._serviceEnvironmentsMap[envKey] = se;
               }
             } catch (e) {
@@ -239,7 +239,19 @@ export class ServiceUrl {
 }
 
 export class ServiceEnvironments {
-  constructor(public environmentName: string, public serviceUrls: Map<String,String>, public deploymentVersions: Map<String,String>) {}
+  constructor(public environmentName: string, public serviceUrls: Map<string,string>, public deploymentVersions: Map<string,string>) {}
+
+  toAppInfo(name: string): AppInfo {
+    let deployUrl = this.serviceUrls[name] || "";
+    let version = this.deploymentVersions[name] || "";
+    let environmentName = this.environmentName;
+    return new AppInfo(name, deployUrl, version, environmentName);
+  }
+}
+
+export class AppInfo {
+  constructor(public name: string, public deployUrl: string, public version: string, public environmentName: string) {
+  }
 }
 
 export class Builds extends Array<Build>{
