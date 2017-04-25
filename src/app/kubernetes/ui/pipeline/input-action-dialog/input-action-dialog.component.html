@@ -1,45 +1,44 @@
-<modal #inputModal>
+<modal #inputModal class="input-action-dialog">
   <modal-header>
     Input is required on pipeline {{build.name}}
   </modal-header>
 
   <modal-content>
-    <div *ngIf="build.lastPipelineStageWithService" class="test-service-panel text-center">
-      <a [href]="build.lastPipelineStageWithService.serviceUrl" class="btn" target="test"
-         title="Open a browser on the running {{build.buildConfigName}} service in the {{build.lastPipelineStageWithService.environmentName}} environment">
-        Open <b>{{build.buildConfigName}}</b> in the <b>{{build.lastPipelineStageWithService.environmentName}}</b> environment &nbsp;
-        <i class="fa fa-external-link" aria-hidden="true"></i>
-      </a>
-    </div>
     <div class="input-action-message-panel">
       <div *ngFor="let message of messageLines" class="input-action-message">
         <p>{{message}}</p>
       </div>
     </div>
-    <div *ngIf="stage && stage.jenkinsInputURL" class="jenkins-input-panel text-center">
-      <a [href]="stage.jenkinsInputURL" target="jenkins"
-         title="View the input actions on the Jenkins console">
-        view in Jenkins console
+    <div *ngIf="build.lastPipelineStageWithService" class="test-service-panel text-center">
+      <a [href]="build.lastPipelineStageWithService.serviceUrl" target="test"
+         title="Open a browser on the running the {{build.buildConfigName}} application in the {{build.lastPipelineStageWithService.environmentName}} environment">
+        View application on {{build.lastPipelineStageWithService.environmentName}} &nbsp;
+        <i class="fa fa-external-link" aria-hidden="true"></i>
       </a>
     </div>
-    <div class="question-panel">
-      <p>Would you like this pipeline to proceed?</p>
-    </div>
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <button class="btn btn-primary" type="submit" value="0" (click)="proceed()"
-        title="Yes, I want this pipeline to proceed">
-        Yes
-      </button>
-      <button class="btn btn-danger" type="submit" value="1" (click)="abort()" *ngIf="inputAction.abortUrl"
-      title="No, I don't want this pipeline to proceed">
-        No
-      </button>
-      <button class="btn btn-default pull-right" autofocus (click)="close()"
-              title="Close this dialog">
-        Close
-      </button>
-    </div>
   </modal-content>
+
+  <modal-footer>
+    <span *ngIf="stage && stage.jenkinsInputURL" class="jenkins-input-panel pull-left">
+      <a [href]="stage.jenkinsInputURL" target="jenkins"
+         title="View the input actions on the Jenkins console">
+        See additional details in jenkins
+      </a>
+    </span>
+
+    <button class="btn btn-default" autofocus (click)="close()"
+            title="Close this dialog">
+      Close
+    </button>
+    <button class="btn btn-danger" type="submit" value="1" (click)="abort()" *ngIf="inputAction.abortUrl"
+            title="Abort this pipeline">
+      Abort
+    </button>
+    <button class="btn btn-primary" type="submit" value="0" (click)="proceed()"
+            title="Promote this version to the next environment">
+      Promote
+    </button>
+  </modal-footer>
 </modal>
 
 
