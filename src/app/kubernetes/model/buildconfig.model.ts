@@ -284,8 +284,6 @@ export function appInfos(buildConfigs: BuildConfigs): Map<string,EnvironmentApps
   return answer;
 }
 
-window['appInfos'] = appInfos;
-
 /**
  * Keeps track of all the apps in each environment along with its name
  */
