@@ -16,6 +16,8 @@ export class DeploymentsListComponent {
 
   @Input() prefix: string;
 
+  @Input() hideCheckbox: boolean;
+
   @ViewChild(DeploymentDeleteDialog) deleteDialog: DeploymentDeleteDialog;
 
   @ViewChild(DeploymentScaleDialog) scaleDialog: DeploymentScaleDialog;

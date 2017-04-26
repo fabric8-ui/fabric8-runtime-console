@@ -55,7 +55,6 @@ export class EnvironmentListComponent {
     parentLinkFactory: ParentLinkFactory,
   ) {
     this.parentLink = parentLinkFactory.parentLink;
-
   }
 
 }

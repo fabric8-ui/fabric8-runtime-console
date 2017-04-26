@@ -17,6 +17,8 @@ export class PodsListComponent {
 
   @Input() prefix: string;
 
+  @Input() hideCheckbox: boolean;
+
   @ViewChild(PodDeleteDialog) deleteDialog: PodDeleteDialog;
 
   constructor(

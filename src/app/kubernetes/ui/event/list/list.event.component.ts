@@ -14,6 +14,8 @@ export class EventsListComponent {
 
   @Input() prefix: string;
 
+  @Input() hideCheckbox: boolean;
+
   prefixPath(pathComponent: string) {
     return (this.prefix ? this.prefix + '/' : '') + pathComponent;
   }

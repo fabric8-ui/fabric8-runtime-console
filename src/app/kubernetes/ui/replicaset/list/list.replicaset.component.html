@@ -2,7 +2,7 @@
 
   <fabric8-loading [loading]="loading">
     <div class='list-group-item replicaset' *ngFor='let replicaset of runtimeReplicaSets'>
-      <div class='list-view-pf-checkbox'>
+      <div class='list-view-pf-checkbox' *ngIf="!hideCheckbox">
         <input type='checkbox'>
       </div>
       <div class='list-view-pf-actions'>
@@ -50,8 +50,9 @@
               </span>
             </div>
             <div class='list-group-item-text'>
-              <span class="" *ngFor='let image of replicaset.images' title="docker image">
-                   {{image}}
+              <span class="" *ngFor='let image of replicaset.images'
+                    title="docker image: {{image}}">
+                {{image | truncate:40}}
                </span>
             </div>
           </div>

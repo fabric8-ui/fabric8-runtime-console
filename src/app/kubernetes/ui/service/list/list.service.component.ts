@@ -15,6 +15,8 @@ export class ServicesListComponent {
 
   @Input() prefix: string;
 
+  @Input() hideCheckbox: boolean;
+
   @ViewChild(ServiceDeleteDialog) deleteDialog: ServiceDeleteDialog;
 
   openDeleteDialog(deleteServiceModal, service) {

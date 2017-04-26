@@ -15,6 +15,8 @@ export class ConfigMapsListComponent {
 
   @Input() prefix: string;
 
+  @Input() hideCheckbox: boolean;
+
   @ViewChild(ConfigMapDeleteDialog) deleteDialog: ConfigMapDeleteDialog;
 
   openDeleteDialog(deleteConfigMapModal, configmap) {
