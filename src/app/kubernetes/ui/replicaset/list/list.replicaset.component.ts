@@ -16,6 +16,8 @@ export class ReplicaSetsListComponent {
 
   @Input() prefix: string;
 
+  @Input() hideCheckbox: boolean;
+
   @ViewChild(ReplicaSetDeleteDialog) deleteDialog: ReplicaSetDeleteDialog;
 
   @ViewChild(ReplicaSetScaleDialog) scaleDialog: ReplicaSetScaleDialog;

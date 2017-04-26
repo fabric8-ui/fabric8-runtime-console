@@ -13,6 +13,8 @@ export class BuildsListComponent {
 
   @Input() loading: boolean;
 
+  @Input() hideCheckbox: boolean;
+
   @ViewChild(BuildDeleteDialog) deleteDialog: BuildDeleteDialog;
 
   openDeleteDialog(deleteBuildModal, build) {

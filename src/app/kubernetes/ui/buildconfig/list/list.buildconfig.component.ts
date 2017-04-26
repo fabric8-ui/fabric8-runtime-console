@@ -14,6 +14,8 @@ export class BuildConfigsListComponent {
 
   @Input() loading: boolean;
 
+  @Input() hideCheckbox: boolean;
+
   @ViewChild(BuildConfigDeleteDialog) deleteDialog: BuildConfigDeleteDialog;
 
   constructor(private buildConfigService: BuildConfigService) {

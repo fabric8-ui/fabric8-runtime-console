@@ -2,7 +2,7 @@
 
   <fabric8-loading [loading]="loading">
     <div class='list-group-item event' *ngFor='let event of events'>
-      <div class='list-view-pf-checkbox'>
+      <div class='list-view-pf-checkbox' *ngIf="!hideCheckbox">
         <input type='checkbox'>
       </div>
       <div class='list-view-pf-actions'>

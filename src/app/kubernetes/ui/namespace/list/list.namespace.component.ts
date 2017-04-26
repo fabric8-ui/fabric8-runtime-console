@@ -15,6 +15,8 @@ export class NamespacesListComponent {
 
   @Input() loading: boolean;
 
+  @Input() hideCheckbox: boolean;
+
   @ViewChild(NamespaceDeleteDialog) deleteDialog: NamespaceDeleteDialog;
 
   constructor(parentLinkFactory: ParentLinkFactory) {

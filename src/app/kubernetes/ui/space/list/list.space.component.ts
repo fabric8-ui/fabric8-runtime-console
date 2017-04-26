@@ -15,6 +15,8 @@ export class SpacesListComponent {
 
   @Input() loading: boolean;
 
+  @Input() hideCheckbox: boolean;
+
   @ViewChild(SpaceDeleteDialog) deleteDialog: SpaceDeleteDialog;
 
   constructor(parentLinkFactory: ParentLinkFactory) {
