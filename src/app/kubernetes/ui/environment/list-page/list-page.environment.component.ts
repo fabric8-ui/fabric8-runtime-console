@@ -1,32 +1,33 @@
-import { Deployment } from './../../../model/deployment.model';
-import { DeploymentService } from './../../../service/deployment.service';
-import { SpaceNamespace } from './../space-namespace';
-import { Service } from './../../../model/service.model';
-import { ReplicaSet } from './../../../model/replicaset.model';
-import { Pod } from './../../../model/pod.model';
-import { Event } from './../../../model/event.model';
-import { ConfigMap } from './../../../model/configmap.model';
-import { DeploymentConfig } from './../../../model/deploymentconfig.model';
-import { KubernetesResource } from './../../../model/kubernetesresource.model';
-import { Environment, Space } from './../../../model/space.model';
-import { Params } from '@angular/router';
-import { BehaviorSubject, ConnectableObservable, Observable, Subject } from 'rxjs';
-import { ServiceService } from './../../../service/service.service';
-import { ReplicaSetService } from './../../../service/replicaset.service';
-import { PodService } from './../../../service/pod.service';
-import { EventService } from './../../../service/event.service';
-import { ConfigMapService } from './../../../service/configmap.service';
-import { DeploymentConfigService } from './../../../service/deploymentconfig.service';
-import { NamespacedResourceService } from '../../../service/namespaced.resource.service';
-import { ActivatedRoute } from '@angular/router';
-import { SpaceStore } from './../../../store/space.store';
-import { Component, OnInit } from '@angular/core';
-import { isOpenShift } from '../../../store/apis.store';
-import { Notifications, Notification, NotificationType } from 'ngx-base';
-import { combineDeployments } from '../../../view/deployment.view';
-import { createDeploymentViews } from '../../../view/deployment.view';
-import {pathJoin} from "../../../model/utils";
+import {ActivatedRoute} from "@angular/router";
+import {BehaviorSubject, ConnectableObservable, Observable, Subject} from "rxjs";
+import {Notifications, Notification, NotificationType} from "ngx-base";
 
+import {Deployment} from "./../../../model/deployment.model";
+import {DeploymentService} from "./../../../service/deployment.service";
+import {SpaceNamespace} from "./../space-namespace";
+import {Service} from "./../../../model/service.model";
+import {ReplicaSet, combineReplicaSets} from "./../../../model/replicaset.model";
+import {Pod} from "./../../../model/pod.model";
+import {Event} from "./../../../model/event.model";
+import {ConfigMap} from "./../../../model/configmap.model";
+import {DeploymentConfig} from "./../../../model/deploymentconfig.model";
+import {KubernetesResource} from "./../../../model/kubernetesresource.model";
+import {Environment, Space} from "./../../../model/space.model";
+import {ServiceService} from "./../../../service/service.service";
+import {ReplicaSetService} from "./../../../service/replicaset.service";
+import {PodService} from "./../../../service/pod.service";
+import {EventService} from "./../../../service/event.service";
+import {ConfigMapService} from "./../../../service/configmap.service";
+import {DeploymentConfigService} from "./../../../service/deploymentconfig.service";
+import {NamespacedResourceService} from "../../../service/namespaced.resource.service";
+import {SpaceStore} from "./../../../store/space.store";
+import {Component, OnInit} from "@angular/core";
+import {isOpenShift} from "../../../store/apis.store";
+import {combineDeployments, createDeploymentViews} from "../../../view/deployment.view";
+import {pathJoin} from "../../../model/utils";
+import {ReplicationControllerService} from "../../../service/replicationcontroller.service";
+import {ReplicationController} from "../../../model/replicationcontroller.model";
+import {createReplicaSetViews} from "../../../view/replicaset.view";
 
 
 export let KINDS: Kind[] = [
@@ -102,6 +103,7 @@ export class EnvironmentListPageComponent implements OnInit {
     private configMapService: ConfigMapService,
     private eventService: EventService,
     private podService: PodService,
+    private replicationControllerService: ReplicationControllerService,
     private replicaSetService: ReplicaSetService,
     private serviceService: ServiceService,
     private spaceNamespace: SpaceNamespace,
@@ -211,7 +213,19 @@ export class EnvironmentListPageComponent implements OnInit {
       case 'pods':
         return this.listAndWatch(this.podService, namespace, Pod);
       case 'replicasets':
-        return this.listAndWatch(this.replicaSetService, namespace, ReplicaSet);
+        let replicas = Observable.combineLatest(
+          this.listAndWatch(this.replicaSetService, namespace, ReplicaSet),
+          this.listAndWatch(this.replicationControllerService, namespace, ReplicationController),
+          combineReplicaSets,
+        );
+        let replicaViews = Observable.combineLatest(
+          replicas,
+          this.listAndWatch(this.serviceService, namespace, Service),
+          createReplicaSetViews,
+        );
+        return replicaViews;
+
+        //return this.listAndWatch(this.replicaSetService, namespace, ReplicaSet);
       case 'services':
         return this.listAndWatch(this.serviceService, namespace, Service);
       default:
