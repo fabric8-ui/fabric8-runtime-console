@@ -50,8 +50,9 @@
               </span>
             </div>
             <div class='list-group-item-text'>
-              <span class="" *ngFor='let image of replicaset.images' title="docker image">
-                   {{image}}
+              <span class="" *ngFor='let image of replicaset.images'
+                    title="docker image: {{image}}">
+                {{image | truncate:40}}
                </span>
             </div>
           </div>

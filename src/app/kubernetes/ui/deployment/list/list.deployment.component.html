@@ -56,7 +56,8 @@
                   <i class="fa fa-external-link" aria-hidden="true"></i>
                 </a>
               </span>
-              <span class="" *ngFor='let image of deployment.images' title="docker image: {{image}}">
+              <span class="" *ngFor='let image of deployment.images'
+                    title="docker image: {{image}}">
                 {{image | truncate:40}}
                </span>
             </div>
