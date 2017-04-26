@@ -25,33 +25,34 @@ import { isOpenShift } from '../../../store/apis.store';
 import { Notifications, Notification, NotificationType } from 'ngx-base';
 import { combineDeployments } from '../../../view/deployment.view';
 import { createDeploymentViews } from '../../../view/deployment.view';
+import {pathJoin} from "../../../model/utils";
 
 
 
 export let KINDS: Kind[] = [
   {
-    name: 'ConfigMap',
-    path: 'configmaps',
-  },
-  {
     name: 'Deployment',
     path: 'deployments',
   },
   {
-    name: 'Event',
-    path: 'events',
+    name: 'Replica',
+    path: 'replicasets',
   },
   {
     name: 'Pod',
     path: 'pods',
   },
   {
-    name: 'ReplicaSet',
-    path: 'replicasets',
-  },
-  {
     name: 'Service',
     path: 'services',
+  },
+  {
+    name: 'ConfigMap',
+    path: 'configmaps',
+  },
+  {
+    name: 'Event',
+    path: 'events',
   },
 ];
 
@@ -59,6 +60,7 @@ export class EnvironmentEntry {
   environment: Environment;
   kinds: KindNode[];
   loading: boolean;
+  openshiftConsoleUrl: string;
 }
 
 export class Kind {
@@ -133,6 +135,7 @@ export class EnvironmentListPageComponent implements OnInit {
         .map(space => space.environments)
         .map(environments => environments.map(environment => ({
           environment: environment,
+          openshiftConsoleUrl: environmentOpenShiftConoleUrl(environment),
           kinds: KINDS.map(kind => {
             // Give it a default title
             let title = new BehaviorSubject(`${kind.name}s`);
@@ -143,7 +146,8 @@ export class EnvironmentListPageComponent implements OnInit {
               .map(arr => {
                 if (label) {
                   return arr.filter(val => {
-                    return val.labels['space'] === label;
+                    // lets only filter resources with a space label
+                    return !val.labels['space'] || val.labels['space'] === label;
                   });
                 } else {
                   return arr;
@@ -190,8 +194,8 @@ export class EnvironmentListPageComponent implements OnInit {
     switch (kind) {
       case 'deployments':
         let deployments = Observable.combineLatest(
-          this.listAndWatch(this.deploymentConfigService, namespace, DeploymentConfig),
           this.listAndWatch(this.deploymentService, namespace, Deployment),
+          this.listAndWatch(this.deploymentConfigService, namespace, DeploymentConfig),
           combineDeployments,
         );
         let runtimeDeployments = Observable.combineLatest(
@@ -303,4 +307,13 @@ export class EnvironmentListPageComponent implements OnInit {
     return metadata.name || '';
   }
 
+}
+
+function environmentOpenShiftConoleUrl(environment: Environment): string {
+  let openshiftConsoleUrl = process.env.OPENSHIFT_CONSOLE_URL;
+  let namespace = environment.namespaceName;
+  if (namespace) {
+    return pathJoin(openshiftConsoleUrl, "/project", namespace, "/overview")
+  }
+  return openshiftConsoleUrl;
 }

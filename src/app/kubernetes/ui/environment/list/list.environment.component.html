@@ -1,11 +1,18 @@
 <fabric8-loading [loading]="loading">
   <div id="environments" class="content container">
     <div class="environment" *ngFor="let e of environments">
-      <h2>{{e.environment.name}}</h2>
-      <small>
-        <!-- TODO HACK this needs to be dynamic! -->
-        <a href="https://console.free-int.openshift.com/console/project/{{e.environment.namespaceName}}">See more in OpenShift console <span class="fa fa-external-link"></span></a>
-      </small>
+      <div class="row">
+        <div class="col-md-4">
+          <h2>{{e.environment.name}}</h2>
+        </div>
+        <div class="col-md-4">
+          <span class="openshift-console-link-panel" *ngIf="e.openshiftConsoleUrl">
+            <a [href]="e.openshiftConsoleUrl" title="View this environment in the OpenShift console">
+              See more in OpenShift console &nbsp;<span class="fa fa-external-link"></span>
+            </a>
+          </span>
+        </div>
+      </div>
 
       <alm-tree-list #treeList [listTemplate]="treeListTemplate" [nodes]="e.kinds" [options]="options" [showExpander]="false">
         <ng-template #treeListTemplate let-node="node" let-index="index">
