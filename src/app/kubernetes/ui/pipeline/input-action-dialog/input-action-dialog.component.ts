@@ -1,14 +1,15 @@
-import {Component, ViewChild} from "@angular/core";
+import {Component, Inject, ViewChild} from "@angular/core";
 import {Build, PendingInputAction} from "../../../model/build.model";
 import {PipelineStage} from "../../../model/pipelinestage.model";
 import {Http, RequestOptions, Headers} from "@angular/http";
 import {OnLogin} from "../../../../shared/onlogin.service";
 import {pathJoin} from "../../../model/utils";
+import { FABRIC8_FORGE_API_URL } from '../../../../shared/fabric8-forge-api'
 
 @Component({
   selector: 'input-action-dialog',
   templateUrl: './input-action-dialog.component.html',
-  styleUrls: ['./input-action-dialog.component.scss'],
+  styleUrls: ['./input-action-dialog.component.scss']
 })
 export class InputActionDialog {
   build: Build = new Build();
@@ -17,7 +18,10 @@ export class InputActionDialog {
 
   @ViewChild('inputModal') modal: any;
 
-  constructor(private http: Http, private onLogin: OnLogin) {
+  constructor(private http: Http,
+              private onLogin: OnLogin,
+              @Inject(FABRIC8_FORGE_API_URL) private forgeApiUrl: string
+  ) {
   }
 
   get messageLines(): string[] {
@@ -52,7 +56,7 @@ export class InputActionDialog {
       }
 
       let jenkinsNamespace = this.build.jenkinsNamespace;
-      let forgeUrl = process.env.FABRIC8_FORGE_API_URL;
+      let forgeUrl = this.forgeApiUrl;
       if (!forgeUrl) {
         console.log("Warning no $FABRIC8_FORGE_API_URL environment variable!")
       } else if (!jenkinsNamespace) {

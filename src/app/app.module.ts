@@ -37,6 +37,8 @@ import { TokenResolver } from './shared/token.resolver';
 // As fabric8-stack-analysis-ui NPM package that is put there uses this provider
 import {Contexts} from 'ngx-fabric8-wit';
 
+import { forgeApiUrlProvider } from './shared/forge-api.provider';
+
 
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
   restangularProvider.setBaseUrl(config.getSettings().apiEndpoint);
@@ -83,6 +85,7 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     LoginService,
     DummyService,
     ENV_PROVIDERS,
+    forgeApiUrlProvider,
     Logger,
     OAuthService,
     OnLogin,
