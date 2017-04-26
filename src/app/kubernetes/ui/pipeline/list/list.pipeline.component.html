@@ -6,7 +6,8 @@
         <div class="row">
           <div class="col-12">
             <h3>
-              <span class="{{pipeline.iconStyle}}" title="{{pipeline.statusPhase}}"></span>
+              <span class="{{pipeline.iconStyle}} fa-spin" title="{{pipeline.statusPhase}}" *ngIf="pipeline.iconStyle === 'pficon-running'"></span>
+              <span class="{{pipeline.iconStyle}}" title="{{pipeline.statusPhase}}" *ngIf="pipeline.iconStyle !== 'pficon-running'"></span>
               <a [routerLink]="[pipeline.id]" class="card-title" title="view pipeline">{{ pipeline.name }}</a>
 
               <small>created {{pipeline.creationTimestamp | amTimeAgo}}</small>
