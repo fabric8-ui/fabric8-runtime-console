@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="pipeline" *ngIf="build.pipelineStages.length">
-        <div class="pipeline-stage " *ngFor='let stage of build.pipelineStages'>
+        <div class="pipeline-stage " *ngFor='let stage of displayStages'>
           <div column="" class="pipeline-stage-column">
             <div class="pipeline-stage-name {{build.statusPhase}}"
                  title="stage status: {{stage.status}}">
@@ -41,7 +41,7 @@
             </div>
             <div class="pipeline-time {{stage.status}}"
                  *ngIf="!stage.jenkinsInputURL && stage.durationMillis && !(build.pipelineStagePendingInput)">
-              {{stage.durationMillis | amDuration: 'ms'}}
+              {{stage.durationMillis | stageTime }}
             </div>
           </div>
             <!-- Fabric-stack-analysis-ui -->
