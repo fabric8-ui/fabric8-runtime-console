@@ -1,3 +1,4 @@
+import { StageTimePipe } from './build-stage-view/stage-time.pipe';
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {DropdownConfig, DropdownModule} from "ng2-bootstrap";
@@ -60,6 +61,7 @@ const routes: Routes = [
     PipelinesFullHistoryPage,
     PipelinesFullHistoryToolbarComponent,
     PipelinesFullHistoryComponent,
+    StageTimePipe,
   ],
   entryComponents: [
   ],

@@ -1,3 +1,4 @@
+import { StageTimePipe } from './../build-stage-view/stage-time.pipe';
 import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
@@ -37,6 +38,7 @@ describe('PipelineViewPage', () => {
           PipelineViewWrapperComponent,
           PipelineViewToolbarComponent,
           PipelineViewComponent,
+          StageTimePipe,
         ],
         providers: [
           MockBackend,

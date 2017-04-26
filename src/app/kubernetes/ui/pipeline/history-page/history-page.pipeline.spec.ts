@@ -1,3 +1,4 @@
+import { StageTimePipe } from './../build-stage-view/stage-time.pipe';
 import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
@@ -37,7 +38,7 @@ describe('PipelinesHistoryPage', () => {
         KubernetesComponentsModule,
         BuildConfigDialogsModule,
         TestAppModule,
-        StackDetailsModule
+        StackDetailsModule,
       ],
       declarations: [
         BuildStageViewComponent,
@@ -45,6 +46,7 @@ describe('PipelinesHistoryPage', () => {
         PipelinesHistoryPage,
         PipelinesHistoryComponent,
         PipelinesHistoryToolbarComponent,
+        StageTimePipe
       ],
       providers: [
         MockBackend,

@@ -1,3 +1,4 @@
+import { StageTimePipe } from './../build-stage-view/stage-time.pipe';
 import { StackDetailsModule } from 'fabric8-stack-analysis-ui';
 import { TestAppModule } from './../../../../app.test.module';
 /* tslint:disable:no-unused-variable */
@@ -40,6 +41,7 @@ describe('PipelinesListComponent', () => {
         BuildStageViewComponent,
         InputActionDialog,
         PipelinesListComponent,
+        StageTimePipe,
       ],
       providers: [
         MockBackend,
