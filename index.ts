@@ -39,6 +39,7 @@ export {
 export { BuildConfigStore } from './src/app/kubernetes/store/buildconfig.store';
 export { BuildStore } from './src/app/kubernetes/store/build.store';
 export { OnLogin } from './src/app/shared/onlogin.service';
+export { FABRIC8_FORGE_API_URL } from './src/app/shared/fabric8-forge-api';
 export { OAuthConfigStore } from './src/app/kubernetes/store/oauth-config-store';
 export { APIsStore } from './src/app/kubernetes/store/apis.store';
 export { LoginService } from './src/app/shared/login.service';
