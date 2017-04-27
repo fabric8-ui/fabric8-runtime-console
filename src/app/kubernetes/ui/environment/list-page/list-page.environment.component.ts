@@ -1,17 +1,12 @@
-import {ActivatedRoute} from "@angular/router";
 import {BehaviorSubject, ConnectableObservable, Observable, Subject} from "rxjs";
 import {Notifications, Notification, NotificationType} from "ngx-base";
-
 import {Deployment} from "./../../../model/deployment.model";
 import {DeploymentService} from "./../../../service/deployment.service";
 import {SpaceNamespace} from "./../space-namespace";
 import {Service} from "./../../../model/service.model";
-import {ReplicaSet, combineReplicaSets} from "./../../../model/replicaset.model";
 import {Pod} from "./../../../model/pod.model";
 import {Event} from "./../../../model/event.model";
 import {ConfigMap} from "./../../../model/configmap.model";
-import {DeploymentConfig} from "./../../../model/deploymentconfig.model";
-import {KubernetesResource} from "./../../../model/kubernetesresource.model";
 import {Environment, Space} from "./../../../model/space.model";
 import {ServiceService} from "./../../../service/service.service";
 import {ReplicaSetService} from "./../../../service/replicaset.service";
@@ -19,15 +14,13 @@ import {PodService} from "./../../../service/pod.service";
 import {EventService} from "./../../../service/event.service";
 import {ConfigMapService} from "./../../../service/configmap.service";
 import {DeploymentConfigService} from "./../../../service/deploymentconfig.service";
-import {NamespacedResourceService} from "../../../service/namespaced.resource.service";
 import {SpaceStore} from "./../../../store/space.store";
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, OnDestroy} from "@angular/core";
 import {isOpenShift} from "../../../store/apis.store";
-import {combineDeployments, createDeploymentViews} from "../../../view/deployment.view";
 import {pathJoin} from "../../../model/utils";
 import {ReplicationControllerService} from "../../../service/replicationcontroller.service";
-import {ReplicationController} from "../../../model/replicationcontroller.model";
-import {createReplicaSetViews} from "../../../view/replicaset.view";
+import {RouteService} from "../../../service/route.service";
+import {AbstractWatchComponent} from "../../../support/abstract-watch.component";
 
 
 export let KINDS: Kind[] = [
@@ -36,12 +29,12 @@ export let KINDS: Kind[] = [
     path: 'deployments',
   },
   {
-    name: 'Replica',
-    path: 'replicasets',
-  },
-  {
     name: 'Pod',
     path: 'pods',
+  },
+  {
+    name: 'Replica',
+    path: 'replicasets',
   },
   {
     name: 'Service',
@@ -89,15 +82,17 @@ export class KindNode {
   templateUrl: './list-page.environment.component.html',
   styleUrls: ['./list-page.environment.component.scss'],
 })
-export class EnvironmentListPageComponent implements OnInit {
+export class EnvironmentListPageComponent extends AbstractWatchComponent implements OnInit, OnDestroy {
 
   environments: ConnectableObservable<EnvironmentEntry[]>;
   loading: Subject<boolean> = new BehaviorSubject(true);
   space: ConnectableObservable<Space>;
 
-  constructor(
+  private listCache: Map<string, Observable<any[]>> = new Map<string, Observable<any[]>>();
+
+  constructor(private serviceService: ServiceService,
+    private routeService: RouteService,
     private spaceStore: SpaceStore,
-    private route: ActivatedRoute,
     private deploymentConfigService: DeploymentConfigService,
     private deploymentService: DeploymentService,
     private configMapService: ConfigMapService,
@@ -105,10 +100,10 @@ export class EnvironmentListPageComponent implements OnInit {
     private podService: PodService,
     private replicationControllerService: ReplicationControllerService,
     private replicaSetService: ReplicaSetService,
-    private serviceService: ServiceService,
     private spaceNamespace: SpaceNamespace,
     private notifications: Notifications,
   ) {
+    super();
   }
 
   ngOnInit() {
@@ -130,7 +125,7 @@ export class EnvironmentListPageComponent implements OnInit {
       })
       // Wait 1s before publishing an empty value - it's probably not empty but it might be!
       .publish();
-    let kindPaths = Object.keys(KINDS).map(key => KINDS[key].path);
+
     this.environments = this.spaceNamespace.labelSpace
       .switchMap(label => this.space
         .skipWhile(space => !space)
@@ -142,7 +137,7 @@ export class EnvironmentListPageComponent implements OnInit {
             // Give it a default title
             let title = new BehaviorSubject(`${kind.name}s`);
             let loading = new BehaviorSubject(true);
-            let data = this.getList(kind.path, environment)
+            let data = this.getCachedList(kind.path, environment)
               // Update the title with the number of objects
               .distinctUntilChanged()
               .map(arr => {
@@ -191,21 +186,33 @@ export class EnvironmentListPageComponent implements OnInit {
     this.space.connect();
   }
 
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+
+    // TODO is there a way to disconnect from this.space / this.environments?
+  }
+
+
+  /**
+   * Lets cache the observables so that we don't requery the services each time we ask for the observables
+   */
+  private getCachedList(kind: string, environment: Environment): Observable<any[]> {
+    let namespace = environment.namespace.name;
+    let key = (namespace || "") + "/" + kind;
+    var answer = this.listCache[key];
+    if (!answer) {
+      answer = this.getList(kind, environment);
+      this.listCache[key] = answer;
+    }
+    return answer;
+  }
+
   private getList(kind: string, environment: Environment): Observable<any[]> {
     let namespace = environment.namespace.name;
     switch (kind) {
       case 'deployments':
-        let deployments = Observable.combineLatest(
-          this.listAndWatch(this.deploymentService, namespace, Deployment),
-          this.listAndWatch(this.deploymentConfigService, namespace, DeploymentConfig),
-          combineDeployments,
-        );
-        let runtimeDeployments = Observable.combineLatest(
-          deployments,
-          this.listAndWatch(this.serviceService, namespace, Service),
-          createDeploymentViews,
-        );
-        return runtimeDeployments;
+        return this.listAndWatchDeployments(namespace, this.deploymentService, this.deploymentConfigService, this.serviceService, this.routeService);
       case 'configmaps':
         return this.listAndWatch(this.configMapService, namespace, ConfigMap);
       case 'events':
@@ -213,114 +220,13 @@ export class EnvironmentListPageComponent implements OnInit {
       case 'pods':
         return this.listAndWatch(this.podService, namespace, Pod);
       case 'replicasets':
-        let replicas = Observable.combineLatest(
-          this.listAndWatch(this.replicaSetService, namespace, ReplicaSet),
-          this.listAndWatch(this.replicationControllerService, namespace, ReplicationController),
-          combineReplicaSets,
-        );
-        let replicaViews = Observable.combineLatest(
-          replicas,
-          this.listAndWatch(this.serviceService, namespace, Service),
-          createReplicaSetViews,
-        );
-        return replicaViews;
-
-        //return this.listAndWatch(this.replicaSetService, namespace, ReplicaSet);
+        return this.listAndWatchReplicas(namespace, this.replicaSetService, this.replicationControllerService, this.serviceService, this.routeService);
       case 'services':
-        return this.listAndWatch(this.serviceService, namespace, Service);
+        return this.listAndWatchServices(namespace, this.serviceService, this.routeService);
       default:
         return Observable.empty();
     }
   }
-
-  private listAndWatch<T extends KubernetesResource, L extends Array<T>>(
-    service: NamespacedResourceService<T, L>,
-    namespace: string,
-    type: { new (): T; }
-  ) {
-    return Observable.combineLatest(
-      service.list(namespace),
-      // We just emit an empty item if the watch fails
-      service.watchNamepace(namespace).dataStream.catch(() => Observable.of(null)),
-      (list, msg) => this.combineListAndWatchEvent(list, msg, service, type, namespace),
-    );
-  }
-
-  /**
-   * Lets combine the web socket events with the latest list
-   */
-  protected combineListAndWatchEvent<T extends KubernetesResource, L extends Array<T>>(array: L, msg: any, service: NamespacedResourceService<T, L>, objType: { new (): T; }, namespace: string): L {
-    // lets process the added /updated / removed
-    if (msg instanceof MessageEvent) {
-      let me = msg as MessageEvent;
-      let data = me.data;
-      if (data) {
-        var json = JSON.parse(data);
-        if (json) {
-          let type = json.type;
-          let resource = json.object;
-          if (type && resource) {
-            switch (type) {
-              case 'ADDED':
-                return this.upsertItem(array, resource, service, objType);
-              case 'MODIFIED':
-                return this.upsertItem(array, resource, service, objType);
-              case 'DELETED':
-                return this.deleteItemFromArray(array, resource);
-              default:
-                console.log('Unknown WebSocket event type ' + type + ' for ' + resource + ' on ' + service.serviceUrl + '/' + namespace);
-            }
-          }
-        }
-      }
-    }
-    return array;
-  }
-
-  protected upsertItem<T extends KubernetesResource, L extends Array<T>>(array: L, resource: any, service: NamespacedResourceService<T, L>, type: { new (): T; }): L {
-    let n = this.nameOfResource(resource);
-    if (array && n) {
-      for (let i = 0; i < array.length; i++) {
-        let item = array[i];
-        var name = item.name;
-        if (name && name === n) {
-          item.setResource(resource);
-          return array;
-        }
-      }
-
-      // now lets add the new item!
-      let item = new type();
-      item.setResource(resource);
-      // lets add the Restangular crack
-      item = service.restangularize(item);
-      array.push(item);
-    }
-    return array;
-  }
-
-
-  protected deleteItemFromArray<T extends KubernetesResource, L extends Array<T>>(array: L, resource: any): L {
-    let n = this.nameOfResource(resource);
-    if (array && n) {
-      for (var i = 0; i < array.length; i++) {
-        let item = array[i];
-        var name = item.name;
-        if (name && name === n) {
-          array.splice(i, 1);
-        }
-      }
-    }
-    return array;
-  }
-
-
-  nameOfResource(resource: any) {
-    let obj = resource || {};
-    let metadata = obj.metadata || {};
-    return metadata.name || '';
-  }
-
 }
 
 function environmentOpenShiftConoleUrl(environment: Environment): string {
