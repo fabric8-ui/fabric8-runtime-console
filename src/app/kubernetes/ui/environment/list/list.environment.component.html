@@ -57,7 +57,7 @@
               <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
                 <ng-template #treeListItemTemplate>
                   <fabric8-replicasets-list [runtimeReplicaSets]="node.data.data | async" [loading]="node.data.loading | async"
-                                            [prefix]="'namespaces/' + e.environment.namespaceName + '/replicaSets'"
+                                            [prefix]="'namespaces/' + e.environment.namespaceName + '/replicasets'"
                                             [hideCheckbox]='true'></fabric8-replicasets-list>
                 </ng-template>
               </alm-tree-list-item>

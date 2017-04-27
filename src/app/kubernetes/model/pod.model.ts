@@ -22,7 +22,6 @@ export class Pod extends KubernetesSpecResource {
     let metadata = resource.metadata || {};
     if (metadata.deletionTimestamp) {
       this.phase = "Terminating";
-      console.log("========== Terminating pod! " + this.name);
     } else {
       let status = this.status;
       if (status) {

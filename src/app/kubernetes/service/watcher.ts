@@ -15,6 +15,7 @@ export class Watcher {
 
   constructor(protected pathFn: () => String, protected queryParams: any = null, protected onLogin: OnLogin) {
     this.lazyCreateWebSocket();
+    //console.log("create: watch " + this.info);
   }
 
   get dataStream(): Observable<any> {
@@ -40,7 +41,12 @@ export class Watcher {
     this.lazyCreateWebSocket();
   }
 
+  get info(): string {
+    return "watch for " + this.pathFn() + (this.queryParams ? " query:  " + this.queryParams : "");
+  }
+
   close() {
+    //console.log("close: watch " + this.info);
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
