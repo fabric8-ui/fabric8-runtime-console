@@ -33,7 +33,9 @@
           <div class="col-md-2">
             <div class="text-center">
               <div class="app-name">
-                {{app.name}}
+                <a [routerLink]="[parentLink, 'pipelines', app.name, 'history']">
+                  {{app.name}}
+                </a>
               </div>
             </div>
           </div>
