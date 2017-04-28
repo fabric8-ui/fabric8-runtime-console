@@ -44,7 +44,6 @@ export class DeploymentScaleDialog {
     this.modal.open();
     Observable.timer(100).subscribe(next => {
       if (this.scaleInput) {
-        console.log("======= open");
         this.scaleInput.nativeElement.focus();
       } else {
         console.log("Warning: could not find #scaleInput in the template: scale-dialog.deployment.component.html");
