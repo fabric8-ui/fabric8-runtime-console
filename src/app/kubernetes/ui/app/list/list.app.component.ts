@@ -36,7 +36,7 @@ export class AppListComponent {
 
   openScaleDialog(scaleDeploymentModal, deployment) {
     this.scaleDialog.configure(scaleDeploymentModal, deployment);
-    scaleDeploymentModal.open();
+    this.scaleDialog.open();
   }
 
 
