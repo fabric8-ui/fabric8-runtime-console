@@ -167,6 +167,9 @@ export class Spaces extends Array<Space>{
   systemNamespaces = new Array<Space>();
 }
 
+export function createEmptySpace(): Space {
+  return new Space(null, new Namespaces(), null);
+}
 
 export function asSpaces(spaces: Space[]): Spaces {
   var answer = new Spaces();

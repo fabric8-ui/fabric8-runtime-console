@@ -9,13 +9,30 @@ export class DeploymentView {
   public readonly id: string;
   public readonly name: string;
   public readonly namespace: string;
+  public readonly version: string;
   public readonly icon: string;
   public readonly description: string;
   public readonly exposeUrl: string;
   public readonly replicas: number;
+  public readonly statusReplicas: number;
   public readonly availableReplicas: number;
   public readonly unavailableReplicas: number;
   public readonly updatedReplicas: number;
+
+  /**
+   * How many replicas are terminating?
+   */
+  public readonly terminatingReplicas: number;
+
+  /**
+   * How many replicas are starting up?
+   */
+  public readonly startingReplicas: number;
+
+  /**
+   * If there are no running, starting or terminating pods
+   */
+  public readonly emptyReplicas: boolean;
   public readonly labels: Map<string,string>;
   public readonly images: Array<String>;
   public readonly annotations: Map<string,string>;
@@ -55,9 +72,14 @@ export class DeploymentView {
       }
     }
     this.replicas = deployment.replicas;
+    this.statusReplicas = deployment.statusReplicas;
     this.availableReplicas = deployment.availableReplicas;
     this.unavailableReplicas = deployment.unavailableReplicas;
     this.updatedReplicas = deployment.updatedReplicas;
+    this.startingReplicas = deployment.startingReplicas;
+    this.terminatingReplicas = deployment.terminatingReplicas;
+    this.emptyReplicas = deployment.emptyReplicas;
+    this.version = deployment.version;
   }
 
   defaultKind() {

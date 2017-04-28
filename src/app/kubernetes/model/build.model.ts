@@ -8,7 +8,7 @@ import * as jsyaml from "js-yaml";
 const serviceEnvironmentsAnnotationPrefix = "environment.services.fabric8.io/";
 
 
-function sortedKeys(map: Map<String,any>): string[] {
+export function sortedKeys(map: Map<String,any>): string[] {
   let answer = [];
   for (let key in map) {
     answer.push(key);

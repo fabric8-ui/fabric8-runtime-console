@@ -1,0 +1,92 @@
+<fabric8-loading [loading]="loading">
+  <div class="center-block">
+    <div class="app-env-info-panel">
+      <div class="row">
+        <div class="app-env-info-panel-header">
+          <div class="col-md-2">
+            <div class="text-center">
+              <div class="header">
+                Applications
+              </div>
+            </div>
+          </div>
+          <div *ngIf="space">
+            <div class="col-md-2" *ngFor="let env of space.environments">
+              <div class="text-center">
+                <div class="header">
+                  {{env.name}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngFor="let app of apps">
+        <div class="app-env-info-panel-row">
+          <div class="col-md-2">
+            <div class="text-center">
+              <div class="app-name">
+                {{app.name}}
+              </div>
+            </div>
+          </div>
+          <div *ngFor="let envInfo of app.environmentDetails" class="col-md-2">
+            <div class="card-pf card-pf-accented card-pf-aggregate-status">
+              <h2 class="card-pf-title" title="version of the application running in this environment">
+                <span class="card-pf-aggregate-status-count">{{envInfo.version}}</span>&nbsp;
+                <span *ngIf="envInfo.exposeUrl">
+                  <a [href]="envInfo.exposeUrl" title="View the app in this environment" target="app">
+                    <span class="fa fa-external-link"></span>
+                  </a>
+                </span>
+              </h2>
+              <div class="card-pf-body">
+                <div class="card-pf-aggregate-status-notifications">
+                  <div *ngIf="envInfo.deployment">
+                    <span class="card-pf-aggregate-status-notification" *ngIf="envInfo.deployment.availableReplicas"
+                          title="Number of available pods">
+                      <span class="pficon pficon-ok"></span> {{envInfo.deployment.availableReplicas}}
+                    </span>
+                    <span class="card-pf-aggregate-status-notification" *ngIf="envInfo.deployment.startingReplicas"
+                          title="Number of pods that are starting up">
+                      <i class="fa fa-download" aria-hidden="true"></i> {{envInfo.deployment.startingReplicas}}
+                    </span>
+                    <span class="card-pf-aggregate-status-notification" *ngIf="envInfo.deployment.terminatingReplicas"
+                          title="Number of pods that are terminating">
+                      <span class="pficon pficon-warning-triangle-o"></span> {{envInfo.deployment.terminatingReplicas}}
+                    </span>
+                    <div *ngIf="envInfo.deployment.emptyReplicas">
+                      <span class="card-pf-aggregate-status-notification" title="There are current no pods in this environment">
+                        0
+                      </span>
+                    </div>
+                  </div>
+<!--
+                  <div *ngIf="!envInfo.deployment">
+                    <span class="card-pf-aggregate-status-notification" title="Number of available pods">
+                      0
+                    </span>
+                  </div>
+-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--
+          <div class="col-md-4">
+            <span class="openshift-console-link-panel" *ngIf="e.openshiftConsoleUrl">
+              <a [href]="e.openshiftConsoleUrl" title="View this environment in the OpenShift console">
+                See more in OpenShift console &nbsp;<span class="fa fa-external-link"></span>
+              </a>
+            </span>
+          </div>
+  -->
+
+
+</fabric8-loading>
