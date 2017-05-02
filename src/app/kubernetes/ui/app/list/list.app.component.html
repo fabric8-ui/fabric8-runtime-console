@@ -63,9 +63,10 @@
                   <ul class='dropdown-menu-right' aria-labelledby='dropdownKebabRight9' role="menu" dropdownMenu>
                     <li>
                       <a (click)="openScaleDialog(scaleDeploymentModal, envInfo.deployment.deployment)"
+                         *ngIf="envInfo.deployment.deployment"
                          title="Scale the number of pods for this app in this environment">Scale</a>
                     </li>
-                    <li *ngIf="envInfo.deployment.deployment.openShiftConsoleUrl">
+                    <li *ngIf="envInfo.deployment.deployment && envInfo.deployment.deployment.openShiftConsoleUrl">
                       <a [href]="envInfo.deployment.deployment.openShiftConsoleUrl" target="openshift"
                          title="View this Deployment in the OpenShift Console">OpenShift Console</a>
                     </li>
@@ -79,6 +80,7 @@
                     <li *ngIf="envInfo.exposeUrl" class="divider"></li>
                     <li>
                       <a (click)="openDeleteDialog(deleteDeploymentModal, envInfo.deployment.deployment)"
+                         *ngIf="envInfo.deployment.deployment"
                          title="Delete this Deployment">Delete</a>
                     </li>
                   </ul>
@@ -94,7 +96,7 @@
                     </span>
                     <span class="card-pf-aggregate-status-notification" *ngIf="envInfo.deployment.startingReplicas"
                           title="Number of pods that are starting up">
-                      <i class="fa fa-download" aria-hidden="true"></i> {{envInfo.deployment.startingReplicas}}
+                      <span class="spinner spinner-xs spinner-inline fa-spin"></span> {{envInfo.deployment.startingReplicas}}
                     </span>
                     <span class="card-pf-aggregate-status-notification" *ngIf="envInfo.deployment.terminatingReplicas"
                           title="Number of pods that are terminating">
