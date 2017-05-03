@@ -5,6 +5,7 @@ import { currentOAuthConfig } from '../store/oauth-config-store';
 export class KubernetesResource implements BaseEntity {
   id: string;
   name: string;
+  version: string;
   namespace: string;
   description: string;
   icon: string;
@@ -50,6 +51,7 @@ export class KubernetesResource implements BaseEntity {
     this.creationTimestamp = metadata.creationTimestamp;
     this.labels = metadata.labels || new Map<string, string>();
     this.annotations = metadata.annotations || new Map<string, string>();
+    this.version = this.labels["version"] || "";
     this.icon = this.annotations['fabric8.io/iconUrl'] || this.defaultIconUrl();
 
     // TODO any other annotations we should look for?

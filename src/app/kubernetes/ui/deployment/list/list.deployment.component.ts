@@ -30,7 +30,7 @@ export class DeploymentsListComponent {
 
   openScaleDialog(scaleDeploymentModal, deployment) {
     this.scaleDialog.configure(scaleDeploymentModal, deployment);
-    scaleDeploymentModal.open();
+    this.scaleDialog.open();
   }
 
   prefixPath(pathComponent: string) {

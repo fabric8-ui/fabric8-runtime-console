@@ -34,6 +34,8 @@ export class AbstractWatchComponent implements OnDestroy {
         watch.close();
       }
     }
+    this.watchCache.clear();
+    this.listObservableCache.clear();
   }
 
   protected listAndWatchServices(namespace: string, serviceService: ServiceService, routeService: RouteService): Observable<Services> {

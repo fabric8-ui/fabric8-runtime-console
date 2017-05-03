@@ -3,6 +3,8 @@ import * as jsyaml from 'js-yaml';
 import {Namespace, Namespaces, isSecretsNamespace, isSystemNamespace} from "./namespace.model";
 import {ConfigMap} from "./configmap.model";
 import {Entity} from "../../models/entity";
+import {openShiftBrowseResourceUrl} from "./helpers";
+import {currentOAuthConfig} from "../store/oauth-config-store";
 
 
 export class SpaceConfig {
@@ -141,7 +143,12 @@ export class Space {
 }
 
 export class Environment {
+  openShiftConsoleUrl: string;
+
   constructor(public key: string, public name: string, public namespaceName: string, public space: Space, public namespace: Namespace, public config: any, public order: number) {
+    if (namespace) {
+      this.openShiftConsoleUrl = openShiftBrowseResourceUrl(namespace, currentOAuthConfig());
+    }
   }
 }
 
@@ -167,6 +174,9 @@ export class Spaces extends Array<Space>{
   systemNamespaces = new Array<Space>();
 }
 
+export function createEmptySpace(): Space {
+  return new Space(null, new Namespaces(), null);
+}
 
 export function asSpaces(spaces: Space[]): Spaces {
   var answer = new Spaces();

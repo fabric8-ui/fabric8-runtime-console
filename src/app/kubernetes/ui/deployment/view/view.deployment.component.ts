@@ -15,6 +15,6 @@ export class DeploymentViewComponent {
 
   openScaleDialog(scaleDeploymentModal, deployment) {
     this.scaleDialog.configure(scaleDeploymentModal, deployment);
-    scaleDeploymentModal.open();
+    this.scaleDialog.open();
   }
 }

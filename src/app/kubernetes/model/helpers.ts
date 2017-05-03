@@ -1,4 +1,4 @@
-import { OAuthConfig } from './../store/oauth-config-store';
+import {OAuthConfig} from "./../store/oauth-config-store";
 import {KubernetesResource} from "./kubernetesresource.model";
 import {pathJoin} from "./utils";
 
@@ -11,6 +11,7 @@ export var resourceKindToCollectionName = {
   "Event": "events",
   "Namespace": "spaces",
   "Pod": "pods",
+  "Project": "projects",
   "ReplicationController": "replicationcontrollers",
   "ReplicaSet": "replicasets",
   "Route": "routes",
@@ -60,10 +61,16 @@ export function openShiftBrowseResourceUrl(resource: KubernetesResource, oauthCo
         }
       }
     }
-    const namespace = resource.namespace;
     const name = resource.name;
-    if (resource && openShiftConsoleUrl && namespace && name) {
-      return pathJoin(openShiftConsoleUrl, "/project/", namespace, "/browse", kinds, name);
+    if (kinds === "spaces" || kinds === "projects") {
+      if (name) {
+        return pathJoin(openShiftConsoleUrl, "/project/", name, "/overview");
+      }
+    } else {
+      const namespace = resource.namespace;
+      if (resource && openShiftConsoleUrl && namespace && name) {
+        return pathJoin(openShiftConsoleUrl, "/project/", namespace, "/browse", kinds, name);
+      }
     }
   }
   return "";

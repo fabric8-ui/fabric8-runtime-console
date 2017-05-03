@@ -55,6 +55,8 @@ import {DeploymentScaleDialog} from './scale-dialog/scale-dialog.deployment.comp
   exports: [
     ModalModule,
     DeploymentsListComponent,
+    DeploymentDeleteDialog,
+    DeploymentScaleDialog,
   ],
   providers: [
     DropdownConfig

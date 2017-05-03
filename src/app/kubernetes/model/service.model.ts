@@ -20,7 +20,8 @@ export class Service extends KubernetesSpecResource {
       let spec = value.spec || {};
       let host = spec.host;
       if (host) {
-        this.exposeUrl = "https://" + host;
+        let protcol = spec.tls ? "https://" : "http://";
+        this.exposeUrl = protcol + host;
       }
     }
   }

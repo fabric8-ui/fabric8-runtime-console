@@ -190,6 +190,7 @@ export class EnvironmentListPageComponent extends AbstractWatchComponent impleme
   ngOnDestroy(): void {
     super.ngOnDestroy();
 
+    this.listCache.clear();
     // TODO is there a way to disconnect from this.space / this.environments?
   }
 
@@ -229,7 +230,7 @@ export class EnvironmentListPageComponent extends AbstractWatchComponent impleme
   }
 }
 
-function environmentOpenShiftConoleUrl(environment: Environment): string {
+export function environmentOpenShiftConoleUrl(environment: Environment): string {
   let openshiftConsoleUrl = process.env.OPENSHIFT_CONSOLE_URL;
   let namespace = environment.namespaceName;
   if (namespace) {
