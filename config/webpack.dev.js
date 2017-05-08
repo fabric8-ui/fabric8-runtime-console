@@ -23,7 +23,7 @@ const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 4200;
+const PORT = process.env.PORT || 3000;
 const HMR = helpers.hasProcessFlag('hot');
 // if env is 'inmemory', the inmemory debug resource is used
 const OPENSHIFT_CONSOLE_URL = process.env.OPENSHIFT_CONSOLE_URL || 'https://console.starter-us-east-2.openshift.com/console/';
