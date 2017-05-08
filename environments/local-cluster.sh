@@ -3,6 +3,9 @@
 export KUBERNETES_SERVICE_HOST=""
 export KUBERNETES_SERVICE_PORT=""
 
+# to disable ANSI color output
+export TERM=dumb
+
 PARTS=$(kubectl cluster-info | grep master |sed -e 's/.*http:\/\///g' -e 's/.*https:\/\///g')
 
 [ -z "$KUBERNETES_SERVICE_HOST" ] && IFS=':' read KUBERNETES_SERVICE_HOST KUBERNETES_SERVICE_PORT <<< "$PARTS"
