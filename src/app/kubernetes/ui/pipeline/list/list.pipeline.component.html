@@ -89,8 +89,11 @@
             </div>
             <div class="mar-top-sm ">
               <a [routerLink]="[pipeline.id, 'history']" class="card-title" title="view older pipeline runs">View Pipeline Runs</a>
+              <span *ngIf="pipeline.editPipelineUrl">
+                <span class="action-divider">|</span>
+                <a [href]="pipeline.editPipelineUrl" role="button" title="Edit the pipeline on the OpenShift console" target="openshift">Edit Pipeline</a>
+              </span>
             </div>
-
           </div>
         </div>
       </div>

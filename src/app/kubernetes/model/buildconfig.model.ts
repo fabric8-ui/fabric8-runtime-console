@@ -1,6 +1,8 @@
 import {KubernetesSpecResource} from "./kuberentesspecresource.model";
 import {Build, Builds, ServiceUrl, ServiceEnvironments, AppInfo} from "./build.model";
 import {Params} from "@angular/router";
+import {currentOAuthConfig} from "../store/oauth-config-store";
+import {pathJoin} from "./utils";
 
 export const defaultBuildIconStyle = "pficon-build";
 
@@ -10,6 +12,7 @@ export class BuildConfig extends KubernetesSpecResource {
   lastVersion: number;
 
   jenkinsJobUrl: string;
+  editPipelineUrl: string;
   openInDEAUrl: string;
   openInCheUrl: string;
 
@@ -178,6 +181,16 @@ export class BuildConfig extends KubernetesSpecResource {
       this.openInDEAUrl = "jetbrains://idea/checkout/git?idea.required.plugins.id=Git4Idea&checkout.repo=" + gitUrl;
     }
     this.onBuildsUpdated();
+
+    let name = this.name;
+    let namespace = this.namespace;
+    let oauthConfig = currentOAuthConfig();
+    if (oauthConfig) {
+      let openShiftConsoleUrl = oauthConfig.openshiftConsoleUrl;
+      if (openShiftConsoleUrl && namespace && name) {
+        this.editPipelineUrl = pathJoin(openShiftConsoleUrl, "/project/", namespace, "/edit/pipelines/", name);
+      }
+    }
 
     // TODO create openInCheUrl URL
   }
