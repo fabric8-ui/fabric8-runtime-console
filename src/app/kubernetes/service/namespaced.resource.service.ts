@@ -70,10 +70,7 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
 
 
   create(obj: T, namespace: string = null): Observable<T> {
-    if (!namespace) {
-      namespace = obj.namespace;
-    }
-    let url = namespace ? this.serviceUrlForNamespace(namespace) : this.serviceUrl;
+    let url = this.urlForObject(obj, namespace);
     let resource = obj.resource || {};
     if (!resource.kind) {
       resource.kind = obj.defaultKind();
@@ -82,6 +79,24 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
     console.log('Creating resource with value ' + JSON.stringify(resource, null, '  '));
 
     return this.restangularService.all(url).post(resource);
+  }
+
+  delete(obj: T): any {
+    let url = this.urlForObject(obj);
+    let id = obj.name;
+    if (id) {
+      return this.restangularService.one(url, id).remove();
+    } else {
+      return super.delete(obj);
+    }
+  }
+
+  protected urlForObject(obj: T, namespace: string = "") {
+    if (!namespace) {
+      namespace = obj.namespace;
+    }
+    let url = namespace ? this.serviceUrlForNamespace(namespace) : this.serviceUrl;
+    return url;
   }
 
   /**

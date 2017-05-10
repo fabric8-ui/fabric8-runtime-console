@@ -16,13 +16,24 @@ export class BuildConfigDeleteDialog {
   }
 
   ok() {
-    console.log('deleting buildconfig ' + this.buildconfig.name);
     this.modal.close();
-    this.buildconfigService.delete(this.buildconfig).subscribe(
-      () => {
-        this.buildconfigStore.loadAll();
-      },
-    );
+    let stream = this.buildconfigService.delete(this.buildconfig);
+    if (stream) {
+      stream.subscribe(
+        () => {
+          //
+        },
+        (err) => {
+          console.log("delete failed: ", err);
+          this.buildconfigStore.loadAll();
+        },
+        () => {
+          this.buildconfigStore.loadAll();
+        }
+      );
+    } else {
+      this.buildconfigStore.loadAll();
+    }
   }
 
   close() {
