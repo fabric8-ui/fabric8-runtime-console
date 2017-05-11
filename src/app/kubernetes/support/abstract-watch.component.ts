@@ -1,5 +1,5 @@
 import {OnDestroy} from "@angular/core";
-import {Observable} from "rxjs";
+import {Observable, Subject, Subscriber, Subscription} from "rxjs";
 import {NamespacedResourceService} from "../service/namespaced.resource.service";
 import {KubernetesResource} from "../model/kubernetesresource.model";
 import {enrichServiceWithRoute, Service, Services} from "../model/service.model";
@@ -24,10 +24,17 @@ import {ReplicaSetService} from "../service/replicaset.service";
  * component has been used
  */
 export class AbstractWatchComponent implements OnDestroy {
-  private listObservableCache: Map<string, Observable<any[]>> = new Map<string, Observable<any[]>>();
+  public subjectCache: Map<string, Subject<any[]>> = new Map<string, Subject<any[]>>();
   private watchCache: Map<string, Watcher> = new Map<string, Watcher>();
 
   ngOnDestroy(): void {
+    for (let key in this.subjectCache) {
+      let subject = this.subjectCache[key];
+      if (subject) {
+        subject.unsubscribe();
+      }
+    }
+    this.subjectCache.clear();
     for (let key in this.watchCache) {
       let watch = this.watchCache[key];
       if (watch) {
@@ -35,7 +42,6 @@ export class AbstractWatchComponent implements OnDestroy {
       }
     }
     this.watchCache.clear();
-    this.listObservableCache.clear();
   }
 
   protected listAndWatchServices(namespace: string, serviceService: ServiceService, routeService: RouteService): Observable<Services> {
@@ -48,6 +54,8 @@ export class AbstractWatchComponent implements OnDestroy {
 
 
   listAndWatchDeployments(namespace: string, deploymentService: DeploymentService, deploymentConfigService: DeploymentConfigService, serviceService: ServiceService, routeService: RouteService): Observable<DeploymentViews> {
+    const servicesObservable = this.listAndWatchServices(namespace, serviceService, routeService);
+
     let deployments = Observable.combineLatest(
       this.listAndWatch(deploymentService, namespace, Deployment),
       this.listAndWatch(deploymentConfigService, namespace, DeploymentConfig),
@@ -55,13 +63,15 @@ export class AbstractWatchComponent implements OnDestroy {
     );
     let runtimeDeployments = Observable.combineLatest(
       deployments,
-      this.listAndWatchServices(namespace, serviceService, routeService),
+      servicesObservable,
       createDeploymentViews,
     );
     return runtimeDeployments;
   }
 
   listAndWatchReplicas(namespace: string, replicaSetService: ReplicaSetService, replicationControllerService: ReplicationControllerService, serviceService: ServiceService, routeService: RouteService): Observable<ReplicaSetViews> {
+    const servicesObservable = this.listAndWatchServices(namespace, serviceService, routeService);
+    
     let replicas = Observable.combineLatest(
       this.listAndWatch(replicaSetService, namespace, ReplicaSet),
       this.listAndWatch(replicationControllerService, namespace, ReplicationController),
@@ -69,7 +79,7 @@ export class AbstractWatchComponent implements OnDestroy {
     );
     let replicaViews = Observable.combineLatest(
       replicas,
-      this.listAndWatchServices(namespace, serviceService, routeService),
+      servicesObservable,
       createReplicaSetViews,
     );
     return replicaViews;
@@ -80,28 +90,33 @@ export class AbstractWatchComponent implements OnDestroy {
     service: NamespacedResourceService<T, L>,
     namespace: string,
     type: { new (): T; }
-  ) {
-    return Observable.combineLatest(
-      this.getOrCreateList(service, namespace, type),
-      // We just emit an empty item if the watch fails
-      this.getOrCreateWatch(service, namespace, type).dataStream.catch(() => Observable.of(null)),
-      (list, msg) => this.combineListAndWatchEvent(list, msg, service, type, namespace),
+  ): Observable<L> {
+    let key = namespace + "/" + type.name;
+    return this.getOrCreateSubject(key, () =>
+       Observable.combineLatest(
+              //this.getOrCreateList(service, namespace, type),
+              service.list(namespace),
+              // We just emit an empty item if the watch fails
+              this.getOrCreateWatch(service, namespace, type)
+                .dataStream.catch(() => Observable.of(null)),
+              (list, msg) => this.combineListAndWatchEvent(list, msg, service, type, namespace),
+            )
     );
   }
 
-  protected getOrCreateList<T extends KubernetesResource, L extends Array<T>>(
-    service: NamespacedResourceService<T, L>,
-      namespace: string,
-      type: { new (): T; }
+  protected getOrCreateSubject<T extends KubernetesResource, L extends Array<T>>(
+      key: string,
+      createObserverFn: () => Observable<L>
   ): Observable<L> {
-    let key = namespace + "/" + type.name;
-    let answer = this.listObservableCache[key];
+    let answer = this.subjectCache[key];
     if (!answer) {
-      answer = service.list(namespace);
-      this.listObservableCache[key] = answer;
+      let observable = createObserverFn();
+      answer = new CachingSubject(observable);
+      this.subjectCache[key] = answer;
     }
-    return answer;
+    return answer.asObservable();
   }
+
 
   protected getOrCreateWatch<T extends KubernetesResource, L extends Array<T>>(
     service: NamespacedResourceService<T, L>,
@@ -189,6 +204,42 @@ export class AbstractWatchComponent implements OnDestroy {
     let obj = resource || {};
     let metadata = obj.metadata || {};
     return obj.name || metadata.name || '';
+  }
+}
+
+/**
+ * Lets send the last value to any new subscriber before any new values.
+ *
+ * Unlike BehaviorSubject there is no need for an initial value.
+ * Unlike AsyncSubject we don't need to wait for complete before sending a next event
+ */
+export class CachingSubject<T> extends Subject<T> {
+  private _value: T;
+  private _hasValue = false;
+  private _subscription: Subscription;
+
+  constructor(protected observable: Observable<T>) {
+    super();
+    this._subscription = observable.subscribe(this);
+  }
+
+  unsubscribe(): void {
+    this._subscription.unsubscribe();
+    super.unsubscribe();
+  }
+
+  next(value?: T): void {
+    this._value = value;
+    this._hasValue = true;
+    super.next(value);
+  }
+
+
+  protected _subscribe(subscriber: Subscriber<T>): Subscription {
+    if (this._hasValue) {
+      subscriber.next(this._value);
+    }
+    return super._subscribe(subscriber);
   }
 }
 

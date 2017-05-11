@@ -1,86 +1,92 @@
 <fabric8-loading [loading]="loading">
-  <div id="environments" class="content container">
+  <div id="environments">
     <div class="environment" *ngFor="let e of environments">
       <div class="row">
         <div class="col-md-4">
-          <h2>{{e.environment.name}}</h2>
-        </div>
-        <div class="col-md-4">
-          <span class="openshift-console-link-panel" *ngIf="e.openshiftConsoleUrl">
+          <h2 *ngIf="!e.openshiftConsoleUrl">{{e.environment.name}}</h2>
+          <h2 *ngIf="e.openshiftConsoleUrl">
             <a [href]="e.openshiftConsoleUrl" title="View this environment in the OpenShift console">
-              See more in OpenShift console &nbsp;<span class="fa fa-external-link"></span>
+              {{e.environment.name}}
             </a>
-          </span>
+          </h2>
         </div>
       </div>
 
-      <alm-tree-list #treeList [listTemplate]="treeListTemplate" [nodes]="e.kinds" [options]="options" [showExpander]="false">
-        <ng-template #treeListTemplate let-node="node" let-index="index">
-          <div [ngSwitch]="node.parent?.data?.kind?.path?.toLowerCase()">
-            <div *ngSwitchCase="'configmaps'" class="environment-listing">
-              <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
-                <ng-template #treeListItemTemplate>
-                  <fabric8-configmaps-list [configmaps]="node.data.data | async" [loading]="node.data.loading | async"
-                                           [prefix]="'namespaces/' + e.environment.namespaceName + '/configmaps'"
-                                           [hideCheckbox]='true'></fabric8-configmaps-list>
-                </ng-template>
-              </alm-tree-list-item>
-            </div>
-            <div *ngSwitchCase="'deployments'" class="environment-listing">
-              <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
-                <ng-template #treeListItemTemplate>
-                  <fabric8-deployments-list [runtimeDeployments]="node.data.data | async" [loading]="node.data.loading | async"
-                                            [prefix]="'namespaces/' + e.environment.namespaceName + '/deployments'"
-                                            [hideCheckbox]='true'></fabric8-deployments-list>
-                </ng-template>
-              </alm-tree-list-item>
-            </div>
-            <div *ngSwitchCase="'events'" class="environment-listing">
-              <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
-                <ng-template #treeListItemTemplate>
-                  <fabric8-events-list [events]="node.data.data | async" [loading]="node.data.loading | async"
-                                       [prefix]="'namespaces/' + e.environment.namespaceName + '/events'"
-                                       [hideCheckbox]='true'></fabric8-events-list>
-                </ng-template>
-              </alm-tree-list-item>
-            </div>
-            <div *ngSwitchCase="'pods'" class="environment-listing">
-              <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
-                <ng-template #treeListItemTemplate>
-                  <fabric8-pods-list [pods]="node.data.data | async" [loading]="node.data.loading | async"
-                                     [prefix]="'namespaces/' + e.environment.namespaceName + '/pods'"
-                                     [hideCheckbox]='true'></fabric8-pods-list>
-                </ng-template>
-              </alm-tree-list-item>
-            </div>
-            <div *ngSwitchCase="'replicasets'" class="environment-listing">
-              <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
-                <ng-template #treeListItemTemplate>
-                  <fabric8-replicasets-list [runtimeReplicaSets]="node.data.data | async" [loading]="node.data.loading | async"
-                                            [prefix]="'namespaces/' + e.environment.namespaceName + '/replicasets'"
-                                            [hideCheckbox]='true'></fabric8-replicasets-list>
-                </ng-template>
-              </alm-tree-list-item>
-            </div>
-            <div *ngSwitchCase="'services'" class="environment-listing">
-              <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
-                <ng-template #treeListItemTemplate>
-                  <fabric8-services-list [services]="node.data.data | async" [loading]="node.data.loading | async"
-                                         [prefix]="'namespaces/' + e.environment.namespaceName + '/services'"
-                                         [hideCheckbox]='true'></fabric8-services-list>
-                </ng-template>
-              </alm-tree-list-item>
-            </div>
-            <div *ngSwitchDefault>
-              <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
-                <ng-template #treeListItemTemplate>
-                  <span title="{{node.data.subTitle}}">{{ node.data.title | async }}</span>
-                </ng-template>
-              </alm-tree-list-item>
-            </div>
-          </div>
-        </ng-template>
-      </alm-tree-list>
+      <div class="row">
+        <div class="col-md-12">
+          <alm-tree-list #treeList [listTemplate]="treeListTemplate" [nodes]="e.kinds" [options]="options"
+                         [showExpander]="false">
+            <ng-template #treeListTemplate let-node="node" let-index="index">
+              <div [ngSwitch]="node.parent?.data?.kind?.path?.toLowerCase()">
+                <div *ngSwitchCase="'configmaps'" class="environment-listing">
+                  <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
+                    <ng-template #treeListItemTemplate>
+                      <fabric8-configmaps-list [configmaps]="node.data.data | async"
+                                               [loading]="node.data.loading | async"
+                                               [prefix]="'namespaces/' + e.environment.namespaceName + '/configmaps'"
+                                               [hideCheckbox]='true'></fabric8-configmaps-list>
+                    </ng-template>
+                  </alm-tree-list-item>
+                </div>
+                <div *ngSwitchCase="'deployments'" class="environment-listing">
+                  <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
+                    <ng-template #treeListItemTemplate>
+                      <fabric8-deployments-list [runtimeDeployments]="node.data.data | async"
+                                                [loading]="node.data.loading | async"
+                                                [prefix]="'namespaces/' + e.environment.namespaceName + '/deployments'"
+                                                [hideCheckbox]='true'></fabric8-deployments-list>
+                    </ng-template>
+                  </alm-tree-list-item>
+                </div>
+                <div *ngSwitchCase="'events'" class="environment-listing">
+                  <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
+                    <ng-template #treeListItemTemplate>
+                      <fabric8-events-list [events]="node.data.data | async" [loading]="node.data.loading | async"
+                                           [prefix]="'namespaces/' + e.environment.namespaceName + '/events'"
+                                           [hideCheckbox]='true'></fabric8-events-list>
+                    </ng-template>
+                  </alm-tree-list-item>
+                </div>
+                <div *ngSwitchCase="'pods'" class="environment-listing">
+                  <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
+                    <ng-template #treeListItemTemplate>
+                      <fabric8-pods-list [pods]="node.data.data | async" [loading]="node.data.loading | async"
+                                         [prefix]="'namespaces/' + e.environment.namespaceName + '/pods'"
+                                         [hideCheckbox]='true'></fabric8-pods-list>
+                    </ng-template>
+                  </alm-tree-list-item>
+                </div>
+                <div *ngSwitchCase="'replicasets'" class="environment-listing">
+                  <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
+                    <ng-template #treeListItemTemplate>
+                      <fabric8-replicasets-list [runtimeReplicaSets]="node.data.data | async"
+                                                [loading]="node.data.loading | async"
+                                                [prefix]="'namespaces/' + e.environment.namespaceName + '/replicasets'"
+                                                [hideCheckbox]='true'></fabric8-replicasets-list>
+                    </ng-template>
+                  </alm-tree-list-item>
+                </div>
+                <div *ngSwitchCase="'services'" class="environment-listing">
+                  <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
+                    <ng-template #treeListItemTemplate>
+                      <fabric8-services-list [services]="node.data.data | async" [loading]="node.data.loading | async"
+                                             [prefix]="'namespaces/' + e.environment.namespaceName + '/services'"
+                                             [hideCheckbox]='true'></fabric8-services-list>
+                    </ng-template>
+                  </alm-tree-list-item>
+                </div>
+                <div *ngSwitchDefault>
+                  <alm-tree-list-item [node]="node" [template]="treeListItemTemplate">
+                    <ng-template #treeListItemTemplate>
+                      <span title="{{node.data.subTitle}}">{{ node.data.title | async }}</span>
+                    </ng-template>
+                  </alm-tree-list-item>
+                </div>
+              </div>
+            </ng-template>
+          </alm-tree-list>
+        </div>
+      </div>
     </div>
   </div>
 </fabric8-loading>
