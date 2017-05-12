@@ -1,4 +1,4 @@
-import {BehaviorSubject, ConnectableObservable, Observable, Subject} from "rxjs";
+import {BehaviorSubject, ConnectableObservable, Observable, Subject, Subscription} from "rxjs";
 import {Notifications, Notification, NotificationType} from "ngx-base";
 import {Deployment} from "./../../../model/deployment.model";
 import {DeploymentService} from "./../../../service/deployment.service";
@@ -51,10 +51,41 @@ export let KINDS: Kind[] = [
 ];
 
 export class EnvironmentEntry {
-  environment: Environment;
-  kinds: KindNode[];
   loading: boolean;
-  openshiftConsoleUrl: string;
+
+  deployments: KindNode;
+  replicasets: KindNode;
+  pods: KindNode;
+  services: KindNode;
+  configmaps: KindNode;
+  events: KindNode;
+
+  constructor(public environment: Environment,
+              public  openshiftConsoleUrl: string,
+              public kinds: KindNode[]) {
+
+    this.configmaps = this.findKind("configmaps");
+    this.deployments = this.findKind("deployments");
+    this.events = this.findKind("events");
+    this.pods = this.findKind("pods");
+    this.replicasets = this.findKind("replicasets");
+    this.services = this.findKind("services");
+  }
+
+  protected findKind(kind: string) {
+    const kinds = this.kinds;
+    if (kinds) {
+      for (let k of kinds) {
+        let kk = k.kind;
+        if (kk && kk.name === kind || kk.path.toLowerCase() === kind) {
+          return k;
+        }
+      }
+    }
+    console.log("Could not find kind `" + kind + "`!!!");
+    // lets return an empty kind node for now
+    return new KindNode({ name: kind, path: kind }, this.environment, Observable.of(false), Observable.of(kind), () => { return null })
+  }
 }
 
 export class Kind {
@@ -63,38 +94,28 @@ export class Kind {
 }
 
 export class KindNode {
-  children: LazyLoadingData[];
+  private subject = new BehaviorSubject([]);
+  private _loaded = false;
+  private _subscription: Subscription;
 
-  constructor(public kind: Kind, public environment: Environment, public title: Observable<string>, protected loader: (KindNode) => LoadingData) {
-    this.children = [new LazyLoadingData(() => this.loader(this))];
-  }
-}
-
-export class LoadingData {
-  constructor(public loading: Observable<boolean>, public data: Observable<any[]>) {
-  }
-}
-
-export class LazyLoadingData {
-  private _loadingData: LoadingData;
-
-  constructor(protected loader: () => LoadingData) {
+  constructor(public kind: Kind, public environment: Environment, public loading: Observable<boolean>, public title: Observable<string>, protected observeFn: () => Observable<any[]>) {
   }
 
-  get loading(): Observable<boolean> {
-    return this.loadingData.loading;
+  /**
+   * Invoked to lazily start loading this data
+   */
+  ensureLoaded() {
+    if (!this._loaded) {
+      this._loaded = true;
+      let observer = this.observeFn();
+      if (observer) {
+        this._subscription = observer.subscribe(this.subject);
+      }
+    }
   }
 
   get data(): Observable<any[]> {
-    return this.loadingData.data;
-  }
-
-  protected get loadingData(): LoadingData {
-    if (!this._loadingData) {
-      this._loadingData = this.loader();
-      //this._loadingData.data.connect();
-    }
-    return this._loadingData;
+    return this.subject.asObservable();
   }
 }
 
@@ -154,18 +175,18 @@ export class EnvironmentListPageComponent extends AbstractWatchComponent impleme
       .switchMap(label => this.space
         .skipWhile(space => !space)
         .map(space => space.environments)
-        .map(environments => environments.map(environment => ({
-          environment: environment,
-          openshiftConsoleUrl: environmentOpenShiftConoleUrl(environment),
-          kinds: KINDS.map(kind => {
+        .map(environments => environments.map(environment => new EnvironmentEntry(
+          environment,
+          environmentOpenShiftConoleUrl(environment),
+          KINDS.map(kind => {
 
             let title = new BehaviorSubject(`${kind.name}s`);
+            let loading = new BehaviorSubject(true);
 
-            let loader = () => {
+            let observer = () => {
               console.log(`Now loading data for ${kind.name} and environment ${environment.name}`);
 
-              let loading = new BehaviorSubject(true);
-              let data = this.getList(kind.path, environment)
+              return this.getList(kind.path, environment)
                 .distinctUntilChanged()
                 .map(arr => {
                   if (label) {
@@ -180,12 +201,11 @@ export class EnvironmentListPageComponent extends AbstractWatchComponent impleme
                   //title.next(`${arr.length} ${kind.name}${arr.length === 1 ? '' : 's'}`);
                   return arr;
                 });
-              return new LoadingData(loading, data);
             };
-            return new KindNode(kind, environment, title.asObservable(), loader);
-          }),
-        })),
-      ))
+            return new KindNode(kind, environment, loading.asObservable(), title.asObservable(), observer);
+          }))
+        )))
+
       // Wait 200ms before publishing an empty value - it's probably not empty but it might be!
       //.debounce(arr => (arr.length > 0 ? Observable.interval(0) : Observable.interval(200)))
       .do(() => this.loading.next(false))

@@ -40,7 +40,7 @@
             </div>
           </div>
           <div *ngFor="let envInfo of app.environmentDetails" class="col-md-2">
-            <div class="card-pf card-pf-accented card-pf-aggregate-status" *ngIf="envInfo.deployment">
+            <div class="card-pf card-pf-accented card-pf-aggregate-status" *ngIf="envInfo && envInfo.deployment">
               <h2 class="card-pf-title">
                 <span title="version of the application running in this environment">
                   <span class="card-pf-aggregate-status-count">

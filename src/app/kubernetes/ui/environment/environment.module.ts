@@ -11,7 +11,7 @@ import { ConfigMapStore } from './../../store/configmap.store';
 import { NamespaceStore } from './../../store/namespace.store';
 
 import {NgModule} from '@angular/core';
-import {DropdownConfig, DropdownModule} from 'ng2-bootstrap';
+import {DropdownConfig, DropdownModule, TabsModule} from 'ng2-bootstrap';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
@@ -41,6 +41,7 @@ import { EnvironmentListToolbarComponent } from './list-toolbar/list-toolbar.env
     ToolbarModule,
     TreeListModule,
     TreeModule,
+    TabsModule.forRoot(),
     // Our Routing MUST go before the other Kuberenetes UI modules, so our routes take precedence
     EnvironmentRoutingModule,
     DeploymentModule,
