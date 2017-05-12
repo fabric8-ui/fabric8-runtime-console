@@ -63,15 +63,39 @@ export class Kind {
 }
 
 export class KindNode {
-  title: Subject<string>;
-  environment: Environment;
-  kind: Kind;
-  children: [
-    {
-      loading: Observable<boolean>,
-      data: ConnectableObservable<any[]>,
+  children: LazyLoadingData[];
+
+  constructor(public kind: Kind, public environment: Environment, public title: Observable<string>, protected loader: (KindNode) => LoadingData) {
+    this.children = [new LazyLoadingData(() => this.loader(this))];
+  }
+}
+
+export class LoadingData {
+  constructor(public loading: Observable<boolean>, public data: Observable<any[]>) {
+  }
+}
+
+export class LazyLoadingData {
+  private _loadingData: LoadingData;
+
+  constructor(protected loader: () => LoadingData) {
+  }
+
+  get loading(): Observable<boolean> {
+    return this.loadingData.loading;
+  }
+
+  get data(): Observable<any[]> {
+    return this.loadingData.data;
+  }
+
+  protected get loadingData(): LoadingData {
+    if (!this._loadingData) {
+      this._loadingData = this.loader();
+      //this._loadingData.data.connect();
     }
-  ];
+    return this._loadingData;
+  }
 }
 
 @Component({
@@ -134,54 +158,38 @@ export class EnvironmentListPageComponent extends AbstractWatchComponent impleme
           environment: environment,
           openshiftConsoleUrl: environmentOpenShiftConoleUrl(environment),
           kinds: KINDS.map(kind => {
-            // Give it a default title
+
             let title = new BehaviorSubject(`${kind.name}s`);
-            let loading = new BehaviorSubject(true);
-            let data = this.getCachedList(kind.path, environment)
-              // Update the title with the number of objects
-              .distinctUntilChanged()
-              .map(arr => {
-                if (label) {
-                  return arr.filter(val => {
-                    // lets only filter resources with a space label
-                    return !val.labels['space'] || val.labels['space'] === label;
-                  });
-                } else {
+
+            let loader = () => {
+              console.log(`Now loading data for ${kind.name} and environment ${environment.name}`);
+
+              let loading = new BehaviorSubject(true);
+              let data = this.getList(kind.path, environment)
+                .distinctUntilChanged()
+                .map(arr => {
+                  if (label) {
+                    arr = arr.filter(val => {
+                      // lets only filter resources with a space label
+                      return !val.labels['space'] || val.labels['space'] === label;
+                    });
+                  }
+                  loading.next(false);
+
+                  // TODO this seems to lock up the entire browser! :)
+                  //title.next(`${arr.length} ${kind.name}${arr.length === 1 ? '' : 's'}`);
                   return arr;
-                }
-              })
-              .do(arr => title.next(`${arr.length} ${kind.name}${arr.length === 1 ? '' : 's'}`))
-              .do(() => loading.next(false))
-              .publishReplay(1);
-            return {
-              environment: environment,
-              kind: kind,
-              title: title,
-              children: [
-                {
-                  loading: loading,
-                  data: data,
-                },
-              ],
-            } as KindNode;
+                });
+              return new LoadingData(loading, data);
+            };
+            return new KindNode(kind, environment, title.asObservable(), loader);
           }),
         })),
       ))
       // Wait 200ms before publishing an empty value - it's probably not empty but it might be!
-      .debounce(arr => (arr.length > 0 ? Observable.interval(0) : Observable.interval(200)))
+      //.debounce(arr => (arr.length > 0 ? Observable.interval(0) : Observable.interval(200)))
       .do(() => this.loading.next(false))
       .publish();
-    // Now, connect all the data
-    // Note we don't do this inside main stream to allow the page to draw faster
-    this.environments.subscribe(
-      envs => envs.forEach(
-        env => env.kinds.forEach(
-          kind => kind.children.forEach(
-            child => child.data.connect(),
-          ),
-        ),
-      ),
-    );
     this.environments.connect();
     this.space.connect();
   }
@@ -192,21 +200,6 @@ export class EnvironmentListPageComponent extends AbstractWatchComponent impleme
 
     this.listCache.clear();
     // TODO is there a way to disconnect from this.space / this.environments?
-  }
-
-
-  /**
-   * Lets cache the observables so that we don't requery the services each time we ask for the observables
-   */
-  private getCachedList(kind: string, environment: Environment): Observable<any[]> {
-    let namespace = environment.namespace.name;
-    let key = (namespace || "") + "/" + kind;
-    var answer = this.listCache[key];
-    if (!answer) {
-      answer = this.getList(kind, environment);
-      this.listCache[key] = answer;
-    }
-    return answer;
   }
 
   private getList(kind: string, environment: Environment): Observable<any[]> {
@@ -229,6 +222,7 @@ export class EnvironmentListPageComponent extends AbstractWatchComponent impleme
     }
   }
 }
+
 
 export function environmentOpenShiftConoleUrl(environment: Environment): string {
   let openshiftConsoleUrl = process.env.OPENSHIFT_CONSOLE_URL;
