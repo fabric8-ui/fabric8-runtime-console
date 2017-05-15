@@ -21,6 +21,7 @@ import {pathJoin} from "../../../model/utils";
 import {ReplicationControllerService} from "../../../service/replicationcontroller.service";
 import {RouteService} from "../../../service/route.service";
 import {AbstractWatchComponent} from "../../../support/abstract-watch.component";
+import {currentOAuthConfig} from "../../../store/oauth-config-store";
 
 
 export let KINDS: Kind[] = [
@@ -246,6 +247,12 @@ export class EnvironmentListPageComponent extends AbstractWatchComponent impleme
 
 export function environmentOpenShiftConoleUrl(environment: Environment): string {
   let openshiftConsoleUrl = process.env.OPENSHIFT_CONSOLE_URL;
+  if (!openshiftConsoleUrl) {
+    let config = currentOAuthConfig();
+    if (config != null) {
+      openshiftConsoleUrl = config.openshiftConsoleUrl;
+    }
+  }
   let namespace = environment.namespaceName;
   if (namespace) {
     return pathJoin(openshiftConsoleUrl, "/project", namespace, "/overview")
