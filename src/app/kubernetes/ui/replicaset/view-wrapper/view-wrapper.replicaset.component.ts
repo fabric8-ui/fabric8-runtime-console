@@ -1,9 +1,9 @@
 import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs/Observable";
 import {ReplicaSet} from "../../../model/replicaset.model";
-import {ReplicaSetStore} from "../../../store/replicaset.store";
 import {AbstractViewWrapperComponent} from "../../../support/abstract-viewwrapper-component";
 import {ActivatedRoute} from "@angular/router";
+import {CompositeReplicaSetStore} from "../../../store/compositedreplicaset.store";
 
 @Component({
   selector: 'fabric8-replicaset-view-wrapper',
@@ -13,7 +13,7 @@ import {ActivatedRoute} from "@angular/router";
 export class ReplicaSetViewWrapperComponent extends AbstractViewWrapperComponent implements OnInit {
   replicaset: Observable<ReplicaSet>;
 
-  constructor(private store: ReplicaSetStore, route: ActivatedRoute) {
+  constructor(private store: CompositeReplicaSetStore, route: ActivatedRoute) {
     super(route);
   }
 

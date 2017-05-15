@@ -52,10 +52,17 @@ export class KubernetesResource implements BaseEntity {
     this.labels = metadata.labels || new Map<string, string>();
     this.annotations = metadata.annotations || new Map<string, string>();
     this.version = this.labels["version"] || "";
-    this.icon = this.annotations['fabric8.io/iconUrl'] || this.defaultIconUrl();
+
+    // for Replicas we need to also look in the spec.template.metadata.annotations
+    let spec = resource.spec || {};
+    let template = spec.template || {};
+    let templateMetadata = template.metadata || {};
+    let templateAnnotations = templateMetadata.annotations || new Map<string, string>();
+
+    this.icon = this.annotations['fabric8.io/iconUrl'] || templateAnnotations['fabric8.io/iconUrl'] || this.defaultIconUrl();
 
     // TODO any other annotations we should look for?
-    this.description = this.annotations['description'] || '';
+    this.description = this.annotations['description'] || templateAnnotations['description'] || '';
 
     this.openShiftConsoleUrl = openShiftBrowseResourceUrl(this, currentOAuthConfig());
   }

@@ -1,49 +1,58 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
-import { Observable } from 'rxjs';
-import { merge } from 'lodash';
+import {Injectable} from "@angular/core";
+import {ActivatedRoute, Router, NavigationEnd} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class NamespaceScope {
   public namespace: Observable<string>;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(protected activatedRoute: ActivatedRoute, protected router: Router) {
     this.namespace = this.router.events
       .filter(event => event instanceof NavigationEnd)
       .map(() => this.activatedRoute)
-      .map(route => {
-        while (route.firstChild) route = route.firstChild;
-        return route;
-      })
+      .map(
+        route => {
+          while (route.firstChild) route = route.firstChild;
+          return route;
+        })
       .filter(route => route.outlet === 'primary')
-      .mergeMap(route => route.params).map(params => this.getNamespace(params)).distinctUntilChanged();
+      .mergeMap(route => route.params).map(params => this.getNamespace(params)).filter(n => n).distinctUntilChanged();
   }
 
   protected getNamespace(params) {
-    return this.getRouteParams()['namespace'] || this.defaultNamespace();
+    return params['namespace'] || this.getRouteParams('namespace');
   }
 
-  defaultNamespace(): string {
-    // TODO use some other mechanism to return the default?
-    return 'default';
-  }
-
-  private getRouteParams(): any {
+  protected getRouteParams(key): any {
     if (
       this.router &&
       this.router.routerState &&
       this.router.routerState.snapshot &&
       this.router.routerState.snapshot.root
     ) {
-      let firstChild = this.router.routerState.snapshot.root.firstChild;
-      let res = {};
-      while (firstChild) {
-        res = merge(res, firstChild.params);
-        firstChild = firstChild.firstChild;
-      }
-      return res;
+      return this.findParamsFor(this.router.routerState.snapshot.root, key);
     }
     return null;
   }
 
+  protected findParamsFor(route, key): any {
+    let children = route.children;
+    for (let child of children) {
+      let params = child.params;
+      if (params) {
+        let answer = params[key];
+        if (!answer) {
+          answer = this.findParamsFor(child, key);
+        }
+        if (answer) {
+          return answer;
+        }
+      }
+    }
+    return null;
+  }
+
+  currentNamespace() {
+    return this.findParamsFor(this.router.routerState.snapshot.root, "namespace");
+  }
 }

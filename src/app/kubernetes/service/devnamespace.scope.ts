@@ -16,6 +16,12 @@ export class DevNamespaceScope extends NamespaceScope {
   }
 
   protected getNamespace(params) {
-    return params['space'] || params['namespace'] || this.defaultNamespace();
+    return params['space'] || this.getRouteParams('space') ||
+      params['namespace'] || this.getRouteParams('namespace');
+  }
+
+
+  currentNamespace(): any {
+    return this.findParamsFor(this.router.routerState.snapshot.root, "space") || super.currentNamespace();
   }
 }

@@ -20,8 +20,9 @@ export var resourceKindToCollectionName = {
 };
 
 export var resourceKindToOpenShiftConsoleCollectionName = {
-  "DeploymentConfig": "dc",
   "BuildConfig": "pipelines",
+  "DeploymentConfig": "dc",
+  "ReplicationController": "rc",
 };
 
 /**

@@ -5,7 +5,7 @@
         <div class="col-md-4">
           <h2 *ngIf="!e.openshiftConsoleUrl">{{e.environment.name}}</h2>
           <h2 *ngIf="e.openshiftConsoleUrl">
-            <a [href]="e.openshiftConsoleUrl" title="View this environment in the OpenShift console">
+            <a [href]="e.openshiftConsoleUrl" target="openshift" title="View this environment in the OpenShift console">
               {{e.environment.name}}
             </a>
           </h2>
