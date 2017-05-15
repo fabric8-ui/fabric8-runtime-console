@@ -1,4 +1,6 @@
 <div class='events detail' *ngIf='event'>
-  <fabric8-event-view-toolbar [event]="event | async"></fabric8-event-view-toolbar>
+  <div *ngIf="showToolbar">
+    <fabric8-event-view-toolbar [event]="event | async"></fabric8-event-view-toolbar>
+  </div>
   <fabric8-event-view [event]="event | async"></fabric8-event-view>
 </div>

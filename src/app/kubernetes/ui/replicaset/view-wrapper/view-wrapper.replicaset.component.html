@@ -1,4 +1,6 @@
 <div class='replicasets detail' *ngIf='replicaset'>
-  <fabric8-replicaset-view-toolbar [replicaset]="replicaset | async"></fabric8-replicaset-view-toolbar>
+  <div *ngIf="showToolbar">
+    <fabric8-replicaset-view-toolbar [replicaset]="replicaset | async"></fabric8-replicaset-view-toolbar>
+  </div>
   <fabric8-replicaset-view [replicaset]="replicaset | async"></fabric8-replicaset-view>
 </div>

@@ -30,6 +30,9 @@ const routes: Routes = [
   {
     path: '',
     component: EnvironmentListPageComponent,
+    data: {
+      "hide-toolbar": true,
+    },
     // Can't use lazy loading here as we need to import in to another module, and that doesn't work yet
     children: [
       {
