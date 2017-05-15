@@ -5,6 +5,10 @@
       <span class="pull-right">created {{configmap.creationTimestamp | amTimeAgo}}</span>
       <h2 class="card-pf-title">
         <img src="{{configmap.icon}}" width="30" height="30"/>&nbsp; {{configmap.name}}
+        &nbsp;
+        <a *ngIf="configmap.openShiftConsoleUrl" [href]="configmap.openShiftConsoleUrl" target="openshift" title="Open in the OpenShift console">
+          <i class="fa fa-external-link" aria-hidden="true"></i>
+        </a>
       </h2>
     </span>
   </div>

@@ -46,7 +46,7 @@
                 </li>
                 <li class="divider" *ngIf="pipeline.gitUrl"></li>
                 <li *ngIf="pipeline.openInDEAUrl">
-                  <a [href]="pipeline.openInDEAUrl | safeUrl" title="open this project in IDEA IntelliJ">
+                  <a [href]="pipeline.openInDEAUrl | safeUrl" title="open this project in IDEA IntelliJ\n(Requires Jetbrains Toolbox to be installed)">
                     Open in IDEA
                   </a>
                 </li>

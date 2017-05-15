@@ -1,6 +1,7 @@
 import {OAuthConfig} from "./../store/oauth-config-store";
 import {KubernetesResource} from "./kubernetesresource.model";
 import {pathJoin} from "./utils";
+import {ActivatedRoute} from "@angular/router";
 
 export var resourceKindToCollectionName = {
   "Deployment": "deployments",
@@ -74,4 +75,24 @@ export function openShiftBrowseResourceUrl(resource: KubernetesResource, oauthCo
     }
   }
   return "";
+}
+
+/**
+ * Returns the activated route data flag of this route or a parent route or null if it could not be found
+ */
+export function activedRouteDataEntry(route: ActivatedRoute, key: string) {
+  if (route) {
+    let data = route.snapshot.data;
+    if (data) {
+      let answer = data[key];
+      if (answer != null) {
+        return answer;
+      }
+      const parent = route.parent;
+      if (parent) {
+        return activedRouteDataEntry(parent, key);
+      }
+    }
+  }
+  return null;
 }

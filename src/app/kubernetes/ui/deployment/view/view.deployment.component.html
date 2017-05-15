@@ -5,6 +5,10 @@
       <span class="pull-right">created {{deployment.creationTimestamp | amTimeAgo}}</span>
       <h2 class="card-pf-title">
         <img src="{{deployment.icon}}" width="30" height="30"/>&nbsp; {{deployment.name}}
+        &nbsp;
+        <a *ngIf="deployment.openShiftConsoleUrl" [href]="deployment.openShiftConsoleUrl" target="openshift" title="Open in the OpenShift console">
+          <i class="fa fa-external-link" aria-hidden="true"></i>
+        </a>
       </h2>
     </span>
   </div>
@@ -61,9 +65,9 @@
           <dt class="component-label"><i class="fa fa-comment" aria-hidden="true"></i> Name:</dt>
           <dd>{{container.name}}</dd>
 
-          <div *ngIf="container.image">
+          <div *ngIf="container.image" [title]="container.image">
             <dt><span class="pficon pficon-image" aria-hidden="true"></span> Image:</dt>
-            <dd>{{container.image}}</dd>
+            <dd>{{container.image | truncate:40}}</dd>
           </div>
 
           <!--  <div>
