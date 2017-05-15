@@ -61,11 +61,11 @@
           <dt class="component-label"><i class="fa fa-comment" aria-hidden="true"></i> Name:</dt>
           <dd>{{container.name}}</dd>
 
-          <div *ngIf="container.image">
+          <div *ngIf="container.image" [title]="container.image">
             <dt><span class="pficon pficon-image" aria-hidden="true"></span> Image:</dt>
-            <dd>{{container.image}}</dd>
+            <dd>{{container.image | truncate:40}}</dd>
           </div>
-
+          
           <!--  <div>
             <span class="fa fa-refresh" aria-hidden="true"></span>
             </div>
