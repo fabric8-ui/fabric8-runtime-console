@@ -21,7 +21,7 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
     private urlPrefix: string = '/api/v1/namespaces/',
   ) {
     super(kubernetesRestangular, watcherFactory);
-    this.namespace = namespaceScope.defaultNamespace();
+    this.namespace = namespaceScope.currentNamespace();
 
     if (this.namespaceScope) {
       this.namespaceSubscription = this.namespaceScope.namespace.subscribe(
@@ -51,7 +51,7 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
   }
 
   set namespace(namespace: string) {
-    if (namespace != this._namespace) {
+    if (namespace && namespace != this._namespace) {
       this._namespace = namespace;
       this._serviceUrl = null;
       this.onNamespaceChanged();
