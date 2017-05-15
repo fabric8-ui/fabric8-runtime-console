@@ -5,6 +5,10 @@
       <span class="pull-right">created {{pipeline.creationTimestamp | amTimeAgo}}</span>
       <h2 class="card-pf-title">
         <img src="{{pipeline.icon}}" width="30" height="30"/>&nbsp; {{pipeline.name}}
+        &nbsp;
+        <a *ngIf="pipeline.openShiftConsoleUrl" [href]="pipeline.openShiftConsoleUrl" target="openshift" title="Open in the OpenShift console">
+          <i class="fa fa-external-link" aria-hidden="true"></i>
+        </a>
       </h2>
     </span>
   </div>

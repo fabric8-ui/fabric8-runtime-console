@@ -5,6 +5,10 @@
       <span class="pull-right">created {{service.creationTimestamp | amTimeAgo}}</span>
       <h2 class="card-pf-title">
         <img src="{{service.icon}}" width="30" height="30"/>&nbsp; {{service.name}}
+        &nbsp;
+        <a *ngIf="service.openShiftConsoleUrl" [href]="service.openShiftConsoleUrl" target="openshift" title="Open in the OpenShift console">
+          <i class="fa fa-external-link" aria-hidden="true"></i>
+        </a>
       </h2>
     </span>
   </div>
