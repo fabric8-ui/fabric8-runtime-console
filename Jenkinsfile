@@ -5,6 +5,12 @@ def project = 'fabric8-ui/fabric8-runtime-console'
 def ciDeploy = false
 def tempVersion
 def imageName
+node{
+    properties([
+        disableConcurrentBuilds()
+        ])
+}
+
 fabric8UITemplate{
     dockerNode{
         ws {
