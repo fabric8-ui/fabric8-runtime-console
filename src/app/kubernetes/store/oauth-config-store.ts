@@ -15,6 +15,10 @@ export class OAuthConfig {
   public scope: string;
   public loaded: boolean;
   public openshiftConsoleUrl: string;
+  public witApiUrl: string;
+  public ssoApiUrl: string;
+  public forgeApiUrl: string;
+  public recommenderApiUrl: string;
 
   constructor(data: any) {
     var config = data || {};
@@ -30,7 +34,11 @@ export class OAuthConfig {
     this.issuer = oauth.oauth_issuer || "";
     this.scope = oauth.oauth_scope || "user:full";
     this.logoutUri = oauth.logout_uri || "";
-    this.openshiftConsoleUrl = config.openshift_console_url;
+    this.openshiftConsoleUrl = config.openshift_console_url || "";
+    this.witApiUrl = config.wit_api_url || "";
+    this.ssoApiUrl = config.sso_api_url || "";
+    this.forgeApiUrl = config.forge_api_url || "";
+    this.recommenderApiUrl = config.recommender_api_url || "";
 
     if (!this.issuer && this.authorizeUri) {
       // lets default the issuer from the authorize Uri
