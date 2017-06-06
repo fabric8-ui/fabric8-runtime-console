@@ -1,7 +1,9 @@
 import {Component} from "@angular/core";
 import {ReplicaSet} from "../../../model/replicaset.model";
-import {ReplicaSetStore} from "../../../store/replicaset.store";
 import {ReplicaSetService} from "../../../service/replicaset.service";
+import {ReplicationControllerService} from "../../../service/replicationcontroller.service";
+import {CompositeReplicaSetStore} from "../../../store/compositedreplicaset.store";
+import {ReplicationController} from "../../../model/replicationcontroller.model";
 
 @Component({
   selector: 'scale-replicaset-dialog',
@@ -13,7 +15,9 @@ export class ReplicaSetScaleDialog {
   modal: any;
   replicas: number = 0;
 
-  constructor(private replicasetService: ReplicaSetService, private replicasetStore: ReplicaSetStore) {
+  constructor(private replicasetService: ReplicaSetService,
+              private replicationControllerService: ReplicationControllerService,
+              private replicasetStore: CompositeReplicaSetStore) {
   }
 
   configure(modal: any, replicaset: ReplicaSet) {
@@ -21,16 +25,27 @@ export class ReplicaSetScaleDialog {
     this.replicaset = replicaset;
     this.replicas = replicaset.replicas || 0;
   }
+
   ok() {
-    console.log('scaling replicaset ' + this.replicaset.name);
     this.modal.close();
-    if (this.replicas !== this.replicaset.replicas) {
-      this.replicaset.replicas = this.replicas;
-      this.replicasetService.update(this.replicaset).subscribe(
-        () => {
-          this.replicasetStore.loadAll();
-        },
-      );
+
+    const replicaset = this.replicaset;
+    console.log('scaling replicaset ' + replicaset.name);
+    if (this.replicas !== replicaset.replicas) {
+      replicaset.replicas = this.replicas;
+      if (replicaset instanceof ReplicationController) {
+        this.replicationControllerService.update(replicaset).subscribe(
+          () => {
+            this.replicasetStore.loadAll();
+          },
+        );
+      } else {
+        this.replicasetService.update(replicaset).subscribe(
+          () => {
+            this.replicasetStore.loadAll();
+          },
+        );
+      }
     }
   }
 

@@ -1,8 +1,10 @@
 import {Component, ViewChild} from "@angular/core";
 import {Deployment} from "../../../model/deployment.model";
-import {DeploymentStore} from "../../../store/deployment.store";
 import {DeploymentService} from "../../../service/deployment.service";
 import {Observable} from "rxjs";
+import {DeploymentConfigService} from "../../../service/deploymentconfig.service";
+import {CompositeDeploymentStore} from "../../../store/compositedeployment.store";
+import {DeploymentConfig} from "../../../model/deploymentconfig.model";
 
 @Component({
   selector: 'scale-deployment-dialog',
@@ -17,7 +19,9 @@ export class DeploymentScaleDialog {
   @ViewChild('scaleInput') scaleInput;
 
 
-  constructor(private deploymentService: DeploymentService, private deploymentStore: DeploymentStore) {
+  constructor(private deploymentService: DeploymentService,
+              private deploymentConfigService: DeploymentConfigService,
+              private deploymentStore: CompositeDeploymentStore) {
   }
 
   configure(modal: any, deployment: Deployment) {
@@ -28,15 +32,25 @@ export class DeploymentScaleDialog {
 
 
   ok() {
-    console.log('scaling deployment ' + this.deployment.name);
     this.modal.close();
-    if (this.replicas !== this.deployment.replicas) {
-      this.deployment.replicas = this.replicas;
-      this.deploymentService.update(this.deployment).subscribe(
-        () => {
-          this.deploymentStore.loadAll();
-        },
-      );
+
+    const deployment = this.deployment;
+    console.log('scaling deployment ' + deployment.name);
+    if (this.replicas !== deployment.replicas) {
+      deployment.replicas = this.replicas;
+      if (deployment instanceof DeploymentConfig) {
+        this.deploymentConfigService.update(deployment).subscribe(
+          () => {
+            this.deploymentStore.loadAll();
+          },
+        );
+      } else {
+        this.deploymentService.update(deployment).subscribe(
+          () => {
+            this.deploymentStore.loadAll();
+          },
+        );
+      }
     }
   }
 
