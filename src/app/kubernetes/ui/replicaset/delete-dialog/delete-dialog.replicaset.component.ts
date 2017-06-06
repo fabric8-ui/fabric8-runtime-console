@@ -1,7 +1,9 @@
 import {Component} from "@angular/core";
 import {ReplicaSet} from "../../../model/replicaset.model";
-import {ReplicaSetStore} from "../../../store/replicaset.store";
 import {ReplicaSetService} from "../../../service/replicaset.service";
+import {ReplicationController} from "../../../model/replicationcontroller.model";
+import {ReplicationControllerService} from "../../../service/replicationcontroller.service";
+import {CompositeReplicaSetStore} from "../../../store/compositedreplicaset.store";
 
 @Component({
   selector: 'delete-replicaset-dialog',
@@ -12,17 +14,28 @@ export class ReplicaSetDeleteDialog {
   replicaset: ReplicaSet = new ReplicaSet();
   modal: any;
 
-  constructor(private replicasetService: ReplicaSetService, private replicasetStore: ReplicaSetStore) {
+  constructor(private replicasetService: ReplicaSetService,
+              private replicationControllerService: ReplicationControllerService,
+              private replicasetStore: CompositeReplicaSetStore) {
   }
 
   ok() {
-    console.log('deleting replicaset ' + this.replicaset.name);
+    const replicaset = this.replicaset;
+    console.log('deleting replicaset ' + replicaset.name);
     this.modal.close();
-    this.replicasetService.delete(this.replicaset).subscribe(
-      () => {
-        this.replicasetStore.loadAll();
-      },
-    );
+    if (replicaset instanceof ReplicationController) {
+      this.replicationControllerService.delete(replicaset).subscribe(
+        () => {
+          this.replicasetStore.loadAll();
+        },
+      );
+    } else {
+      this.replicasetService.delete(replicaset).subscribe(
+        () => {
+          this.replicasetStore.loadAll();
+        },
+      );
+    }
   }
 
   close() {
