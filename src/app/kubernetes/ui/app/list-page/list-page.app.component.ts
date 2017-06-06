@@ -13,6 +13,7 @@ import {environmentOpenShiftConoleUrl} from "../../environment/list-page/list-pa
 import {DeploymentViews, DeploymentView} from "../../../view/deployment.view";
 import {SpaceNamespace} from "../../environment/space-namespace";
 import {sortedKeys} from "../../../model/build.model";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'fabric8-apps-list-page',
@@ -38,6 +39,7 @@ export class AppListPageComponent extends AbstractWatchComponent implements OnIn
     private deploymentService: DeploymentService,
     private spaceNamespace: SpaceNamespace,
     private notifications: Notifications,
+    private route: ActivatedRoute,
   ) {
     super();
   }
@@ -176,11 +178,44 @@ export class AppListPageComponent extends AbstractWatchComponent implements OnIn
     let key = namespace;
     var answer = this.listCache[key];
     if (!answer) {
-      answer = this.listAndWatchDeployments(namespace, this.deploymentService, this.deploymentConfigService, this.serviceService, this.routeService);
+      answer = this.listAndWatchDeployments(namespace, this.deploymentService, this.deploymentConfigService, this.serviceService, this.routeService).
+      map(deploymentViews => filterDeploymentViews(deploymentViews, this.route));
       this.listCache[key] = answer;
     }
     return answer;
   }
+
+
+
+}
+
+function filterDeploymentViews(deploymentViews: DeploymentViews, route: ActivatedRoute): DeploymentViews {
+  let spaceId = findParameter(route, "space");
+  if (!spaceId) {
+    return deploymentViews;
+  }
+  var answer = new DeploymentViews();
+  deploymentViews.forEach(dep => {
+    let depSpace = dep.labels["space"];
+    if (!depSpace || depSpace === spaceId) {
+      answer.push(dep);
+    }
+  });
+  return answer;
+}
+
+function findParameter(route: ActivatedRoute, name: string): string {
+  if (route) {
+    var snapshot = route.snapshot;
+    while (snapshot) {
+      let answer = snapshot.params[name];
+      if (answer) {
+        return answer;
+      }
+      snapshot = snapshot.parent;
+    }
+  }
+  return null;
 }
 
 function mapSize(map: Map<any,any>) {
