@@ -65,6 +65,9 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
 
   list(namespace: string = null, queryParams: any = null): Observable<L> {
     let url = namespace ? this.serviceUrlForNamespace(namespace) : this.serviceUrl;
+    if (!url) {
+      return Observable.empty();
+    }
     return this.restangularService.all(url).getList(queryParams);
   }
 
