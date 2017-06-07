@@ -1,4 +1,4 @@
-export { SpaceNamespace } from './src/app/kubernetes/ui/environment/space-namespace';
+export { SpaceNamespace } from './src/app/kubernetes/model/space-namespace';
 export { EnvironmentListPageComponent } from './src/app/kubernetes/ui/environment/list-page/list-page.environment.component';
 export { EnvironmentModule } from './src/app/kubernetes/ui/environment/environment.module';
 export { AppModule } from './src/app/kubernetes/ui/app/app.module';
@@ -74,3 +74,4 @@ export { OAuthService } from 'angular2-oauth2/oauth-service';
 export { RouteServiceStore } from './src/app/kubernetes/store/route.service.store';
 export { RouteService } from './src/app/kubernetes/service/route.service';
 export { RouteStore } from './src/app/kubernetes/store/route.store';
+export { StatusListModule } from './src/app/kubernetes/ui/status/status-list.module';

@@ -1,0 +1,24 @@
+<ul class="list-group">
+  <li class="list-group-item">
+      <span>
+        <span class="pficon pficon-ok"></span>
+        Platform
+      </span>
+  </li>
+  <li class="list-group-item">
+      <span>
+        <span class="pficon pficon-ok"></span>
+        Planner
+      </span>
+  </li>
+  <li class="list-group-item">
+    <status-info [info]="pipelineStatusObserver | async">
+      Jenkins
+    </status-info>
+  </li>
+  <li class="list-group-item">
+    <status-info [info]="cheStatusObserver | async">
+      Che
+    </status-info>
+  </li>
+</ul>

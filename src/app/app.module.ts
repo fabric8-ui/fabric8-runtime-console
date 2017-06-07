@@ -1,6 +1,6 @@
 import { NoNotifications } from './shared/no-notifications.service';
-import { SpaceNamespaceService } from './kubernetes/ui/environment/space-namespace.service';
-import { SpaceNamespace } from './kubernetes/ui/environment/space-namespace';
+import { SpaceNamespaceService } from './kubernetes/service/space-namespace.service';
+import { SpaceNamespace } from './kubernetes/model/space-namespace';
 import './rxjs-extensions';
 
 import {BrowserModule} from "@angular/platform-browser";

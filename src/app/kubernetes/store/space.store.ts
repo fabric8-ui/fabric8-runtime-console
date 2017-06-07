@@ -67,7 +67,7 @@ class SpaceConfigWatcher {
 export class SpaceStore {
   public list: Observable<Spaces>;
   public resource: Observable<Space>;
-  private loadId: string;
+  private _idSubject: BehaviorSubject<string> = new BehaviorSubject("");
   protected _loading: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   private spaceConfigWatchers: Map<String,SpaceConfigWatcher>;
@@ -129,9 +129,9 @@ export class SpaceStore {
     });
     this.list = namespacesList.combineLatest(this.spaceConfigsSubject.asObservable(), this.combineNamespacesAndConfigMaps);
 
-    this.resource = this.list.map(spaces => {
+    this.resource = this.list.combineLatest(this._idSubject.asObservable(), (spaces, id) => {
       for (let space of spaces) {
-        if (space.name === this.loadId) {
+        if (space.name === id) {
           return space;
         }
       }
@@ -185,12 +185,11 @@ export class SpaceStore {
   }
 
   loadAll(): void {
-    this.loadId = null;
     this.doLoad();
   }
 
   load(id: string): void {
-    this.loadId = id;
+    this._idSubject.next(id);
     this.doLoad();
   }
 

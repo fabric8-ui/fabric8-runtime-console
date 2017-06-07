@@ -2,7 +2,7 @@ import {BehaviorSubject, ConnectableObservable, Observable, Subject, Subscriptio
 import {Notifications, Notification, NotificationType} from "ngx-base";
 import {Deployment} from "./../../../model/deployment.model";
 import {DeploymentService} from "./../../../service/deployment.service";
-import {SpaceNamespace} from "./../space-namespace";
+import {SpaceNamespace} from "../../../model/space-namespace";
 import {Service} from "./../../../model/service.model";
 import {Pod} from "./../../../model/pod.model";
 import {Event} from "./../../../model/event.model";

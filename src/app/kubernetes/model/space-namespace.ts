@@ -1,4 +1,4 @@
-import { Space } from './../../model/space.model';
+import { Space } from './space.model';
 import { Observable } from 'rxjs/Observable';
 
 export class SpaceNamespace {

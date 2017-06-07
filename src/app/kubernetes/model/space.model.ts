@@ -29,6 +29,8 @@ export class Space {
   name: string;
   environments: Environment[] = [];
   labelSpaces: LabelSpace[] = [];
+  jenkinsNamespace: Namespace;
+  cheNamespace: Namespace;
 
   /**
    * Returns the namespace of the first environment or if there are none then this namespace name
@@ -44,7 +46,16 @@ export class Space {
 
     let map = new Map<string, Namespace>();
     if (namespaces) {
-      namespaces.forEach(ns => map[ns.name] = ns);
+      namespaces.forEach(ns => {
+        const nsName = ns.name;
+        map[nsName] = ns;
+
+        if (nsName === this.name + "-jenkins") {
+          this.jenkinsNamespace = ns;
+        } else if (nsName === this.name + "-che") {
+          this.cheNamespace = ns;
+        }
+      });
     }
 
     if (spaceConfig) {
@@ -61,6 +72,22 @@ export class Space {
       }
     }
   }
+
+  /**
+   * Returns the environment which contains the given key such as 'jenkins' or 'stage' or null if none can be found
+   */
+  findEnvironment(key: string):Environment {
+    let environments = this.environments;
+    if (environments) {
+      for (let env of environments) {
+        if (env.key === key) {
+          return env;
+        }
+      }
+    }
+    return null;
+  }
+  
 
   protected loadEnvironments(configMap: ConfigMap, namespaceMap: Map<string, Namespace>): Environment[] {
     let answer = [];
@@ -87,6 +114,7 @@ export class Space {
     } else {
       console.log("No data for ConfigMap " + configMap.name + " in namespace " + configMap.namespace);
     }
+    
     answer.sort((a: Environment, b: Environment) => {
       if (a.order < b.order) {
         return -1;

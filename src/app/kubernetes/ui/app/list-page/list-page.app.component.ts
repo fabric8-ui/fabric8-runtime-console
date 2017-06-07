@@ -11,9 +11,10 @@ import {RouteService} from "../../../service/route.service";
 import {AbstractWatchComponent} from "../../../support/abstract-watch.component";
 import {environmentOpenShiftConoleUrl} from "../../environment/list-page/list-page.environment.component";
 import {DeploymentViews, DeploymentView} from "../../../view/deployment.view";
-import {SpaceNamespace} from "../../environment/space-namespace";
+import {SpaceNamespace} from "../../../model/space-namespace";
 import {sortedKeys} from "../../../model/build.model";
 import {ActivatedRoute} from "@angular/router";
+import {findParameter} from "../../../model/helpers";
 
 @Component({
   selector: 'fabric8-apps-list-page',
@@ -184,9 +185,6 @@ export class AppListPageComponent extends AbstractWatchComponent implements OnIn
     }
     return answer;
   }
-
-
-
 }
 
 function filterDeploymentViews(deploymentViews: DeploymentViews, route: ActivatedRoute): DeploymentViews {
@@ -202,20 +200,6 @@ function filterDeploymentViews(deploymentViews: DeploymentViews, route: Activate
     }
   });
   return answer;
-}
-
-function findParameter(route: ActivatedRoute, name: string): string {
-  if (route) {
-    var snapshot = route.snapshot;
-    while (snapshot) {
-      let answer = snapshot.params[name];
-      if (answer) {
-        return answer;
-      }
-      snapshot = snapshot.parent;
-    }
-  }
-  return null;
 }
 
 function mapSize(map: Map<any,any>) {

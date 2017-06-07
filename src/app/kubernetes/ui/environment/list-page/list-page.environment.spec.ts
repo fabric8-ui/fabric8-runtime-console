@@ -1,7 +1,7 @@
-import { SpaceNamespaceService } from './../space-namespace.service';
+import { SpaceNamespaceService } from '../../../service/space-namespace.service';
 import { NoNotifications } from './../../../../shared/no-notifications.service';
 import { Notifications } from 'ngx-base';
-import { SpaceNamespace } from './../space-namespace';
+import { SpaceNamespace } from '../../../model/space-namespace';
 import { EnvironmentDetailComponent } from './../detail/detail.environment.component';
 import { ServiceModule } from './../../service/service.module';
 import { ReplicaSetModule } from './../../replicaset/replicaset.module';
