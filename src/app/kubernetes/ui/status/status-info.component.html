@@ -1,4 +1,4 @@
 <span *ngIf="info && info.loaded">
   <span [class]="info.iconCss"></span>&nbsp;
-  <ng-content></ng-content><span ngif="info.version">: version {{info.version}}</span>
+  <ng-content></ng-content><span ngif="info.version" title="release version of this service">: {{info.version}}</span>
 </span>
