@@ -1,20 +1,20 @@
 import {BehaviorSubject, ConnectableObservable, Observable, Subject, Subscriber} from "rxjs";
-import {Notifications, Notification, NotificationType} from "ngx-base";
+import {Notifications} from "ngx-base";
 import {DeploymentService} from "./../../../service/deployment.service";
 import {Environment, Space} from "./../../../model/space.model";
 import {ServiceService} from "./../../../service/service.service";
 import {DeploymentConfigService} from "./../../../service/deploymentconfig.service";
 import {SpaceStore} from "./../../../store/space.store";
-import {Component, OnInit, OnDestroy} from "@angular/core";
-import {isOpenShift} from "../../../store/apis.store";
+import {Component, OnDestroy, OnInit} from "@angular/core";
 import {RouteService} from "../../../service/route.service";
 import {AbstractWatchComponent} from "../../../support/abstract-watch.component";
 import {environmentOpenShiftConoleUrl} from "../../environment/list-page/list-page.environment.component";
-import {DeploymentViews, DeploymentView} from "../../../view/deployment.view";
+import {DeploymentView, DeploymentViews} from "../../../view/deployment.view";
 import {SpaceNamespace} from "../../../model/space-namespace";
 import {sortedKeys} from "../../../model/build.model";
 import {ActivatedRoute} from "@angular/router";
 import {findParameter} from "../../../model/helpers";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'fabric8-apps-list-page',
@@ -24,7 +24,10 @@ import {findParameter} from "../../../model/helpers";
 export class AppListPageComponent extends AbstractWatchComponent implements OnInit, OnDestroy {
 
   loading: Subject<boolean> = new BehaviorSubject(true);
-  space: ConnectableObservable<Space>;
+
+  private space: Observable<Space>;
+  private spaceSubscription: Subscription;
+  private idSubscription: Subscription;
 
   protected environmentCache: Map<string, EnvironmentDeployments> = new Map<string, EnvironmentDeployments>();
   protected subscriberCache: Map<string, Subscriber<any>> = new Map<string, Subscriber<any>>();
@@ -34,52 +37,47 @@ export class AppListPageComponent extends AbstractWatchComponent implements OnIn
   private listCache: Map<string, Observable<any[]>> = new Map<string, Observable<any[]>>();
 
   constructor(private serviceService: ServiceService,
-    private routeService: RouteService,
-    private spaceStore: SpaceStore,
-    private deploymentConfigService: DeploymentConfigService,
-    private deploymentService: DeploymentService,
-    private spaceNamespace: SpaceNamespace,
-    private notifications: Notifications,
-    private route: ActivatedRoute,
-  ) {
+              private routeService: RouteService,
+              private spaceStore: SpaceStore,
+              private deploymentConfigService: DeploymentConfigService,
+              private deploymentService: DeploymentService,
+              private spaceNamespace: SpaceNamespace,
+              private notifications: Notifications,
+              private route: ActivatedRoute,) {
     super();
   }
 
   ngOnInit() {
-    this.space = this.spaceNamespace.namespaceSpace
-      .switchMap((id) => {
-        this.spaceStore.load(id);
-        let res = this.spaceStore.resource
-          .distinctUntilChanged()
-          .debounce(space => ((space && space.environments) ? Observable.interval(0) : Observable.interval(1000)))
-          .do(space => {
-            if (space === null) {
-              this.notifications.message({
-                message: `Something went wrong your environments as the ${(isOpenShift ? 'OpenShift Project' : 'Kubernetes Namespace')} '${id}' is not accessible to you or does not exist.`,
-                type: NotificationType.WARNING
-              } as Notification);
-            }
-          });
-        return res;
-      })
-      // Wait 1s before publishing an empty value - it's probably not empty but it might be!
-      .publish();
-
-
-    this.spaceNamespace.labelSpace
-          .switchMap(label => this.space
-            .skipWhile(space => !space)).subscribe(space => {
+    this.space = this.spaceStore.resource;
+    this.spaceSubscription = this.space.subscribe(space => {
       // TODO remove any old environments?
-      space.environments.forEach(env => {
-        this.subscribeToDeployments(space, env);
-      });
+      if (space) {
+        let environments = space.environments || [];
+        if (environments.length) {
+          environments.forEach(env => {
+            this.subscribeToDeployments(space, env);
+          });
+        }
+      }
     });
 
-    this.space.connect();
+    this.idSubscription = this.spaceNamespace.namespaceSpace
+      .distinctUntilChanged().subscribe(id => {
+        if (id) {
+          this.spaceStore.load(id)
+        }
+      });
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+
+    if (this.spaceSubscription) {
+      this.spaceSubscription.unsubscribe();
+    }
+    if (this.idSubscription) {
+      this.idSubscription.unsubscribe();
+    }
 
     for (let key in this.subscriberCache) {
       let subscriber = this.subscriberCache[key];
@@ -90,7 +88,6 @@ export class AppListPageComponent extends AbstractWatchComponent implements OnIn
 
     this.subscriberCache.clear();
     this.listCache.clear();
-    // TODO is there a way to disconnect from this.space / this.environments?
   }
 
 
@@ -105,7 +102,7 @@ export class AppListPageComponent extends AbstractWatchComponent implements OnIn
       let oldSubscriber = this.subscriberCache[key];
       if (!oldSubscriber) {
         let subscriber = this.getDeploymentsObservable(environment)
-          .subscribe(deployments =>  this.onDeployments(space, environment, deployments));
+          .subscribe(deployments => this.onDeployments(space, environment, deployments));
         this.subscriberCache[key] = subscriber;
       }
     }
@@ -115,7 +112,7 @@ export class AppListPageComponent extends AbstractWatchComponent implements OnIn
     if (!deployments) {
       return;
     }
-    let envNameToIndexMap = new Map<string,number>();
+    let envNameToIndexMap = new Map<string, number>();
     let count = 1;
     for (let env of space.environments) {
       envNameToIndexMap[env.key] = count++;
@@ -179,8 +176,7 @@ export class AppListPageComponent extends AbstractWatchComponent implements OnIn
     let key = namespace;
     var answer = this.listCache[key];
     if (!answer) {
-      answer = this.listAndWatchDeployments(namespace, this.deploymentService, this.deploymentConfigService, this.serviceService, this.routeService).
-      map(deploymentViews => filterDeploymentViews(deploymentViews, this.route));
+      answer = this.listAndWatchDeployments(namespace, this.deploymentService, this.deploymentConfigService, this.serviceService, this.routeService).map(deploymentViews => filterDeploymentViews(deploymentViews, this.route));
       this.listCache[key] = answer;
     }
     return answer;
@@ -202,7 +198,7 @@ function filterDeploymentViews(deploymentViews: DeploymentViews, route: Activate
   return answer;
 }
 
-function mapSize(map: Map<any,any>) {
+function mapSize(map: Map<any, any>) {
   var i = 0;
   for (let env in map) {
     i++;
@@ -229,8 +225,8 @@ export class AppDeployments {
       this.environmentDetails.push(new AppEnvironmentDetails());
     }
   }
-  
-  addDeployment(envNameToIndexMap: Map<string,number>, environment: Environment, deployment: DeploymentView) {
+
+  addDeployment(envNameToIndexMap: Map<string, number>, environment: Environment, deployment: DeploymentView) {
     if (!this.name) {
       this.name = deployment.name;
     }

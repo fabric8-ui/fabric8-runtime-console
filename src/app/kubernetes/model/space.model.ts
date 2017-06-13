@@ -223,7 +223,8 @@ export function asSpaces(spaces: Space[]): Spaces {
     for (let space of spaces) {
       if (space) {
         let nsName = space.name;
-        if (!nsNameToEnvMap[nsName]) {
+        let environments = space.environments || [];
+        if (!nsNameToEnvMap[nsName] || environments.length) {
           // this is a top level space not an environment
           if (isSecretsNamespace(space.namespace)) {
             answer.secretNamespaces.push(space);

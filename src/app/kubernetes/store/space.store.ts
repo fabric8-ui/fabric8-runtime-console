@@ -81,6 +81,17 @@ export class SpaceStore {
     this.spaceConfigs = new Map<String,SpaceConfig>();
     this.spaceConfigsSubject = new BehaviorSubject(this.spaceConfigs);
 
+    this.list = namespacesList.combineLatest(this.spaceConfigsSubject.asObservable(), this.combineNamespacesAndConfigMaps);
+
+    this.resource = this.list.combineLatest(this._idSubject.asObservable(), (spaces, id) => {
+      for (let space of spaces) {
+        if (space.name === id) {
+          return space;
+        }
+      }
+      return null;
+    });
+
     // lets make sure we've always got an up to date map of configmaps
     namespacesList.subscribe(namespaces => {
       if (namespaces) {
@@ -126,16 +137,6 @@ export class SpaceStore {
         }
         this.checkIfLoaded();
       }
-    });
-    this.list = namespacesList.combineLatest(this.spaceConfigsSubject.asObservable(), this.combineNamespacesAndConfigMaps);
-
-    this.resource = this.list.combineLatest(this._idSubject.asObservable(), (spaces, id) => {
-      for (let space of spaces) {
-        if (space.name === id) {
-          return space;
-        }
-      }
-      return null;
     });
   }
 
