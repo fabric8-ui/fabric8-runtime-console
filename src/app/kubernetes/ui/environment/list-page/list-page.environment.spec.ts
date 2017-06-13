@@ -1,7 +1,7 @@
-import { SpaceNamespaceService } from './../space-namespace.service';
+import { SpaceNamespaceService } from '../../../service/space-namespace.service';
 import { NoNotifications } from './../../../../shared/no-notifications.service';
 import { Notifications } from 'ngx-base';
-import { SpaceNamespace } from './../space-namespace';
+import { SpaceNamespace } from '../../../model/space-namespace';
 import { EnvironmentDetailComponent } from './../detail/detail.environment.component';
 import { ServiceModule } from './../../service/service.module';
 import { ReplicaSetModule } from './../../replicaset/replicaset.module';
@@ -28,6 +28,7 @@ import { ModalModule } from "ng2-modal";
 import { MomentModule } from "angular2-moment";
 import { FormsModule } from "@angular/forms";
 import { KubernetesComponentsModule } from "../../../components/components.module";
+import {TabsModule} from "ng2-bootstrap";
 
 describe('EnvironmentListPage', () => {
   let component: EnvironmentListPageComponent;
@@ -47,6 +48,7 @@ describe('EnvironmentListPage', () => {
         TestAppModule,
         TreeListModule,
         TreeModule,
+        TabsModule.forRoot(),
         EnvironmentRoutingModule,
         DeploymentModule,
         ConfigMapModule,

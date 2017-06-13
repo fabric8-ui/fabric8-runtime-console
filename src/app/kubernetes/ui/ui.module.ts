@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: 'namespace', loadChildren: './namespace/namespace.module#NamespaceModule' },
   { path: 'spaces', loadChildren: './space/space.module#SpaceModule' },
   { path: 'environments', loadChildren: './environment/environment.module#EnvironmentModule'},
-  { path: 'apps', loadChildren: './app/app.module#AppModule'}
+  { path: 'apps', loadChildren: './app/app.module#AppModule'},
+  { path: 'status', loadChildren: './status/status-list.module#StatusListModule'}
 ];
 
 

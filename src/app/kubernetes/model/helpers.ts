@@ -97,3 +97,18 @@ export function activedRouteDataEntry(route: ActivatedRoute, key: string) {
   }
   return null;
 }
+
+export function findParameter(route: ActivatedRoute, name: string): string {
+  if (route) {
+    var snapshot = route.snapshot;
+    while (snapshot) {
+      let answer = snapshot.params[name];
+      if (answer) {
+        return answer;
+      }
+      snapshot = snapshot.parent;
+    }
+  }
+  return null;
+}
+

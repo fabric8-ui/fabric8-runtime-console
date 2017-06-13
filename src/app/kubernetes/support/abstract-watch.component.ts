@@ -10,7 +10,7 @@ import {Watcher} from "../service/watcher";
 import {DeploymentService} from "../service/deployment.service";
 import {DeploymentConfigService} from "../service/deploymentconfig.service";
 import {DeploymentViews, combineDeployments, createDeploymentViews} from "../view/deployment.view";
-import {Deployment} from "../model/deployment.model";
+import {Deployment, Deployments} from "../model/deployment.model";
 import {DeploymentConfig} from "../model/deploymentconfig.model";
 import {ReplicationControllerService} from "../service/replicationcontroller.service";
 import {ReplicaSetViews, createReplicaSetViews} from "../view/replicaset.view";
@@ -52,15 +52,18 @@ export class AbstractWatchComponent implements OnDestroy {
     );
   }
 
-
-  listAndWatchDeployments(namespace: string, deploymentService: DeploymentService, deploymentConfigService: DeploymentConfigService, serviceService: ServiceService, routeService: RouteService): Observable<DeploymentViews> {
-    const servicesObservable = this.listAndWatchServices(namespace, serviceService, routeService);
-
-    let deployments = Observable.combineLatest(
+  listAndWatchCombinedDeployments(namespace: string, deploymentService: DeploymentService, deploymentConfigService: DeploymentConfigService): Observable<Deployments> {
+    return Observable.combineLatest(
       this.listAndWatch(deploymentService, namespace, Deployment),
       this.listAndWatch(deploymentConfigService, namespace, DeploymentConfig),
       combineDeployments,
     );
+  }
+
+  listAndWatchDeployments(namespace: string, deploymentService: DeploymentService, deploymentConfigService: DeploymentConfigService, serviceService: ServiceService, routeService: RouteService): Observable<DeploymentViews> {
+    const servicesObservable = this.listAndWatchServices(namespace, serviceService, routeService);
+
+    let deployments = this.listAndWatchCombinedDeployments(namespace, deploymentService, deploymentConfigService);
     let runtimeDeployments = Observable.combineLatest(
       deployments,
       servicesObservable,

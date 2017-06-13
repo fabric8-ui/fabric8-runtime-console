@@ -1,15 +1,11 @@
-import { SpaceNamespaceService } from './../space-namespace.service';
 import { NoNotifications } from './../../../../shared/no-notifications.service';
 import { Notifications } from 'ngx-base';
-import { SpaceNamespace } from './../space-namespace';
-import { EnvironmentDetailComponent } from './../detail/detail.app.component';
 import { ServiceModule } from './../../service/service.module';
 import { ReplicaSetModule } from './../../replicaset/replicaset.module';
 import { PodModule } from './../../pod/pod.module';
 import { EventModule } from './../../event/event.module';
 import { ConfigMapModule } from './../../configmap/configmap.module';
 import { DeploymentModule } from './../../deployment/deployment.module';
-import { EnvironmentRoutingModule } from './../environment-routing.module';
 import { TreeModule } from 'angular2-tree-component';
 import { TreeListModule, SlideOutPanelModule } from 'ngx-widgets';
 import { TestAppModule } from './../../../../app.test.module';
@@ -28,6 +24,11 @@ import { ModalModule } from "ng2-modal";
 import { MomentModule } from "angular2-moment";
 import { FormsModule } from "@angular/forms";
 import { KubernetesComponentsModule } from "../../../components/components.module";
+import {SpaceNamespace} from "../../../model/space-namespace";
+import {SpaceNamespaceService} from "../../../service/space-namespace.service";
+import {EnvironmentDetailComponent} from "../../environment/detail/detail.environment.component";
+import {EnvironmentRoutingModule} from "../../environment/environment-routing.module";
+import {EnvironmentModule} from "../../environment/environment.module";
 
 describe('AppListPage', () => {
   let component: AppListPageComponent;
@@ -55,12 +56,12 @@ describe('AppListPage', () => {
         ReplicaSetModule,
         ServiceModule,
         SlideOutPanelModule,
+        EnvironmentModule,
       ],
       declarations: [
         AppListPageComponent,
         AppListComponent,
         AppListToolbarComponent,
-        EnvironmentDetailComponent,
       ],
       providers: [
         {

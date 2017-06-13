@@ -2,7 +2,7 @@ import {BehaviorSubject, ConnectableObservable, Observable, Subject, Subscriptio
 import {Notifications, Notification, NotificationType} from "ngx-base";
 import {Deployment} from "./../../../model/deployment.model";
 import {DeploymentService} from "./../../../service/deployment.service";
-import {SpaceNamespace} from "./../space-namespace";
+import {SpaceNamespace} from "../../../model/space-namespace";
 import {Service} from "./../../../model/service.model";
 import {Pod} from "./../../../model/pod.model";
 import {Event} from "./../../../model/event.model";
@@ -132,7 +132,9 @@ export class EnvironmentListPageComponent extends AbstractWatchComponent impleme
 
   environments: ConnectableObservable<EnvironmentEntry[]>;
   loading: Subject<boolean> = new BehaviorSubject(true);
-  space: ConnectableObservable<Space>;
+  space: Observable<Space>;
+
+  private idSubscription: Subscription;
 
   private listCache: Map<string, Observable<any[]>> = new Map<string, Observable<any[]>>();
 
@@ -153,24 +155,14 @@ export class EnvironmentListPageComponent extends AbstractWatchComponent impleme
   }
 
   ngOnInit() {
-    this.space = this.spaceNamespace.namespaceSpace
-      .switchMap((id) => {
-        this.spaceStore.load(id);
-        let res = this.spaceStore.resource
-          .distinctUntilChanged()
-          .debounce(space => ((space && space.environments) ? Observable.interval(0) : Observable.interval(1000)))
-          .do(space => {
-            if (space === null) {
-              this.notifications.message({
-                message: `Something went wrong your environments as the ${(isOpenShift ? 'OpenShift Project' : 'Kubernetes Namespace')} '${id}' is not accessible to you or does not exist.`,
-                type: NotificationType.WARNING
-              } as Notification);
-            }
-          });
-        return res;
-      })
-      // Wait 1s before publishing an empty value - it's probably not empty but it might be!
-      .publish();
+    this.space = this.spaceStore.resource;
+
+    this.idSubscription = this.spaceNamespace.namespaceSpace
+      .distinctUntilChanged().subscribe(id => {
+        if (id) {
+          this.spaceStore.load(id)
+        }
+      });
 
     this.environments = this.spaceNamespace.labelSpace
       .switchMap(label => this.space
@@ -212,12 +204,15 @@ export class EnvironmentListPageComponent extends AbstractWatchComponent impleme
       .do(() => this.loading.next(false))
       .publish();
     this.environments.connect();
-    this.space.connect();
   }
 
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+
+    if (this.idSubscription) {
+      this.idSubscription.unsubscribe();
+    }
 
     this.listCache.clear();
     // TODO is there a way to disconnect from this.space / this.environments?

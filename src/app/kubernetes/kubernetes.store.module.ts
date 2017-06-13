@@ -36,6 +36,8 @@ import {RouteServiceStore} from "./store/route.service.store";
 import {RouteService} from "./service/route.service";
 import {RouteStore} from "./store/route.store";
 import {CompositeReplicaSetStore} from "./store/compositedreplicaset.store";
+import {SpaceNamespace} from "./model/space-namespace";
+import {SpaceNamespaceService} from "./service/space-namespace.service";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -91,6 +93,10 @@ import {BrowserModule} from "@angular/platform-browser";
     ServiceStore,
     SpaceStore,
     WatcherFactory,
+    {
+      provide: SpaceNamespace,
+      useClass: SpaceNamespaceService
+    },
   ],
 })
 export class KubernetesStoreModule {

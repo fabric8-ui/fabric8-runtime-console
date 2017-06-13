@@ -1,12 +1,12 @@
 import {KubernetesSpecResource} from "./kuberentesspecresource.model";
 
 export class Pod extends KubernetesSpecResource {
-  public images: Array<String>;
-  public phase: String;
+  public images: Array<string>;
+  public phase: string;
 
   public setResource(resource) {
     var answer = super.setResource(resource);
-    this.images = new Array<String>();
+    this.images = new Array<string>();
     let spec = this.spec;
     if (spec) {
       let containers = spec.containers;
