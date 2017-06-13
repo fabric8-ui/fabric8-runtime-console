@@ -24,6 +24,7 @@ import { RequestOptions, BaseRequestOptions, Http } from "@angular/http";
 import { RestangularModule } from "ng2-restangular";
 import { MockBackend } from "@angular/http/testing";
 import { KubernetesComponentsModule } from "../../../components/components.module";
+import {TabsModule} from "ng2-bootstrap";
 
 describe('EnvironmentListComponent', () => {
   let component: EnvironmentListComponent;
@@ -43,6 +44,7 @@ describe('EnvironmentListComponent', () => {
         TestAppModule,
         TreeListModule,
         TreeModule,
+        TabsModule.forRoot(),
         EnvironmentRoutingModule,
         DeploymentModule,
         ConfigMapModule,

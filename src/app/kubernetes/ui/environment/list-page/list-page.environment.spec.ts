@@ -28,6 +28,7 @@ import { ModalModule } from "ng2-modal";
 import { MomentModule } from "angular2-moment";
 import { FormsModule } from "@angular/forms";
 import { KubernetesComponentsModule } from "../../../components/components.module";
+import {TabsModule} from "ng2-bootstrap";
 
 describe('EnvironmentListPage', () => {
   let component: EnvironmentListPageComponent;
@@ -47,6 +48,7 @@ describe('EnvironmentListPage', () => {
         TestAppModule,
         TreeListModule,
         TreeModule,
+        TabsModule.forRoot(),
         EnvironmentRoutingModule,
         DeploymentModule,
         ConfigMapModule,
