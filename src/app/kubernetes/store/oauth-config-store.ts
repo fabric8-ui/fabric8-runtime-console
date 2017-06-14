@@ -9,6 +9,7 @@ export class OAuthConfig {
   public logoutUri: string;
   public issuer: string;
   public apiServer: string;
+  public proxyApiServer: string;
   public apiServerProtocol: string;
   public apiServerBasePath: string;
   public wsApiServer: string;
@@ -26,6 +27,7 @@ export class OAuthConfig {
 
     this.loaded = data ? true : false;
     this.apiServer = config.api_server || "";
+    this.proxyApiServer = config.proxy_api_server || "";
     this.apiServerProtocol = config.api_server_protocol;
     this.apiServerBasePath = config.api_server_base_path;
     this.wsApiServer = config.ws_api_server;
