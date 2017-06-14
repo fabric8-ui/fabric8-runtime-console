@@ -17,7 +17,7 @@ export class StatusKind {
   }
 }
 
-const statusCssUnknown = new StatusKind("", "");
+const statusCssUnknown = new StatusKind("Loading data", "fa fa-hourglass-start");
 const statusCssError = new StatusKind("Error", "pficon pficon-error-circle-o");
 const statusCssOK = new StatusKind("OK", "pficon pficon-ok");
 const statusCssPending = new StatusKind("Pending", "fa fa-download");
