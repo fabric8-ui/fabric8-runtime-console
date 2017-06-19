@@ -3,8 +3,10 @@
     <div class="build-summary">
       <div class="build-phase">
         <build-status-icon [status]="build.statusPhase"></build-status-icon>
-
+<!--
         <a [routerLink]="[build.buildConfigName, 'builds', build.name]" title="view build">Build #{{build.buildNumber}}</a>
+-->
+        <a [href]="build.openShiftConsoleUrl" target="openshift" title="view build in the OpenShift console">Build #{{build.buildNumber}}</a>
       </div>
       <span class="build-timestamp">
                         {{build.creationTimestamp | amTimeAgo}}
