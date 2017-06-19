@@ -8,7 +8,10 @@
             <h3>
               <span class="{{pipeline.iconStyle}} fa-spin" title="{{pipeline.statusPhase}}" *ngIf="pipeline.iconStyle === 'pficon-running'"></span>
               <span class="{{pipeline.iconStyle}}" title="{{pipeline.statusPhase}}" *ngIf="pipeline.iconStyle !== 'pficon-running'"></span>
+              <a [href]="pipeline.openShiftConsoleUrl" target="openshift" class="card-title" title="view pipeline in the OpenShift console">{{ pipeline.name }}</a>
+<!--
               <a [routerLink]="[pipeline.id]" class="card-title" title="view pipeline">{{ pipeline.name }}</a>
+-->
 
               <small>created {{pipeline.creationTimestamp | amTimeAgo}}</small>
             </h3>

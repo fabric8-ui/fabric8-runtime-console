@@ -64,12 +64,15 @@ export function openShiftBrowseResourceUrl(resource: KubernetesResource, oauthCo
       }
     }
     const name = resource.name;
-    if (kinds === "spaces" || kinds === "projects") {
+    const namespace = resource.namespace;
+    if (kinds === "builds" && name && namespace) {
+      const pipelineName = resource['buildConfigName'] || name;
+      return pathJoin(openShiftConsoleUrl, "/project/", namespace, "/browse/pipelines", pipelineName, name);
+    } else if (kinds === "spaces" || kinds === "projects") {
       if (name) {
         return pathJoin(openShiftConsoleUrl, "/project/", name, "/overview");
       }
     } else {
-      const namespace = resource.namespace;
       if (resource && openShiftConsoleUrl && namespace && name) {
         return pathJoin(openShiftConsoleUrl, "/project/", namespace, "/browse", kinds, name);
       }

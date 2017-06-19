@@ -128,7 +128,7 @@ export function KubernetesRestangularFactory(restangular: Restangular, oauthServ
       let baseUrl = '';
       let oauthConfig = currentOAuthConfig();
       if (oauthConfig) {
-        baseUrl = oauthConfig.apiServer ||  '';
+        baseUrl = oauthConfig.proxyApiServer ||  oauthConfig.apiServer ||  '';
         if (baseUrl) {
           let protocol = oauthConfig.apiServerProtocol || 'https';
           baseUrl = protocol + "://" + baseUrl;
