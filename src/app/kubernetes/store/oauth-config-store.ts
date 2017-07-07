@@ -12,6 +12,7 @@ export class OAuthConfig {
   public proxyApiServer: string;
   public apiServerProtocol: string;
   public apiServerBasePath: string;
+  public wsApiServerBasePath: string;
   public wsApiServer: string;
   public scope: string;
   public loaded: boolean;
@@ -30,6 +31,7 @@ export class OAuthConfig {
     this.proxyApiServer = config.proxy_api_server || "";
     this.apiServerProtocol = config.api_server_protocol;
     this.apiServerBasePath = config.api_server_base_path;
+    this.wsApiServerBasePath = config.ws_api_server_base_path;
     this.wsApiServer = config.ws_api_server;
     this.authorizeUri = oauth.oauth_authorize_uri || "";
     this.clientId = oauth.oauth_client_id || "fabric8";

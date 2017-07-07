@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { $WebSocket } from 'angular2-websocket/angular2-websocket';
 import { currentOAuthConfig } from '../store/oauth-config-store';
 import { OnLogin } from '../../shared/onlogin.service';
+import {pathJoin} from "../model/utils";
 
 
 export class Watcher {
@@ -97,6 +98,10 @@ export class Watcher {
             }
           }
         }
+      }
+      let wsApiServerBasePath = currentOAuthConfig().wsApiServerBasePath;
+      if (wsApiServerBasePath && baseUrl) {
+        baseUrl = pathJoin(baseUrl, wsApiServerBasePath);
       }
       if (baseUrl) {
         let serviceUrl = this.pathFn();
