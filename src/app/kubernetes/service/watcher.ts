@@ -85,7 +85,18 @@ export class Watcher {
       const authConfig = currentOAuthConfig();
       let wsApiServer = authConfig.wsApiServer;
       let baseUrl = '';
-      const webSocketProtocol = (authConfig.wsApiServer || 'wss') + "://";
+      var webSocketProtocol = authConfig.wsApiServerProtocol;
+      if (!webSocketProtocol) {
+        if (authConfig.apiServerProtocol === "http") {
+          webSocketProtocol = "ws";
+        }
+      }
+      if (!webSocketProtocol) {
+        webSocketProtocol = "wss";
+      }
+      if (webSocketProtocol.indexOf(":'") < 0) {
+        webSocketProtocol = webSocketProtocol + "://";
+      }
       if (wsApiServer) {
         baseUrl = webSocketProtocol + wsApiServer;
       } else {
