@@ -1,6 +1,6 @@
-import { Restangular } from 'ng2-restangular';
-import { KUBERNETES_RESTANGULAR } from './../service/kubernetes.restangular';
-import {Injectable, Inject} from "@angular/core";
+import {Restangular} from "ng2-restangular";
+import {KUBERNETES_RESTANGULAR} from "./../service/kubernetes.restangular";
+import {Inject, Injectable} from "@angular/core";
 import {BehaviorSubject, Observable} from "rxjs";
 import {Http} from "@angular/http";
 
@@ -8,8 +8,6 @@ import {Http} from "@angular/http";
  * Lets keep around the singleton results to avoid doing too many requests for this static data
  */
 var _latestAPIs: APIs = null;
-
-var _startedLoadingAPIs = false;
 
 let _currentAPIs: BehaviorSubject<APIs> = new BehaviorSubject(_latestAPIs);
 let _loadingAPIs: BehaviorSubject<boolean> = new BehaviorSubject(true);
@@ -70,6 +68,7 @@ export class APIsStore {
   }
 
   load() {
+/*
     // we only need to load once really on startup
     if (_startedLoadingAPIs) {
       return;
@@ -92,5 +91,6 @@ export class APIsStore {
             _loadingAPIs.next(false);
           });
     }
+*/
   }
 }
