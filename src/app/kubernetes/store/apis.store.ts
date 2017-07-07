@@ -24,6 +24,14 @@ export class APIs {
 }
 
 export function isOpenShift(): boolean {
+  let config = window["Fabric8UIEnv"];
+  if (config) {
+    let flag = config["kubernetesMode"];
+    if (flag === "true") {
+      return false;
+    }
+  }
+
   if (_latestAPIs != null) {
     return _latestAPIs.isOpenShift;
   }

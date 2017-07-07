@@ -4,9 +4,13 @@ import {Restangular} from "ng2-restangular";
 import {KUBERNETES_RESTANGULAR} from "./kubernetes.restangular";
 import {BuildConfigs, BuildConfig} from "../model/buildconfig.model";
 import {NamespacedResourceService} from "./namespaced.resource.service";
-import {APIsStore} from "../store/apis.store";
+import {APIsStore, isOpenShift} from "../store/apis.store";
 import {DevNamespaceScope} from "./devnamespace.scope";
 import {pathJoin} from "../model/utils";
+
+export function getOpenShiftBuildUriPrefix() {
+  return isOpenShift() ?'/oapi/v1/namespaces/' : "/apis/build.openshift.io/v1/namespaces/";
+}
 
 @Injectable()
 export class BuildConfigService extends NamespacedResourceService<BuildConfig, BuildConfigs> {
@@ -16,7 +20,7 @@ export class BuildConfigService extends NamespacedResourceService<BuildConfig, B
     namespaceScope: DevNamespaceScope,
     private apiStore: APIsStore,
     watcherFactory: WatcherFactory) {
-    super(kubernetesRestangular, namespaceScope, '/buildconfigs', watcherFactory, '/oapi/v1/namespaces/');
+    super(kubernetesRestangular, namespaceScope, '/buildconfigs', watcherFactory, getOpenShiftBuildUriPrefix());
 
     apiStore.loading.subscribe(loading => {
       if (!loading) {
