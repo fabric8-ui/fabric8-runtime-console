@@ -82,24 +82,37 @@ export class Watcher {
 
   protected lazyCreateWebSocket() {
     if (!this.ws) {
-      let wsApiServer = currentOAuthConfig().wsApiServer;
+      const authConfig = currentOAuthConfig();
+      let wsApiServer = authConfig.wsApiServer;
       let baseUrl = '';
+      var webSocketProtocol = authConfig.wsApiServerProtocol;
+      if (!webSocketProtocol) {
+        if (authConfig.apiServerProtocol === "http") {
+          webSocketProtocol = "ws";
+        }
+      }
+      if (!webSocketProtocol) {
+        webSocketProtocol = "wss";
+      }
+      if (webSocketProtocol.indexOf(":'") < 0) {
+        webSocketProtocol = webSocketProtocol + "://";
+      }
       if (wsApiServer) {
-        baseUrl = 'wss://' + wsApiServer;
+        baseUrl = webSocketProtocol + wsApiServer;
       } else {
         let location = window.location;
         if (location) {
           let hostname = location.hostname;
           let port = location.port;
           if (hostname) {
-            baseUrl = 'wss://' + hostname;
+            baseUrl = webSocketProtocol + hostname;
             if (port) {
               baseUrl += ':' + port;
             }
           }
         }
       }
-      let wsApiServerBasePath = currentOAuthConfig().wsApiServerBasePath;
+      let wsApiServerBasePath = authConfig.wsApiServerBasePath;
       if (wsApiServerBasePath && baseUrl) {
         baseUrl = pathJoin(baseUrl, wsApiServerBasePath);
       }

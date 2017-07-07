@@ -11,6 +11,7 @@ export class OAuthConfig {
   public apiServer: string;
   public proxyApiServer: string;
   public apiServerProtocol: string;
+  public wsApiServerProtocol: string;
   public apiServerBasePath: string;
   public wsApiServerBasePath: string;
   public wsApiServer: string;
@@ -30,6 +31,7 @@ export class OAuthConfig {
     this.apiServer = config.api_server || "";
     this.proxyApiServer = config.proxy_api_server || "";
     this.apiServerProtocol = config.api_server_protocol;
+    this.wsApiServerProtocol = config.ws_api_server_protocol || "";
     this.apiServerBasePath = config.api_server_base_path;
     this.wsApiServerBasePath = config.ws_api_server_base_path;
     this.wsApiServer = config.ws_api_server;
