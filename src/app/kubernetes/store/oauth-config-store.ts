@@ -115,6 +115,12 @@ export class OAuthConfigStore {
       .subscribe(
         (res) => {
           let data = res.json();
+          for (let key in data) {
+            let value = data[key];
+            if (value === "undefined") {
+              data[key] = "";
+            }
+          }
           _latestOAuthConfig = new OAuthConfig(data);
           _currentOAuthConfig.next(_latestOAuthConfig);
           _loadingOAuthConfig.next(false);
