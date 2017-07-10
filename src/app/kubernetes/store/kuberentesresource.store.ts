@@ -5,6 +5,7 @@ import {Observable, BehaviorSubject} from "rxjs";
 import {Watcher} from "../service/watcher";
 import {plural} from "pluralize";
 import {messageEventToResourceOperation, Operation} from "../service/resource-operation";
+import {isNewerResource} from "../service/poller";
 
 function nameOfResource(resource: any): string{
   let obj = resource || {};
@@ -73,7 +74,10 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
     // as we wanna just ignore websocket errors really
     listObserver.subscribe(list => {
         latestList = list;
-        subject.next(this.combineListAndWatchEvent(latestList, latestMsg));
+        const result = this.combineListAndWatchEvent(latestList, latestMsg);
+        if (result) {
+          subject.next(result);
+        }
     },
     (error) => {
       console.log('Error retrieving list ' + plural(this.kind) + ': ' + error);
@@ -82,7 +86,10 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
 
     dataStream.subscribe(msg => {
         latestMsg = msg;
-        subject.next(this.combineListAndWatchEvent(latestList, latestMsg));
+        const result = this.combineListAndWatchEvent(latestList, latestMsg);
+        if (result) {
+          subject.next(result);
+        }
       this._loading.next(false);
     },
     (error) => {
@@ -162,7 +169,7 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
       for (let i = 0; i < array.length; i++) {
         let item = array[i];
         var name = item.name;
-        if (name && name === n) {
+        if (name && name === n && isNewerResource(resource, item.resource)) {
           item.setResource(resource);
           //console.log("Updated item " + n);
           return array;
@@ -176,8 +183,9 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
       item = this.service.restangularize(item);
       array.push(item);
       //console.log("Added new item " + n);
+      return array;
     }
-    return array;
+    return null;
   }
 
 
@@ -189,10 +197,11 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
         var name = item.name;
         if (name && name === n) {
           array.splice(i, 1);
+          return array;
         }
       }
     }
-    return array;
+    return null;
   }
 
   load(id: string): void {
