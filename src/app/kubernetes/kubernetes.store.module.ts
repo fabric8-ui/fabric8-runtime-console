@@ -38,6 +38,7 @@ import {RouteStore} from "./store/route.store";
 import {CompositeReplicaSetStore} from "./store/compositedreplicaset.store";
 import {SpaceNamespace} from "./model/space-namespace";
 import {SpaceNamespaceService} from "./service/space-namespace.service";
+import {PollerFactory} from "./service/poller-factory.service";
 /*
 import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
@@ -82,6 +83,7 @@ import {BrowserModule} from "@angular/platform-browser";
     OAuthService,
     PodService,
     PodStore,
+    PollerFactory,
     ReplicaSetService,
     ReplicaSetStore,
     ReplicationControllerService,

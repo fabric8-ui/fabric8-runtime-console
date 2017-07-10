@@ -4,7 +4,7 @@ import {Observable, BehaviorSubject, Subscription} from "rxjs";
 import {NamespaceStore} from "./namespace.store";
 import {ConfigMapService} from "../service/configmap.service";
 import {Space, Spaces, asSpaces, SpaceConfig} from "../model/space.model";
-import {ConfigMap} from "../model/configmap.model";
+import {ConfigMap, ConfigMaps} from "../model/configmap.model";
 import "rxjs/add/observable/forkJoin";
 import {OnLogin} from "../../shared/onlogin.service";
 import {messageEventToResourceOperation, Operation} from "../service/resource-operation";
@@ -22,7 +22,7 @@ class SpaceConfigWatcher {
   protected subscription: Subscription;
   public notified: boolean;
 
-  constructor(protected configMapStore: ConfigMapStore, public watcher: Watcher, protected onChangeFn: (SpaceConfig) => void) {
+  constructor(protected configMapStore: ConfigMapStore, public watcher: Watcher<ConfigMaps>, protected onChangeFn: (SpaceConfig) => void) {
     this.subscription = watcher.dataStream.subscribe(msg => {
       this.onMessageEvent(msg);
     });

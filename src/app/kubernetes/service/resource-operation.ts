@@ -8,6 +8,9 @@ export class ResourceOperation {
 }
 
 export function messageEventToResourceOperation(msg): ResourceOperation {
+  if (msg instanceof ResourceOperation) {
+    return msg as ResourceOperation;
+  }
   if (msg instanceof MessageEvent) {
     let me = msg as MessageEvent;
     let data = me.data;

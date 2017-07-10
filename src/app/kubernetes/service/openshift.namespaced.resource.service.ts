@@ -29,9 +29,10 @@ export abstract class OpenShiftNamespacedResourceService<T extends KubernetesRes
     return super.list(namespace, queryParams);
   }
 
-  watch(queryParams: any = null): Watcher {
+  watch(queryParams: any = null): Watcher<L> {
     // lets return a watcher with no URL to avoid websockets
-    return this.watcherFactory.newInstance(() => null, queryParams);
+    let listFactory = () => this.list(queryParams);
+    return this.watcherFactory.newInstance(() => null, queryParams, listFactory);
   }
 
   create(obj: T): Observable<T> {
