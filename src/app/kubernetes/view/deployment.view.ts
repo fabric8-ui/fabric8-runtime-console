@@ -96,16 +96,20 @@ export class DeploymentViews extends Array<DeploymentView> {
  */
 export function combineDeployments(deployments: Deployments, deploymentConfigs: DeploymentConfigs): Deployments {
   let map = {};
-  deployments.forEach(s => map[s.name] = s);
+  if (deployments) {
+    deployments.forEach(s => map[s.name] = s);
+  }
 
   var answer = new Deployments();
   deployments.forEach((d) => answer.push(d));
-  deploymentConfigs.forEach((dc) => {
-    var name = dc.name;
-    if (name && !map[name]) {
-      answer.push(dc)
-    }
-  });
+  if (deploymentConfigs) {
+    deploymentConfigs.forEach((dc) => {
+      var name = dc.name;
+      if (name && !map[name]) {
+        answer.push(dc)
+      }
+    });
+  }
   return answer;
 }
 
