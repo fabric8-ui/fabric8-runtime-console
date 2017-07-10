@@ -39,7 +39,8 @@ export abstract class NamespacedResourceService<T extends KubernetesResource, L 
    */
   watchNamepace(namespace: string, queryParams: any = null) {
     if (namespace) {
-      return this.watcherFactory.newInstance(() => this.serviceUrlForNamespace(namespace), queryParams);
+      let listFactory = () => this.list(namespace, queryParams);
+      return this.watcherFactory.newInstance(() => this.serviceUrlForNamespace(namespace), queryParams, listFactory);
     }
     return this.watch(queryParams);
   }

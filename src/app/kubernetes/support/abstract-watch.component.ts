@@ -17,6 +17,7 @@ import {ReplicaSetViews, createReplicaSetViews} from "../view/replicaset.view";
 import {combineReplicaSets, ReplicaSet} from "../model/replicaset.model";
 import {ReplicationController} from "../model/replicationcontroller.model";
 import {ReplicaSetService} from "../service/replicaset.service";
+import {messageEventToResourceOperation, Operation} from "../service/resource-operation";
 
 /**
  * A base class for components which watch kubernetes resources which contains a number of helper functions
@@ -25,7 +26,7 @@ import {ReplicaSetService} from "../service/replicaset.service";
  */
 export class AbstractWatchComponent implements OnDestroy {
   public subjectCache: Map<string, Subject<any[]>> = new Map<string, Subject<any[]>>();
-  private watchCache: Map<string, Watcher> = new Map<string, Watcher>();
+  private watchCache: Map<string, Watcher<any>> = new Map<string, Watcher<any>>();
 
   ngOnDestroy(): void {
     for (let key in this.subjectCache) {
@@ -125,7 +126,7 @@ export class AbstractWatchComponent implements OnDestroy {
     service: NamespacedResourceService<T, L>,
       namespace: string,
       type: { new (): T; }
-  ): Watcher {
+  ): Watcher<L> {
     let key = namespace + "/" + type.name;
     let answer = this.watchCache[key];
     if (!answer) {
@@ -139,7 +140,22 @@ export class AbstractWatchComponent implements OnDestroy {
    * Lets combine the web socket events with the latest list
    */
   protected combineListAndWatchEvent<T extends KubernetesResource, L extends Array<T>>(array: L, msg: any, service: NamespacedResourceService<T, L>, objType: { new (): T; }, namespace: string): L {
-    // lets process the added /updated / removed
+    let resourceOperation = messageEventToResourceOperation(msg);
+    if (resourceOperation) {
+      let operation = resourceOperation.operation;
+      let resource = resourceOperation.resource;
+      switch (operation) {
+        case Operation.ADDED:
+          return createNewArrayToForceRefresh(this.upsertItem(array, resource, service, objType));
+        case Operation.MODIFIED:
+          return this.upsertItem(array, resource, service, objType);
+        case Operation.DELETED:
+          return createNewArrayToForceRefresh(this.deleteItemFromArray(array, resource));
+        default:
+          console.log('Unknown resource option ' + operation + ' for ' + resource + ' on ' + service.serviceUrl + '/' + namespace);
+      }
+    }
+/*
     if (msg instanceof MessageEvent) {
       let me = msg as MessageEvent;
       let data = me.data;
@@ -163,6 +179,7 @@ export class AbstractWatchComponent implements OnDestroy {
         }
       }
     }
+    */
     return array;
   }
 

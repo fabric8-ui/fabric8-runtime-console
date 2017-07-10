@@ -1,22 +1,28 @@
-import { ReflectiveInjector } from '@angular/core';
+import {BehaviorSubject, Observable, Subscription} from "rxjs";
 
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-
-import { $WebSocket } from 'angular2-websocket/angular2-websocket';
-import { currentOAuthConfig } from '../store/oauth-config-store';
-import { OnLogin } from '../../shared/onlogin.service';
+import {$WebSocket} from "angular2-websocket/angular2-websocket";
+import {currentOAuthConfig} from "../store/oauth-config-store";
+import {OnLogin} from "../../shared/onlogin.service";
 import {pathJoin} from "../model/utils";
+import {Poller} from "./poller";
+import {PollerFactory} from "./poller-factory.service";
 
 
-export class Watcher {
+export class Watcher<L> {
   protected ws: $WebSocket;
   protected serviceUrl: String;
   protected _dataStream: BehaviorSubject<any> = new BehaviorSubject(null);
   protected subscription: Subscription;
+  protected retries = 0;
+  protected connectTime = new Date().getTime();
+  protected poller: Poller<L>;
 
-  constructor(protected pathFn: () => String, protected queryParams: any = null, protected onLogin: OnLogin) {
+  constructor(protected pathFn: () => String, protected queryParams: any = null, protected onLogin: OnLogin, protected listFactory: () => Observable<L>, protected pollerFactory: PollerFactory) {
     this.lazyCreateWebSocket();
-    //console.log("create: watch " + this.info);
+
+    // send a single initial event to make it easier to combine
+    // with the list observable
+    this._dataStream.next({});
   }
 
   get dataStream(): Observable<any> {
@@ -27,6 +33,10 @@ export class Watcher {
    * Forces recreation of the web socket
    */
   recreateIfChanged() {
+    if (this.poller) {
+      this.poller.recreate();
+      return;
+    }
     let serviceUrl = this.pathFn();
     if (serviceUrl !== this.serviceUrl) {
       this.recreate();
@@ -37,7 +47,10 @@ export class Watcher {
    * Forces recreation of the web socket
    */
   recreate() {
-    //console.log('recreating web socket for ' + this.pathFn());
+    if (this.poller) {
+      this.poller.recreate();
+      return;
+    }
     this.close();
     this.lazyCreateWebSocket();
   }
@@ -47,10 +60,18 @@ export class Watcher {
   }
 
   close() {
-    //console.log("close: watch " + this.info);
+    if (this.poller) {
+      let poller = this.poller;
+      this.poller = null;
+      poller.close();
+    }
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+    this.closeWebSocket();
+  }
+
+  protected closeWebSocket() {
     let ws = this.ws;
     if (ws) {
       this.ws = null;
@@ -81,6 +102,9 @@ export class Watcher {
   }
 
   protected lazyCreateWebSocket() {
+    if (this.poller) {
+      return;
+    }
     if (!this.ws) {
       const authConfig = currentOAuthConfig();
       let wsApiServer = authConfig.wsApiServer;
@@ -123,20 +147,25 @@ export class Watcher {
           let url = baseUrl + serviceUrl + this.query;
           //console.log('Websocket using URL: ' + url);
           this.ws = new $WebSocket(url);
+          this.connectTime = new Date().getTime();
 
-          // send a single initial event to make it easier to combine
-          // with the list observable
-          this._dataStream.next({});
           this.subscription = this.ws.getDataStream().subscribe(
             (msg) => {
+              if (validMessage(msg)) {
+                this.retries = 0;
+                this.connectTime = new Date().getTime();
+              }
               this._dataStream.next(msg);
             },
             (err) => {
               console.log('WebSocket error on ' + serviceUrl, err);
-              this._dataStream.error(err);
+              // lets not send the websocket error as we will downgrade to polling
+              //this._dataStream.error(err);
+              this.onWebSocketError();
             },
             () => {
-              //console.log('WebSocket complete on ' + serviceUrl);
+              this.retries = 0;
+              this.connectTime = new Date().getTime();
               this.recreate();
             }
           );
@@ -147,10 +176,36 @@ export class Watcher {
     }
   }
 
-  // TODO
-  ngOnDestroy(): void {
-    if (this.ws) {
-      this.ws.close();
+  protected onWebSocketError() {
+    //if (this.retries < 3 && this.connectTime && (new Date().getTime() - this.connectTime) > 5000) {
+    if (this.retries < 3) {
+      this.retries = this.retries + 1;
+      this.recreate();
+    } else {
+      console.log("WebSocket for " + this.pathFn() + " error, retry #" + this.retries + " so switching to polling mode");
+      this.closeWebSocket();
+      this.lazyCreatePoller();
     }
   }
+
+  protected lazyCreatePoller() {
+    if (!this.poller) {
+      this.poller = this.pollerFactory.newInstance(this.listFactory, this._dataStream);
+    }
+  }
+
+
+  // TODO
+  ngOnDestroy(): void {
+    this.closeWebSocket();
+  }
+}
+
+function validMessage(msg): boolean {
+  if (msg != null) {
+    for (let key of msg) {
+      return true;
+    }
+  }
+  return false;
 }

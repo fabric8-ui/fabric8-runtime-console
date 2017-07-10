@@ -4,15 +4,16 @@ import {KubernetesResource} from "../model/kubernetesresource.model";
 import {Observable, BehaviorSubject} from "rxjs";
 import {Watcher} from "../service/watcher";
 import {plural} from "pluralize";
+import {messageEventToResourceOperation, Operation} from "../service/resource-operation";
 
-function nameOfResource(resource: any) {
+function nameOfResource(resource: any): string{
   let obj = resource || {};
   let metadata = obj.metadata || {};
   return metadata.name || "";
 }
 
 export abstract class KubernetesResourceStore<T extends KubernetesResource, L extends Array<T>, R extends KubernetesService<T, L>> extends AbstractStore<T, L, R> {
-  protected watcher: Watcher;
+  protected watcher: Watcher<L>;
 
   constructor(service: R, private initialList: L, initialCurrent: T, protected type: { new(): T;}) {
     super(service, initialList, initialCurrent);
@@ -110,7 +111,24 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
    * Lets combine the web socket events with the latest list
    */
   protected combineListAndWatchEvent(array: L, msg: any): L {
-    // lets process the added /updated / removed
+    let resourceOperation = messageEventToResourceOperation(msg);
+    if (resourceOperation) {
+      // lets process the added /updated / removed
+      let operation = resourceOperation.operation;
+      let resource = resourceOperation.resource;
+      switch (operation) {
+        case Operation.ADDED:
+          return this.upsertItem(array, resource);
+        case Operation.MODIFIED:
+          return this.upsertItem(array, resource);
+        case Operation.DELETED:
+          return this.deleteItemFromArray(array, resource);
+        default:
+          console.log('Unknown resource option ' + operation + ' for ' + resource + ' on ' + this.service.serviceUrl);
+      }
+    }
+
+/*
     if (msg instanceof MessageEvent) {
       let me = msg as MessageEvent;
       let data = me.data;
@@ -134,6 +152,7 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
         }
       }
     }
+*/
     return array;
   }
 

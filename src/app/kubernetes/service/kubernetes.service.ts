@@ -24,7 +24,8 @@ export abstract class KubernetesService<T extends KubernetesResource, L extends 
    * @param queryParams
    */
   watch(queryParams: any = null) {
-    return this.watcherFactory.newInstance(() => this.serviceUrl, queryParams);
+    let poller = () => this.list(queryParams);
+    return this.watcherFactory.newInstance(() => this.serviceUrl, queryParams, poller);
   }
 
   get(id: string): Observable<T> {
