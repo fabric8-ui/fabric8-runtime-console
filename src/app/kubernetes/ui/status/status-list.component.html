@@ -1,14 +1,7 @@
 <li class="list-group-item">
-  <span>
-    <span class="pficon pficon-ok"></span>
-    Platform
-  </span>
-</li>
-<li class="list-group-item">
-  <span>
-    <span class="pficon pficon-ok"></span>
-    Planner
-  </span>
+  <status-info [info]="cheStatusObserver | async">
+    Che
+  </status-info>
 </li>
 <li class="list-group-item">
   <status-info [info]="pipelineStatusObserver | async">
@@ -16,7 +9,26 @@
   </status-info>
 </li>
 <li class="list-group-item">
-  <status-info [info]="cheStatusObserver | async">
-    Che
-  </status-info>
+  <span>
+    <span class="pficon pficon-ok"></span>
+    Console
+  </span>
+</li>
+<li class="list-group-item list-divider">
+  <span>
+    <span class="pficon pficon-ok"></span>
+    Analytics
+  </span>
+</li>
+<li class="list-group-item list-divider">
+  <span>
+    <span class="pficon pficon-ok"></span>
+    GitHub
+  </span>
+</li>
+<li class="list-group-item list-divider">
+  <span>
+    <span class="pficon pficon-ok"></span>
+    Forge
+  </span>
 </li>

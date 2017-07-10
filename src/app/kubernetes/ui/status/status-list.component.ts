@@ -17,11 +17,11 @@ export class StatusKind {
   }
 }
 
-const statusCssUnknown = new StatusKind("Loading data", "fa fa-hourglass-start");
+const statusCssUnknown = new StatusKind("Loading data", "pficon pficon-warning-triangle-o");
 const statusCssError = new StatusKind("Error", "pficon pficon-error-circle-o");
 const statusCssOK = new StatusKind("OK", "pficon pficon-ok");
-const statusCssPending = new StatusKind("Pending", "fa fa-download");
-const statusCssContainerCreating = new StatusKind("Creating", "spinner spinner-xs spinner-inline");
+const statusCssPending = new StatusKind("Pending", "fa fa-hourglass-o");
+const statusCssContainerCreating = new StatusKind("Creating", "fa fa-cog fa-spin fa-fw");
 const statusCssNoResource = new StatusKind("Off", "fa fa-power-off");
 
 export class StatusInfo {
@@ -66,7 +66,6 @@ export class StatusWatcher {
     }
   }
 }
-
 
 @Component({
   selector: 'fabric8-status-list',
@@ -176,7 +175,6 @@ function deploymentsToStatusInfo(deployments: Deployments, labelKey: string, lab
   return answer;
 }
 
-
 function podsToStatusInfo(pods: Pods, labelKey: string, labelValue: string): StatusInfo {
   let answer = new StatusInfo();
   answer.loaded = true;
@@ -210,4 +208,8 @@ function podPhaseToCss(phase: string): StatusKind {
     default:
       return statusCssError;
   }
+}
+
+function apiStatus(data) {
+  console.log(data.status);
 }
