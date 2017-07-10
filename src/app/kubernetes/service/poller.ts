@@ -85,9 +85,7 @@ export class Poller<L> {
             if (old == null) {
               operation = new ResourceOperation(Operation.ADDED, resource);
             } else {
-              let oldRV = resourceVersion(old);
-              let newRV = resourceVersion(resource);
-              if (newRV && (!oldRV || newRV !== oldRV)) {
+              if (isNewerResource(resource, old)) {
                 operation = new ResourceOperation(Operation.MODIFIED, resource);
               }
             }
@@ -106,6 +104,12 @@ export class Poller<L> {
     }
     this.resourceCache = newCache;
   }
+}
+
+export function isNewerResource(resource: any, old: any): boolean {
+  let oldRV = resourceVersion(old);
+  let newRV = resourceVersion(resource);
+  return newRV && (!oldRV || newRV !== oldRV);
 }
 
 function resourceVersion(resource: any): string {
