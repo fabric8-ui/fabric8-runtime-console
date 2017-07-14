@@ -42,23 +42,14 @@ fabric8UITemplate{
                 readTrusted 'release.groovy'
                 sh "git remote set-url origin git@github.com:${project}.git"
                 def pipeline = load 'release.groovy'
-
+                def branch
+                def published
+                def releaseVersion
+                
                 container('ui'){
                     pipeline.ci()
-                }
-
-                def branch
-                container('ui'){
                     branch = utils.getBranch()
-                }
-                
-                def published
-                container('ui'){
                     published = pipeline.cd(branch)
-                }
-
-                def releaseVersion
-                container('ui'){
                     releaseVersion = utils.getLatestVersionFromTag()
                 }
 
