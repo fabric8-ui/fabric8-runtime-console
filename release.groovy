@@ -35,10 +35,6 @@ def cd (b){
         sh './fix-git-repo.sh'
     }
 
-    stage('npm run build'){
-        sh 'npm run build'
-    }
-
     stage('release'){
         def published = npmRelease{
             branch = b
