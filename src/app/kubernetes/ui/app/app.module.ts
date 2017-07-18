@@ -7,12 +7,11 @@ import {DeploymentModule} from "./../deployment/deployment.module";
 import {ConfigMapStore} from "./../../store/configmap.store";
 import {NamespaceStore} from "./../../store/namespace.store";
 import {NgModule} from "@angular/core";
-import {DropdownConfig, DropdownModule} from "ng2-bootstrap";
+import {BsDropdownConfig, BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 import {ModalModule} from "ng2-modal";
-import {ToolbarModule} from "ngx-widgets";
 import {Fabric8CommonModule} from "../../../common/common.module";
 import {MomentModule} from "angular2-moment";
 import {KubernetesComponentsModule} from "../../components/components.module";
@@ -26,15 +25,14 @@ import {AppRoutingModule} from "./app-routing.module";
 
 @NgModule({
   imports: [
+    BsDropdownModule.forRoot(),
     CommonModule,
-    DropdownModule,
     FormsModule,
     ModalModule,
     MomentModule,
     RouterModule,
     Fabric8CommonModule,
     KubernetesComponentsModule,
-    ToolbarModule,
     // Our Routing MUST go before the other Kuberenetes UI modules, so our routes take precedence
     AppRoutingModule,
     DeploymentModule,
@@ -50,7 +48,7 @@ import {AppRoutingModule} from "./app-routing.module";
     AppListComponent,
   ],
   providers: [
-    DropdownConfig,
+    BsDropdownConfig,
     NamespaceStore,
     ConfigMapService,
     ConfigMapStore,

@@ -11,12 +11,13 @@ import { ConfigMapStore } from './../../store/configmap.store';
 import { NamespaceStore } from './../../store/namespace.store';
 
 import {NgModule} from '@angular/core';
-import {DropdownConfig, DropdownModule, TabsModule} from 'ng2-bootstrap';
+import {BsDropdownConfig, BsDropdownModule} from 'ngx-bootstrap/dropdown';
+import {TabsModule} from 'ng2-bootstrap';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import {ModalModule} from 'ng2-modal';
-import { ToolbarModule, TreeListModule, SlideOutPanelModule } from 'ngx-widgets';
+import { TreeListModule, SlideOutPanelModule } from 'ngx-widgets';
 import { TreeModule } from 'angular2-tree-component';
 import {Fabric8CommonModule} from '../../../common/common.module';
 import {MomentModule} from 'angular2-moment';
@@ -30,15 +31,14 @@ import { EnvironmentListToolbarComponent } from './list-toolbar/list-toolbar.env
 
 @NgModule({
   imports: [
+    BsDropdownModule.forRoot(),
     CommonModule,
-    DropdownModule,
     FormsModule,
     ModalModule,
     MomentModule,
     RouterModule,
     Fabric8CommonModule,
     KubernetesComponentsModule,
-    ToolbarModule,
     TreeListModule,
     TreeModule,
     TabsModule.forRoot(),
@@ -59,7 +59,7 @@ import { EnvironmentListToolbarComponent } from './list-toolbar/list-toolbar.env
     EnvironmentDetailComponent,
   ],
   providers: [
-    DropdownConfig,
+    BsDropdownConfig,
     NamespaceStore,
     ConfigMapService,
     ConfigMapStore,
