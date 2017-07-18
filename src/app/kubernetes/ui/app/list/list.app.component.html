@@ -55,12 +55,12 @@
                   </span>
                 </span>
 
-                <span class='pull-right dropdown-kebab-pf' dropdown>
-                  <button class='btn btn-link kebab' type='button'
+                <span class='pull-right dropdown-kebab-pf dropdown' dropdown>
+                  <button class='btn btn-link kebab dropdown-toggle' type='button'
                           aria-haspopup='true' aria-expanded='true' dropdownToggle>
                     <span class='fa fa-ellipsis-v'></span>
                   </button>
-                  <ul class='dropdown-menu-right' aria-labelledby='dropdownKebabRight9' role="menu" dropdownMenu>
+                  <ul class='dropdown-menu-right dropdown-menu' aria-labelledby='dropdownKebabRight9' role="menu" *dropdownMenu>
                     <li>
                       <a (click)="openScaleDialog(scaleDeploymentModal, envInfo.deployment.deployment)"
                          *ngIf="envInfo.deployment.deployment"

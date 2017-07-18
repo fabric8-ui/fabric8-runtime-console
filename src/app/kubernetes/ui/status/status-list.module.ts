@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {DropdownModule} from "ng2-bootstrap";
+import {BsDropdownConfig, BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
@@ -15,8 +15,8 @@ import {StatusInfoComponent} from "./status-info-component";
 
 @NgModule({
   imports: [
+    BsDropdownModule.forRoot(),
     CommonModule,
-    DropdownModule,
     FormsModule,
     ModalModule,
     MomentModule,
@@ -29,6 +29,7 @@ import {StatusInfoComponent} from "./status-info-component";
     StatusListComponent,
   ],
   providers: [
+    BsDropdownConfig,
     SpaceStore,
     NamespaceStore,
   ],

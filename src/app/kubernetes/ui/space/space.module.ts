@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {DropdownConfig, DropdownModule} from "ng2-bootstrap";
+import {BsDropdownConfig, BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
@@ -34,8 +34,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    BsDropdownModule.forRoot(),
     CommonModule,
-    DropdownModule,
     FormsModule,
     ModalModule,
     MomentModule,
@@ -59,7 +59,7 @@ const routes: Routes = [
     SpaceDeleteDialog,
   ],
   providers: [
-    DropdownConfig,
+    BsDropdownConfig,
     SpaceStore,
     NamespaceStore,
     ConfigMapService,

@@ -20,7 +20,7 @@ import {HeaderComponent} from "./header/header.component";
 import {DummyService} from "./dummy/dummy.service";
 import {ContextService} from "./shared/context.service";
 import {LocalStorageModule} from 'angular-2-local-storage';
-import {DropdownConfig, DropdownModule} from "ng2-bootstrap";
+import {BsDropdownConfig, BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import { OAuthService } from 'angular2-oauth2/oauth-service';
 import {OnLogin} from "./shared/onlogin.service";
 
@@ -47,11 +47,11 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
 @NgModule({
   imports: [
     BrowserModule,
+    BsDropdownModule.forRoot(),
     FormsModule,
     HttpModule,
     RestangularModule.forRoot([ConfigService], restangularProviderConfigurer),
     NgbModule.forRoot(),
-    DropdownModule,
     Fabric8CommonModule,
     KubernetesStoreModule,
     KubernetesUIModule,
@@ -67,9 +67,9 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     HeaderComponent,
   ],
   providers: [
+    BsDropdownConfig,
     ConfigService,
     Contexts,
-    DropdownConfig,
     {
       provide: APP_INITIALIZER,
       useFactory: configServiceInitializer,
