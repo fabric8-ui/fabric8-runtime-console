@@ -21,6 +21,9 @@ export K8S_API_SERVER="localhost:3000"
 
 export OPENSHIFT_CONSOLE_URL="https://${OPENSHIFT_CONSOLE_HOST}:${OPENSHIFT_CONSOLE_PORT}/console"
 
+if [ -z "${FABRIC8_REALM}" ]; then
+  export FABRIC8_REALM="fabric8"
+fi
 if [ -z "${OAUTH_SCOPE}" ]; then
   export OAUTH_SCOPE="user:full"
 fi
@@ -61,6 +64,7 @@ echo "OAUTH_LOGOUT_URI               ${OAUTH_LOGOUT_URI}"
 echo "FABRIC8_PIPELINES_NAMESPACE    ${FABRIC8_PIPELINES_NAMESPACE}"
 echo "OPENSHIFT_CONSOLE_URL          ${OPENSHIFT_CONSOLE_URL}"
 echo "FABRIC8_SSO_API_URL            ${KEYCLOAK_SAAS_URL}"
+echo "FABRIC8_REALM                  ${FABRIC8_REALM}"
 echo "FABRIC8_WIT_API_URL            ${FABRIC8_WIT_API_URL}"
 echo "FABRIC8_FORGE_API_URL          ${FABRIC8_FORGE_API_URL}"
 echo "WS_K8S_API_SERVER              ${WS_K8S_API_SERVER}"
