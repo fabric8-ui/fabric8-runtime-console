@@ -21,6 +21,9 @@ export K8S_API_SERVER="localhost:4200"
 
 export OPENSHIFT_CONSOLE_URL="https://${OPENSHIFT_CONSOLE_HOST}:${OPENSHIFT_CONSOLE_PORT}/console"
 
+if [ -z "${FABRIC8_REALM}" ]; then
+  export FABRIC8_REALM="fabric8"
+fi
 if [ -z "${OAUTH_ISSUER}" ]; then
   export OAUTH_ISSUER="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
 fi
@@ -54,6 +57,7 @@ echo "OAUTH_CLIENT_ID:               ${OAUTH_CLIENT_ID}"
 echo "OAUTH_SCOPE:                   ${OAUTH_SCOPE}"
 echo "OAUTH_AUTHORIZE_URI            ${OAUTH_AUTHORIZE_URI}"
 echo "OAUTH_LOGOUT_URI               ${OAUTH_LOGOUT_URI}"
+echo "FABRIC8_REALM                  ${FABRIC8_REALM}"
 echo "FABRIC8_PIPELINES_NAMESPACE    ${FABRIC8_PIPELINES_NAMESPACE}"
 echo "OPENSHIFT_CONSOLE_URL          ${OPENSHIFT_CONSOLE_URL}"
 echo ""

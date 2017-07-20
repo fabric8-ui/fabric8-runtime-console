@@ -20,6 +20,7 @@ export OAUTH_CLIENT_ID="fabric8"
 export K8S_API_SERVER_PROTOCOL="http"
 export K8S_API_SERVER_BASE_PATH="/_p/oso"
 export WS_K8S_API_SERVER=${PROXIED_K8S_API_SERVER}
+export FABRIC8_REALM="fabric8"
 
 echo "Configured to connect to kubernetes cluster at https://${PROXIED_K8S_API_SERVER}/"
 
@@ -30,4 +31,5 @@ echo "K8S_API_SERVER_BASE_PATH:      ${K8S_API_SERVER_BASE_PATH}"
 echo "OAUTH_ISSUER:                  ${OAUTH_ISSUER}"
 echo "OAUTH_CLIENT_ID:               ${OAUTH_CLIENT_ID}"
 echo "OAUTH_SCOPE:                   ${OAUTH_SCOPE}"
+echo "FABRIC8_REALM                  ${FABRIC8_REALM}"
 echo ""

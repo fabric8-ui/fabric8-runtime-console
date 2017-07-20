@@ -5,7 +5,7 @@ export KUBERNETES_SERVICE_HOST=tsrv.devshift.net
 export KUBERNETES_SERVICE_PORT=8443
 
 echo "Using Kubernetes Master: ${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
-
+export FABRIC8_REALM="fabric8"
 export OAUTH_AUTHORIZE_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/oauth/authorize"
 export OAUTH_LOGOUT_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/connect/endsession?id_token={{id_token}}"
 export PROXIED_K8S_API_SERVER="${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
@@ -31,4 +31,5 @@ echo "K8S_API_SERVER_BASE_PATH:      ${K8S_API_SERVER_BASE_PATH}"
 echo "OAUTH_ISSUER:                  ${OAUTH_ISSUER}"
 echo "OAUTH_CLIENT_ID:               ${OAUTH_CLIENT_ID}"
 echo "OAUTH_SCOPE:                   ${OAUTH_SCOPE}"
+echo "FABRIC8_REALM                  ${FABRIC8_REALM}"
 echo ""

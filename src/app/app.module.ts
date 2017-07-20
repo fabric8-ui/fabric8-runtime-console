@@ -38,7 +38,7 @@ import { TokenResolver } from './shared/token.resolver';
 import {Contexts} from 'ngx-fabric8-wit';
 
 import { forgeApiUrlProvider } from './shared/forge-api.provider';
-
+import { realmProvider } from './shared/realm.provider';
 
 export function restangularProviderConfigurer(restangularProvider: any, config: ConfigService) {
   restangularProvider.setBaseUrl(config.getSettings().apiEndpoint);
@@ -79,6 +79,7 @@ export function restangularProviderConfigurer(restangularProvider: any, config: 
     authApiUrlProvider,
     ssoApiUrlProvider,
     witApiUrlProvider,
+    realmProvider,
     AuthenticationService,
     Broadcaster,
     ContextService,

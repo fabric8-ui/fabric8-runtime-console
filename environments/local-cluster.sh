@@ -14,7 +14,7 @@ PARTS=$(kubectl cluster-info | grep master |sed -e 's/.*http:\/\///g' -e 's/.*ht
 
 echo "Using Kubernetes Master: ${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}"
 
-
+export FABRIC8_REALM="fabric8"
 export OAUTH_AUTHORIZE_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/oauth/authorize"
 export OAUTH_LOGOUT_URI="https://${KUBERNETES_SERVICE_HOST}:${KUBERNETES_SERVICE_PORT}/connect/endsession?id_token={{id_token}}"
 # This is devshift
@@ -41,5 +41,6 @@ echo "OAUTH_CLIENT_ID:               ${OAUTH_CLIENT_ID}"
 echo "OAUTH_SCOPE:                   ${OAUTH_SCOPE}"
 echo "OAUTH_AUTHORIZE_URI            ${OAUTH_AUTHORIZE_URI}"
 echo "OAUTH_LOGOUT_URI               ${OAUTH_LOGOUT_URI}"
+echo "FABRIC8_REALM                  ${FABRIC8_REALM}"
 echo "FABRIC8_PIPELINES_NAMESPACE    ${FABRIC8_PIPELINES_NAMESPACE}"
 echo ""
