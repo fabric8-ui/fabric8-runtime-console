@@ -166,8 +166,7 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
   protected upsertItem(array: L, resource: any): L {
     let n = nameOfResource(resource);
     if (array && n) {
-      for (let i = 0; i < array.length; i++) {
-        let item = array[i];
+      for (let item of array) {
         var name = item.name;
         if (name && name === n && isNewerResource(resource, item.resource)) {
           item.setResource(resource);
