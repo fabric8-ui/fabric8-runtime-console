@@ -168,7 +168,7 @@ export abstract class KubernetesResourceStore<T extends KubernetesResource, L ex
     if (array && n) {
       for (let item of array) {
         var name = item.name;
-        if (name && name) {
+        if (name && name === n) {
           if (isNewerResource(resource, item.resource)) {
             item.setResource(resource);
           }
