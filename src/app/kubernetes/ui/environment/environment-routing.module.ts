@@ -9,12 +9,10 @@ import { ConfigMapStore } from './../../store/configmap.store';
 import { NamespaceStore } from './../../store/namespace.store';
 
 import { NgModule } from '@angular/core';
-import { DropdownConfig, DropdownModule } from 'ng2-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { ModalModule } from 'ng2-modal';
-import { ToolbarModule, TreeListModule } from 'ngx-widgets';
 import { TreeModule } from 'angular2-tree-component';
 import { Fabric8CommonModule } from '../../../common/common.module';
 import { MomentModule } from 'angular2-moment';
