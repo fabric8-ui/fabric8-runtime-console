@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {DropdownConfig, DropdownModule} from "ng2-bootstrap";
+import {BsDropdownConfig, BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
 import {ModalModule} from "ng2-modal";
@@ -22,8 +22,8 @@ export const eventRoutes: Routes = [
 
 @NgModule({
   imports: [
+    BsDropdownModule.forRoot(),
     CommonModule,
-    DropdownModule,
     FormsModule,
     ModalModule,
     MomentModule,
@@ -45,7 +45,7 @@ export const eventRoutes: Routes = [
     EventsListComponent,
   ],
   providers: [
-    DropdownConfig
+    BsDropdownConfig
   ]
 })
 export class EventModule {
