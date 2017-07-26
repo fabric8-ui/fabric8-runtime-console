@@ -67,6 +67,12 @@ export class BuildConfig extends KubernetesSpecResource {
         }
       }
     }
+    if (!this._lastBuild && builds.length) {
+      this._lastBuild = builds[0];
+      if (!this.lastBuildName && this._lastBuild) {
+        this.lastBuildName = this._lastBuild.name;
+      }
+    }
 
     for (let build of builds) {
       if ("Running" === build.statusPhase) {
