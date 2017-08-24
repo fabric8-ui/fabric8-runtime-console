@@ -1,4 +1,8 @@
-# Fabric8 Runtime Console
+# THIS REPO HAS NOW MERGED INTO [fabric8-ui](https://github.com/fabric8-ui/fabric8-ui/)
+
+**PLEASE GO HERE: https://github.com/fabric8-ui/fabric8-ui/**
+
+## Fabric8 Runtime Console
 
 This is the new angular 2 based console for building and running applications on kubernetes and openshift
 
